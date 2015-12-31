@@ -1,0 +1,224 @@
+@CHARSET "ISO-8859-1";
+@font-face {
+	font-family: 'MyriadPro';
+	font-style: normal;
+	font-weight: 400;
+	src: local('MyriadPro'), local('MyriadPro-Regular'), url(../fonts/MyriadPro-Regular.otf) format('otf');
+}
+
+/* Start Challenges */
+.fancybox-challenges hr {
+	background-color: #edede4;
+	height: 3px;
+}
+.fancybox-challenges .thumbnail {
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	margin-bottom: 0;
+	padding: 0;
+}
+
+/* Challenge Header */
+.challenges-header {
+	margin: 0;
+	position: relative;
+}
+.notification-strip {
+	background-color: #0b649e;
+	height: 20px;
+	left: 0;
+	position: absolute;
+	text-align: center;
+	top: 47%;
+}
+.notification-strip a {
+	color: #FFFFFF;
+}
+.challenges-header .logo {
+	margin-left: 15px;
+	margin-top: 5px;
+	width: 80px;
+}
+.challenges-header .faq {
+	background-color: #0b649e;
+	color: #FFFFFF;
+	padding: 0 1px;
+	position: absolute;
+	right: 30px;
+	text-align: center;
+	top: 0;
+}
+.sorting-list {
+	background-color: #45a1c5;
+	float: left;
+	font-size: 0.8em;
+	margin-left: 15px;
+	padding: 6px 15px;
+	position: relative;
+}
+.sorting-list a {
+	color: #FFFFFF;
+}
+.challenge-title {
+	color: #0c63a2;
+	font-size: 1.5em;
+}
+.challenge-title p {
+	font-size: 0.6em;
+}
+.challenge-date {
+	color: #ffffff;
+	font-size: 0.8em;
+	margin-right: 15px;
+	text-align: center;
+	width: auto;
+}
+.challenge-date span {
+	background-color: #48a0c9;
+	float: left;
+	margin-bottom: 5px;
+	padding: 5px 0;
+	width: 100%;
+}
+
+
+/* Font Definitions */
+.blue-large {
+	color: #0c63a2;
+	font-size: 1.1em;
+}
+.blue-normal {
+	color: #0c63a2;
+}
+.blue-small {
+	color: #0c63a2;
+	font-size: 0.8em;
+}
+.blue-xsmall {
+	color: #0c63a2;
+	font-size: 0.7em;
+}
+
+.light-blue-normal {
+	color: #45a1c5;
+}
+.light-blue-small {
+	color: #45a1c5;
+	font-size: 0.8em;
+}
+
+.green-normal {
+	color: #07945d;
+}
+.light-green-normal {
+	color: #00e260;
+}
+.greyed-normal {
+	color: #a1a19c;
+}
+.greyed-small {
+	color: #7b7b76;
+	font-size: 0.8em;
+}
+.greyed-xsmall {
+	color: #7b7b76;
+	font-size: 0.7em;
+}
+.red-normal {
+	color: #E21900;
+}
+
+/* Challenges Menu */
+.challenge-link {
+	cursor: pointer;
+}
+.my-challenges {
+	background-color: #CDF1F9;
+}
+.ally-challenges {
+	background-color: #B8EBF7;
+}
+.my-challenges, .ally-challenges {
+	font-size: 1.5em;
+	height: 110px;
+	overflow: hidden;
+	text-align: center;
+}
+.my-challenges:before, .my-challenges:after, .ally-challenges:before, .ally-challenges:after {
+	content: " ";
+	display: inline-block;
+	height: 100%; 
+	margin-right: -0.25em;
+	vertical-align: middle;
+}
+.my-challenges .visual, .ally-challenges .visual {
+	display: inline-block;
+	padding: 0 5px;
+	vertical-align: middle;
+}
+.my-challenges:hover, .ally-challenges:hover {
+	box-shadow: 0px 0px 10px #ff0000;
+}
+.my-challenges a, .ally-challenges a {
+	/color: #FFFFFF !important;
+}
+.challenges-notification {
+	background: none repeat scroll 0 0 #ff0000;
+	border: 2px solid #ffffff;
+	border-radius: 50%;
+	color: #ffffff;
+	font-size: 12px;
+	height: 22px;
+	left: 6px;
+	padding: 1px;
+	position: absolute;
+	text-align: center;
+	top: -7px;
+	width: 22px;
+	z-index: 1;
+}
+
+/* Set Challenges */
+.road-map {
+	text-align: center;
+}
+.road-map input[type="checkbox"] {
+	display: none;
+}
+.road-map label {
+	cursor: pointer;
+	display: block;
+}
+.road-map img {
+	margin: 0 auto;
+	width: 60%;
+}
+img.ally-image {
+	width: 60%;
+}
+.select-ally span.twitter-typeahead {
+	margin: 0 auto;
+	width: 60%;
+}
+
+/* Elements for around the challenges area */
+.action-button, .action-button-large {
+	background-color: #489fc9;
+	border: 0;
+	color: #ffffff;
+	cursor: pointer;
+	margin: 0 auto;
+	padding: 10px 0;
+	text-align: center;
+	width: 60%;
+}
+.action-button-large {
+	width: 100%;
+}
+.selected {
+	box-shadow: 0px 0px 10px #ff0000;
+}
+.action-button a, .action-button-large a {
+	color: #ffffff;
+}

@@ -1,0 +1,64 @@
+@CHARSET "UTF-8";
+/*
+ * Css for Control Panel ACL
+ * Date:- Sep 21 2010,
+ */
+h2{margin-bottom: 1em;}
+h2.header {color:#b51100;font-size:15px;letter-spacing:0.5px;margin:5px 0;}
+h3.header {color:#b51100;font-size:14px;letter-spacing:0.5px;margin:5px 0;}
+
+div#content-panel {
+	border: 1px solid #dddddd;
+	float:left;padding:10px;width:858px;
+}
+
+div#content-panel select {width:200px;}
+div.cpanel-wrapper { width: 429px; float: left; }
+div#content-cpanel-roles, div#content-cpanel-users, div#content-cpanel-plugins, div#content-cpanel-controllers {float:left;margin-right:10px;}
+
+div#content-panel-methods {border-left:1px solid #dddddd;float:left;padding-left:10px; width: 625px;}
+div#content-panel-methods .loading {margin:100px 0 0 170px;}
+
+/* Tables */
+table{min-width:540px;}
+table.cpanel {
+	background: #fff;border:1px solid #ccc;border-right:0;clear: both;color: #333;
+	margin-bottom: 10px;height:auto;width: 100%;margin-left: 0;
+}
+table.cpanel th {
+	background: #f2f2f2;border:1px solid #bbb;border-top: 1px solid #fff;
+	border-left: 1px solid #fff;text-align: center;
+}
+th a {background:#f2f2f2;display: block;padding: 2px 4px;text-decoration: none;}
+th a:hover {background: #ccc;color: #333;text-decoration: none;}
+table.cpanel tr{height:auto;}
+table.cpanel tr td {border-right: 1px solid #ccc;padding: 4px;text-align: center;vertical-align: top;}
+table.cpanel tr.altrow td {background: #f4f4f4;}
+td.actions {text-align: center;white-space: nowrap;}
+td.actions a {margin: 0px 6px;}
+
+table.cpanel tr:nth-child(odd) { background-color:#F4F4F4;}
+/*ACL Errors */
+
+.acoImage{cursor:pointer;}
+
+h4.methodHeader{text-align:left;font-weight:bolder;padding-bottom:1em;color:#FF9900;}
+
+label{width:auto;margin-right: 15px;}
+
+/* Email */
+div.email{width:100%;}
+div.email label#EmailAttach{width: 800px;}
+div.email div.user-add-row textarea{ width:400px; max-width:400px; }
+div.email .checkbox {margin-left:10px; clear:both;}
+div.email .cke_skin_kama .cke_editor{ /*display of editor in firefox */
+	display:inline;
+}
+span.label-width{width: 130px;  float: left; font-weight: bold; margin-left:20px;}
+
+.upload-heading {
+    border-bottom: 1px solid #DDDDDD;
+    margin-bottom: 10px;
+}
+
+#content-cpanel-methods { clear: both; }

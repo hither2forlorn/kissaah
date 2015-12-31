@@ -1,0 +1,158 @@
+msgid ""
+msgstr ""
+
+msgid "Log In"
+msgstr "Log In"
+
+msgid "Create Account"
+msgstr "Create Account"
+
+msgid "Forget Password"
+msgstr "Forget Password"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Full Name"
+msgstr "Full Name"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Confirm Password"
+msgstr "Confirm Password"
+
+msgid "Create Consent and Collage of the Images"
+msgstr "Create Consent and Collage of the Images"
+
+msgid "Already Have Account?"
+msgstr "Already Have Account?"
+
+msgid "Sign Up"
+msgstr "Sign Up"
+
+msgid "Sign Up"
+msgstr "Sign Up"
+
+msgid "Email to Self"
+msgstr "Email to Self"
+
+msgid "Invite Friends"
+msgstr "Invite Friends"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Prev"
+msgstr "Prev"
+
+msgid "Review Game"
+msgstr "Review Game"
+
+msgid "Move to Upload Activities"
+msgstr "Move to Upload Activities"
+
+msgid "Friend Feedback"
+msgstr "Friend Feedback"
+
+msgid "Gauge the Activities"
+msgstr "Gauge the Activites"
+
+msgid "Change Activity"
+msgstr "Change Activity"
+
+msgid "Back Upload Activities"
+msgstr "Back Upload Activities"
+
+msgid "Check the Graph"
+msgstr "Check the Graph"
+
+msgid "How good is it for me?"
+msgstr "How good is it for me?"
+
+msgid "How good it feels doing it?"
+msgstr "How good it feels doing it?"
+
+msgid "Feels great doing it"
+msgstr "Feels great doing it"
+
+msgid "Learning and Development Potential"
+msgstr "Learning and Development Potential"
+
+msgid "Back Gauge the Activities"
+msgstr "Back Gauge the Activities"
+
+msgid "Sort Out My Values"
+msgstr "Sort Out My Values"
+
+msgid "Always Value"
+msgstr "Always Value"
+
+msgid "Sometimes Value"
+msgstr "Sometimes Value"
+
+msgid "Never Value"
+msgstr "Never Value"
+
+msgid "Wild Card Option"
+msgstr "Wild Card Option"
+
+msgid "Discard Here"
+msgstr "Discard Here"
+
+msgid "Back Check the Graph"
+msgstr "Back Check the Graph"
+
+msgid "Describe Activities in words"
+msgstr "Describe Activities in words"
+
+msgid "Upload Favorite Character"
+msgstr "Upload Favorite Character"
+
+msgid "Change Cartoon"
+msgstr "Change Cartoon"
+
+msgid "Sorting Out My Strengths"
+msgstr "Sorting Out My Strengths"
+
+msgid "Describe Activities in words"
+msgstr "Describe Activities in words"
+
+msgid "Picture Your Future"
+msgstr "Picture Your Future"
+
+msgid "What you have?"
+msgstr "What you have?"
+
+msgid "What your super hero has that you want?"
+msgstr "What your super hero has that you want?"
+
+msgid "Describe Activities in words"
+msgstr "Describe Activities in words"
+
+msgid "Deep Dive"
+msgstr "Deep Dive"
+
+msgid "Change Location"
+msgstr "Change Location"
+
+msgid "Please share with us three place you will be in the next 5 years"
+msgstr "Please share with us three place you will be in the next 5 years"
+
+msgid "Describe Activities in words"
+msgstr "Describe Activities in words"
+
+msgid "Check My Core Values and Strengths"
+msgstr "Check My Core Values and Strengths"
+
+msgid "Back"
+msgstr "Back"
+
+msgid "Future Connection"
+msgstr "Future Connection"
+
+msgid "My Story"
+msgstr "My Story"

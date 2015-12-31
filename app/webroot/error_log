@@ -1,0 +1,1 @@
+[16-Oct-2014 08:53:16 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 30720 bytes) in /home/kissaah/public_html/ktest/app/View/Elements/sign-up.ctp on line 35

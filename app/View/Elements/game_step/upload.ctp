@@ -1,0 +1,45 @@
+<?php
+$answer = 'http://placehold.it/198x198&text=X';
+if(empty($selfdata['Configuration']['dependent_id'])) {
+	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
+		$answer = '/files/img/medium/' . $selfdata['Game'][0]['Game']['answer'];
+	}
+	
+	$id = $selfdata['Configuration']['id'];
+	
+} else {
+	if(!empty($selfdata['Dependent'][0]['answer'])) {
+		$answer = '/files/img/medium/' . $selfdata['Dependent'][0]['answer'];
+	}
+	$id = $selfdata['Configuration']['dependent_id'];
+	
+}
+
+$image_form  = $this->Form->create('Game' . $id . 'Upload', array('class' => 'btn-file pull-left fileupload'));
+$image_form .= $this->Html->image('Upload.png', array('id' => 'upl' . $id));
+$image_form .= $this->Form->input($id, array('type' => 'file', 'label' => false, 'class' => 'default', 'div' => false));
+$image_form .= $this->Form->end();
+$image_form .= $this->Html->image('pinterest.png', array('title' => 'Get Images From Pinterest', 'data' => $id, 'id' => 'pin'));
+$image_form .= $this->Html->image('Instagram.png', array('title' => 'Get Images From Instagram', 'data' => $id, 'id' => 'ins'));
+
+if(!empty($selfdata['Game'][0]['Game']['answer'])) {
+	$image_form .= $this->Html->image('removeimage.png', array('title' => 'Remove', 'data' => $id, 'id' => 'rem'));
+}
+
+if($count == 1) {
+	echo $this->Html->div('col-md-4 col-sm-4', '');
+}
+echo '<div class="col-md-4 col-sm-4 image-box">'; 
+echo $this->Html->image($answer, array('class' => 'img-responsive margin-bottom-5 margin-top-10', 'data' => 'medium-' . $id));
+
+if(!$summary) {
+	echo $this->Html->div('image-icon', $image_form, array('id' => 'tour-step-04'));
+}
+
+if(isset($selfdata['children'])) {
+	foreach($selfdata['children'] as $child) {
+		echo $this->Render->display($child['Configuration']['type'], $child, 1, $summary);
+	}
+}
+echo '</div>';
+?>

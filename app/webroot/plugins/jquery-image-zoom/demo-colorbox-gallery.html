@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>Demo</title>
+	
+		<!-- style sheets -->
+		<!-- ColorBox css -->
+		<link rel="stylesheet" type="text/css" href="css/colorbox.css" />
+		<!-- jQuery ThemeRoller -->
+		<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui.min.css" />
+		<!-- lhpMegaImgViewer plugin css -->
+		<link rel="stylesheet" type="text/css" href="css/lhp_miv.css" />
+		
+		<!-- js files -->
+		<!-- jQuery framework -->
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<!-- jQuery colorbox plugin -->
+		<script type="text/javascript" src="js/jquery.colorbox-min.js"></script>
+		<!-- jQuery easing plugin-->
+		<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+		<!-- jQuery mousewheel plugin-->
+		<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+		<!-- jQuery hammer plugin-->
+		<script type="text/javascript" src="js/jquery.hammer-full.min.js"></script>
+		<!-- lhpMegaImgViewer plugin -->
+		<script type="text/javascript" src="js/jquery.lhpMegaImgViewer.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var $cbImgViewerCnt,
+				settings = {
+					"viewportWidth" : "100%",
+					"viewportHeight" : "100%",
+					"fitToViewportShortSide" : true,  
+					"contentSizeOver100" : false,
+					"loadingBgColor" : '#ffffff',
+					"startScale" : 1,
+					"startX" : 500,
+					"startY" : 500,
+					"animTime" : 500,
+					"draggInertia" : 10,
+					"zoomLevel" : 1,
+					"zoomStep" : 0.1,
+					"contentUrl" : "",
+					"intNavEnable" : true,
+					"intNavPos" : "R",
+					"intNavAutoHide" : true,
+					"intNavMoveDownBtt" : true,
+					"intNavMoveUpBtt" : true,
+					"intNavMoveRightBtt" : true,
+					"intNavMoveLeftBtt" : true,
+					"intNavZoomBtt" : true,
+					"intNavUnzoomBtt" : true,
+					"intNavFitToViewportBtt" : true,
+					"intNavFullSizeBtt" : true,
+					"intNavBttSizeRation" : 1,
+					"mapEnable" : true,
+					"mapThumb" : "",
+					"mapPos" : "BL",
+					"popupShowAction" : "click",
+					"testMode" : false
+				};
+				
+				//create colorbox instance (set viewer width 'innerWidth' and height 'innerHeight')
+				$(".group1").colorbox({innerWidth : "600px", innerHeight : "400px", rel : "group1"});
+				
+				//place viewer inside lightbox
+				$(".group1").colorbox({
+					onComplete : function() {
+						if($cbImgViewerCnt) {
+							$cbImgViewerCnt.lhpMegaImgViewer("destroy");
+						}
+						$cbImgViewerCnt = $("<div/>").css({"width" : "100%", "height" : "100%", "overflow" : "hidden"});
+						$("#cboxLoadedContent").empty().append($cbImgViewerCnt);
+						settings.contentUrl = $(this).attr("href");
+						settings.mapThumb = $(this).find("img").attr("src");
+						$cbImgViewerCnt.lhpMegaImgViewer(settings);
+					},
+					onClosed : function() {
+						if($cbImgViewerCnt) {
+							$cbImgViewerCnt.lhpMegaImgViewer("destroy");
+						}
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<!-- thumbs -->
+		<a href="img/1.jpg" class="group1"><img src="img/thumb-1.jpg" /></a>
+		<a href="img/2.jpg" class="group1"><img src="img/thumb-2.jpg" /></a>
+		<a href="img/3.jpg" class="group1"><img src="img/thumb-3.jpg" /></a>
+		<a href="img/4.jpg" class="group1"><img src="img/thumb-4.jpg" /></a>
+		<a href="img/5.jpg" class="group1"><img src="img/thumb-5.jpg" /></a>
+	</body>
+</html>

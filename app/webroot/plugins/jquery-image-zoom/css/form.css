@@ -1,0 +1,85 @@
+.customizeMeForm {
+	width:439px;
+	margin-left:16px;
+	margin-top:30px;
+	background:#f8f8f8;
+	border-radius: 8px;
+	border:1px solid #aaa;
+	border-bottom:none;
+	display:inline;
+	float:left;
+}
+
+.customizeMeForm label {
+	width:100px;
+	display:inline;
+	float:left;
+	line-height:23px;
+	text-align:right;
+	padding:0 20px 0 0;
+}
+
+.customizeMeForm span {
+	width:20px;
+	height:21px;
+	display:inline;
+	float:left;
+	cursor:pointer;
+	background: url("../gfx/i.gif") no-repeat scroll 0 4px;
+}
+
+.customizeMeForm .inner {
+	margin:0 0 0 140px;
+}
+
+.customizeMeForm .cell {
+	height:23px;
+	width:433px;
+	float:left;
+	display:inline;
+	padding:3px 3px;
+	border-radius: 8px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #aaa;
+	border-right: 1px solid #aaa;
+	background:#eee;
+}
+
+.customizeMeForm .halfCell {
+	width:213px;
+}
+
+.customizeMeForm .topCell {
+	border-top: none; 
+}
+
+.customizeMeForm .lastCell {
+	border-right: none;
+}
+
+.customizeMeForm .input_text,
+.customizeMeForm .select_option {
+	width:100%;
+	padding:4px 3px;
+	margin:0 0 0 -10px;
+	border: 1px double #aaa;
+	background:#f8f8f8;
+	font-size:10px;
+	color:#999;
+}
+
+.customizeMeForm .select_option {
+	padding:3px 3px;
+	width:80px;	
+}
+
+.customizeMeForm .tipContainer {
+	position:absolute;
+	top:-1000px;
+	left:-1000px;
+	display:none;
+	padding:2px 8px;
+	border-radius: 4px;
+	background:#C9C9C9;
+	color:#262626;
+}

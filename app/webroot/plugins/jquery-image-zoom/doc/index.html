@@ -1,0 +1,1024 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>jQuery Mega Image Viewer Documentation</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+		pre { background:#e7e7e7}
+		pre span { color:#ff0000}
+		th, td { border: 1px solid #CCCCCC; padding: 5px 10px; }
+		td { font-size: 11px; }
+		.important { color:#ff0000; font-weight:bold }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;jQuery Mega Image Viewer Documentation by &ldquo;lhp&rdquo; v2.5</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;jQuery Mega Image Viewer&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 18/08/2012<br>
+					Modified: 11/09/2014<br>
+					By: lhp<br>
+					Email: <a href="mailto:youremail@yourdomain.com">jaroslaw_z@interia.pl</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my theme. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://codecanyon.net/user/lhp">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#description">Description</a></li>
+			<li><a href="#customizationSettings">Customization settings</a></li>
+			<li><a href="#pluginMethods">Plugin methods</a></li>
+			<li><a href="#pluginEvent">Plugin event</a></li>
+			<li><a href="#basicUse">Basic usage</a></li>
+			<li><a href="#resizeUse">Usage of resize outer div</a></li>
+			<li><a href="#hotspotUse">Using hotspots</a></li>
+			<li><a href="#thumbGallUse">Thumbnail Gallery</a></li>
+			<li><a href="#lightboxGallUse">Lightbox Gallery</a></li>
+			
+			<li><a href="#navBarTheme">Navigation bar - theme</a></li>
+			<li><a href="#mapPaletteTheme">Map palette - theme</a></li>
+			<li><a href="#preloaderTheme">Preloader - theme</a></li>
+			<li><a href="#popupCloseButtonTheme">Popup close button - theme</a></li>
+			
+		</ol>
+		
+		<hr>
+		
+		<h3 id="description"><strong>A) Description</strong> - <a href="#toc">top</a></h3>
+		
+		<p>The mega image viewer jQuery plugin allows you to easily replace &lt;div&gt; tags with animated image viewers.</p>
+		<p>Viewer used for displaying high-resolution object (image - JPG, PNG, GIF).
+Viewer displays the given display object inside the user-defined viewport area.
+Viewer allows to control the position and zoom of the object displayed inside the viewport.
+Viewer controls the sliding and zoom of the displayed object so that the viewport area will be filled completely.</p>
+		<p>Features:
+			<ul>
+				<li>Touch support for mobile devices.</li>
+				<li>Mouse or Touch drag.</li>
+				<li>Mouse wheel to zoom/unzoom.</li>
+				<li>Mouse click or Touch move to center viewport.</li>
+				<li>Possible viewport resize on runtime.</li>
+				<li>Package contains a example for building thumbnail gallery.</li>
+				<li>Package contains a example for building lightbox gallery (ColorBox Gallery).</li>
+				<li>Cross-browser compatible – Animated Button is compatible with IE, CHROME, FIREFOX, OPERA, SAFARI.</li>
+				<li>Very easy installation on your html page.</li>
+				<li>Very smooth animations.</li>
+				<li>Fully scalable.</li>
+				<li>Displays the map palette to quickly change the view using a thumbnails.</li>
+				<li>Placing hotspots on images.</li>
+				<li>Addition popup windows on the hotspot.</li>
+				<li>Viewer functionality:
+					<ol>
+						<li>set start coordinates and scale</li>
+						<li>set fit method to viewport</li>
+						<li>set image scale method</li>
+						<li>navigation bar (enabled / disabled)</li>
+						<li>navigation bar autohide</li>
+						<li>set the navigation bar position (acceptable values: TL, T, TR, L, R, BL, B, BR)</li>
+						<li>set visibility of the buttons in the navigation bar</li>
+						<li>set animation duration</li>
+						<li>set drag inertia</li>
+						<li>set image source from javascript {"contentUrl" : "images/my_image.jpg"} (relative or absolute path)</li>
+						<li>set image source from html &lt;img src="images/my_image.jpg"/&gt;</li>
+						<li>dispatch event 'mivChange' with information whether it is possible to move and zoom the display object</li>
+					</ol>
+				</li>
+
+			</ul>
+		</p>
+		<hr>
+			
+		
+			
+		<h3 id="customizationSettings"><strong>B) Customization settings</strong> - <a href="#toc">top</a></h3>
+		<table width="100%" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<th>Parameter</th>
+							<th>Default & Accepted Values</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>viewportWidth</td>
+							<td><b>string</b><br/>default: <i>'100%'</i><br/>accepted: <i>string</i></td>
+							<td>Defines width of the area in which image will be displayed inside the outer div (myDiv). Size can be given in pixels, ems, percentages.</td>
+						</tr>
+						<tr>
+							<td>viewportHeight</td>
+							<td><b>string</b><br/>default: <i>'100%'</i><br/>accepted: <i>string</i></td>
+							<td>Defines height of the area in which image will be displayed inside the outer div (myDiv). Size can be given in pixels, ems, percentages.</td>
+						</tr>
+						<tr>
+							<td>fitToViewportShortSide</td>
+							<td><b>boolean</b><br/>default: <i>false</i><br/>accepted: <i>true, false</i></td>
+							<td>Shorter side of the displayed object will fit the viewport.</td>
+						</tr>
+						<tr>
+							<td>contentSizeOver100</td>
+							<td><b>boolean</b><br/>default: <i>false</i><br/>accepted: <i>true, false</i></td>
+							<td>If the viewport size <span class="important">(width and height)</span> is greater than the size of the displayed object, allow the object scaled over 100% to fit the viewport (zoom is disabled).</td>
+						</tr>
+						<tr>
+							<td>startScale</td>
+							<td><b>number</b><br/>default: <i>1</i><br/>accepted: <i>0...1</i></td>
+							<td>Defines start scale.</td>
+						</tr>
+						<tr>
+							<td>startX</td>
+							<td><b>number</b><br/>default: <i>0</i><br/>accepted: <i>integer values</i></td>
+							<td>Defines start coordinate x in px, in the display object frame of reference, which will be moved to the center of the viewport, <span class="important">if it is possible.</span></td>
+						</tr>
+						<tr>
+							<td>startY</td>
+							<td><b>number</b><br/>default: <i>0</i><br/>accepted: <i>integer values</i></td>
+							<td>Defines start coordinate y in px, in the display object frame of reference, which will be moved to the center of the viewport, <span class="important">if it is possible.</span></td>
+						</tr>
+						<tr>
+							<td>animTime</td>
+							<td><b>number</b><br/>default: <i>500</i><br/>accepted: <i>integer values</i></td>
+							<td>Defines duration in ms of the scale and position animations.</td>
+						</tr>
+						<tr>
+							<td>draggInertia</td>
+							<td><b>number</b><br/>default: <i>10</i><br/>accepted: <i>integer values</i></td>
+							<td>Defines inertia after dragging.</td>
+						</tr>
+						<tr>
+							<td>zoomLevel</td>
+							<td><b>number</b><br/>default: <i>1</i><br/>accepted: <i>positive numbers</i></td>
+							<td>Set max zoom level.</td>
+						</tr>
+						<tr>
+							<td>zoomStep</td>
+							<td><b>number</b><br/>default: <i>0.1</i><br/>accepted: <i>0...1</i></td>
+							<td>Set zooming step.</td>
+						</tr>
+						<tr>
+							<td>contentUrl</td>
+							<td><b>string</b><br/>default: <i>''</i><br/>accepted: <i>string</i></td>
+							<td>Defines a path for an image source. This param is optional. Instead you can use the HTML image tag (see STEP 2B - ACTIVATE THE PLUGIN (IMAGE SOURCE FROM HTML)).</td>
+						</tr>
+						<tr>
+							<td>intNavEnable</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines the navigation bar enabled/disabled.</td>
+						</tr>
+						<tr>
+							<td>intNavPos</td>
+							<td><b>string</b><br/>default: <i>'T'</i><br/>accepted: <i>'TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'</i></td>
+							<td>Defines the navigation bar position.</td>
+						</tr>
+						<tr>
+							<td>intNavAutoHide</td>
+							<td><b>boolean</b><br/>default: <i>false</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines the navigation bar autohide.</td>
+						</tr>
+						<tr>
+							<td>intNavMoveDownBtt</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines button visibility 'move down' on the navigation bar.</td>
+						</tr>
+						<tr>
+							<td>intNavMoveUpBtt</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines button visibility 'move up' on the navigation bar.</td>
+						</tr>
+						<tr>
+							<td>intNavMoveRightBtt</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines button visibility 'move right' on the navigation bar.</td>
+						</tr>
+						<tr>
+							<td>intNavMoveLeftBtt</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines button visibility 'move left' on the navigation bar.</td>
+						</tr>
+						<tr>
+							<td>intNavZoomBtt</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines button visibility 'zoom' on the navigation bar.</td>
+						</tr>
+						<tr>
+							<td>intNavUnzoomBtt</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines button visibility 'unzoom' on the navigation bar.</td>
+						</tr>
+						<tr>
+							<td>intNavFitToViewportBtt</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines button visibility 'fit to viewport' on the navigation bar.</td>
+						</tr>
+						<tr>
+							<td>intNavFullSizeBtt</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Defines button visibility 'full size' on the navigation bar.</td>
+						</tr>
+						<tr>
+							<td>intNavBttSizeRation</td>
+							<td><b>number</b><br/>default: <i>1</i><br/>accepted: <i>integer</i></td>
+							<td>Defines button size.</td>
+						</tr>
+						<tr>
+							<td>mapEnable</td>
+							<td><b>boolean</b><br/>default: <i>true</i><br/>accepted: <i>true, false</i></td>
+							<td>Displays the map palette to quickly change the view using a thumbnails.</td>
+						</tr>
+						<tr>
+							<td>mapThumb</td>
+							<td><b>string</b><br/>default: <i>null</i><br/>accepted: <i>string</i></td>
+							<td>Defines a path for an thumbnail source used in map palette.</td>
+						</tr>
+						<tr>
+							<td>mapPos</td>
+							<td><b>string</b><br/>default: <i>'BL'</i><br/>accepted: <i>'TL', 'T', 'TR', 'L', 'R', 'BL', 'B', 'BR'</i></td>
+							<td>Defines the map palette position.</td>
+						</tr>
+						<tr>
+							<td>popupShowAction</td>
+							<td><b>string</b><br/>default: <i>rollover</i><br/>accepted: <i>'click', 'rollover'</i></td>
+							<td>Defines 'popup' window opening action.</td>
+						</tr>
+						<tr>
+							<td>testMode</td>
+							<td><b>boolean</b><br/>default: <i>false</i><br/>accepted: <i>true, false</i></td>
+							<td>Displays coordinates of the cursor.</td>
+						</tr>
+						
+					</tbody>
+				</table>
+		<hr>	
+			
+			
+			
+		<h3 id="pluginMethods"><strong>C) Plugin methods</strong> - <a href="#toc">top</a></h3>
+		<table width="100%" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<th>Method name</th>
+							<th>Example use</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>setPosition</td>
+							<td>$('#myDiv').lhpMegaImgViewer('setPosition', x, y, scale, noAnim)</td>
+							<td>
+								Sets the position and size of the displayed object. The scale parameter is optional - if null, the size remains unchanged.<br/>
+								<br/>
+								@param {integer} x Coordinate x in px, in the display object frame of reference, which will be moved to the center of the viewport (if it is possible).<br/>
+								@param {integer} y Coordinate y in px, in the display object frame of reference, which will be moved to the center of the viewport (if it is possible).<br/>
+								@param {number} scale The size to which the display object will be scaled (if it is possible); optional.<br/>
+								@param {boolean} noAnim Animations disabled; optional, default false.<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>moveUp</td>
+							<td>$('#myDiv').lhpMegaImgViewer('moveUp')</td>
+							<td>
+								Initializes the movement of the display object to the top, to the boundary of the viewport or untill the moveStop method is called.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>moveDown</td>
+							<td>$('#myDiv').lhpMegaImgViewer('moveDown')</td>
+							<td>
+								Initializes the movement of the display object to the bottom, to the boundary of the viewport or untill the moveStop method is called.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>moveLeft</td>
+							<td>$('#myDiv').lhpMegaImgViewer('moveLeft')</td>
+							<td>
+								Initializes the movement of the display object to the left, to the boundary of the viewport or untill the moveStop method is called.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>moveRight</td>
+							<td>$('#myDiv').lhpMegaImgViewer('moveRight')</td>
+							<td>
+								Initializes the movement of the display object to the right, to the boundary of the viewport or untill the moveStop method is called.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>moveStop</td>
+							<td>$('#myDiv').lhpMegaImgViewer('moveStop')</td>
+							<td>
+								Stops the movement of the display object.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						
+						<tr>
+							<td>zoom</td>
+							<td>$('#myDiv').lhpMegaImgViewer('zoom')</td>
+							<td>
+								Initializes the zooming of the display object up to 100% or untill the zoomStop method is called.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>unzoom</td>
+							<td>$('#myDiv').lhpMegaImgViewer('unzoom')</td>
+							<td>
+								Initializes the unzooming of the display object up to the viewport's size or untill the zoomStop method is called.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>zoomStop</td>
+							<td>$('#myDiv').lhpMegaImgViewer('zoomStop')</td>
+							<td>
+								Stops the zooming/unzooming of the display object.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>fitToViewport</td>
+							<td>$('#myDiv').lhpMegaImgViewer('fitToViewport')</td>
+							<td>
+								Fits the display obejct's size to the viewport size and moves the object to the center of the viewport.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>fullSize</td>
+							<td>$('#myDiv').lhpMegaImgViewer('fullSize')</td>
+							<td>
+								Sets the initial size of the display object and moves the object to the center of the viewport.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						<tr>
+							<td>adaptsToContainer</td>
+							<td>$('#myDiv').lhpMegaImgViewer('adaptsToContainer')</td>
+							<td>
+								Control the correct position and size of the object displayed inside the viewport. <span class="important">IMPORTANT - Method should be called after each the outer div resize.</span><br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>
+						
+						<tr>
+							<td>getCurrentState</td>
+							<td>$('#myDiv').lhpMegaImgViewer('getCurrentState')</td>
+							<td>
+								Returns object with control values. The object is identical as the object returned by the event 'mivChange', <a href="#pluginEvent">read more - Plugin event.</a><br/>
+								<br/>
+								@return {Object} Returns object with control values.
+							</td>
+						</tr>
+						
+						
+						<tr>
+							<td>destroy</td>
+							<td>$('#myDiv').lhpMegaImgViewer('destroy')</td>
+							<td>
+								Destructor. Removes the viewer from the page. Restores the original appearance and functionality of the outer &lt;div&gt; element. Allows to efficiently clean the memory.<br/>
+								<br/>
+								@return {Object} Returns jQuery object.
+							</td>
+						</tr>	
+					</tbody>
+				</table>
+		<hr>	
+			
+			
+			
+	<h3 id="pluginEvent"><strong>D) Plugin event</strong> - <a href="#toc">top</a></h3>
+		<h4><strong>mivReady</strong></h4>
+				<p>This plugin dispatch event 'mivReady' when all data are loaded, DOM completly prepared and plugin ready to use.</p>
+				<p>EXAMPLE USE:
+				<pre>$('#myDiv').bind("mivReady", function(e) {
+					
+});</pre></p>	
+			</li>
+		</ul>
+		<h4><strong>mivChange</strong></h4>
+				<p>This plugin dispatch event 'mivChange' after modifying the control value. Control values contains information:
+				<ul>
+					<li>current display object scale</li>
+					<li>current display object position</li>
+					<li>scaling in progress</li>
+					<li>whether it is possible to move the display object up, down, left or right</li>
+					<li>whether it is possible to zoom and unzoom</li>
+					<li>proportion viewport to display object</li>
+				</ul>
+				</p>
+				<p>This event has the following properties:
+					<br/><b>scale</b> - number, current scale display object (0...1).
+					<br/><b>xPosInCenter</b> - number, current x position display object in viewport center (px).
+					<br/><b>yPosInCenter</b> - number, current y position display object in viewport center (px).
+					<br/><b>allowUp</b> - true, if the movement in the "up" direction is possible, false otherwise.
+					<br/><b>allowDown</b> - true, if the movement in the "down" direction is possible, false otherwise.
+					<br/><b>allowLeft</b> - true, if the movement in the "left" direction is possible, false otherwise.
+					<br/><b>allowRight</b> - true, if the movement in the "right" direction is possible, false otherwise.
+					<br/><b>allowZoom</b> - true, if zooming is possible, false otherwise.
+					<br/><b>allowUnzoom</b> - true, if unzooming is possible, false otherwise.
+					<br/><b>hPropViewpContent</b> - number, proportion (vertical) viewport to display object.
+					<br/><b>wPropViewpContent</b> - number, proportion (horizontal) viewport to display object.
+					<br/><b>isScaled</b> - true, when scaling in progress, false otherwise.
+				</p>
+				<p>EXAMPLE USE:
+				<pre>$('#myDiv').bind("mivChange", function(e) {
+	alert(e.scale + ', ' + e.xPosInCenter + ', ' + e.allowLeft + ', ' + e.allowRight);
+	alert(e.allowDown + ', ' + e.allowUp + ', ' + e.yPosInCenter);
+	alert(e.allowZoom + ', ' + e.allowUnzoom);
+});</pre></p>	
+			</li>
+		</ul>
+		<hr>
+			
+		
+			
+
+		<h3 id="basicUse"><strong>E) Basic usage.</strong> - <a href="#toc">top</a></h3>
+		<h4><b>Installation & Setup</b></h4>
+		<ul>
+			<li><b>STEP 1 - INCLUDE THE CSS AND SCRIPT</b><br/><br/>
+			<p><strong>1. Embed the CSS files</strong> in the &lt;head&gt; section of your HTML document, set the src="css-path/" to your css file directory.<br/>The custom-theme is required for navigation bar.</p>
+			<pre>
+&lt;link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.3.custom.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/lhp_miv.css" /&gt;</pre>
+			<p><strong>2. Copy 'custom-theme' and 'lhp_miv' directory from css to your css file directory.</strong></p>
+			<p><strong>3. Embed the JavaScript files</strong> in the &lt;head&gt; section of your HTML document, set the src="js-path/" to your JavaScript file directory. <strong>The jQuery Easing Plugin</strong> is required for easing effects. <strong>The jQuery Mouse Wheel Plugin</strong> is required for mouse wheel interaction.  <strong>The Hammer.js</strong> is required for multi touch events support.</p>
+			<pre>
+&lt;script type="text/javascript" src="js/jquery-1.10.1.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.easing.1.3.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.mousewheel.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.hammer-full.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.lhpMegaImgViewer.min.js"&gt;&lt;/script&gt;</pre>
+			</li>
+			<li><b>STEP 2A - ACTIVATE THE PLUGIN (IMAGE SOURCE FROM JS)</b><br/><br/>
+			As you can see on the example page, you can create several viewer instances on a single page.<br />
+			Simply place the code below in the &lt;head&gt; section of your HTML document, after the code embeding the scripts from step 1.<br />
+			Repeat this step for the next viewer.<br/><br/>
+			<i>javascript code</i>:
+			<pre>&lt;script type="text/javascript"&gt;
+$(document).ready(function() {
+	var settings = {
+		"viewportWidth" : "100%",
+		"viewportHeight" : "100%",
+		"fitToViewportShortSide" : false,  
+		"contentSizeOver100" : false,
+		"startScale" : 0.5,
+		"startX" : 956,
+		"startY" : 660,
+		"animTime" : 500,
+		"draggInertia" : 10,
+		"zoomLevel" : 1,
+		"zoomStep" : 0.1,
+		<span>"contentUrl" : "img/1.jpg"</span>,
+		"intNavEnable" : true,
+		"intNavPos" : "B",
+		"intNavAutoHide" : false,
+		"intNavMoveDownBtt" : true,
+		"intNavMoveUpBtt" : true,
+		"intNavMoveRightBtt" : true,
+		"intNavMoveLeftBtt" : true,
+		"intNavZoomBtt" : true,
+		"intNavUnzoomBtt" : true,
+		"intNavFitToViewportBtt" : true,
+		"intNavFullSizeBtt" : true,
+		"intNavBttSizeRation" : 1,
+		"mapEnable" : true,
+		<span>"mapThumb" : "img/thumb-1.jpg"</span>,
+		"mapPos" : "BL",
+		"popupShowAction" : "click",
+		"testMode" : false
+	};
+	$("<span>#myDiv</span>").lhpMegaImgViewer(settings);
+});
+&lt;/script&gt;</pre>
+<i>html code</i>:
+<pre>&lt;div id="<span>myDiv</span>" style="width:800px; height:500px; overflow:hidden; border:solid 1px #a6a6a6;"&gt;&lt;/div&gt;</pre>
+			</li>
+			<li><b>STEP 2B - ACTIVATE THE PLUGIN (IMAGE SOURCE FROM HTML)</b><br/><br/>
+			<i>javascript code</i>:
+			<pre>&lt;script type="text/javascript"&gt;
+$(document).ready(function() {
+	var settings = {
+		"viewportWidth" : "100%",
+		"viewportHeight" : "100%",
+		"fitToViewportShortSide" : false,  
+		"contentSizeOver100" : false,
+		"startScale" : 0.5,
+		"startX" : 956,
+		"startY" : 660,
+		"animTime" : 500,
+		"draggInertia" : 10,
+		"zoomLevel" : 1,
+		"zoomStep" : 0.1,
+		<span>"contentUrl" : "img/1.jpg"</span>,
+		"intNavEnable" : true,
+		"intNavPos" : "B",
+		"intNavAutoHide" : false,
+		"intNavMoveDownBtt" : true,
+		"intNavMoveUpBtt" : true,
+		"intNavMoveRightBtt" : true,
+		"intNavMoveLeftBtt" : true,
+		"intNavZoomBtt" : true,
+		"intNavUnzoomBtt" : true,
+		"intNavFitToViewportBtt" : true,
+		"intNavFullSizeBtt" : true,
+		"intNavBttSizeRation" : 1,
+		"popupShowAction" : "click",
+		"testMode" : false
+	};
+	$("<span>#myDiv</span>").lhpMegaImgViewer(settings);
+});
+&lt;/script&gt;</pre>
+<i>html code</i>:
+<pre>&lt;div id="<span>myDiv</span>" style="width:800px; height:500px; overflow:hidden; border:solid 1px #a6a6a6;"&gt;
+	<span>&lt;img src="img/1.jpg"/&gt;</span>
+&lt;/div&gt;</pre>
+			</li>
+
+				<h3 id="resizeUse"><strong>F) Usage of resize outer div</strong> - <a href="#toc">top</a></h3>
+		<h4><b>Installation & Setup</b></h4>
+		<ul>
+			<li><b>STEP 1 - INCLUDE THE CSS AND SCRIPT</b><br/><br/>
+			<p><strong>1. Embed the CSS files</strong> in the &lt;head&gt; section of your HTML document, set the src="css-path/" to your css file directory.<br/>The custom-theme is required for navigation bar.</p>
+			<pre>
+&lt;link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.3.custom.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/lhp_miv.css" /&gt;</pre>
+			<p><strong>2. Copy 'custom-theme' and 'lhp_miv' directory from css to your css file directory.</strong></p>
+			<p><strong>3. Embed the JavaScript files</strong> in the &lt;head&gt; section of your HTML document, set the src="js-path/" to your JavaScript file directory. <strong>The jQuery Easing Plugin</strong> is required for easing effects. <strong>The jQuery Mouse Wheel Plugin</strong> is required for mouse wheel interaction.  <strong>The Hammer.js</strong> is required for multi touch events support. <strong>The jQuery ui Resizable</strong> is required.</p>
+			<pre>
+&lt;script type="text/javascript" src="js/jquery-1.10.1.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.easing.1.3.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.mousewheel.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.hammer-full.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.lhpMegaImgViewer.min.js"&gt;&lt;/script&gt;</pre>
+			</li>
+			<li><b>STEP 2 - ACTIVATE THE PLUGIN</b><br/><br/>
+			<i>javascript code</i>:
+			<pre>&lt;script type="text/javascript"&gt;
+$(document).ready(function() {
+	var settings = {
+		"viewportWidth" : "100%",
+		"viewportHeight" : "100%",
+		"fitToViewportShortSide" : false,  
+		"contentSizeOver100" : false,
+		"startScale" : 0.5,
+		"startX" : 956,
+		"startY" : 660,
+		"animTime" : 500,
+		"draggInertia" : 10,
+		"zoomLevel" : 1,
+		"zoomStep" : 0.1,
+		<span>"contentUrl" : "img/2.jpg"</span>,
+		"intNavEnable" : true,
+		"intNavPos" : "B",
+		"intNavAutoHide" : false,
+		"intNavMoveDownBtt" : true,
+		"intNavMoveUpBtt" : true,
+		"intNavMoveRightBtt" : true,
+		"intNavMoveLeftBtt" : true,
+		"intNavZoomBtt" : true,
+		"intNavUnzoomBtt" : true,
+		"intNavFitToViewportBtt" : true,
+		"intNavFullSizeBtt" : true,
+		"intNavBttSizeRation" : 1,
+		"mapEnable" : true,
+		<span>"mapThumb" : "img/thumb-2.jpg"</span>,
+		"mapPos" : "BL",
+		"popupShowAction" : "click",
+		"testMode" : false
+	};
+	$("<span>#myDiv</span>").lhpMegaImgViewer(settings);
+	$("<span>#myDiv</span>").resizable({
+		resize: function(event, ui) {
+			$(this).lhpMegaImgViewer("adaptsToContainer");
+		}
+	});
+});
+&lt;/script&gt;</pre>
+<i>html code</i>:
+<pre>&lt;div id="<span>myDiv</span>" style="width:800px; height:500px; overflow:hidden; border:solid 1px #a6a6a6;"&gt;&lt;/div&gt;</pre>
+			</li>
+			
+		</ul>
+		<hr>
+			
+		
+		<h3 id="hotspotUse"><strong>G) Using hotspots</strong> - <a href="#toc">top</a></h3>
+		
+		<p>
+			<ul>
+				<li>
+					<b>STEP 1 - create empty div, set the id and set display none</b><br/>
+					This is hotspots container.
+					<pre>&lt;div id="<span>MyHotspots</span>" style="display:none;"&gt;&lt;/div&gt;</pre>
+				</li>
+				
+				<li>
+					<b>STEP 2 - create hotspot div, set the class lhp_miv_hotspot and put this div inside hotspots container.</b><br/>
+					This is a single hotspot container.
+					<pre>&lt;div id="MyHotspots" style="display:none;"&gt;
+	&lt;div <span>class="lhp_miv_hotspot"</span>&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+				</li>
+				
+				<li>
+					<b>STEP 3 - set position of the hotspot: data-x, data-y <br/>and set scale above which hotspot is shown: data-visible-scale, (accepted: 0...1).</b><br/>
+					<pre>&lt;div id="MyHotspots" style="display:none;"&gt;
+	&lt;div class="lhp_miv_hotspot" <span>data-x="720" data-y="500" data-visible-scale="0"</span>&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+				</li>
+				
+				<li>
+					<b>STEP 4 - add a marker div, set the class lhp_miv_marker<br/>and specify marker location relative to the hotspot location (accepted: TL, T, TR, L, C, R, BL, B, BR).</b><br/>
+					This is a marker container.
+					<pre>&lt;div id="MyHotspots" style="display:none;"&gt;
+	&lt;div class="lhp_miv_hotspot" data-x="720" data-y="500" data-visible-scale="0"&gt;
+		&lt;div <span>class="lhp_miv_marker pos-BL"</span>&gt;MARKER #1&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</pre>
+				</li>
+				
+				<li>
+					<b>STEP 5 (optional) - add a popup div, set the class lhp_miv_popup<br/>and specify popup location relative to the marker location (accepted: TL, T, TR, L, R, BL, B, BR).</b><br/>
+					This is a popup container.
+					<pre>&lt;div id="MyHotspots" style="display:none;"&gt;
+	&lt;div class="lhp_miv_hotspot" data-x="720" data-y="500" data-visible-scale="0"&gt;
+		&lt;div class="lhp_miv_marker pos-BL"&gt;MARKER #1&lt;/div&gt;
+		&lt;div <span>class="lhp_miv_popup pos-L"</span>&gt;POPUP CONTENT&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</pre>
+				</li>
+				
+				<li>
+					<b>STEP 6 add another hotspot.</b><br/>
+					Repeat steps 2-5.<br/><br/>
+				</li>
+				
+				<li>
+					<b>STEP 7 activate the plugin with hotspots.</b><br/>
+					<pre>$("#myDiv").lhpMegaImgViewer(settings, <span>"MyHotspots"</span>);</pre>
+				</li>
+			</ul>
+		</p>
+		<p>
+			<h4><b>COMPLETE EXAMPLE</b></h4>
+			<i>javascript code</i>:
+			<pre>$(document).ready(function() {
+	var settings = {
+		"viewportWidth" : "100%",
+		"viewportHeight" : "100%",
+		"fitToViewportShortSide" : false,  
+		"contentSizeOver100" : false,
+		"startScale" : 0.5,
+		"startX" : 956,
+		"startY" : 660,
+		"animTime" : 500,
+		"draggInertia" : 10,
+		"zoomLevel" : 1,
+		"zoomStep" : 0.1,
+		"contentUrl" : "img/1.jpg",
+		"intNavEnable" : true,
+		"intNavPos" : "B",
+		"intNavAutoHide" : false,
+		"intNavMoveDownBtt" : true,
+		"intNavMoveUpBtt" : true,
+		"intNavMoveRightBtt" : true,
+		"intNavMoveLeftBtt" : true,
+		"intNavZoomBtt" : true,
+		"intNavUnzoomBtt" : true,
+		"intNavFitToViewportBtt" : true,
+		"intNavFullSizeBtt" : true,
+		"intNavBttSizeRation" : 1,
+		"mapEnable" : true,
+		"mapThumb" : "img/thumb-1.jpg",
+		"mapPos" : "BL",
+		"popupShowAction" : "click",
+		"testMode" : false
+	};
+	$("#myDiv").lhpMegaImgViewer(settings, "MyHotspots");
+});</pre>
+<i>html code</i>:
+			<pre>&lt;!-- viewer container --&gt;
+&lt;div id="myDiv" style="width:800px; height:500px; overflow:hidden; border:solid 1px #a6a6a6;"&gt;&lt;/div&gt;
+
+&lt;!-- hotspots --&gt;
+&lt;div id="MyHotspots" style="display:none;"&gt;	
+	
+	&lt;!-- hotspot --&gt;
+	&lt;div class="lhp_miv_hotspot" data-x="720" data-y="500" data-visible-scale="0"&gt;
+	
+		&lt;!-- marker --&gt;
+		&lt;div class="lhp_miv_marker pos-BL"&gt;
+			&lt;span class="label"&gt;MARKER #1&lt;/span&gt;
+		&lt;/div&gt;
+		
+		&lt;!-- popup --&gt;
+		&lt;div class="lhp_miv_popup pos-L"&gt;
+			&lt;div class="content"&gt;
+				Lorem ipsum dolor sit amet...
+			&lt;/div&gt;
+		&lt;/div&gt;
+		
+	&lt;/div&gt;
+	
+	&lt;!-- hotspot --&gt;
+	&lt;div class="lhp_miv_hotspot" data-x="1100" data-y="380" data-visible-scale=".5"&gt;
+	
+		&lt;!-- marker --&gt;
+		&lt;div class="lhp_miv_marker pos-TR"&gt;
+			&lt;span class="label"&gt;MARKER #2&lt;/span&gt;
+		&lt;/div&gt;
+		
+		&lt;!-- popup --&gt;
+		&lt;div class="lhp_miv_popup pos-R"&gt;
+			&lt;div class="content"&gt;
+				Lorem ipsum dolor sit...
+			&lt;/div&gt;
+		&lt;/div&gt;
+		
+	&lt;/div&gt;
+	
+&lt;/div&gt;
+&lt;!-- hotspots end --&gt;
+</pre>
+		</p>
+			
+		
+		
+		<hr>	
+			
+			
+		<h3 id="thumbGallUse"><strong>H) Thumbnail Gallery</strong> - <a href="#toc">top</a></h3>
+		<h4><b>Installation & Setup</b></h4>
+		<ul>
+			<li><b>STEP 1 - INCLUDE THE CSS AND SCRIPT</b><br/><br/>
+			<p><strong>1. Embed the CSS files</strong> in the &lt;head&gt; section of your HTML document, set the src="css-path/" to your css file directory.<br/>The custom-theme is required for navigation bar.</p>
+			<pre>
+&lt;link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.3.custom.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/lhp_miv.css" /&gt;</pre>
+			<p><strong>2. Copy 'custom-theme' and 'lhp_miv' directory from css to your css file directory.</strong></p>
+			<p><strong>3. Embed the JavaScript files</strong> in the &lt;head&gt; section of your HTML document, set the src="js-path/" to your JavaScript file directory. <strong>The jQuery Easing Plugin</strong> is required for easing effects. <strong>The jQuery Mouse Wheel Plugin</strong> is required for mouse wheel interaction.  <strong>The Hammer.js</strong> is required for multi touch events support.</p>
+			<pre>
+&lt;script type="text/javascript" src="js/jquery-1.10.1.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.easing.1.3.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.mousewheel.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.hammer-full.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.lhpMegaImgViewer.min.js"&gt;&lt;/script&gt;</pre>
+			</li>
+			<li><b>STEP 2 - ACTIVATE THE PLUGIN</b><br/><br/>
+			<i>javascript code</i>:
+			<pre>&lt;script type="text/javascript"&gt;
+$(document).ready(function() {
+	var settings = {
+		"viewportWidth" : "100%",
+		"viewportHeight" : "100%",
+		"intNavAutoHide" : false,
+		"fitToViewportShortSide" : false, 
+		"startScale" : 1,
+		"startX" : 0,
+		"startY" : 0,
+		"animTime" : 500,
+		"draggInertia" : 10,
+		"zoomLevel" : 1,
+		"zoomStep" : 0.1,
+		"contentUrl" : "img/1.jpg",
+		"intNavEnable" : true,
+		"intNavPos" : "B",
+		"contentSizeOver100" : false,
+		"intNavMoveDownBtt" : true,
+		"intNavMoveUpBtt" : true,
+		"intNavMoveRightBtt" : true,
+		"intNavMoveLeftBtt" : true,
+		"intNavZoomBtt" : true,
+		"intNavUnzoomBtt" : true,
+		"intNavFitToViewportBtt" : true,
+		"intNavFullSizeBtt" : true,
+		"intNavBttSizeRation" : 1,
+		"mapEnable" : true,
+		"mapThumb" : "img/thumb-1.jpg",
+		"mapPos" : "BL",
+		"popupShowAction" : "click",
+		"testMode" : false
+	};
+	
+	$("<span>#myDiv</span>").lhpMegaImgViewer(settings);
+	
+	$("<span>#galleryThumbImg</span> a").each(function(index){
+		$(this).click(function(e) {
+			e.preventDefault();
+			settings.contentUrl = $(this).attr("href");
+			settings.mapThumb = $(this).find("img").attr("src");
+			$("<span>#myDiv</span>").lhpMegaImgViewer("destroy");
+			$("<span>#myDiv</span>").lhpMegaImgViewer(settings);
+		});
+	});
+});
+&lt;/script&gt;</pre>
+<i>html code</i>:
+<pre>&lt;div id="<span>myDiv</span>" style="width:885px; height:300px; overflow:hidden; border:solid 1px #a6a6a6;"&gt;&lt;/div&gt;
+&lt;div id="<span>galleryThumbImg</span>"&gt;
+	&lt;a href="img/1.jpg"&gt;&lt;img src="img/thumb-1.jpg"/&gt;&lt;/a&gt;
+	&lt;a href="img/2.jpg"&gt;&lt;img src="img/thumb-2.jpg"/&gt;&lt;/a&gt;
+	&lt;a href="img/3.jpg"&gt;&lt;img src="img/thumb-3.jpg"/&gt;&lt;/a&gt;
+	&lt;a href="img/4.jpg"&gt;&lt;img src="img/thumb-4.jpg"/&gt;&lt;/a&gt;
+	&lt;a href="img/5.jpg"&gt;&lt;img src="img/thumb-5.jpg"/&gt;&lt;/a&gt;
+&lt;/div>
+</pre>
+			</li>
+			
+		</ul>
+		<hr>
+		
+			
+				<h3 id="lightboxGallUse"><strong>I) Lightbox Gallery</strong> - <a href="#toc">top</a></h3>
+		<h4><b>Installation & Setup</b></h4>
+		<ul>
+			<li><b>STEP 1 - INCLUDE THE CSS AND SCRIPT</b><br/><br/>
+			<p><strong>1. Embed the CSS files</strong> in the &lt;head&gt; section of your HTML document, set the src="css-path/" to your css file directory.<br/>The custom-theme is required for navigation bar.</p>
+			<pre>
+&lt;link rel="stylesheet" type="text/css" href="css/colorbox.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.3.custom.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/lhp_miv.css" /&gt;</pre>
+			<p><strong>2. Copy 'custom-theme', 'lhp_miv' and 'images' directory from css to your css file directory.</strong></p>
+			<p><strong>3. Embed the JavaScript files</strong> in the &lt;head&gt; section of your HTML document, set the src="js-path/" to your JavaScript file directory. <strong>The jQuery Easing Plugin</strong> is required for easing effects. <strong>The jQuery Mouse Wheel Plugin</strong> is required for mouse wheel interaction.  <strong>The Hammer.js</strong> is required for multi touch events support. <strong>The jQuery ColorBox Plugin</strong> is required.</p>
+			<pre>
+&lt;script type="text/javascript" src="js/jquery-1.10.1.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.colorbox-min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.easing.1.3.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.mousewheel.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.hammer-full.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.lhpMegaImgViewer.min.js"&gt;&lt;/script&gt;</pre>
+			</li>
+			<li><b>STEP 2 - ACTIVATE THE PLUGIN</b><br/><br/>
+			<i>javascript code</i>:
+			<pre>&lt;script type="text/javascript"&gt;
+$(document).ready(function() {
+	var $cbImgViewerCnt,
+	settings = {
+		"viewportWidth" : "100%",
+		"viewportHeight" : "100%",
+		"fitToViewportShortSide" : true,  
+		"contentSizeOver100" : false,
+		"startScale" : 1,
+		"startX" : 500,
+		"startY" : 500,
+		"animTime" : 500,
+		"draggInertia" : 10,
+		"zoomLevel" : 1,
+		"zoomStep" : 0.1,
+		"contentUrl" : "",
+		"intNavEnable" : true,
+		"intNavPos" : "R",
+		"intNavAutoHide" : true,
+		"intNavMoveDownBtt" : true,
+		"intNavMoveUpBtt" : true,
+		"intNavMoveRightBtt" : true,
+		"intNavMoveLeftBtt" : true,
+		"intNavZoomBtt" : true,
+		"intNavUnzoomBtt" : true,
+		"intNavFitToViewportBtt" : true,
+		"intNavFullSizeBtt" : true,
+		"intNavBttSizeRation" : 1,
+		"mapEnable" : true,
+		"mapThumb" : "",
+		"mapPos" : "BL",
+		"popupShowAction" : "click",
+		"testMode" : false
+	};
+	
+	//create colorbox instance (set viewer width 'innerWidth' and height 'innerHeight')
+	$("<span>.group1</span>").colorbox({innerWidth : "600px", innerHeight : "400px", rel : "<span>group1</span>"});
+	
+	//place viewer inside lightbox
+	$("<span>.group1</span>").colorbox({
+		onComplete : function() {
+			if($cbImgViewerCnt) {
+				$cbImgViewerCnt.lhpMegaImgViewer("destroy");
+			}
+			$cbImgViewerCnt = $("&lt;div/&gt;").css({"width" : "100%", "height" : "100%", "overflow" : "hidden"});
+			$("#cboxLoadedContent").empty().append($cbImgViewerCnt);
+			settings.contentUrl = $(this).attr("href");
+			settings.mapThumb = $(this).find("img").attr("src");
+			$cbImgViewerCnt.lhpMegaImgViewer(settings);
+		},
+		onClosed : function() {
+			if($cbImgViewerCnt) {
+				$cbImgViewerCnt.lhpMegaImgViewer("destroy");
+			}
+		}
+	});
+});
+&lt;/script&gt;</pre>
+<i>html code</i>:
+<pre>&lt;a href="img/1.jpg" class="<span>group1</span>"&gt;&lt;img src="img/thumb-1.jpg"/&gt;&lt;/a&gt;
+&lt;a href="img/2.jpg" class="<span>group1</span>"&gt;&lt;img src="img/thumb-2.jpg"/&gt;&lt;/a&gt;
+&lt;a href="img/3.jpg" class="<span>group1</span>"&gt;&lt;img src="img/thumb-3.jpg"/&gt;&lt;/a&gt;
+&lt;a href="img/4.jpg" class="<span>group1</span>"&gt;&lt;img src="img/thumb-4.jpg"/&gt;&lt;/a&gt;
+&lt;a href="img/5.jpg" class="<span>group1</span>"&gt;&lt;img src="img/thumb-5.jpg"/&gt;&lt;/a&gt;
+</pre>
+			</li>
+			
+		</ul>
+		<hr>
+			
+			
+			
+		<h3 id="navBarTheme"><strong>J) Navigation bar - theme</strong> - <a href="#toc">top</a></h3>
+		
+		<p>The mega image viewer jQuery plugin uses <a href="http://jqueryui.com/themeroller/" target="_blank" title="colorbox">Themeroller</a> to determine appearance navigation bar.</p>
+		<p>
+			If you want change theme:<br/>
+			<ol>
+				<li>go to http://jqueryui.com/themeroller/</li>
+				<li>set your settings and click 'Download theme', you'll be directed to the Download Builder and your custom theme will be auto-selected in the Theme dropdown menu</li>
+				<li>click 'Download' button and save zip file</li>
+				<li>unpack zip file and copy the contents of css folder to your css folder</li>
+				<li>
+					change this link in your head<br/>
+					&lt;link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.10.3.custom.css" /&gt;<br/>
+					for example, if you downloaded the redmond theme would be:<br/>
+					&lt;link rel="stylesheet" type="text/css" href="css/redmond/jquery-ui-1.10.3.custom.css" /&gt;
+				</li>
+			</ol>
+		</p>
+		<hr>
+			
+		<h3 id="mapPaletteTheme"><strong>K) Map palette - theme</strong> - <a href="#toc">top</a></h3>
+		
+		<p>
+			If you want change theme:<br/>
+			<ol>
+				<li>open file 'lhp_miv.css'</li>
+				<li>for editing color, find classes: .lhp_miv_map_vr and .lhp_miv_map_vr_over</li>
+				<li>for editing border, find class: .lhp_miv_map_wrapp_hol</li>
+				
+			</ol>
+		</p>
+		<hr>
+			
+		<h3 id="preloaderTheme"><strong>L) Preloader - theme</strong> - <a href="#toc">top</a></h3>
+		
+		<p>
+			If you want change theme:<br/>
+			<ol>
+				<li>open file 'lhp_miv.css'</li>
+				<li>find and edit class: .lhp_miv_preload_holder</li>
+			</ol>
+		</p>
+		<hr>
+			
+		<h3 id="popupCloseButtonTheme"><strong>M) Popup close button - theme</strong> - <a href="#toc">top</a></h3>
+		
+		<p>
+			If you want change theme:<br/>
+			<ol>
+				<li>open file 'lhp_miv.css'</li>
+				<li>find and edit class: .lhp_miv_popup_close</li>
+			</ol>
+		</p>
+		<hr>
+		
+		<p class="append-bottom alt large"><strong>lhp</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
