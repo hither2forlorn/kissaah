@@ -3,13 +3,8 @@
 .settings/*
 .ftpquota
 
-phpmyadmin/*
-game/app/Config/database.php
-game/app/tmp/*
-game/app/webroot/files/*
-
 app/Config/database.php
 app/tmp/*
+app/webroot/blog/*
 app/webroot/files/*
-
-blog/*
+app/webroot/phpmyadmin/*
