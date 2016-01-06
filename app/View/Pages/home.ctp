@@ -31,7 +31,7 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 				<div class="form-actions">
 					<?php echo $this->Form->submit(__('Sign In'), array('class' => 'btn btn-primary collapsed', 'div' => false)); ?>
 					<label class="rememberme check">
-					<span><input type="checkbox" value="1" name="data[User][remember_me]"></span> Remember </label>
+					<span><?php echo $this->Form->input('remember_me', array( 'error' => false, 'type' => 'checkbox', 'checked')); ?></span> Remember </label>
 					<a class="forget-password" id="forget-password" href="javascript:;">Forgot Password?</a>
 					<p class="margin-top-10">By clicking Sign In, you are agreeing to <a href="http://www.kissaah.com/terms-of-service/" target="_blank">
 						Terms of Service </a>&amp; <a href="http://www.kissaah.com/privacy-policy" target="_blank">Privacy Policy </a> </p>
@@ -44,7 +44,7 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 				</div>
 				*/  ?>
 				<div class="create-account">
-					<p>Not a user yet?&nbsp;&nbsp;&nbsp;<a class="uppercase" id="register-btn" href="javascript:;">Join Now!</a></p>
+					<p>Not a user yet?&nbsp;&nbsp;&nbsp;<a class="uppercase" id="register-btn" href="javascript:;">Request an account now!</a></p>
 				</div>
 			<?php echo $this->Form->end(); ?>
 			<!-- END LOGIN FORM -->
@@ -70,7 +70,11 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 			<?php echo $this->Form->create('User', array('action' => 'register', 'class' => 'register-form', 
 														 'inputDefaults' => array('div' => false, 'label' => false, 
 														 						  'class' => 'form-control placeholder-no-fix'))); ?>
-				<h3>Sign Up</h3>
+				<h3>Request Account</h3>
+				<div class="form-actions">
+					<p class="margin-top-10">Submit the form below to request for an account on Kissaah. 
+						Once an account is created a login link will be emailed to you.</p>
+				</div>
 				<div class="form-group">
 					<label class="control-label">Full Name</label>
 					<?php echo $this->Form->input('id', array('error' => false, 'type' => 'hidden')); ?>
@@ -82,27 +86,28 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 					<?php echo $this->Form->input('email', array('error' => false, 'placeholder' => 'Email')); ?>
 					<?php echo $this->Form->error('email', null, array('class' => 'error-message')); ?>
 				</div>
-				<div class="form-group">
-					<label class="control-label">Password</label>
-					<?php echo $this->Form->input('password', array('error' => false, 'placeholder' => 'Password')); ?>
-					<?php echo $this->Form->error('password', null, array('class' => 'error-message')); ?>
-				</div>
-				<div class="form-group">
-					<label class="control-label">Re-type Your Password</label>
-					<?php echo $this->Form->input('confirmpassword', array( 'error' => false, 'type' => 'password', 
-																			'placeholder' => 'Re-type Your Password')); ?>
-					<?php echo $this->Form->error('confirmpassword', null, array('class' => 'error-message')); ?>
-				</div>
+				<?php
+				$label = $this->Form->label('password', 'Password', array('class' => 'control-label'));
+				$field = $this->Form->input('password', array('error' => false, 'placeholder' => 'Password'));
+				$error = $this->Form->error('password', null, array('class' => 'error-message'));
+				//echo $this->Html->div('form-group', $label . $field . $error);
+
+				$label = $this->Form->label('password', 'Re-type Your Password', array('class' => 'control-label'));
+				$field = $this->Form->input('confirmpassword', array('error' => false, 'type' => 'password', 'placeholder' => 'Re-type Your Password'));
+				$error = $this->Form->error('confirmpassword', null, array('class' => 'error-message'));
+				//echo $this->Html->div('form-group', $label . $field . $error);
+				?>
 				<div class="form-group margin-top-20 margin-bottom-20">
 					<label class="check">
-						<span><?php echo $this->Form->input('terms_conditions', array( 'error' => false, 'type' => 'checkbox')); ?></span> I agree to the <a href="#">
+						<span><?php echo $this->Form->input('terms_conditions', array( 'error' => false, 'type' => 'checkbox', 'checked')); ?></span> 
+						I agree to the <a href="#">
 						Terms of Service </a>&amp; <a href="#">Privacy Policy </a>
 					</label>
 					<div id="register_tnc_error"></div>
 				</div>
 				<div class="form-actions">
 					<button class="btn btn-default" id="register-back-btn" type="button">Back</button>
-					<?php echo $this->Form->submit(__('Join Kissaah'), array('class' => 'btn btn-primary pull-right collapsed', 'div' => false)); ?>
+					<?php echo $this->Form->submit(__('Request Account'), array('class' => 'btn btn-primary pull-right collapsed', 'div' => false)); ?>
 				</div>
 			<?php echo $this->Form->end(); ?>
 			<!-- END REGISTRATION FORM -->
@@ -136,10 +141,14 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 				</div>
 				<div class="form-group margin-top-20 margin-bottom-20">
 					<label class="check">
-						<span><?php echo $this->Form->input('terms_conditions', array( 'error' => false, 'type' => 'checkbox')); ?></span> I agree to the <a href="#">
+						<span><?php echo $this->Form->input('terms_conditions', array( 'error' => false, 'type' => 'checkbox', 'checked')); ?></span> 
+						I agree to the <a href="#">
 						Terms of Service </a>&amp; <a href="#">Privacy Policy </a>
 					</label>
 					<div id="register_tnc_error"></div>
+					<label class="check">
+						<span><?php echo $this->Form->input('remember_me', array( 'error' => false, 'type' => 'checkbox', 'checked')); ?></span> Remember 
+					</label>
 				</div>
 				<div class="form-actions">
 				<button class="btn btn-default hidden" id="manual-login" type="button">Back</button>

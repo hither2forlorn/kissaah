@@ -46,8 +46,9 @@ class UsersController extends AppController {
 		}
 	}
 
-	public function register(){
-		if ($this->Auth->user()) {
+	public function register($admin = false){
+		
+		if ($this->Auth->user() && !$admin) {
 			$this->redirect(array('controller' => 'users', 'action' => 'profile'));
 			
 		} else {
@@ -55,7 +56,7 @@ class UsersController extends AppController {
 				$this->request->data['User']['role_id'] = 2;
 				$this->request->data['User']['verified'] = 0;
 				$this->request->data['User']['login_ip'] = $this->_getRealIpAddr();
-				$tmp_password = $this->request->data['User']['password'];
+				$tmp_password = $this->request->data['User']['password'] = $this->request->data['User']['confirmpassword'] = substr(uniqid(mt_rand(), true), 0, 9);
 
 				$this->request->data['UserGameStatus'][0]['level'] 	= 0;
 				$this->request->data['UserGameStatus'][0]['game'] 	= 0;
@@ -65,26 +66,34 @@ class UsersController extends AppController {
 				$this->request->data['User']['hash'] = Security::hash($this->request->data['User']['email']);
 				
 				if($this->User->saveAll($this->request->data)){
-					$options = array(
-							'subject' 	=> 'Kissaah: Welcome To Kissaah ',
-							'template' 	=> 'users_register',
-							'to'		=>  $this->request->data['User']['email']
-					);
-					$this->_sendEmail($options, $this->request->data);
-					
 					$this->User->Ally->updateAll(array('Ally.ally' => $this->User->id), 
 												 array('Ally.ally_email' => $this->request->data['User']['email']));
 
 					$this->request->data['User']['password'] = $tmp_password;
-					$this->Session->setFlash('Please verify your email by clicking on the link sent to your email.', 'default', 
+					$this->Session->setFlash('Your request has been submitted. Please wait for the request to be approved.', 'default', 
 											 array('class' => 'flashError margin-bottom-20'));
-					$this->redirect(array('action' => 'login'));
+					
+					if($admin) {
+						return 1;
+					} else {
+						$options = array(
+								'subject' 	=> 'Kissaah: Welcome To Kissaah ',
+								'template' 	=> 'users_register',
+								'to'		=>  $this->request->data['User']['email']
+						);
+						$this->_sendEmail($options, $this->request->data);
+							
+						$this->redirect(array('action' => 'login'));
+					}
+					
 				} else{
 					//debug($this->User->validationErrors);
-					$this->Session->setFlash('Account Creation Failed!!!', 'default', 
-											 array('class' => 'flashError margin-bottom-20'));
+					$this->Session->setFlash('Account Creation Failed!!!', 'default', array('class' => 'flashError margin-bottom-20'));
 					$this->request->data['User']['password'] = '';
 					$this->request->data['User']['confirmpassword'] = '';
+					if($admin) {
+						return 0;
+					}
 				}
 			}
 		}
@@ -810,35 +819,8 @@ class UsersController extends AppController {
 	
 	public function admin_add() {
 		if ($this->request->is(array('post', 'put'))) {
-			
-			/*
-			$this->request->data['User']['update_news'] = 0;
-			$this->request->data['User']['add_ally'] = 0;
-			$this->request->data['User']['request_ally'] = 0;
-			$this->request->data['User']['sends_feedback'] = 0;
-			$this->request->data['User']['complete_level'] = 0;
-			$this->request->data['User']['terms_conditions'] = 1;
-			$this->request->data['User']['facebook_warning'] = 1;
-			*/
-			$this->request->data['User']['collage_status'] = 0;
-			
-			$this->request->data['UserGameStatus'][0]['level'] 	= 0;
-			$this->request->data['UserGameStatus'][0]['game'] 	= 0;
-			$this->request->data['UserGameStatus'][0]['points'] = 0;
-			$this->request->data['UserGameStatus'][0]['active'] = 1;
-			$this->request->data['UserGameStatus'][0]['roadmap'] = '';
-			
-			if($this->User->saveAll($this->request->data)){
-				$this->User->Ally->updateAll(array('Ally.ally' => $this->User->id),
-						array('Ally.ally_email' => $this->request->data['User']['email']));
-			
-				$this->Session->setFlash(__('The user has been created.'));
-				$this->redirect(array('controller' => 'users', 'action' => 'view'));
-			
-			} else{
-				//debug($this->User->validationErrors);
-				$this->Session->setFlash(__('The user could not be created. Please, try again.'));
-			}
+			$this->register(true);
+			$this->redirect(array('controller' => 'users', 'action' => 'view'));
 		}
 		
 		$roles = $this->User->Role->find('list', array('fields' => array('id', 'name')));

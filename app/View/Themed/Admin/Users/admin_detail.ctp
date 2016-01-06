@@ -1,14 +1,3 @@
-<div class="portlet box green">
-	<div class="portlet-body form">
-		<!-- BEGIN FORM-->
-		<?php 
-			echo $this->Form->create('User', array('class' => 'form-horizontal'));
-			echo $this->Form->input('id', array('label'=>false, 'type' => 'hidden', 'value' => $this->request->data['User']['id']));
-		?>
-		<?php echo $this -> Form -> end(); ?>
-		<!-- END FORM-->
-	</div>
-</div>
 <div class="row users form">
 	<div class="col-md-12">
 		<div class="portlet box blue ">

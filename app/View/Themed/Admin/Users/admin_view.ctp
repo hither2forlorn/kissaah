@@ -23,8 +23,6 @@
 								<th><?php echo $this->Paginator->sort('name'); ?></th>
 								<th><?php echo $this->Paginator->sort('email'); ?></th>
 								<th><?php echo $this->Paginator->sort('company', 'Code'); ?></th>
-								<th><?php echo $this->Paginator->sort('city'); ?></th>
-								<th><?php echo $this->Paginator->sort('country'); ?></th>
 								<th><?php echo $this->Paginator->sort('gender'); ?></th>
 								<th><?php echo $this->Paginator->sort('dob'); ?></th>
 								<th><?php echo __('Answers', true);?></th>
@@ -40,25 +38,30 @@
 								<td><?php echo h($user['User']['name']); ?></td>
 								<td><?php echo h($user['User']['email']); ?></td>
 								<td><?php echo h($user['User']['company']); ?></td>
-								<td><?php echo h($user['User']['city']); ?></td>
-								<td><?php echo h($user['User']['country']); ?></td>
 								<td><?php echo h($user['User']['gender']); ?></td>
 								<td><?php echo h($user['User']['dob']); ?></td>
 								<td><?php echo $user['User']['UserGameStatus'] . ' - ' . $user['User']['Game'] . ' - ' . $user['User']['Files'];?></td>
 								<td><?php echo date('Y-m-d', strtotime($user['User']['created'])); ?></td>
 								<td><?php echo $user['User']['last_login'];?></td>
 								<td class="actions">
-	                            <?php echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-share')), 
-	                                                             array('action' => 'login', $user['User']['id'], 'admin' => true), 
-	                                                             array('class' => 'btn default btn-xs green', 'escape' => false, 'target' => '_blank')); ?>
-	                            
 	                            <?php echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-edit')), 
 	                                                             array('action' => 'detail', $user['User']['id'], 'admin' => true), 
-	                                                             array('class' => 'btn default btn-xs green', 'escape' => false, 'target' => '_blank')); ?>
+	                                                             array('class' => 'btn default btn-xs blue', 'escape' => false, 'target' => '_blank')); ?>
 	                            
 	                            <?php echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o')), 
 	                                                             array('action' => 'delete', $user['User']['id'], 'admin' => true), 
 	                                                             array('class' => 'btn default btn-xs grey user-delete', 'escape' => false)); ?>
+
+	                            <?php echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-sign-in')), 
+	                                                             array('action' => 'login', $user['User']['id'], 'admin' => true), 
+	                                                             array('class' => 'btn default btn-xs green', 'escape' => false, 'target' => '_blank')); ?>
+
+	                            <?php 
+	                            if($user['User']['verified'] == 0) {
+	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-up')),
+	                            			array('action' => 'verify', $user['User']['id'], 'admin' => true),
+	                            			array('class' => 'btn default btn-xs red', 'escape' => false, 'target' => '_blank'));	                            	
+	                            } ?>
 								</td>
 							</tr>
 						<?php endforeach; ?>
