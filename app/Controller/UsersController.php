@@ -24,7 +24,7 @@ class UsersController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allowedActions = array('forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login');
+		$this->Auth->allowedActions = array('forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin');
 		$this->Uploader = new Uploader();
 		$this->Uploader->setup(array('tempDir' => TMP));
 		/*
@@ -46,9 +46,10 @@ class UsersController extends AppController {
 		}
 	}
 
-	function register(){
+	public function register(){
 		if ($this->Auth->user()) {
 			$this->redirect(array('controller' => 'users', 'action' => 'profile'));
+			
 		} else {
 			if(!empty($this->request->data)){
 				$this->request->data['User']['role_id'] = 2;
@@ -77,6 +78,7 @@ class UsersController extends AppController {
 					$this->request->data['User']['password'] = $tmp_password;
 					$this->Session->setFlash('Please verify your email by clicking on the link sent to your email.', 'default', 
 											 array('class' => 'flashError margin-bottom-20'));
+					$this->redirect(array('action' => 'login'));
 				} else{
 					//debug($this->User->validationErrors);
 					$this->Session->setFlash('Account Creation Failed!!!', 'default', 
@@ -89,7 +91,7 @@ class UsersController extends AppController {
 		$this->render('/Pages/home');
 	}
 
-	function verify(){
+	public function verify(){
 		if($this->Auth->login()) {
 			$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 		} else {
@@ -135,17 +137,17 @@ class UsersController extends AppController {
 		$this->redirect(array('controller' => 'pages', 'action' => 'display'));
 	}
 	
-	public function facebook_login(){}
+	public function facebook_login() {}
 
-	function login() {
+	public function login() {
 		if($this->Auth->user('id')){
 			$this->redirect(array('controller' => 'games'));
 		}
 		$isLogin = false;
-		if(!empty($this->request->data)){
+		if(!empty($this->request->data)) {
 			$isLogin = $this->Auth->login();
 			if($isLogin) {
-				if($this->request->data['User']['remember_me']) {
+				if(isset($this->request->data['User']['remember_me']) && $this->request->data['User']['remember_me']) {
 					$this->Cookie->write('Auth.User', $this->request->data['User'], true, '2 weeks');
 				}
 				$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
@@ -181,6 +183,38 @@ class UsersController extends AppController {
 		$this->render('/Pages/home');
 	}
 	
+	public function manualLogin() {
+		if(isset($this->request->query['e']) && isset($this->request->query['p'])) {
+			$options['contain'] = false;
+			$options['fields'] = array('id', 'name', 'email');
+			$options['conditions'] = array('email' => $this->request->query['e'], 'password' => $this->request->query['p']);
+			$this->request->data = $this->User->find('first', $options);
+			if(empty($this->request->data)) {
+				$this->Session->setFlash('The link has expired. Please retry to reset your password.', 'default', array('class' => 'flashError margin-bottom-20'));
+				$this->redirect(array('action' => 'forgetpassword'));
+				
+			}
+			
+		} elseif(!empty($this->request->data)) {
+			$this->request->data['User']['login_ip'] = $this->_getRealIpAddr();
+			$tmp_password = $this->request->data['User']['password'];
+			if($this->User->save($this->request->data)) {
+				$this->Session->write('start-tour', 1);
+				$this->login();
+			
+			} else{
+				$this->Session->setFlash('Profile Update Failed. Please try again.', 'default', array('class' => 'flashError margin-bottom-20'));
+				$this->request->data['User']['password'] = '';
+				$this->request->data['User']['confirmpassword'] = '';
+			}
+			
+		} else {
+			$this->redirect(array('action' => 'login'));
+			
+		}
+		$this->render('/Pages/home');
+		
+	}
 	public function afterLogin() {
 		$this->User->id = $this->Auth->user('id');
 		$this->request->data['User']['last_login'] = date('Y-m-d h:i:s');
@@ -227,7 +261,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	function forgetpassword(){
+	public function forgetpassword(){
 		if ($this->Auth->user()) {
 			$this->redirect(array('action' => 'profile'));
 		} else {
@@ -261,7 +295,7 @@ class UsersController extends AppController {
 		$this->render('/Pages/home');
 	}
 
-	function logout() {
+	public function logout() {
 		if($this->Session->check('ActiveGame_admin')){
 			$this->Session->write('ActiveGame', $this->Session->read('ActiveGame_admin'));
 			$this->Session->write('Profile', $this->Session->read('Profile_admin'));
@@ -280,13 +314,13 @@ class UsersController extends AppController {
 		}
 	}
 	
-	function profile(){
+	public function profile(){
 		$userdetail = $this->User->find('first', array('conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id'))));
 		$this->set('userdetail', $userdetail);
 	}
 
 	#Start 3562
-	function createcollage(){
+	public function createcollage(){
 		$this->autoRender = false;
 		if($this->request->isAjax()){
 			if(($this->request->data['is_collage']==1) ||($this->request->data['is_collage']==0)){
@@ -306,7 +340,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	function createAro() {
+	public function createAro() {
 		$this->autoRender = false;
 		$users = $this->User->find('all', array('contain' => false));
 		foreach($users as $user) {
@@ -322,8 +356,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	function edit($action = ''){
-		//debug($action);
+	public function edit($action = ''){
 		$this->layout = null;
 		if(($this->request->is('put') || $this->request->is('post')) && $this->request->is('ajax')) {
 			$is_save = true;

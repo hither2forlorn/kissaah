@@ -72,6 +72,10 @@ Login page
   display: none;
 }
 
+.login .content .update-form {
+  display: none;
+}
+
 .login .content .form-title {
   font-weight: 300;
   margin-bottom: 25px;

@@ -1,6 +1,6 @@
 <?php
 echo $this->Html->css(array('login'));
-echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.min', 'pages/intropage', 'pages/login'));
+echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.min', 'pages/login'));
 ?>
 <div class="row margin-bottom-20">
 	<div class="col-md-6 login">
@@ -71,9 +71,9 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 														 'inputDefaults' => array('div' => false, 'label' => false, 
 														 						  'class' => 'form-control placeholder-no-fix'))); ?>
 				<h3>Sign Up</h3>
-				<p class="hint">Enter your personal details below:</p>
 				<div class="form-group">
 					<label class="control-label">Full Name</label>
+					<?php echo $this->Form->input('id', array('error' => false, 'type' => 'hidden')); ?>
 					<?php echo $this->Form->input('name', array('error' => false, 'placeholder' => 'Name')); ?>
 					<?php echo $this->Form->error('name', null, array('class' => 'error-message')); ?>
 				</div>
@@ -95,7 +95,7 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 				</div>
 				<div class="form-group margin-top-20 margin-bottom-20">
 					<label class="check">
-						<span><input type="checkbox" name="tnc"></span> I agree to the <a href="#">
+						<span><?php echo $this->Form->input('terms_conditions', array( 'error' => false, 'type' => 'checkbox')); ?></span> I agree to the <a href="#">
 						Terms of Service </a>&amp; <a href="#">Privacy Policy </a>
 					</label>
 					<div id="register_tnc_error"></div>
@@ -106,6 +106,47 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 				</div>
 			<?php echo $this->Form->end(); ?>
 			<!-- END REGISTRATION FORM -->
+
+			<!-- BEGIN UPDATE FORM -->
+			<?php echo $this->Form->create('User', array('action' => 'manualLogin', 'class' => 'update-form', 
+														 'inputDefaults' => array('div' => false, 'label' => false, 
+														 						  'class' => 'form-control placeholder-no-fix'))); ?>
+				<h3>Update Profile</h3>
+				<div class="form-group">
+					<label class="control-label">Full Name</label>
+					<?php echo $this->Form->input('id', array('error' => false, 'type' => 'hidden')); ?>
+					<?php echo $this->Form->input('name', array('error' => false, 'placeholder' => 'Name')); ?>
+					<?php echo $this->Form->error('name', null, array('class' => 'error-message')); ?>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Email (Username)</label>
+					<?php echo $this->Form->input('email', array('error' => false, 'placeholder' => 'Email')); ?>
+					<?php echo $this->Form->error('email', null, array('class' => 'error-message')); ?>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Password</label>
+					<?php echo $this->Form->input('password', array('error' => false, 'placeholder' => 'Password')); ?>
+					<?php echo $this->Form->error('password', null, array('class' => 'error-message')); ?>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Re-type Your Password</label>
+					<?php echo $this->Form->input('confirmpassword', array( 'error' => false, 'type' => 'password', 
+																			'placeholder' => 'Re-type Your Password')); ?>
+					<?php echo $this->Form->error('confirmpassword', null, array('class' => 'error-message')); ?>
+				</div>
+				<div class="form-group margin-top-20 margin-bottom-20">
+					<label class="check">
+						<span><?php echo $this->Form->input('terms_conditions', array( 'error' => false, 'type' => 'checkbox')); ?></span> I agree to the <a href="#">
+						Terms of Service </a>&amp; <a href="#">Privacy Policy </a>
+					</label>
+					<div id="register_tnc_error"></div>
+				</div>
+				<div class="form-actions">
+				<button class="btn btn-default hidden" id="manual-login" type="button">Back</button>
+					<?php echo $this->Form->submit(__('Update & Login'), array('class' => 'btn btn-primary pull-right collapsed', 'div' => false)); ?>
+				</div>
+			<?php echo $this->Form->end(); ?>
+			<!-- END UPDATE FORM -->
 		</div>
 	</div>
 	
@@ -152,21 +193,19 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 	</div>
 </div>
 
-<?php
-//$rght_block = $this->requestAction(array('controller' => 'posts', 'action' => 'page_content', 1624));
-?>
 <?php 
-$action = '.link-sign-in';
+//$rght_block = $this->requestAction(array('controller' => 'posts', 'action' => 'page_content', 1624)); 
+$action = '';
 if ($this->action == 'register') {
-	$action = '.link-create-an-account';
+	$action = '#register-btn';
 } elseif ($this->action == 'forgetpassword') {
-	$action = '.link-forget-password';
+	$action = '#forget-password';
+} elseif ($this->action == 'manualLogin') {
+	$action = '#manual-login';
 }
 ?>
 <script type="text/javascript">
 	jQuery(document).ready(function() {
-		IntroPage.AccountManagement();
-		IntroPage.init('<?php echo $action; ?>');
-		Login.init();
+		Login.init('<?php echo $action; ?>');
 	});
 </script>

@@ -135,12 +135,19 @@ foreach ($vision as $key => $list) {
 		?></div>
 	</div>
 </div>
-<?php echo $this->element('tours'); ?>
+<?php echo $this->element('tours');?>
 
 <script type="text/javascript">
 	$(window).bind('load', function() {
 		Game.TourGame();
 		Game.ToolBoxLoadLink();
+
+		start_tour = <?php echo ($this->Session->check('start-tour'))? 1: 0; ?>;
+
+		if(start_tour == 1) {
+			$('#game-tour').trigger('click');
+		}
+
 	});
 
 	$(document).ready(function() {
@@ -156,7 +163,7 @@ foreach ($vision as $key => $list) {
 		
 		road_map = '<?php echo $this->Session->read('ActiveGame.roadmap'); ?>';
 		thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
-		
+
 		Game.StartGame();
 		Game.Support();
 		Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
