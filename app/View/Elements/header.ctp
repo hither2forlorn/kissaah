@@ -34,7 +34,7 @@
 <div class="header header-navigation margin-bottom-10">
 	<div class="container">
 		<div class="row">
-	  		<div class="col-md-9 col-xs-10"><?php 
+	  		<div class="col-md-9 col-xs-8"><?php 
 				
 				$tool  = $this->Html->div('tool-box-info', 'Allies' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 				$tool .= $this->Html->link( $this->Html->image('my-allies.png', array('class' => 'img-responsive', 'id' => 'tour-step-09')), 
@@ -78,7 +78,7 @@
 				
 				*/						
 			?></div>
-	  		<div class="col-md-3 col-xs-2">
+	  		<div class="col-md-3 col-xs-4">
 				<ul class="nav navbar-nav pull-right">
 					<!-- BEGIN NOTIFICATION DROPDOWN -->
 					<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->

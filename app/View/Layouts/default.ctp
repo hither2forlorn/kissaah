@@ -33,7 +33,7 @@
 								'../plugins/fullcalendar/fullcalendar.min',
 								'../plugins/raty/lib/jquery.raty'));
 								
-	echo $this->Html->css(array('components', 'plugins', 'style', 'challenges'));
+	echo $this->Html->css(array('components', 'plugins', 'style', 'challenges', 'custom'));
     
 	echo '<!--[if lt IE 9]>';
 	echo $this->Html->css(array('ie'));

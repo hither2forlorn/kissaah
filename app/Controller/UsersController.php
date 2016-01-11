@@ -819,8 +819,10 @@ class UsersController extends AppController {
 	
 	public function admin_add() {
 		if ($this->request->is(array('post', 'put'))) {
-			$this->register(true);
-			$this->redirect(array('controller' => 'users', 'action' => 'view'));
+			$success = $this->register(true);
+			if($success == 1) {
+				$this->redirect(array('controller' => 'users', 'action' => 'view'));
+			}
 		}
 		
 		$roles = $this->User->Role->find('list', array('fields' => array('id', 'name')));

@@ -1589,14 +1589,13 @@ h2.font-white {
 /*
  * Start Game Block
  */
-.main-component {
+.home-main-component, .main-component {
   background-color: #e6e6e6;
   margin: 0 0.5% 0.5%;
-  padding: 0;
   position: relative;
   width: 49%;
 }
-.main-component .level-display {
+.home-main-component .level-display, .main-component .level-display {
   padding: 0 10%;
 }
 .main-component .level-display .col-md-2,

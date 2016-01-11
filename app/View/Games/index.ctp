@@ -11,12 +11,12 @@ foreach ($vision as $key => $list) {
 		
     } elseif ($list['Configuration']['step-complete'] == 1) {
     	$show_narration = 0;
-        $btnclass = 'col-md-12 btn btn-step btn-in-progress';
+        $btnclass = 'col-md-12 col-xs-12 btn btn-step btn-in-progress';
 		$brdclass = $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-' . $list['Configuration']['id']));
 		
     } else {
     	$show_narration = 0;
-        $btnclass = 'col-md-12 btn btn-step btn-finished';
+        $btnclass = 'col-md-12 col-xs-12 btn btn-step btn-finished';
 		$brdclass = $this->Html->image('level-finished.jpg', array('class' => 'img-responsive level-' . $list['Configuration']['id']));
 		
     }
@@ -67,35 +67,37 @@ foreach ($vision as $key => $list) {
 <div class="row">
 	<div class="col-md-12 col-xs-12 game-area">
 		<div class="row"><?php
-			
+			/* Level 1 */
 			$id = 0; $images = '';
 			foreach($points[$id]['display'][1] as $display) {
-				$images .= $this->Html->div('col-md-3 col-xs-12', $display);
+				$images .= $this->Html->div('col-md-3 col-sm-3 col-xs-6 margin-bottom-5', $display);
 			}
 			$title 	= $this->Html->tag('h3', $points[$id]['title'], array('class' => 'text-center margin-top-20'));
-			$title 	= $this->Html->div('row no-margin margin-bottom-20', $this->Html->div('col-md-12', $title));
+			$title 	= $this->Html->div('row no-margin margin-bottom-15', $this->Html->div('col-md-12', $title));
 			$images = $this->Html->div('row no-margin level-display margin-bottom-20', $images);
 			$btn	= $this->Html->div('row no-margin level-display', $this->Html->div('col-md-12', $points[$id]['link']));
-			$smmary = $this->Html->link('Review', array('controller' => 'games', 'action' => 'summary'), array('class' => 'btn-step btn-summary', 'id' => 'tour-step-04'));
+			$smmary = $this->Html->link('Review', array('controller' => 'games', 'action' => 'summary'), 
+												  array('class' => 'btn-step btn-summary hidden-xs', 'id' => 'tour-step-04'));
 			$circle	= $this->Html->div('row no-margin', 
-							$this->Html->div('col-md-2 col-md-offset-5 margin-top-20 text-center', $points[$id]['smry']) .
-							$this->Html->div('col-md-5 pull-right no-padding', $points[$id]['level']) . $smmary);
+							$this->Html->div('col-md-2 col-sm-2 col-md-offset-5 margin-top-20 text-center margin-bottom-20', $points[$id]['smry']) .
+							$this->Html->div('col-md-5 col-sm-5 pull-right no-padding hidden-xs', $points[$id]['level']) . $smmary);
 			
-			echo $this->Html->div('col-md-6 col-xs-6 main-component', $title . $images . $btn . $circle);
+			echo $this->Html->div('col-md-6 col-xs-12 main-component no-padding', $title . $images . $btn . $circle);
 			
-			$id = 1; $images = $this->Html->div('col-md-2 col-xs-12', '');
+			/* Level 2 */
+			$id = 1; $images = $this->Html->div('col-md-2 col-sm-2 col-xs-12', '');
 			foreach($points[$id]['display'][1] as $display) {
-				$images .= $this->Html->div('col-md-3 col-xs-12', $display);
+				$images .= $this->Html->div('col-md-3 col-sm-3 col-xs-4', $display);
 			}
 			$title 	= $this->Html->tag('h3', $points[$id]['title'], array('class' => 'text-center margin-top-20'));
 			$title 	= $this->Html->div('row no-margin margin-bottom-20', $this->Html->div('col-md-12', $title));
 			$images = $this->Html->div('row no-margin level-display margin-bottom-20', $images);
-			$btn	= $this->Html->div('row no-margin level-display', $this->Html->div('col-md-offset-2 col-md-9', $points[$id]['link']));
+			$btn	= $this->Html->div('row no-margin level-display', $this->Html->div('col-md-offset-2 col-md-9 col-sm-9 col-sm-offset-2', $points[$id]['link']));
 			$circle	= $this->Html->div('row no-margin', 
-							$this->Html->div('col-md-5 no-padding', $points[$id]['level']) . 
-							$this->Html->div('col-md-2 margin-top-20 text-center', $points[$id]['smry']));
+							$this->Html->div('col-md-5 col-sm-5 no-padding hidden-xs', $points[$id]['level']) . 
+							$this->Html->div('col-md-2 col-sm-2 margin-top-20 text-center margin-bottom-20', $points[$id]['smry']));
 			
-			echo $this->Html->div('col-md-6 col-xs-6 main-component', $title . $images . $btn . $circle);
+			echo $this->Html->div('col-md-6 col-xs-12 main-component no-padding', $title . $images . $btn . $circle);
 			
 		?></div>
 		
@@ -111,27 +113,33 @@ foreach ($vision as $key => $list) {
 			$btn	= $this->Html->div('row no-margin level-display margin-bottom-20', $this->Html->div('col-md-12', $points[$id]['link']));
 			$circle	= $this->Html->div('row no-margin margin-bottom-20', 
 							$this->Html->div('col-md-6 no-padding col-md-offset-3', $title) .
-							$this->Html->div('col-md-3 pull-right no-padding', $points[$id]['level']));
+							$this->Html->div('col-md-3 pull-right no-padding hidden-xs', $points[$id]['level']));
 			$smmry	= $this->Html->div('row no-margin margin-top-10 margin-bottom-20', $this->Html->div('col-md-12 text-center', $points[$id]['smry']));
 			
-			echo $this->Html->div('col-md-6 col-xs-6 main-component', $circle . $images . $btn .$smmry);
+			$level4 = $this->Html->div('col-md-6 col-xs-6 main-component no-padding', $circle . $images . $btn .$smmry);
 			
 			/* Design: Level 3 */
 			$id = 2; $images = ''; $strgs = '';
 			foreach($points[$id]['display'][1] as $display) {
-				$images .= $this->Html->div('col-md-3 col-xs-12', $display);
+				$images .= $this->Html->div('col-md-3 col-xs-6', $display);
 			}
-			$images .= $this->Html->div('col-md-9 col-xs-12', $points[$id]['display'][8]);
+			$images .= $this->Html->div('col-md-9 col-xs-6', $points[$id]['display'][8]);
 
 			$title 	= $this->Html->tag('h3', $points[$id]['title'], array('class' => 'text-center'));
 			$images = $this->Html->div('row no-margin level-display margin-bottom-20', $images);
 			$btn	= $this->Html->div('row no-margin level-display margin-bottom-20', $this->Html->div('col-md-12', $points[$id]['link']));
 			$circle	= $this->Html->div('row no-margin margin-bottom-20', 
-							$this->Html->div('col-md-3 no-padding', $points[$id]['level']) . 
+							$this->Html->div('col-md-3 no-padding hidden-xs', $points[$id]['level']) . 
 							$this->Html->div('col-md-6 no-padding', $title));
 			$smmry	= $this->Html->div('row no-margin margin-top-10 margin-bottom-20', $this->Html->div('col-md-12 text-center', $points[$id]['smry']));
 			
-			echo $this->Html->div('col-md-6 col-xs-6 main-component', $circle . $images . $btn . $smmry);
+			$level3 = $this->Html->div('col-md-6 col-xs-6 main-component no-padding', $circle . $images . $btn . $smmry);
+			
+			if($this->request->isMobile()) {
+				echo $level3 . $level4;
+			} else {
+				echo $level4 . $level3;
+			}
 		?></div>
 	</div>
 </div>

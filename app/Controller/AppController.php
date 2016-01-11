@@ -68,12 +68,12 @@ class AppController extends Controller {
 					$this->request->data['User']['last_login'] = Date('Y-m-d h:i:s');
 					$this->request->data['User']['login_ip'] = $this->_getRealIpAddr();
 					$this->User->save($this->request->data);
-					$this->redirect(array('controller' => 'games'));
+					$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 				}
 			}
 		} else {
 			if(!($this->User->exists($this->Auth->user('id')))){
-		 		$this->Session->setFlash('Your account is currently unaccessible. Please Contact System Administrator', 'default', 
+				$this->Session->setFlash('Your account is currently unaccessible. Please contact System Administrator', 'default', 
 										 array('class' => 'flashError'));
 				$this->Auth->logout();
 				$this->redirect(array('controller' => 'users'));

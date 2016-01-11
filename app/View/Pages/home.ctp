@@ -3,7 +3,7 @@ echo $this->Html->css(array('login'));
 echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.min', 'pages/login'));
 ?>
 <div class="row margin-bottom-20">
-	<div class="col-md-6 login">
+	<div class="col-md-6 col-xs-12 login">
 		<div class="content">
 			<?php 
 			echo $this->Session->flash();
@@ -159,21 +159,21 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 		</div>
 	</div>
 	
-	<div class="col-md-6 game-area">
+	<div class="col-md-6 col-xs-12 game-area">
 		<div class="row"><?php
 			/* Discover: Level 1 */
 			$title 	= $this->Html->tag('h3', 'Discover', array('class' => 'text-center margin-top-20'));
 			$images = $this->Html->div('row no-margin level-display', $this->Html->image('discover-new.png', array('class' => 'img-responsive')));
 			$circle	= $this->Html->div('row no-margin', $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-187')));
 			
-			echo $this->Html->div('col-md-6 col-xs-6 main-component', $title . $images . $circle);
+			echo $this->Html->div('col-md-6 col-xs-6 home-main-component no-padding', $title . $images . $circle);
 			
 			/* Envision: Level 2 */
 			$title 	= $this->Html->tag('h3', 'Envision', array('class' => 'text-center margin-top-20'));
 			$images = $this->Html->div('row no-margin level-display', $this->Html->image('envision.png', array('class' => 'img-responsive')));
 			$circle	= $this->Html->div('row no-margin', $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-188')));
 			
-			echo $this->Html->div('col-md-6 col-xs-6 main-component', $title . $images . $circle);
+			echo $this->Html->div('col-md-6 col-xs-6 home-main-component no-padding', $title . $images . $circle);
 			
 		?></div>
 		
@@ -183,14 +183,14 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 			$images = $this->Html->div('row no-margin level-display', $this->Html->image('execute.png', array('class' => 'img-responsive')));
 			$circle	= $this->Html->div('row no-margin', $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-190')));
 			
-			echo $this->Html->div('col-md-6 col-xs-6 main-component', $circle . $title . $images);
+			echo $this->Html->div('col-md-6 col-xs-6 home-main-component no-padding', $circle . $title . $images);
 			
 			/* Design: Level 3 */
 			$title 	= $this->Html->tag('h3', 'Design', array('class' => 'text-center'));
 			$images = $this->Html->div('row no-margin level-display', $this->Html->image('design-new.png', array('class' => 'img-responsive')));
 			$circle	= $this->Html->div('row no-margin', $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-189')));
 			
-			echo $this->Html->div('col-md-6 col-xs-6 main-component', $circle . $title . $images);
+			echo $this->Html->div('col-md-6 col-xs-6 home-main-component no-padding', $circle . $title . $images);
 			
 		?></div>
 		<div class="row">
