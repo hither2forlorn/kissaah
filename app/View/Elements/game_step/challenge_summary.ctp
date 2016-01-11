@@ -1,5 +1,5 @@
 <?php
-echo $this->Html->div('col-md-12 btn-finished margin-bottom-5', $selfdata['Configuration']['title']);
+echo $this->Html->div('col-md-12 col-sm-12 btn-finished margin-bottom-5', $selfdata['Configuration']['title']);
 
 foreach($selfdata['children'] as $child) {
 	$options['data-conf'] 	= $child['Configuration']['id'];

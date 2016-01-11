@@ -36,7 +36,7 @@ if($message != ''){
 			
 			$span  = $this->Html->tag('span', $ally_name . '<br />' . $btndr, array('id' => $ally['User']['id']));
 			
-			$my_allies .= $this->Html->div('col-md-4 margin-bottom-10 ally-box color-grey', $image . $span, array('data' => $ally['User']['id']));
+			$my_allies .= $this->Html->div('col-md-4 col-sm-4 text-015 margin-bottom-10 ally-box color-grey', $image . $span, array('data' => $ally['User']['id']));
 		}
 
 		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20', $my_allies);

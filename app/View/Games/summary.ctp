@@ -32,7 +32,7 @@ foreach($step_games as $key => $games) {
 					$all_games_each_step .= $this->Html->div('col-md-12 col-sm-12', $this->Html->div('row no-margin margin-bottom-15', $each_step));
 				}
 					
-				$all_games_each_step .= $this->Html->div('col-md-offset-3 col-md-6 border-bottom', '');
+				$all_games_each_step .= $this->Html->div('col-md-offset-3 col-md-6 border-bottom col-sm-offset-3 col-sm-6', '');
 				
 				echo $this->Html->div('row no-margin margin-bottom-20', $all_games_each_step);
 			}

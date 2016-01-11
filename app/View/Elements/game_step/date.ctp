@@ -2,7 +2,7 @@
 $options['class'] 		= 'form-control date-picker-mm-yyyy';
 $options['label'] 		= false;
 $options['type'] 		= 'text';
-$options['div'] 		= 'col-md-4 col-sm-5 col-md-offset-4';
+$options['div'] 		= 'col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4';
 $options['tabindex'] 	= $selfdata['Configuration']['id'];
 $options['data'] 		= $selfdata['Configuration']['dependent_id'];
 $options['data-save'] 	= $this->Html->url(array('controller' => 'games', 'action' => 'save'));

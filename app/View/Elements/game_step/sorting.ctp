@@ -16,8 +16,9 @@ foreach($selfdata['children'] as $key => $value) {
 	if(isset($value['children'])) {
 		foreach($value['children'] as $k => $l) {
 			
-			$heading[$l['Configuration']['title']] = $this->Html->div('col-md-3 no-padding', $this->Html->div('btn-label light-blue sorting-list-header', 
-																											  $l['Configuration']['title']));
+			$heading[$l['Configuration']['title']] = $this->Html->div('col-md-3 no-padding col-sm-3', 
+																	  $this->Html->div('btn-label light-blue sorting-list-header', 
+																	  $l['Configuration']['title']));
 			
 			if(empty($l['Game'][0]['Game']['answer'])) {
 				$l['Game'][0]['Game']['id'] = 0;
@@ -54,15 +55,15 @@ if(!$summary) {
 		
 	$actions = $this->Html->div('row no-margin', $discard . $wildCrd);
 	
-	$final = $this->Html->div('col-md-8 col-sm-4 no-padding drop-here-box', $imageRow . $actions) .
+	$final = $this->Html->div('col-md-8 col-sm-8 no-padding drop-here-box', $imageRow . $actions) .
 			 $this->Html->div('col-md-4 col-sm-4 no-padding padding-left-10', $ul);
 
 } else {
-	$final = $this->Html->div('col-md-8 col-md-offset-2 col-sm-12 no-padding', $imageRow);
+	$final = $this->Html->div('col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 no-padding', $imageRow);
 	
 }
 
-$vheading = $this->Html->div('col-md-3 no-padding', $this->Html->div('btn-label light-blue sorting-list-header', 'Inspiration'));
+$vheading = $this->Html->div('col-md-3 no-padding col-sm-3', $this->Html->div('btn-label light-blue sorting-list-header', 'Inspiration'));
 foreach($heading as $h) {
 	$vheading .= $h;
 }
@@ -71,7 +72,7 @@ if(!$summary) {
 				$this->Html->div('col-md-4 col-sm-4 no-padding padding-left-10', 
 									$this->Html->div('col-md-12 no-padding', $this->Html->div('btn-label light-blue sorting-list-header', 'Values')));
 } else {
-	$vheading = $this->Html->div('col-md-8 col-md-offset-2 col-sm-12 no-padding', $vheading);
+	$vheading = $this->Html->div('col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 no-padding', $vheading);
 	
 }
 if($id != 77) {

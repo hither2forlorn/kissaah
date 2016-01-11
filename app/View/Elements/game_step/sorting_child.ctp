@@ -20,19 +20,17 @@ foreach($selfdata['children'] as $key => $value) {
 									'data-id' 	=> $value['Game'][0]['Game']['id'], 
 									'data'		=> 'drop-' . $value['Configuration']['id'],
 									'name' 		=> 'data[Game][' . $value['Configuration']['id'] . '][' . $value['Game'][0]['Game']['id'] . ']'));
-
 }
+
 $imageRow = $this->Html->div('row no-margin margin-bottom-5 values-embrace', $r);
 
 if(!$summary) {
-	$final = $this->Html->div('col-md-8 col-md-offset-2 col-sm-12 no-padding', $imageRow);
-
+	$final = $this->Html->div('col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 no-padding', $imageRow);
 } else {
-	$final = $this->Html->div('col-md-8 col-md-offset-2 col-sm-12 no-padding', $imageRow);
-	
+	$final = $this->Html->div('col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 no-padding', $imageRow);
 }
 
-$vheading = $this->Html->div('col-md-8 col-md-offset-2 col-sm-12 no-padding', 
+$vheading = $this->Html->div('col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 no-padding', 
 						$this->Html->div('btn-label light-blue sorting-list-header', $selfdata['Configuration']['title']));
 echo $this->Html->div('row no-margin margin-bottom-10', $vheading);
 echo $this->Html->div('row no-margin sorting-small', $final);

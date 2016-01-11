@@ -59,7 +59,7 @@
 				$span  = $this->Html->div('margin-bottom-5', $ally_name . '<br />' . $ally['UserGameStatus']['roadmap'] . '<br />' . 
 															 $btndr, array('id' => $ally['Ally']['id']));
 				
-				$my_allies .= $this->Html->div('col-md-4 margin-bottom-10 ally-box ' . $ally_field_class, $image . $span, array('data' => $ally['Ally']['id']));
+				$my_allies .= $this->Html->div('col-md-4 col-sm-4 text-013 margin-bottom-10 ally-box ' . $ally_field_class, $image . $span, array('data' => $ally['Ally']['id']));
 									
 			}
 			
@@ -106,7 +106,7 @@
 				$span  = $this->Html->div('margin-bottom-5', $ally_name . '<br />' . $ally['UserGameStatus']['roadmap'] . 
 															 '<br />' . $btndr, array('id' => $ally['Ally']['id']));
 				
-				$my_allies .= $this->Html->div('col-md-4 margin-bottom-10 ally-box ' . $ally_field_class, 
+				$my_allies .= $this->Html->div('col-md-4 col-sm-4 text-014 margin-bottom-10 ally-box ' . $ally_field_class, 
 												$image . $span, array('data' => $ally['Ally']['id']));
 			}
 			

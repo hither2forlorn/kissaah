@@ -14,7 +14,7 @@ foreach($selfdata['children'] as $key => $value) {
 	if(isset($value['children'])) {
 		foreach($value['children'] as $k => $l) {
 			
-			$heading[$l['Configuration']['title']] = $this->Html->div('col-md-4 no-padding', $this->Html->div('btn-label light-blue sorting-list-header', 
+			$heading[$l['Configuration']['title']] = $this->Html->div('col-md-4 col-sm-4 no-padding text-001', $this->Html->div('btn-label light-blue sorting-list-header', 
 																											  $l['Configuration']['title']));
 			if(empty($l['Game'][0]['Game']['answer'])) {
 				$l['Game'][0]['Game']['id'] = 0;
@@ -30,18 +30,18 @@ foreach($selfdata['children'] as $key => $value) {
 		}
 	}
 	
-	$imageRow .= $this->Html->div('row no-margin margin-bottom-5 values-embrace', $r);
+	$imageRow .= $this->Html->div('row no-margin margin-bottom-5 values-embrace text-002', $r);
 }
 
-$final = $this->Html->div('col-md-8 col-md-offset-2 col-sm-12 no-padding', $imageRow);
+$final = $this->Html->div('col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 no-padding text-003', $imageRow);
 
 $vheading = '';
 foreach($heading as $h) {
 	$vheading .= $h;
 }
-$vheading = $this->Html->div('col-md-8 col-md-offset-2 col-sm-12 no-padding', $vheading);
+$vheading = $this->Html->div('col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 no-padding text-004', $vheading);
 if($id != 77) {
-	echo $this->Html->div('row no-margin margin-bottom-10', $vheading);
+	echo $this->Html->div('row no-margin margin-bottom-10 text-005', $vheading);
 }
-echo $this->Html->div('row no-margin margin-bottom-20 sorting-small', $final);
+echo $this->Html->div('row no-margin margin-bottom-20 sorting-small text-006', $final);
 ?>
