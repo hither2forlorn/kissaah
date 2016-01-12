@@ -2,19 +2,19 @@
 	<div class="container">
 		<div class="row">
 			<!-- BEGIN COPYRIGHT -->
-			<div class="col-md-6 col-sm-6 padding-top-10">
-				<?php 
+			<div class="col-md-6 col-sm-6 padding-top-10"><?php 
 				echo date('Y') . ' &copy; Kissaah. All Rights Reserved.&nbsp;';
+			?></div>
+			<div class="col-md-6 col-sm-6 padding-top-10"><?php 
 				echo $this->Html->link('Privacy Policy', 'http://www.kissaah.com/privacy-policy', array('target' => '_blank'))." | ";
 				echo $this->Html->link('Terms of Service', 'http://www.kissaah.com/terms-of-service/', array('target' => '_blank'))." | ";
 				echo $this->Html->link('About Us', 'http://www.kissaah.com/what-is-kissaah/', array('target' => '_blank'))." | ";
 				//echo $this->Html->link('Blog', 'http://kissaah.com/blog', array('target' => '_blank'))." | ";
 				echo $this->Html->link('Advisory Board', 'http://www.kissaah.com/advisors/', array('target' => '_blank'));
-				?>
-			</div>
+			?></div>
 			<!-- END COPYRIGHT -->
 			<!-- BEGIN PAYMENTS -->
-			<div class="col-md-6 col-sm-6 padding-top-10">
+			<div class="col-md-6 col-sm-6 padding-top-10 hidden-md hidden-sm hidden-xs">
 			<?php
 			$list[] = $this->Html->link(
 						$this->Html->image('my-settings.png', array('height' => '25px', 'title' => 'My Settings')) . ' Settings', 

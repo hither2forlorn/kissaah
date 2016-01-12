@@ -3,7 +3,7 @@ echo $this->Html->css(array('login'));
 echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.min', 'pages/login'));
 ?>
 <div class="row margin-bottom-20">
-	<div class="col-md-6 col-xs-12 login">
+	<div class="col-md-6 col-sm-6 col-xs-12 login">
 		<div class="content">
 			<?php 
 			echo $this->Session->flash();
@@ -159,7 +159,7 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 		</div>
 	</div>
 	
-	<div class="col-md-6 col-xs-12 game-area">
+	<div class="col-md-6 col-sm-6 col-xs-12 game-area">
 		<div class="row"><?php
 			/* Discover: Level 1 */
 			$title 	= $this->Html->tag('h3', 'Discover', array('class' => 'text-center margin-top-20'));
@@ -179,14 +179,14 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 		
 		<div class="row"><?php
 			/* Execute: Level 4 */
-			$title 	= $this->Html->tag('h3 margin-top-5', 'Execute', array('class' => 'text-center'));
+			$title 	= $this->Html->tag('h3', 'Execute', array('class' => 'text-center margin-top-5'));
 			$images = $this->Html->div('row', $this->Html->image('execute.png', array('class' => 'img-responsive kissaah-step')));
 			$circle	= $this->Html->div('row no-margin', $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-190')));
 			
 			echo $this->Html->div('col-md-6 col-xs-6 home-main-component no-padding', $circle . $title . $images);
 			
 			/* Design: Level 3 */
-			$title 	= $this->Html->tag('h3 margin-top-5', 'Design', array('class' => 'text-center'));
+			$title 	= $this->Html->tag('h3', 'Design', array('class' => 'text-center margin-top-5'));
 			$images = $this->Html->div('row', $this->Html->image('design-new.png', array('class' => 'img-responsive kissaah-step')));
 			$circle	= $this->Html->div('row no-margin', $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-189')));
 			

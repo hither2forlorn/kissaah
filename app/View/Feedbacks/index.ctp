@@ -99,23 +99,23 @@ foreach($feedbackblock as $key => $block) {
 		$btn = $this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $this->Html->div('btn-label light-blue', $btntext));
 		
 		echo $this->Html->div('row no-margin feedback-block margin-bottom-30', 
-						$this->Html->div('col-md-12 margin-bottom-5', $title) . 
-						$this->Html->div('col-md-12 margin-bottom-5', $subtt) . 
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $title) . 
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $subtt) . 
 						$text . $images . $btn . 
-						$this->Html->div('col-md-12 margin-bottom-5', $label) . 
-						$this->Html->div('col-md-12 margin-bottom-5', $radio) . 
-						$this->Html->div('col-md-12 margin-bottom-5', $comment) . 
-						$this->Html->div('col-md-offset-3 col-md-6 margin-top-20 border-bottom', ''));
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $label) . 
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $radio) . 
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $comment) . 
+						$this->Html->div('col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 margin-top-20 border-bottom text-018', ''));
 	
 	} else {
 		$subtt = 'Below are actions that help ' . $feedback_for_user['User']['name'] . ' realize their vision:';
 		$btntext = 'Do you think this vision will bring ' . $feedback_for_user['User']['name'] . ' wellbeing?';
 
 		foreach($block['image'] as $image) {
-			$path = $this->Html->div('col-md-2 col-sm-4', $image);
+			$path = $this->Html->div('col-md-2 col-sm-2 text-015', $image);
 			$ally = $this->Html->image('/files/img/medium/' . $feedback_for_user['User']['slug'], 
 										array('class' => 'img-responsive', 'data' => 'medium-' . $id));
-			$ally = $this->Html->div('col-md-2 col-sm-4', $ally);
+			$ally = $this->Html->div('col-md-2 col-sm-2 text-016', $ally);
 		}
 		foreach($block['value'] as $value) {
 			$text .= $value;
@@ -128,15 +128,15 @@ foreach($feedbackblock as $key => $block) {
 		$subtt = $this->Html->div('btn-label light-blue', $subtt);
 		$btn = $this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $this->Html->div('btn-label light-blue', $btntext));
 		
-		echo $this->Html->div('row no-margin feedback-block margin-bottom-30', 
-						$this->Html->div('col-md-12 margin-bottom-5', $title) . 
-						$path . $this->Html->div('col-md-8 margin-bottom-5 no-padding', $text) . $ally .
-						$this->Html->div('col-md-12 margin-bottom-5', $subtt) . 
+		echo $this->Html->div('row no-margin feedback-block margin-bottom-30 text-019', 
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $title) . 
+						$path . $this->Html->div('col-md-8 col-sm-8 margin-bottom-5 no-padding', $text) . $ally .
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $subtt) . 
 						$action . $btn . 
-						$this->Html->div('col-md-12 margin-bottom-5', $label) . 
-						$this->Html->div('col-md-12 margin-bottom-5', $this->Html->div('btn-label orange', $radio)) . 
-						$this->Html->div('col-md-12 margin-bottom-5', $comment) . 
-						$this->Html->div('col-md-offset-3 col-md-6 margin-top-20 border-bottom', ''));
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $label) . 
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $this->Html->div('btn-label orange', $radio)) . 
+						$this->Html->div('col-md-12 col-sm-12 margin-bottom-5', $comment) . 
+						$this->Html->div('col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 margin-top-20 border-bottom text-017', ''));
 	}
 }
 ?>
@@ -146,15 +146,15 @@ foreach($feedbackblock as $key => $block) {
 		
 		echo $this->Html->div('row no-margin text-center margin-bottom-5', $this->Html->link('Edit ENVISION', 
 													array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => 188)), 
-													array('class' => 'col-md-4 col-md-offset-4 btn btn-primary open-game')));
+													array('class' => 'col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4 btn btn-primary open-game text-018')));
 
 		echo $this->Html->div('row no-margin margin-bottom-5', $this->Html->link('Edit DESIGN', 
 													array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => 189)), 
-													array('class' => 'col-md-4 col-md-offset-4 btn btn-primary open-game')));
+													array('class' => 'col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4 btn btn-primary open-game text-018')));
 
 		echo $this->Html->div('row no-margin margin-bottom-15', $this->Html->link('Go to EXECUTE', 
 													array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => 190)), 
-													array('class' => 'col-md-4 col-md-offset-4 btn btn-primary open-game')));
+													array('class' => 'col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4 btn btn-primary open-game text-018')));
 	}
 
 echo $this->Html->div('row no-margin text-center margin-bottom-20', 

@@ -1589,6 +1589,9 @@ h2.font-white {
 /*
  * Start Game Block
  */
+.home-main-component .kissaah-step {
+	margin: 0 auto;
+}
 .home-main-component, .main-component {
   background-color: #e6e6e6;
   margin: 0 0.5% 0.5%;

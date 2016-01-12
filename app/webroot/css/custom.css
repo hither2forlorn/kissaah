@@ -1,27 +1,32 @@
-@media only screen and (max-width: 480px) {
-
-	.login .content {
-	  width: 100% !important;
-	}
-
+@media (max-width: 767px) {
 	.site-logo img {
-	  height: 35px;
-	  margin: 10px 5px;
+		height: 35px;
+		margin: 10px 5px;
 	}
 
 	.h2, h2 {
-		font-size: 15px;
+		font-size: 21px;
 	}
-	
+	.h3, h3 {
+		font-size: 20px;
+	}
 	.h4, h4 {
-		font-size: 13px;
+		font-size: 19px;
 	}
 	
 	.main-component {
 		width: 100%;
 	}
-	
-	.btn-featured {
-		width: 100%;
-	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-sm {
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+  }
+}
+@media (min-width: 1200px) {
+  .hidden-lg {
+  }
 }
