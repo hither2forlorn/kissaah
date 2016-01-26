@@ -54,9 +54,15 @@ class UsersController extends AppController {
 		} else {
 			if(!empty($this->request->data)){
 				$this->request->data['User']['role_id'] = 2;
-				$this->request->data['User']['verified'] = 0;
+				if(!isset($this->request->data['User']['verified'])) {
+					$this->request->data['User']['verified'] = 0;
+				}
 				$this->request->data['User']['login_ip'] = $this->_getRealIpAddr();
-				$tmp_password = $this->request->data['User']['password'] = $this->request->data['User']['confirmpassword'] = substr(uniqid(mt_rand(), true), 0, 9);
+				if($admin) {
+					$tmp_password = $this->request->data['User']['confirmpassword'] = $this->request->data['User']['password'];
+				} else {
+					$tmp_password = $this->request->data['User']['password'] = $this->request->data['User']['confirmpassword'] = substr(uniqid(mt_rand(), true), 0, 9);
+				}
 
 				$this->request->data['UserGameStatus'][0]['level'] 	= 0;
 				$this->request->data['UserGameStatus'][0]['game'] 	= 0;
@@ -105,8 +111,9 @@ class UsersController extends AppController {
 			$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 		} else {
 			if( isset($this->request['pass'][0]) && !empty($this->request['pass'][0]) &&
-			isset($this->request['pass'][1]) && !empty($this->request['pass'][1])){
-				if(Security::hash($this->request['pass'][0]) == $this->request['pass'][1]){
+				isset($this->request['pass'][1]) && !empty($this->request['pass'][1])) {
+				
+					if(Security::hash($this->request['pass'][0]) == $this->request['pass'][1]){
 					$user_id = $this->User->field('id', array('User.email' => $this->request->pass[0]));
 					if($user_id){
 						//check ally_email in allies table if exists then update ally with the newly userId
@@ -132,12 +139,12 @@ class UsersController extends AppController {
 						$this->Session->setFlash('You have not yet registered with kissaah. Please register to continue.', 'default',
 								array('class' => 'flashError margin-bottom-20'));
 					}
-				}else{
+				} else {
 					//not validate with email
 					$this->Session->setFlash('Could not validate. Please try again.', 'default',
 							array('class' => 'flashError margin-bottom-20'));
 				}
-			}else{
+			} else {
 				//not set email and hash key
 				$this->Session->setFlash('Could not validate. Please try again.', 'default',
 						array('class' => 'flashError margin-bottom-20'));
@@ -319,7 +326,7 @@ class UsersController extends AppController {
 			$this->Cookie->destroy();
 			$this->Auth->logout();
 			$this->Session->destroy();
-			$this->redirect(array('controller' => 'pages'));
+			$this->redirect(array('controller' => 'pages', 'admin' => false));
 		}
 	}
 	
@@ -787,6 +794,10 @@ class UsersController extends AppController {
 		$this->Session->write('Profile',$user_profile);
 		$this->redirect('/');
 	}
+	
+	public function admin_logout() {
+		$this->logout();
+	}
 
 	public function admin_delete($id = null){
 		$this->User->id = $id;
@@ -827,6 +838,16 @@ class UsersController extends AppController {
 		
 		$roles = $this->User->Role->find('list', array('fields' => array('id', 'name')));
 		$this->set('roles', $roles);
+	} 
+	
+	public function admin_verify($user_id) {
+		if ($this->request->is(array('post', 'put'))) {
+			$success = $this->register(true);
+			if($success == 1) {
+				$this->redirect(array('controller' => 'users', 'action' => 'view'));
+			}
+		}
+		
 	} 
 	
 	public function master_login() {

@@ -1,16 +1,26 @@
+<?php 
+/* BEGIN PAGE LEVEL PLUGINS */
+//echo $this->Html->css(array(''), null, array('inline' => false));
+//echo $this->Html->script(array(''), array('inline' => false));
+/* END PAGE LEVEL PLUGINS */
+?>
 <?php if(!$this->request->params['isAjax']) { ?>
+<div class="row">
+	<div class="col-md-12 col-sm-12">
+		<label>My search: 
+		<?php echo $this->Form->input('SearchText', array('div' => false, 'label' => false, 'class' => 'form-control input-large input-inline',  
+											'type' => 'text', 'placeholder' => 'Search For Users',
+											'data-link' => $this->Html->url(array('action' => 'view', 'admin' => true)))); ?></label>
+	</div>
+</div>
 <div class="row users index">
 	<div class="col-md-12 col-sm-12">
-		<div class="portlet box yellow">
+		<div class="portlet box blue">
 			<div class="portlet-title">
-				<div class="caption"><i class="fa fa-user"></i><?php echo __('Users'); ?></div>
+				<div class="caption"><i class="fa fa-user"></i><?php echo __('Users List : '); ?></div>
 				<div class="actions">
-				<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus')) . ' ' . __('Add User'), 
-										array('action' => 'add'), 
-										array('class' => 'btn btn-default btn-sm', 'escape' => false));?>					
-				<?php echo $this->Form->input('SearchText', array('div' => false, 'label' => false, 'class' => 'form-control in-line',  
-													'type' => 'text', 'placeholder' => 'Search For Users',
-													'data-link' => $this->Html->url(array('action' => 'view', 'admin' => true)))); ?>
+					<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus')) . ' ' . __('Add User'), 
+													array('action' => 'add'), array('class' => 'btn btn-default btn-sm', 'escape' => false));?>					
 				</div>
 			</div>
 			<div class="portlet-body user-list">
@@ -60,7 +70,7 @@
 	                            if($user['User']['verified'] == 0) {
 	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-up')),
 	                            			array('action' => 'verify', $user['User']['id'], 'admin' => true),
-	                            			array('class' => 'btn default btn-xs red', 'escape' => false, 'target' => '_blank'));	                            	
+	                            			array('class' => 'btn default btn-xs red', 'escape' => false));
 	                            } ?>
 								</td>
 							</tr>
@@ -71,27 +81,28 @@
 				<div class="row">
 					<div class="col-md-5 col-sm-12">
 						<div class="dataTables_info"><?php
-						echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, 
-																			starting on record {:start}, ending on {:end}')));
+						echo $this->Paginator->counter(array(
+							'format' => __('Page {:page} of {:pages}, showing {:current} records of {:count}, starting on {:start}, ending on {:end}')
+						));
 						?></div>
 					</div>
 					<div class="col-md-7 col-sm-12">
 						<div class="dataTables_paginate paging_bootstrap_full_number">
 			                <ul class="pagination"><?php
-		                    echo $this -> Paginator -> prev(
-		                                $this->Html->tag('i', '', array('class' => 'fa fa-angle-left')), 
-		                                array('escape' => false, 'tag' => 'li'), 
-		                                $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-angle-left')), '#', array('escape' => false)), 
-		                                array('class' => 'prev disabled', 'escape' => false, 'tag' => 'li'));
-		                                
-		                    echo $this -> Paginator -> numbers(array('separator' => '', 'tag' => 'li', 'currentClass' => 'active', 'currentTag' => 'a'));
-		                    
-		                    echo $this -> Paginator -> next(
-		                                $this->Html->tag('i', '', array('class' => 'fa fa-angle-right')), 
-		                                array('escape' => false, 'tag' => 'li'), 
-		                                $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-angle-right')), '#', array('escape' => false)), 
-		                                array('class' => 'prev disabled', 'escape' => false, 'tag' => 'li'));
-		                    ?></ul>
+			                    echo $this -> Paginator -> prev(
+			                                $this->Html->tag('i', '', array('class' => 'fa fa-angle-left')), 
+			                                array('escape' => false, 'tag' => 'li'), 
+			                                $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-angle-left')), '#', array('escape' => false)), 
+			                                array('class' => 'prev disabled', 'escape' => false, 'tag' => 'li'));
+			                                
+			                    echo $this -> Paginator -> numbers(array('separator' => '', 'tag' => 'li', 'currentClass' => 'active', 'currentTag' => 'a'));
+			                    
+			                    echo $this -> Paginator -> next(
+			                                $this->Html->tag('i', '', array('class' => 'fa fa-angle-right')), 
+			                                array('escape' => false, 'tag' => 'li'), 
+			                                $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-angle-right')), '#', array('escape' => false)), 
+			                                array('class' => 'prev disabled', 'escape' => false, 'tag' => 'li'));
+							?></ul>
 						</div>
 					</div>
 				</div>

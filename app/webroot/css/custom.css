@@ -1,4 +1,5 @@
 @media (max-width: 767px) {
+	.hidden-xs {}
 	.site-logo img {
 		height: 35px;
 		margin: 10px 5px;
@@ -19,14 +20,14 @@
 	}
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  .hidden-sm {
-  }
+	.hidden-sm {}
+	.btn {
+	  font-size: 13px;
+	}
 }
 @media (min-width: 992px) and (max-width: 1199px) {
-  .hidden-md {
-  }
+	.hidden-md {}
 }
 @media (min-width: 1200px) {
-  .hidden-lg {
-  }
+	.hidden-lg {}
 }
