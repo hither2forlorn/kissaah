@@ -2,7 +2,7 @@
 <?php 
 	$link = $this->Html->link('click here', 
 					array('controller' => 'users', 'action' => 'manuallogin', 
-						  '?' => array('e' => data['User']['email'], 'p' => $data['User']['password']), 'full_base' => true));
+						  '?' => array('e' => $data['User']['email'], 'p' => $data['User']['password']), 'full_base' => true));
 	
 	echo $this->Html->para(null, 'Thank you for signing up to Kissaah!');
 	//echo $this->Html->para(null, 'Please ' . $link . ' to confirm your email.');

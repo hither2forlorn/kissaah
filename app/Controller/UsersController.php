@@ -113,13 +113,18 @@ class UsersController extends AppController {
 		} else {
 				
 			if(Security::hash($email) == $hash) {
-				$data = $this->User->findByEmail($email);
+				$options['contain'] = false;
+				$options['fields'] = array('id', 'name', 'verified', 'email', 'password');
+				$options['conditions'] = array('User.email' => $email);
+				$data = $this->User->find('first', $options);
+				
 				if(!empty($data)) {
 					$this->User->Ally->updateAll(array('Ally.ally' => $data['User']['id']),
 												 array('Ally.ally_email' => $email));
 					
 					$data['User']['verified'] = 1;
 					
+						
 					if($this->User->save($data)) {
 						if($admin == 1) {
 							$options = array(
@@ -147,7 +152,7 @@ class UsersController extends AppController {
 		if($admin == 0) {
 			$this->redirect(array('controller' => 'pages', 'action' => 'display'));
 		} else {
-			//$this->redirect(array('controller' => 'users', 'action' => 'view', 'admin' => true));
+			$this->redirect(array('controller' => 'users', 'action' => 'view', 'admin' => true));
 		}
 		
 	}
