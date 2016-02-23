@@ -106,51 +106,47 @@ class UsersController extends AppController {
 		$this->render('/Pages/home');
 	}
 
-	public function verify(){
-		if($this->Auth->login()) {
+	public function verify($email, $hash, $admin = 0){
+		if($this->Auth->login() && $admin == 0) {
 			$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 		} else {
-			if( isset($this->request['pass'][0]) && !empty($this->request['pass'][0]) &&
-				isset($this->request['pass'][1]) && !empty($this->request['pass'][1])) {
 				
-					if(Security::hash($this->request['pass'][0]) == $this->request['pass'][1]){
-					$user_id = $this->User->field('id', array('User.email' => $this->request->pass[0]));
-					if($user_id){
-						//check ally_email in allies table if exists then update ally with the newly userId
-						$ally_id = $this->User->Ally->find('list', array(
-												'conditions' => array('ally_email' => $this->request->pass[0]),
-												'fields'	 => array('id')));
-						if(!empty($ally_id)){
-							foreach($ally_id as $allyID){
-								$allies['Ally']['id'] 	= $allyID;
-								$allies['Ally']['ally'] = $user_id;
-								$this->User->Ally->save($allies);
-							}
-						}
+			if(Security::hash($email) == $hash) {
+				$data = $this->User->findByEmail($email);
+				if(!empty($data)) {
+					$this->User->Ally->updateAll(array('Ally.ally' => $data['User']['id']),
+												 array('Ally.ally_email' => $email));
+					
+					$data['User']['verified'] = 1;
+					
+					if($this->User->save($data)) {
+						$options = array(
+								'subject' 	=> 'Kissaah: Your account is verified',
+								'template' 	=> 'verified',
+								'to'		=>  $email
+						);
+						$this->_sendEmail($options, $data);
 						
-						$data['User']['id'] = $user_id ;
-						$data['User']['verified'] = 1;
-						if($this->User->save($data)){
-							$this->Session->setFlash('Your email is validated. Thank you for signing up with Kissaah.', 'default',
-									array('class' => 'flashSuccess margin-bottom-20'));
-						}
-					} else {
-						/* User does not exist */
-						$this->Session->setFlash('You have not yet registered with kissaah. Please register to continue.', 'default',
-								array('class' => 'flashError margin-bottom-20'));
+						$this->Session->setFlash('Your account is validated. Thank you for signing up with Kissaah.', 'default',
+												 array('class' => 'flashSuccess margin-bottom-20'));
 					}
 				} else {
-					//not validate with email
-					$this->Session->setFlash('Could not validate. Please try again.', 'default',
+					/* User does not exist */
+					$this->Session->setFlash('You have not yet registered with kissaah. Please register to continue.', 'default',
 							array('class' => 'flashError margin-bottom-20'));
 				}
 			} else {
-				//not set email and hash key
+				//not validate with email
 				$this->Session->setFlash('Could not validate. Please try again.', 'default',
 						array('class' => 'flashError margin-bottom-20'));
 			}
 		}
-		$this->redirect(array('controller' => 'pages', 'action' => 'display'));
+		if($admin == 0) {
+			$this->redirect(array('controller' => 'pages', 'action' => 'display'));
+		} else {
+			$this->redirect(array('controller' => 'users', 'action' => 'view', 'admin' => true));
+		}
+		
 	}
 	
 	public function facebook_login() {}
@@ -175,21 +171,23 @@ class UsersController extends AppController {
 					$data['User']['email'] 		= $this->request->data['User']['email'];
 					$data['User']['hash'] 		= Security::hash($this->request->data['User']['email']);
 					$options = array(
-						'subject' 	=> 'Kissaah: Email Verification',
+						'subject' 	=> 'Kissaah: Welcome To Kissaah ',
 						'template' 	=> 'users_register',
 						'to'		=> $this->request->data['User']['email']
 					);
 					if($this->_sendEmail($options, $data)){
-						$this->Session->setFlash(__('Verification email has been sent. Please check your email and verify.', true), 
+						$this->Session->setFlash(__('Your account has not been verified yet.', true), 
 												 'default', array('class' => 'flashError margin-bottom-20'));
 						$this->redirect($this->referer());
 					}
 				}
 				$loginAttempts = $this->Session->read('loginAttempts');
-				if(isset($loginAttempts)){
-					$this->Session->write('loginAttempts',$loginAttempts + 1);
-				}else{
+				if(isset($loginAttempts)) {
+					$this->Session->write('loginAttempts', $loginAttempts + 1);
+					
+				} else {
 					$this->Session->write('loginAttempts',1);
+					
 				}
 				$this->set('loginAttempts',$loginAttempts);
 				$this->Session->setFlash(__('Username or Password is incorrect. Please try again.', true), 'default', 
@@ -480,7 +478,7 @@ class UsersController extends AppController {
 				'to'		=> $this->Auth->User('email'),
 				'setFlash'	=> false
 		);
-		if($this->_sendEmail($options,$data)){
+		if($this->_sendEmail($options, $data)) {
 			$return['success'] = 1;
 		} else {
 			$return['success'] = 0;
@@ -765,7 +763,7 @@ class UsersController extends AppController {
 			if($this->User->save($this->request->data)){
 				$this->Session->setFlash('User updated Successfully');
 				$this->redirect(array('controller' => 'users', 'action' => 'view'));
-			}else{
+			} else {
 				$this->Session->setFlash('User could not be updated');
 			}
 		}
@@ -801,7 +799,7 @@ class UsersController extends AppController {
 
 	public function admin_delete($id = null){
 		$this->User->id = $id;
-			if (!$this->User->exists()) {
+		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid User'));
 		} else {
 			$this->autoRender = false;
@@ -838,16 +836,6 @@ class UsersController extends AppController {
 		
 		$roles = $this->User->Role->find('list', array('fields' => array('id', 'name')));
 		$this->set('roles', $roles);
-	} 
-	
-	public function admin_verify($user_id) {
-		if ($this->request->is(array('post', 'put'))) {
-			$success = $this->register(true);
-			if($success == 1) {
-				$this->redirect(array('controller' => 'users', 'action' => 'view'));
-			}
-		}
-		
 	} 
 	
 	public function master_login() {

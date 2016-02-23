@@ -69,7 +69,7 @@
 	                            <?php 
 	                            if($user['User']['verified'] == 0) {
 	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-up')),
-	                            			array('action' => 'verify', $user['User']['id'], 'admin' => true),
+	                            			array('action' => 'verify', $user['User']['email'], Security::hash($user['User']['email']), 1, 'admin' => false),
 	                            			array('class' => 'btn default btn-xs red', 'escape' => false));
 	                            } ?>
 								</td>

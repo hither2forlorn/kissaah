@@ -168,8 +168,9 @@ foreach ($vision as $key => $list) {
 		
 		facebook_warning = <?php echo $this->Session->read('Auth.User.facebook_warning')? 1: 0; ?>;
 		consent_for_collage = <?php echo $this->Session->check('Auth.User.collage_status')? 1: 0; ?>;
-		
-		road_map = '<?php echo $this->Session->read('ActiveGame.roadmap'); ?>';
+
+		<?php $roadmap = $this->Session->read('ActiveGame.roadmap'); ?>
+		road_map = <?php echo (empty($roadmap))? 0: 1; ?>;
 		thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
 
 		Game.StartGame();

@@ -129,40 +129,38 @@ class AppController extends Controller {
 	}
 	
 	protected function _sendEmail($options = array(), $data = array()){
-		$defaults = array(
-				'from' 		=> Configure::read('App.defaultEmail'),
-				'subject' 	=> 'Kissaah',
-				'template' 	=> 'invitation',
-				'layout'	=> 'default');
-		$options = array_merge($defaults, $options);
-		$Email = $this->_getMailInstance();
-		$Email->to($options['to']);
-		$Email->subject($options['subject']);
-		$Email->from($options['from']);
-		$Email->template($options['template']);
-		if(isset($options['attachment'])){
-			if($options['attachment'] ==true){
-				$Email->attachments($data['attachment']);
-			}
-		}
-		
-		$Email->viewVars(array(
-				'data' => $data));
-		if($Email->send()){
-			if(isset($options['setFlash'])){
-				if(($options['setFlash']) == true){
-					$this->Session->setFlash(__("Email Sent", true), 'default', array('class' => 'flashError'));
-				}
+		if(isset($options['template'])) {
+			$defaults['from'] 		= Configure::read('App.defaultEmail');
+			$defaults['subject'] 	= 'Kissaah Communication';
+			$defaults['layout'] 	= 'default';
+
+			$options = array_merge($defaults, $options);
+				
+			$email = $this->_getMailInstance();
+			
+			$email->to($options['to']);
+			$email->subject($options['subject']);
+			$email->from($options['from']);
+			$email->template($options['template']);
+			
+			if(isset($options['attachment']) && $options['attachment']){
+				$email->attachments($data['attachment']);
 			}
 			
-			return true;	
-		}else{
-			if(isset($options['setFlash'])){
-				if(($options['setFlash']) == true){
+			$email->viewVars(array('data' => $data));
+
+			if($email->send()) {
+				if(isset($options['setFlash']) && $options['setFlash']) {
+					$this->Session->setFlash(__("Email Sent", true), 'default', array('class' => 'flashError'));
+				}
+				return true;
+				
+			} else {
+				if(isset($options['setFlash']) && $options['setFlash']) {
 					$this->Session->setFlash(__("Email could not be sent ,Please try later", true), 'default', array('class' => 'flashError'));
 				}
+				return false;
 			}
-			return false;
 		}
 	}
 	

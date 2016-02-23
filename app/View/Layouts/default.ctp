@@ -43,6 +43,7 @@
     echo $this->Html->script(array( '../plugins/jquery.min',
     								'../plugins/jquery-migrate.min',
     								'../plugins/jquery-ui/jquery-ui.min',
+    								'../plugins/jquery.ui.touch-punch.min',
     								'../plugins/jquery.form',
 									'../plugins/bootstrap/js/bootstrap.min',
 									'../plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min',

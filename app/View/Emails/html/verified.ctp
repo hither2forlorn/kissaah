@@ -1,8 +1,8 @@
 <p>Dear <?php echo $data['User']['name']; ?></p>
 <?php 
 	$link = $this->Html->link('click here', 
-					array('controller' => 'users', 'action' => 'manuallogin', $data['User']['email'], $data['User']['hash'], 'full_base' => true),
-					array('fullBase' => true));
+					array('controller' => 'users', 'action' => 'manuallogin', 
+						  '?' => array('e' => data['User']['email'], 'p' => $data['User']['password']), 'full_base' => true));
 	
 	echo $this->Html->para(null, 'Thank you for signing up to Kissaah!');
 	//echo $this->Html->para(null, 'Please ' . $link . ' to confirm your email.');

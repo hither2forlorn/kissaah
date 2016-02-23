@@ -117,7 +117,7 @@ var Game = function () {
 	}
 
 	var road_map_box = function(road_map, thriving_scale, open_game, conf_id) {
-		if(road_map == '') {
+		if(road_map == 0) {
 			$.fancybox.open({
 				'helpers' 		: {
 					'overlay'	: {
