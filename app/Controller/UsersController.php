@@ -114,30 +114,25 @@ class UsersController extends AppController {
 				
 			if(Security::hash($email) == $hash) {
 				$options['contain'] = false;
-				$options['fields'] = array('id', 'name', 'verified', 'email', 'password');
 				$options['conditions'] = array('User.email' => $email);
 				$data = $this->User->find('first', $options);
 				
 				if(!empty($data)) {
 					$this->User->Ally->updateAll(array('Ally.ally' => $data['User']['id']),
 												 array('Ally.ally_email' => $email));
-					
-					$data['User']['verified'] = 1;
-					
-						
-					if($this->User->save($data)) {
-						if($admin == 1) {
-							$options = array(
-									'subject' 	=> 'Kissaah: Your account is verified',
-									'template' 	=> 'verified',
-									'to'		=>  $email
-							);
-							$this->_sendEmail($options, $data);
-						}
-						
-						$this->Session->setFlash('Your account is validated. Thank you for signing up with Kissaah.', 'default',
-												 array('class' => 'flashSuccess margin-bottom-20'));
+					$this->User->id = $data['User']['id'];
+					$this->User->saveField('verified', 1);
+					if($admin == 1) {
+						$options = array(
+								'subject' 	=> 'Kissaah: Your account is verified',
+								'template' 	=> 'verified',
+								'to'		=>  $email
+						);
+						$this->_sendEmail($options, $data);
 					}
+					
+					$this->Session->setFlash('Your account is validated. Thank you for signing up with Kissaah.', 'default',
+											 array('class' => 'flashSuccess margin-bottom-20'));
 				} else {
 					/* User does not exist */
 					$this->Session->setFlash('You have not yet registered with kissaah. Please register to continue.', 'default',

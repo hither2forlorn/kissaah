@@ -1,7 +1,7 @@
 <p>Dear <?php echo $data['User']['name']; ?></p>
 <?php 
 	$link = $this->Html->link('click here', 
-					array('controller' => 'users', 'action' => 'manuallogin', 
+					array('controller' => 'users', 'action' => 'manualLogin', 
 						  '?' => array('e' => $data['User']['email'], 'p' => $data['User']['password']), 'full_base' => true));
 	
 	echo $this->Html->para(null, 'Thank you for signing up to Kissaah!');
