@@ -120,12 +120,14 @@ class UsersController extends AppController {
 					$data['User']['verified'] = 1;
 					
 					if($this->User->save($data)) {
-						$options = array(
-								'subject' 	=> 'Kissaah: Your account is verified',
-								'template' 	=> 'verified',
-								'to'		=>  $email
-						);
-						$this->_sendEmail($options, $data);
+						if($admin == 1) {
+							$options = array(
+									'subject' 	=> 'Kissaah: Your account is verified',
+									'template' 	=> 'verified',
+									'to'		=>  $email
+							);
+							$this->_sendEmail($options, $data);
+						}
 						
 						$this->Session->setFlash('Your account is validated. Thank you for signing up with Kissaah.', 'default',
 												 array('class' => 'flashSuccess margin-bottom-20'));
@@ -144,7 +146,7 @@ class UsersController extends AppController {
 		if($admin == 0) {
 			$this->redirect(array('controller' => 'pages', 'action' => 'display'));
 		} else {
-			$this->redirect(array('controller' => 'users', 'action' => 'view', 'admin' => true));
+			//$this->redirect(array('controller' => 'users', 'action' => 'view', 'admin' => true));
 		}
 		
 	}
