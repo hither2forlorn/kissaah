@@ -106,7 +106,8 @@ class UsersController extends AppController {
 		$this->render('/Pages/home');
 	}
 
-	public function verify($email, $hash, $admin = 0){
+	public function verify($email, $hash, $admin = 0) {
+		$this->autoRender = false;
 		if($this->Auth->login() && $admin == 0) {
 			$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 		} else {
