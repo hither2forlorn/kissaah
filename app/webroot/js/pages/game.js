@@ -396,19 +396,19 @@ var Game = function () {
 	        				url			: host_url +'games/step_complete',
 	        				success		: function(data){
 	        					if(data == 2) {
-	        						btnclass = 'col-md-12 col-sm-12 btn btn-step btn-finished';
+	        						btnclass = 'col-md-12 col-sm-12 col-xs-12 btn btn-step btn-finished';
 	        						btnimage = $('img.level-' + game_step).attr('src');
 	        						btnimage = btnimage.replace('level-start', 'level-finished');
 	        						btnimage = btnimage.replace('level-in-progress', 'level-finished');
 	        						
 	        					} else if(data == 1) {
-	        						btnclass = 'col-md-12 col-sm-12 btn btn-step btn-in-progress';
+	        						btnclass = 'col-md-12 col-sm-12 col-xs-12 btn btn-step btn-in-progress';
 		        					btnimage = $('img.level-' + game_step).attr('src');
 	        						btnimage = btnimage.replace('level-start', 'level-in-progress');
 	        						btnimage = btnimage.replace('level-finished', 'level-in-progress');
 	        						
 	        					} else {
-	        						btnclass = 'col-md-12 col-sm-12 btn btn-step btn-start';
+	        						btnclass = 'col-md-12 col-sm-12 col-xs-12 btn btn-step btn-start';
 	        						btnimage = $('img.level-' + game_step).attr('src');
 	        						btnimage = btnimage.replace('level-in-progress', 'level-start');
 	        						btnimage = btnimage.replace('level-finished', 'level-start');

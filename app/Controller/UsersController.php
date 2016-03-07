@@ -24,7 +24,7 @@ class UsersController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allowedActions = array('forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin');
+		$this->Auth->allowedActions = array('forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
 		$this->Uploader = new Uploader();
 		$this->Uploader->setup(array('tempDir' => TMP));
 		/*
@@ -37,7 +37,18 @@ class UsersController extends AppController {
 		*/
 	}
 	
-	function index() {
+	public function screen_size() {
+		if(isset($this->request->data['width']) && isset($this->request->data['height'])) {
+			$this->Session->write('Screen.width', $this->request->data['width']);
+			$this->Session->write('Screen.height', $this->request->data['height']);
+			echo json_encode(array('outcome'=>'success'));
+		} else {
+			echo json_encode(array('outcome'=>'error','error'=>"Couldn't save dimension info"));
+		}
+		$this->autoRender = false;
+	}
+	
+	public function index() {
 		$this->autoRender = false;
 		if ($this->Auth->user()) {
 			$this->redirect(array('controller' => 'users', 'action' => 'profile'));

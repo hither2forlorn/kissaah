@@ -450,7 +450,7 @@ class GamesController extends AppController {
 															'name' 		=> $this->__fileName(), 
 															'multiple' 	=> false));
 			$this->Uploader->uploadDir = '/files/img/medium';
-			$this->Uploader->crop(array('width' => 250,  'height' => 250, 'append' => false));
+			$this->Uploader->crop(array('width' => 300,  'height' => 300, 'append' => false));
 			$this->Uploader->uploadDir = '/files/img/small';
 			$this->Uploader->crop(array('width' => 100,  'height' => 100, 'append' => false));
 				
@@ -569,7 +569,7 @@ class GamesController extends AppController {
 				$this->Uploader->uploadDir = '/files/img/large';
 				$uploadimage = $this->Uploader->importRemote($link['src'], array('name' => $this->__fileName(), 'overwrite' => false));
 				$this->Uploader->uploadDir = '/files/img/medium';
-				$this->Uploader->crop(array('width' => 250,  'height' => 250, 'append' => false));
+				$this->Uploader->crop(array('width' => 300,  'height' => 300, 'append' => false));
 				$this->Uploader->uploadDir = '/files/img/small';
 				$this->Uploader->crop(array('width' => 100,  'height' => 100, 'append' => false));
 

@@ -119,7 +119,22 @@
 	jQuery(document).ready(function() {
 		Metronic.init();
 		Game.UpdateNotification();
+		alert('called first');
 	});
+
+	alert($(window).width());
+	if ($(window).width() < 1280) {}
+
+	$(function() {
+	    $.post('games/some_script', { width: screen.width, height:screen.height }, function(json) {
+	        if(json.outcome == 'success') {
+	            // do something with the knowledge possibly?
+	        } else {
+	            alert('Unable to let PHP know what the screen resolution is!');
+	        }
+	    }, 'json');
+	});
+	
 </script>
 </body>
 <?php 

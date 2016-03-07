@@ -1,12 +1,12 @@
 <script type="text/javascript">var xvalue = {};var yvalue = {};var sortvalue = {};</script>
 <?php
-$default_image = 'http://placehold.it/120x120&text=X';
+$default_image = 'http://placehold.it/300x300&text=X';
 $title_text = $points = $place_images = $activity_images = $path_images = array();
 $show_narration = 1;
 
 foreach ($vision as $key => $list) {
     if ($list['Configuration']['step-complete'] == 0) {
-        $btnclass = 'col-md-12 btn btn-step btn-start';
+        $btnclass = 'col-md-12 col-xs-12 btn btn-step btn-start';
 		$brdclass = $this->Html->image('level-start.jpg', array('class' => 'img-responsive level-' . $list['Configuration']['id'], 'id' => 'tour-step-06'));
 		
     } elseif ($list['Configuration']['step-complete'] == 1) {
@@ -121,9 +121,9 @@ foreach ($vision as $key => $list) {
 			/* Design: Level 3 */
 			$id = 2; $images = ''; $strgs = '';
 			foreach($points[$id]['display'][1] as $display) {
-				$images .= $this->Html->div('col-md-3 col-xs-6 col-sm-3', $display);
+				$images .= $this->Html->div('col-md-3 col-xs-4 col-sm-3', $display);
 			}
-			$images .= $this->Html->div('col-md-9 col-xs-6 col-sm-9', $points[$id]['display'][8]);
+			$images .= $this->Html->div('col-md-9 col-xs-8 col-sm-9', $points[$id]['display'][8]);
 
 			$title 	= $this->Html->tag('h3', $points[$id]['title'], array('class' => 'text-center'));
 			$images = $this->Html->div('row no-margin level-display margin-bottom-20', $images);
@@ -135,7 +135,9 @@ foreach ($vision as $key => $list) {
 			
 			$level3 = $this->Html->div('col-md-6 col-xs-6 main-component no-padding', $circle . $images . $btn . $smmry);
 			
-			if($this->request->isMobile()) {
+			$screen_width = $this->Session->read('Screen.width');
+			//debug($screen_width);
+			if($screen_width <= 767) {
 				echo $level3 . $level4;
 			} else {
 				echo $level4 . $level3;
@@ -155,6 +157,8 @@ foreach ($vision as $key => $list) {
 		if(start_tour == 1) {
 			$('#game-tour').trigger('click');
 		}
+
+		alert('called third');
 
 	});
 
@@ -176,5 +180,6 @@ foreach ($vision as $key => $list) {
 		Game.StartGame();
 		Game.Support();
 		Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+		alert('called second');
 	});
 </script>
