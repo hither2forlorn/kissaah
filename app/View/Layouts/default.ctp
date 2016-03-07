@@ -93,6 +93,11 @@
 
 	ga('create', 'UA-19274647-23', 'kissaah.org');
 	ga('send', 'pageview');
+
+    $.post('users/screen_size', { width: screen.width, height:screen.height }, function(json) {
+        if(json.outcome == 'success') {}
+    }, 'json');
+
 </script>
 <!-- Body BEGIN -->
 <body class="for-line"><!-- add class page-header-fixed, if you want to fix header -->
@@ -119,22 +124,7 @@
 	jQuery(document).ready(function() {
 		Metronic.init();
 		Game.UpdateNotification();
-		alert('called first');
 	});
-
-	alert($(window).width());
-	if ($(window).width() < 1280) {}
-
-	$(function() {
-	    $.post('games/some_script', { width: screen.width, height:screen.height }, function(json) {
-	        if(json.outcome == 'success') {
-	            // do something with the knowledge possibly?
-	        } else {
-	            alert('Unable to let PHP know what the screen resolution is!');
-	        }
-	    }, 'json');
-	});
-	
 </script>
 </body>
 <?php 

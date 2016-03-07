@@ -157,9 +157,6 @@ foreach ($vision as $key => $list) {
 		if(start_tour == 1) {
 			$('#game-tour').trigger('click');
 		}
-
-		alert('called third');
-
 	});
 
 	$(document).ready(function() {
@@ -180,6 +177,5 @@ foreach ($vision as $key => $list) {
 		Game.StartGame();
 		Game.Support();
 		Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
-		alert('called second');
 	});
 </script>
