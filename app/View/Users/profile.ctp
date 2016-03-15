@@ -1,5 +1,5 @@
 <div class="row margin-bottom-40 padding-top-30">
-	<div class="col-md-2 col-sm-3"><?php
+	<div class="col-md-2 col-sm-3 col-xs-4"><?php
 	
 		$image = $this->Session->read('Profile.Game.answer');
 		$id = $this->Session->read('Profile.Game.id');
@@ -24,7 +24,7 @@
 				$this->Html->div('margin-left-20', 'English(US)'));
 				
 	?></div>
-	<div class="col-md-4 col-sm-5 profile-general-settings">
+	<div class="col-md-4 col-sm-5 col-xs-8 profile-general-settings">
 		<h2>General Settings</h2>
 		<?php 
 		echo $this->Form->create('Game' . $id . 'upload', array('class' => 'btn-file fileupload'));
@@ -73,7 +73,7 @@
 								   array('escape' => false, 'target' => '_blank', 'class' => '')));
 		?>
 	</div>
-	<div class="col-md-3 col-sm-4 profile-accounts">
+	<div class="col-md-3 col-sm-4 col-xs-12 profile-accounts">
 	<?php
 		echo $this->Html->div('col-md-12', $this->Html->tag('h3', 'Feedback'));
 		 

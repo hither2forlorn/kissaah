@@ -14,7 +14,7 @@ foreach($selfdata['children'] as $key => $value) {
 	if(isset($value['children'])) {
 		foreach($value['children'] as $k => $l) {
 			
-			$heading[$l['Configuration']['title']] = $this->Html->div('col-md-4 col-sm-4 no-padding text-001', $this->Html->div('btn-label light-blue sorting-list-header', 
+			$heading[$l['Configuration']['title']] = $this->Html->div('col-md-4 col-sm-4 col-xs-4 no-padding text-001', $this->Html->div('btn-label light-blue sorting-list-header', 
 																											  $l['Configuration']['title']));
 			if(empty($l['Game'][0]['Game']['answer'])) {
 				$l['Game'][0]['Game']['id'] = 0;
@@ -23,7 +23,7 @@ foreach($selfdata['children'] as $key => $value) {
 				$answer	= $this->Html->tag('li', $l['Game'][0]['Game']['answer'], array('class' => 'draggable-list draggable-fixed'));
 			}
 			
-			$r .= $this->Html->div('col-md-4 col-sm-4 droppable-fixed', $answer, array(
+			$r .= $this->Html->div('col-md-4 col-sm-4 col-xs-4 droppable-fixed', $answer, array(
 											'data-conf' => $l['Configuration']['id'], 
 											'data-id' 	=> $l['Game'][0]['Game']['id'], 
 											'name' 		=> 'data[Game][' . $l['Configuration']['id'] . '][' . $l['Game'][0]['Game']['id'] . ']'));

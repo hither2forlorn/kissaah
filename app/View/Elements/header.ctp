@@ -26,7 +26,7 @@
 		        									  'class' => 'img-responsive'));
 				
 			}
-			echo $this->Session->read('Screen.width');echo ' x ';echo $this->Session->read('Screen.height');
+			//echo $this->Session->read('Screen.width');echo ' x ';echo $this->Session->read('Screen.height');
 			?></div>
 	  	</div>
 	</div>

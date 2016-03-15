@@ -40,5 +40,5 @@ if($summary) {
 
 $display = $this->Html->div('form-group margin-bottom-15 margin-top-10 save-answer', $input); 
 
-echo $this->Html->div('col-md-12 col-sm-12 no-padding', $display);
+echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $display);
 ?>

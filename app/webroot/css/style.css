@@ -1851,8 +1851,6 @@ canvas.temp {
 }
 .image-box {
   background: #17b3e8 none repeat scroll 0 0;
-  margin: 0 0.16%;
-  width: 33%;
 }
 .image-icon img {
 	cursor: pointer;
@@ -2168,28 +2166,23 @@ a.back-to-road-map {
 }
 
 .fancybox-game-popup .form-control {
-  border: 0 none;
   border-radius: 0;
   box-shadow: none;
   color: #000;
   text-align: center;
 }
 .fancybox-game-popup .save-answer .form-control {
-  border: 1px solid #CCCCCC;
 }
 .fancybox-game-popup textarea.form-control {
-	border: 1px solid #000;
 	text-align: left;
 }
 .fancybox-game-popup .date-picker, .fancybox-game-popup .date-picker-mm-yyyy {
-  border: 1px solid #ccc;
   margin: 0 auto;
 }
 .fancybox-game-popup .extra-width .tt-dropdown-menu {
 	width: 300%;
 }
 .fancybox-game-popup .live-search-ally {
-  border: 1px solid #ccc;
   text-align: left;
 }
 .game-summary {

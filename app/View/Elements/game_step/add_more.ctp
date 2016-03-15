@@ -25,7 +25,7 @@ if($selfdata['Configuration']['dependent_id'] > 0) {
 			$answer	= $this->Html->tag('li', $value['Game'][0]['Game']['answer'], array('class' => 'draggable-fixed'));
 		}
 		
-		$r .= $this->Html->div('col-md-4 col-sm-4 droppable-answer text-010', $answer, array(
+		$r .= $this->Html->div('col-md-4 col-sm-4 col-xs-4 droppable-answer text-010', $answer, array(
 										'data-conf' => $value['Configuration']['id'], 
 										'data-id' 	=> $value['Game'][0]['Game']['id'], 
 										'data'		=> 'drop-' . $value['Configuration']['id'],
@@ -48,7 +48,7 @@ foreach($selfdata['children'] as $key => $value) {
 	$options['data'] 		= $value['Configuration']['dependent_id'];
 	$options['placeholder'] = $value['Configuration']['title'];
 	
-	$header  = $this->Html->div('col-md-4 col-sm-4 no-padding text-008', 
+	$header  = $this->Html->div('col-md-4 col-sm-4 col-xs-4 no-padding text-008', 
 					$this->Html->div('btn-label light-blue sorting-list-header no-margin', $value['Configuration']['title']));
 	
 	foreach($value['Game'] as $game) {
@@ -57,19 +57,19 @@ foreach($selfdata['children'] as $key => $value) {
 	}
 	
 	$options['value'] = '';
-	$textfieldclass = 'col-md-8 col-sm-8 no-padding text-012';
+	$textfieldclass = 'col-md-8 col-sm-8 col-xs-8 no-padding text-012';
 	if(!$summary) {
 		$input  .= $this->Form->input('Game.' . $value['Configuration']['id'] . '.0', $options);
-		$addmore = $this->Html->div('col-md-1 col-sm-1 padding-right-0 text-011', 
+		$addmore = $this->Html->div('col-md-1 col-sm-1 col-xs-1 padding-right-0 text-011', 
 						$this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-lg fa-plus-circle')), '#', 
 										array('class' => 'add-more', 'escape' => false, 
 											  'data'  => 'data[Game][' . $value['Configuration']['id'] . '][0]',
 											  'data-add' => $value['Configuration']['id'])));
-		$textfieldclass = 'col-md-7 col-sm-7 no-padding text-013';
+		$textfieldclass = 'col-md-7 col-sm-7 col-xs-7 no-padding text-014';
 	}
 	 
 	$input = $this->Html->div('form-group text-center save-answer', $input, array('data-add' => $value['Configuration']['id']));
-	$display .= $this->Html->div('col-md-12 col-sm-12 no-padding', $header . $this->Html->div($textfieldclass, $input) . $addmore);
+	$display .= $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $header . $this->Html->div($textfieldclass, $input) . $addmore);
 }
 
 $final = $this->Html->div('col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 no-padding text-009', $display);

@@ -136,11 +136,10 @@ foreach ($vision as $key => $list) {
 			$level3 = $this->Html->div('col-md-6 col-xs-6 main-component no-padding', $circle . $images . $btn . $smmry);
 			
 			$screen_width = $this->Session->read('Screen.width');
-			//debug($screen_width);
-			if($screen_width <= 767) {
-				echo $level3 . $level4;
-			} else {
+			if($screen_width > 767) {
 				echo $level4 . $level3;
+			} else {
+				echo $level3 . $level4;
 			}
 		?></div>
 	</div>

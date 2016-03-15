@@ -1,5 +1,5 @@
 <?php
-$answer = 'http://placehold.it/198x198&text=X';
+$answer = 'http://placehold.it/300x300&text=X';
 if(empty($selfdata['Configuration']['dependent_id'])) {
 	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
 		$answer = '/files/img/medium/' . $selfdata['Game'][0]['Game']['answer'];
@@ -26,10 +26,12 @@ if(!empty($selfdata['Game'][0]['Game']['answer'])) {
 	$image_form .= $this->Html->image('removeimage.png', array('title' => 'Remove', 'data' => $id, 'id' => 'rem'));
 }
 
-if($count == 1) {
-	echo $this->Html->div('col-md-4 col-sm-4', '');
+$screen_size = $this->Session->read('Screen.width');
+if($count == 1 || $screen_size <= 767) {
+	echo $this->Html->div('col-md-4 col-sm-4 col-xs-2 clear', '');
 }
-echo '<div class="col-md-4 col-sm-4 image-box">'; 
+
+echo '<div class="col-md-4 col-sm-4 col-xs-8 image-box">'; 
 echo $this->Html->image($answer, array('class' => 'img-responsive margin-bottom-5 margin-top-10', 'data' => 'medium-' . $id));
 
 if(!$summary) {
@@ -42,4 +44,7 @@ if(isset($selfdata['children'])) {
 	}
 }
 echo '</div>';
+if($count == 1 || $screen_size <= 767) {
+	echo $this->Html->div('col-md-4 col-sm-4 col-xs-2', '');
+}
 ?>

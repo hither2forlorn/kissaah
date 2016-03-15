@@ -17,8 +17,7 @@
 		width: 100%;
 	}
 	.image-box {
-		margin: 0;
-		width: auto;
+		margin: 0 0 1px;
 	}
 	.activitytitle {
 		margin: 10px 10% 20px;

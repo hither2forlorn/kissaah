@@ -67,7 +67,7 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 		}
 		
 		$display_game = $this->Html->div('col-md-12 col-sm-12', $this->Html->div('row no-margin margin-bottom-15', $display_game));
-		$border = $this->Html->div('col-md-offset-3 col-md-6 border-bottom col-sm-offset-3 col-sm-6', '');
+		$border = $this->Html->div('col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6 border-bottom', '');
 		
 		echo $this->Html->div('row no-margin padding-bottom-20' . $summary, $title . $subtx . $display_game . $border);
 	}

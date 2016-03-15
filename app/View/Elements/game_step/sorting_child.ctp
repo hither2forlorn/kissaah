@@ -15,7 +15,7 @@ foreach($selfdata['children'] as $key => $value) {
 		$answer	= $this->Html->tag('li', $value['Game'][0]['Game']['answer'], array('class' => 'draggable-list'));
 	}
 	
-	$r .= $this->Html->div('col-md-4 col-sm-4 droppable-answer margin-bottom-5', $answer, array(
+	$r .= $this->Html->div('col-md-4 col-sm-4 col-xs-4 droppable-answer margin-bottom-5', $answer, array(
 									'data-conf' => $value['Configuration']['id'], 
 									'data-id' 	=> $value['Game'][0]['Game']['id'], 
 									'data'		=> 'drop-' . $value['Configuration']['id'],

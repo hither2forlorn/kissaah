@@ -1,5 +1,5 @@
 <?php
-echo $this->Html->div('col-md-12 col-sm-12 btn-finished margin-bottom-5', $selfdata['Configuration']['title']);
+echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 btn-finished margin-bottom-5', $selfdata['Configuration']['title']);
 
 foreach($selfdata['children'] as $child) {
 	$options['data-conf'] 	= $child['Configuration']['id'];
@@ -27,7 +27,7 @@ foreach($selfdata['children'] as $child) {
 		
 				$options['class'] 		= 'form-control';
 				$options['label'] 		= false;
-				$options['div'] 		= 'col-md-12 col-sm-12 no-padding margin-top-5 text-023';
+				$options['div'] 		= 'col-md-12 col-sm-12 col-xs-12 no-padding margin-top-5 text-023';
 				$options['type'] 		= 'textarea';
 				$options['rows']  		= '3';
 				$options['readonly']  	= 'readonly';

@@ -40,8 +40,8 @@ if(!$summary) {
 
 }
 
-$image 	 = $this->Html->div('col-md-2 col-sm-2 col-xs-6 padding-left-0', 
+$image 	 = $this->Html->div('col-md-2 col-sm-2 col-xs-4 padding-left-0', 
 						   $this->Html->image($image, array('class' => 'img-responsive', 'data' => 'medium-' . $id)));
-$input 	 = $this->Html->div('col-md-10 col-sm-10 col-xs-6 no-padding', $title . $input);
+$input 	 = $this->Html->div('col-md-10 col-sm-10 col-xs-8 no-padding', $title . $input);
 echo $this->Html->div('row no-margin margin-bottom-10', $image . $input);
 ?>
