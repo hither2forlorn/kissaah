@@ -93,11 +93,6 @@
 
 	ga('create', 'UA-19274647-23', 'kissaah.org');
 	ga('send', 'pageview');
-
-    $.post('users/screen_size', { width: screen.width, height:screen.height }, function(json) {
-        if(json.outcome == 'success') {}
-    }, 'json');
-
 </script>
 <!-- Body BEGIN -->
 <body class="for-line"><!-- add class page-header-fixed, if you want to fix header -->

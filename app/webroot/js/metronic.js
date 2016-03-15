@@ -49,6 +49,12 @@ var Metronic = function() {
             $('html').addClass('ie'); // detect IE10 version
         }
     };
+    
+    var handleSize = function() {
+        $.post('users/screen_size', { width: screen.width, height:screen.height }, function(json) {
+            if(json.outcome == 'success') {}
+        }, 'json');
+    };
 
     // runs callback functions set by Metronic.addResponsiveHandler().
     var _runResizeHandlers = function() {
@@ -81,9 +87,11 @@ var Metronic = function() {
                 if (resize) {
                     clearTimeout(resize);
                 }
+            	handleSize();
                 resize = setTimeout(function() {
-                    _runResizeHandlers();
-                }, 50); // wait 50ms until window resize finishes.
+                    //_runResizeHandlers();
+                	location.reload();
+                }, 500); // wait 50ms until window resize finishes.
             });
         }
     };
@@ -465,6 +473,7 @@ var Metronic = function() {
 
             //Core handlers
             handleInit(); // initialize core variables
+            handleSize();
             handleOnResize(); // set and handle responsive    
 
             //UI Component handlers            
