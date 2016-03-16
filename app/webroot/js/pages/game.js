@@ -1145,12 +1145,55 @@ var SortingValues = function () {
 			$(document).on('mouseenter', '.draggable-list', function(e) {
 				var item = $(this); 
 				item.draggable({
-					helper	: 'clone',
-					revert	: 'invalid',
-					cursor	: 'move',
-					scroll	: false,
-					snap	: true,
-					zIndex	: 500,
+					helper		: 'clone',
+					snap		: true,
+					//revert	: 'invalid',
+					//cursor	: 'move',
+					//scroll	: false,
+					//zIndex	: 500,
+					start	: function(ev, ui) {
+						finalconfid = undefined;
+					},
+					stop	: function(ev, ui) {
+						confid 	= item.parent('div').attr('data-conf');
+						id 		= item.parent('div').attr('data-id');
+						list_class = item.attr('class');
+						
+						if(confid != undefined && finalconfid != undefined && list_class.search('draggable-fixed') == -1) {
+							var data = { };
+							data['data[Game][' + confid + '][' + id + ']'] = '';
+							
+							$.ajax({
+								url			: host_url + 'games/save',
+								type		: 'POST',
+								data 		: data,
+								success		: function(data) {
+		        					var object = $.parseJSON(data);
+		        					if(object.success) {
+		    							$('div[data-conf="' + object.cid + '"]').html('<li class="draggable-drop-here">Drop <br>Here</li>');
+		        					}
+								}
+							});
+						} else {
+							$('.add-wild-card li').hide();
+							$('.add-wild-card li').html('');
+							$('.add-wild-card a').css('display', 'inline-block');
+							
+						}
+						
+					}
+				 });
+			});
+			
+			$(document).on('touchstart', '.draggable-list', function(e) {
+				var item = $(this); 
+				item.draggable({
+					helper		: 'clone',
+					snap		: true,
+					//revert	: 'invalid',
+					//cursor	: 'move',
+					//scroll	: false,
+					//zIndex	: 500,
 					start	: function(ev, ui) {
 						finalconfid = undefined;
 					},

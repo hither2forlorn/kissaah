@@ -1772,6 +1772,9 @@ div.value-list {
   text-align: center;
   width: 49%;
 }
+.ui-draggable-dragging {
+	background-color: #F68E20;
+}
 
 .values-embrace .droppable-fixed, .values-embrace .droppable-answer {
   height: 60px;
