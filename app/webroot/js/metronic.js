@@ -89,8 +89,8 @@ var Metronic = function() {
                 }
             	handleSize();
                 resize = setTimeout(function() {
-                    //_runResizeHandlers();
-                	location.reload();
+                    _runResizeHandlers();
+                	//location.reload();
                 }, 500); // wait 50ms until window resize finishes.
             });
         }
