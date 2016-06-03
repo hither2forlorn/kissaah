@@ -152,7 +152,6 @@ foreach ($vision as $key => $list) {
 		Game.ToolBoxLoadLink();
 
 		start_tour = <?php echo ($this->Session->check('start-tour'))? 1: 0; ?>;
-
 		if(start_tour == 1) {
 			$('#game-tour').trigger('click');
 		}
@@ -173,8 +172,12 @@ foreach ($vision as $key => $list) {
 		road_map = <?php echo (empty($roadmap))? 0: 1; ?>;
 		thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
 
-		Game.StartGame();
-		Game.Support();
+		screen_width = <?php echo $this->Session->read('Screen.width'); ?>;
+		if(screen_width > 767) {
+			Game.StartGame();
+			Game.Support();
+		} 
 		Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+		
 	});
 </script>

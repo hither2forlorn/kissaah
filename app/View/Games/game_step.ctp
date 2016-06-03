@@ -108,6 +108,7 @@ echo $this->Html->div('row no-margin text-center margin-bottom-20',
 ?>
 <script>
 $(document).ready(function(){
+	screen_width = <?php echo $this->Session->read('Screen.width'); ?>;
 	Game.SaveGame();
 	Game.SaveAndCloseGame();
 	Game.GameToolBar();

@@ -108,7 +108,32 @@ class GamesController extends AppController {
 			
 		} else {
 			$this->Session->write('Current.game_step', $id);
-			$this->redirect(array('controller' => 'games', 'action' => 'index'));
+			
+			$step_information = $this->Game->Configuration->findById($id);
+				
+			$childrens = $this->Game->Configuration->children($id);
+			$game_step = array();
+			foreach ($childrens as $a){
+				$game_step[$a['Configuration']['parent_id']][] = $a;
+			}
+				
+			$parent['Configuration']['id'] 		= $id;
+			$parent['Configuration']['type'] 	= 0;
+			$games = $this->__createTree($game_step, array($parent));
+				
+			$this->Session->write('Game.query_all', 1);
+			$frequentlyuw = $this->Game->find('all', array(
+					'fields' => array('answer', 'COUNT(Game.answer)'),
+					'conditions' => array('Configuration.type NOT IN (0, 1, 2, 9, 10)',
+							'Configuration.status' => 1,
+							'Game.answer NOT' => ''),
+					'group' => array('Game.answer'),
+					'order' => array('COUNT(Game.answer) DESC'),
+					'limit' => 10));
+			$this->Session->delete('Game.query_all');
+				
+			$this->set(compact('games', 'step_information', 'frequentlyuw'));
+			//$this->redirect(array('controller' => 'games', 'action' => 'index'));
 			
 		}
 	}
