@@ -41,9 +41,9 @@ class UsersController extends AppController {
 		if(isset($this->request->data['width']) && isset($this->request->data['height'])) {
 			$this->Session->write('Screen.width', $this->request->data['width']);
 			$this->Session->write('Screen.height', $this->request->data['height']);
-			echo json_encode(array('outcome'=>'success'));
+			echo json_encode(array('outcome' => 'success'));
 		} else {
-			echo json_encode(array('outcome'=>'error','error'=>"Couldn't save dimension info"));
+			echo json_encode(array('outcome' => 'error', 'error' => 'Couldn\'t save dimension info'));
 		}
 		$this->autoRender = false;
 	}
@@ -96,10 +96,17 @@ class UsersController extends AppController {
 						$options = array(
 								'subject' 	=> 'Kissaah: Welcome To Kissaah ',
 								'template' 	=> 'users_register',
-								'to'		=>  $this->request->data['User']['email']
+								'to'		=> $this->request->data['User']['email']
 						);
 						$this->_sendEmail($options, $this->request->data);
 							
+						$options = array(
+								'subject' 	=> 'Kissaah: New User Registration',
+								'template' 	=> 'users_register_admin',
+								'to'		=> array('bob@himalayantechies.com', 'support@kissaah.com', 'vic@kissaah.com')
+						);
+						$this->_sendEmail($options, $this->request->data);
+						
 						$this->redirect(array('action' => 'login'));
 					}
 					
@@ -642,8 +649,7 @@ class UsersController extends AppController {
 				}
 			}
 		}
-		$to = array('bob@himalayantechies.com', 'sagrawal@himalayantechies.com', 
-					'support@kissaah.com', 'bguragain@himalayantechies.com', 'vic@kissaah.com');
+		$to = array('bob@himalayantechies.com', 'support@kissaah.com', 'bguragain@himalayantechies.com', 'vic@kissaah.com');
 		if(count($images) > 0){
 			$options = array(
 					'subject' 	=> $data['subject'],

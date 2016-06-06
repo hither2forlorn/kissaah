@@ -103,8 +103,14 @@ if($step_information['Configuration']['id'] == 189) {
 	
 }
 
-echo $this->Html->div('row no-margin text-center margin-bottom-20', 
-						$this->Html->link('Save and Close', '#', array('class' => 'btn btn-save', 'id' => 'tour-step-05')));
+$screen_width = $this->Session->read('Screen.width');
+if($screen_width > 767) {
+	echo $this->Html->div('row no-margin text-center margin-bottom-20', 
+							$this->Html->link('Save and Close', '#', array('class' => 'btn btn-save', 'id' => 'tour-step-05')));
+} else {
+	echo $this->Html->div('row no-margin text-center margin-bottom-20',
+			$this->Html->link('Save and Close', array('controller' => 'games', 'action' => 'index'), array('class' => 'btn btn-save', 'id' => 'tour-step-05')));
+}
 ?>
 <script>
 $(document).ready(function(){
