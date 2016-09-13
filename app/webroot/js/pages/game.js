@@ -1174,7 +1174,12 @@ var SortingValues = function () {
 								success		: function(data) {
 		        					var object = $.parseJSON(data);
 		        					if(object.success) {
-		    							$('div[data-conf="' + object.cid + '"]').html('<li class="draggable-drop-here">Drop <br>Here</li>');
+		        						if($('div[data-conf="' + object.cid + '"]').hasClass('droppable-answer-xs')) {
+		        							$('div[data-conf="' + object.cid + '"]').html('<li class="draggable-drop-here">Drop Here</li>');	
+		        						} else {
+		        							$('div[data-conf="' + object.cid + '"]').html('<li class="draggable-drop-here">Drop <br>Here</li>');
+		        						}
+		    							
 		        					}
 								}
 							});
@@ -1217,7 +1222,11 @@ var SortingValues = function () {
 								success		: function(data) {
 		        					var object = $.parseJSON(data);
 		        					if(object.success) {
-		    							$('div[data-conf="' + object.cid + '"]').html('<li class="draggable-drop-here">Drop <br>Here</li>');
+		        						if($('div[data-conf="' + object.cid + '"]').hasClass('droppable-answer-xs')) {
+		        							$('div[data-conf="' + object.cid + '"]').html('<li class="draggable-drop-here">Drop Here</li>');	
+		        						} else {
+		        							$('div[data-conf="' + object.cid + '"]').html('<li class="draggable-drop-here">Drop <br>Here</li>');		        							
+		        						}
 		        					}
 								}
 							});
@@ -1233,6 +1242,43 @@ var SortingValues = function () {
 			});
 			
 			$('.droppable-answer').droppable({
+				accept 		: '.draggable-list',
+				activeClass	: 'ui-draggable',
+				drop		: function( event, ui ) {
+					confid 	= $(this).attr('data-conf');
+					id 		= $(this).attr('data-id');
+					finalconfid = confid;
+					
+					if(confid != undefined) {
+						$(this).html($(ui.draggable).clone());
+						
+						dropelement = $(ui.draggable).clone();
+						dropelement.attr('class', 'draggable-fixed');
+						$('div[data="drop-' + confid + '"]').html(dropelement);
+						
+						dropelement = ui.draggable.text();
+						$('div[data="dropsummary-' + confid + '"]').html(dropelement);
+						$('div[data="dropsummary-' + confid + '"]').attr('class', 'btn-in-progress btn-featured');
+						
+						var data = { };
+						data['data[Game][' + confid + '][' + id + ']'] = ui.draggable.text();
+
+						$.ajax({
+							url			: host_url + 'games/save',
+							type		: 'POST',
+							data 		: data,
+							success		: function(data){
+	        					var object = $.parseJSON(data);
+	        					if(object.success) {
+	    							$('div[data-conf="' + object.cid + '"]').attr('data-id', object.id);
+	        					}
+							}
+						});
+					}
+				}
+			});
+			
+			$('.droppable-answer-xs').droppable({
 				accept 		: '.draggable-list',
 				activeClass	: 'ui-draggable',
 				drop		: function( event, ui ) {
