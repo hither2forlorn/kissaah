@@ -24,7 +24,7 @@ class UsersController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allowedActions = array('forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
+		$this->Auth->allowedActions = array('admin_view', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
 		$this->Uploader = new Uploader();
 		$this->Uploader->setup(array('tempDir' => TMP));
 		/*
@@ -278,6 +278,7 @@ class UsersController extends AppController {
 		}
 		$this->Session->write('ActiveGame', $active_game['UserGameStatus']);
 		$this->Session->write('ActiveGame.user_email', $this->Auth->user('email'));
+		$this->Session->write('AdminAccess.company', $this->User->CompanyGroup->find('list', array('fields' => array('id', 'id'), 'conditions' => array('admin_id' => $this->Auth->user('id'), 'parent_id IS NULL'))));
 		$profile = $this->User->Game->find('first', array(
 							'contain' 	 => false,
 							'conditions' => array('Game.configure_id' => 36)));
@@ -409,7 +410,13 @@ class UsersController extends AppController {
 					$action = 'password';
 				}
 			}
-			if($is_save && $this->User->save($this->request->data)) {
+			if($is_save && !empty($this->request->data['User']['company'])) {
+				$companyId = $this->User->CompanyGroup->field('id', array('code' => $this->request->data['User']['company']));
+				if(!empty($companyId)) $this->request->data['CompanyGroup']['CompanyGroup'] = array($companyId);
+				else $this->request->data['User']['company'] = '';
+			}
+			if($is_save && $this->User->saveAll($this->request->data)) {
+				
 				$this->autoRender = false;
 				$user = $this->User->find('first', array(
 										'contain' 	 => false,
@@ -735,6 +742,11 @@ class UsersController extends AppController {
 	}
 
 	function admin_view() {
+		$companyAdmin = $this->Session->read('AdminAccess.company');
+		$isAdmin = ($this->Auth->user('role_id') == 1) ? true : false;
+		if(empty($companyAdmin) && !$isAdmin) {
+			$this->redirect($this->referer());
+		}
 		$sString = '';
 		$this->set('title_for_layout', 'User List');
 		$conditions = array();
@@ -751,6 +763,13 @@ class UsersController extends AppController {
 										'User.country LIKE' => '%' . $sString . '%',
 										'User.company LIKE' => '%' . $sString . '%',
 										'User.email LIKE' => '%' . $sString . '%'));
+		}
+		if(!$isAdmin) {
+			$this->loadModel('CompanyGroupsUser');
+			if(empty($companyAdmin)) $companyAdmin = 0; 
+			$companyList = $this->CompanyGroupsUser->CompanyGroup->find('list', array('fields' => array('id', 'id'), 'conditions' => array('OR' => array('CompanyGroup.id' => $companyAdmin, 'CompanyGroup.parent_id' => $companyAdmin)), 'contain' => false));
+			$conditions['User.id'] = $this->CompanyGroupsUser->find('list', array('fields' => array('user_id', 'user_id'), 'conditions' => array('company_group_id' => $companyList), 'contain' => false));
+			//if(empty($conditions['User.id'])) unset($conditions['User.id']);
 		}
 		$this->paginate = array('conditions'=> $conditions,
 								'contain'	=> false,

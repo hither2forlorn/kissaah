@@ -182,14 +182,8 @@ Class User extends AppModel {
 			'joinTable' => 'company_groups_users',
 			'foreignKey' => 'user_id',
 			'associationForeignKey' => 'company_group_id',
-			'unique' => true,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'with' => ''
+			'unique' => 'keepExisting',
+			'order' => array('parent_id', 'title')
 		)
 	);
 	

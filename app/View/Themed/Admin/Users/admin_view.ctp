@@ -18,10 +18,12 @@
 		<div class="portlet box blue">
 			<div class="portlet-title">
 				<div class="caption"><i class="fa fa-user"></i><?php echo __('Users List : '); ?></div>
+				<?php if($this->Session->read('Auth.User.role_id') == 1) { ?>
 				<div class="actions">
 					<?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus')) . ' ' . __('Add User'), 
 													array('action' => 'add'), array('class' => 'btn btn-default btn-sm', 'escape' => false));?>					
 				</div>
+				<?php } ?>
 			</div>
 			<div class="portlet-body user-list">
 <?php } ?>
@@ -38,7 +40,9 @@
 								<th><?php echo __('Answers', true);?></th>
 								<th><?php echo $this->Paginator->sort('User.created', 'Signed Up'); ?></th>
 								<th><?php echo $this->Paginator->sort('User.last_login', 'Last Seen'); ?></th>
+								<?php if($this->Session->read('Auth.User.role_id') == 1) { ?>
 								<th class="actions"><?php echo __('Actions'); ?></th>
+								<?php } ?>
 							</tr>
 						</thead>
 						<tbody>
@@ -53,6 +57,7 @@
 								<td><?php echo $user['User']['UserGameStatus'] . ' - ' . $user['User']['Game'] . ' - ' . $user['User']['Files'];?></td>
 								<td><?php echo date('Y-m-d', strtotime($user['User']['created'])); ?></td>
 								<td><?php echo $user['User']['last_login'];?></td>
+								<?php if($this->Session->read('Auth.User.role_id') == 1) { ?>
 								<td class="actions">
 	                            <?php echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-edit')), 
 	                                                             array('action' => 'detail', $user['User']['id'], 'admin' => true), 
@@ -73,6 +78,7 @@
 	                            			array('class' => 'btn default btn-xs red', 'escape' => false));
 	                            } ?>
 								</td>
+								<?php } ?>
 							</tr>
 						<?php endforeach; ?>
 						</tbody>

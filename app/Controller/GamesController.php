@@ -23,7 +23,6 @@ class GamesController extends AppController {
  * @access public
  */
 	public function index() {
-		
 		$vision = $this->Configuration->children(81, true);
 		foreach($vision as $key => $value) {
 			if($value['Configuration']['status']) {
@@ -781,6 +780,11 @@ class GamesController extends AppController {
 	}
 	
 	public function admin_collage($activity) {
+		$companyAdmin = $this->Session->read('AdminAccess.company');
+		$isAdmin = ($this->Auth->user('role_id') == 1) ? true : false;
+		if(empty($companyAdmin) && !$isAdmin) {
+			$this->redirect($this->referer());
+		}
 		$this->set('title_for_layout', 'Collage of ' . $activity);
 		$this->Session->write('Game.query_all', 1);
 		$dependent_id = $this->Game->Configuration->find('list', array(
@@ -788,11 +792,17 @@ class GamesController extends AppController {
 								'fields' => array('Configuration.id'),
 								'conditions' => array('Configuration.type' => 1, 'Configuration.title' => $activity)));
 
+		$conditions = array('OR' => array(array('Configuration.type' => 1, 'Configuration.title' => $activity),
+									  array('Configuration.type' => 7, 'Configuration.dependent_id' => $dependent_id)));
+		if(!$isAdmin ) {
+			$this->loadModel('CompanyGroupsUser');
+			if(empty($companyAdmin)) $companyAdmin = 0;
+			$companyList = $this->CompanyGroupsUser->CompanyGroup->find('list', array('fields' => array('id', 'id'), 'conditions' => array('OR' => array('CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin)), 'contain' => false));
+			$conditions['Game.user_id'] = $this->CompanyGroupsUser->find('list', array('fields' => array('user_id', 'user_id'), 'conditions' => array('company_group_id' => $companyList), 'contain' => false));
+		}
 		$images = $this->Game->find('all', array(
 								'contain' => array('Configuration'),
-								'conditions' => array(
-										'OR' => array(array('Configuration.type' => 1, 'Configuration.title' => $activity),
-													  array('Configuration.type' => 7, 'Configuration.dependent_id' => $dependent_id)))));
+								'conditions' => $conditions));
 		$collage = array();
 		foreach($images as $image) {
 			if($image['Configuration']['type'] == 1) {

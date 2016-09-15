@@ -176,10 +176,15 @@
 													array('class' => 'fbox-support', 'escape' => false));
 			
 						$admin = $this->Session->read('Auth.User.role_id');
+						$company_admin = $this->Session->read('AdminAccess.company');
 						if($admin == 1) {
 							$list[] = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-lock')) . ' Administrator', 
 														array('controller' => 'users', 'action' => 'index', 'admin' => true),
 														array('escape' => false, 'target' => '_blank'));
+						} elseif(!empty($company_admin)) {
+							$list[] = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-lock')) . ' Administrator',
+									array('controller' => 'company_groups', 'action' => 'index', 'admin' => true),
+									array('escape' => false, 'target' => '_blank'));
 						}
 						
 						$isFacebook = $this->Session->read('Facebook');

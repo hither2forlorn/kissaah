@@ -22,7 +22,33 @@
 					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Language', 
 								   '#', array('escape' => false, 'class' => '')) .
 				$this->Html->div('margin-left-20', 'English(US)'));
-				
+		
+		if(empty($userdetail['User']['company'])) {
+			echo $this->Html->div('margin-bottom-10',
+				$this->Html->link(
+					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Add Code', 
+								   array('controller' => 'users', 'action' => 'edit/profile'), 
+								   array('escape' => false, 'class' => 'open-fancybox ')));
+		} else {
+			$grpLabel = $this->Html->tag('span',
+									$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')).' Groups',
+									array('class' => ''));
+			foreach($userdetail['CompanyGroup'] as $group) {
+				if(empty($group['parent_id'])) {
+					echo $this->Html->div('margin-top-10',
+							$this->Html->tag('span',
+									$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')).' Company',
+									array('class' => '')) .
+							$this->Html->div('margin-left-20', $group['title']));
+				}
+				else {
+					echo $this->Html->div('margin-top-10',
+							 $grpLabel .
+							$this->Html->div('margin-left-20', $group['title']));
+					$grpLabel = '';
+				}
+			}
+		}
 	?></div>
 	<div class="col-md-4 col-sm-5 col-xs-8 profile-general-settings">
 		<h2>General Settings</h2>

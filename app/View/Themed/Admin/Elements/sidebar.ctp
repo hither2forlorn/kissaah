@@ -12,6 +12,10 @@
 		<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 		<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 			<!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+			<?php 
+			$admin = $this->Session->read('Auth.User.role_id');
+			if($admin == 1) {
+			?>
 			<li class="sidebar-toggler-wrapper">
 				<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
 				<div class="sidebar-toggler"></div>
@@ -31,12 +35,17 @@
 				<?php echo $this->Form->end(); ?>
 				<!-- END RESPONSIVE QUICK SEARCH FORM -->
 			</li><?php
+			}
+			if($admin == 1) {
 				$menus[] = array('name' => ' Dashboard', 'icon' => 'icon-home', 'url' => 'admin/');
 				$menus[] = array('name' => ' Configure Game', 'icon' => 'icon-bar-chart', 'url' => 'admin/configurations');
 				$menus[] = array('name' => ' Value/Strength', 'icon' => 'icon-bar-chart', 'url' => 'admin/value_strength_categories');
+			}
 				$menus[] = array('name' => ' Users', 'icon' => 'icon-user', 'url' => 'admin/users/view/');
 				$menus[] = array('name' => ' Company/Group', 'icon' => 'icon-bar-chart', 'url' => 'admin/company_groups');
+			if($admin == 1) {
 				$menus[] = array('name' => ' Control Panel', 'icon' => 'icon-screen-smartphone', 'url' => 'super_admin/control_panels');
+			}
 				$menus[] = array('name' => ' Collage', 'icon' => 'icon-graph',
 								 'child' => array(
 											array('name' => ' Image Activity', 'url' => 'admin/games/collage/Image%20Activity', 'icon' => 'fa-bullhorn'),
@@ -44,7 +53,6 @@
 											array('name' => ' Image Place', 'url' => 'admin/games/collage/Image%20Place', 'icon' => 'fa-bullhorn'),
 											array('name' => ' Image Path', 'url' => 'admin/games/collage/Image%20Path', 'icon' => 'fa-bullhorn'),
 						  ));
-				
 				
 				foreach($menus as $id => $menu) {
 					$class = '';

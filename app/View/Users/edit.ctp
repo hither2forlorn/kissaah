@@ -90,10 +90,12 @@
 															'legend'		=> false,
 															'separator'		=> '&nbsp;&nbsp;&nbsp;')); ?>
 			</div>
+			<?php if(empty($this->request->data['User']['company'])) { ?>
 			<div class="form-group">
 				<label>Code</label>
 				<?php echo $this->Form->input('company', array('placeholder' => 'Your Kissaah Code')); ?>
 			</div>
+			<?php } ?>
 			<div class="form-group">
 				<label class="check">
 					<span><?php echo $this->Form->input('collage_status', array('type' => 'checkbox', 'class' => false, 'div' => false)); ?></span> 
