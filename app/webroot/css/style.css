@@ -1172,6 +1172,17 @@ Pre-Footer and pre-footer elements
 	white-space: nowrap;
 	width: 100%;
 }
+.btn-label-xs {
+	border: 1px solid transparent;
+	display: inline-block;
+	line-height: 1.42857;
+	margin-bottom: 1px;
+	padding: 6px 12px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	width: 100%;
+}
 .btn-label.orange {
 	background-color: #f68e20;
 	color: #FFFFFF;
@@ -1180,8 +1191,16 @@ Pre-Footer and pre-footer elements
 	background-color: #17b3e8;
 	color: #FFFFFF;
 }
+.btn-label-xs.light-blue {
+	background-color: #17b3e8;
+	color: #FFFFFF;
+}
 .btn-label.dark-blue {
 	background-color: #0567a5;
+	color: #FFFFFF;
+}
+.btn-label-xs.dark-blue {
+	background-color: #17b3e8;
 	color: #FFFFFF;
 }
 
@@ -1725,7 +1744,7 @@ h3.activitytitle {
 
 .sorting-list-header {
   font-size: 0.9em;
-  margin: 0 1%;
+  margin: 0 1% 1px;
   width: 98%;
 }
 div.value-list {
@@ -1733,6 +1752,12 @@ div.value-list {
   overflow-x: auto;
   overflow-y: auto;
   padding: 0;
+}
+div.value-list-xs {
+  overflow-x: auto;
+  overflow-y: auto;
+  padding: 0;
+  height: 370px;
 }
 .draggable-list, .draggable-fixed {
   background-color: #0567a5;
@@ -1755,6 +1780,22 @@ div.value-list {
   margin: 0;
   padding: 30% 5% 0;
 }
+
+.droppable-answer-xs {
+  height: 40px;
+  padding: 0 2px;
+  position: relative;
+  margin-top: 1px;
+}
+.droppable-answer-xs .draggable-list {
+  height: inherit;
+  padding-top: 0;
+  width: 98%;
+  border: 1px solid transparent;
+  text-align: center;
+  margin: 0;
+}
+
 .draggable-drop-here {
   background-color: #cccccc;
   color: #aaaaaa;
@@ -1763,14 +1804,23 @@ div.value-list {
   padding-top: 30%;
   text-align: center;
   width: 100%;
+  border: 1px solid transparent;
+}
+.droppable-answer-xs .draggable-drop-here {
+  background-color: #cccccc;
+  color: #aaaaaa;
+  height: inherit;
+  text-align: center;
+  padding-top: 0;
+  width: 98%;
+  border: 1px solid transparent;
+  margin: 0;
 }
 .droppable-discard {
   background-color: #fcb817;
   color: #fff;
-  margin-right: 1%;
   padding: 15px 0;
   text-align: center;
-  width: 49%;
 }
 .ui-draggable-dragging {
 	background-color: #F68E20;
