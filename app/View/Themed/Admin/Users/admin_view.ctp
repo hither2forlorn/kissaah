@@ -40,9 +40,7 @@
 								<th><?php echo __('Answers', true);?></th>
 								<th><?php echo $this->Paginator->sort('User.created', 'Signed Up'); ?></th>
 								<th><?php echo $this->Paginator->sort('User.last_login', 'Last Seen'); ?></th>
-								<?php if($this->Session->read('Auth.User.role_id') == 1) { ?>
 								<th class="actions"><?php echo __('Actions'); ?></th>
-								<?php } ?>
 							</tr>
 						</thead>
 						<tbody>
@@ -57,28 +55,29 @@
 								<td><?php echo $user['User']['UserGameStatus'] . ' - ' . $user['User']['Game'] . ' - ' . $user['User']['Files'];?></td>
 								<td><?php echo date('Y-m-d', strtotime($user['User']['created'])); ?></td>
 								<td><?php echo $user['User']['last_login'];?></td>
-								<?php if($this->Session->read('Auth.User.role_id') == 1) { ?>
 								<td class="actions">
-	                            <?php echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-edit')), 
+	                            <?php if($actions['edit']) {
+	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-edit')), 
 	                                                             array('action' => 'detail', $user['User']['id'], 'admin' => true), 
-	                                                             array('class' => 'btn default btn-xs blue', 'escape' => false, 'target' => '_blank')); ?>
-	                            
-	                            <?php echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o')), 
+	                                                             array('class' => 'btn default btn-xs blue', 'escape' => false, 'target' => '_blank')); 
+								} ?>
+	                            <?php if($actions['delete']) {
+	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o')), 
 	                                                             array('action' => 'delete', $user['User']['id'], 'admin' => true), 
-	                                                             array('class' => 'btn default btn-xs grey user-delete', 'escape' => false)); ?>
-
-	                            <?php echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-sign-in')), 
+	                                                             array('class' => 'btn default btn-xs grey user-delete', 'escape' => false));
+								} ?>
+	                            <?php if($actions['login']) {
+	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-sign-in')), 
 	                                                             array('action' => 'login', $user['User']['id'], 'admin' => true), 
-	                                                             array('class' => 'btn default btn-xs green', 'escape' => false, 'target' => '_blank')); ?>
-
+	                                                             array('class' => 'btn default btn-xs green', 'escape' => false, 'target' => '_blank'));
+								} ?>
 	                            <?php 
-	                            if($user['User']['verified'] == 0) {
+	                            if($actions['verify'] && $user['User']['verified'] == 0 ) {
 	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-up')),
 	                            			array('action' => 'verify', $user['User']['email'], Security::hash($user['User']['email']), 1, 'admin' => false),
 	                            			array('class' => 'btn default btn-xs red', 'escape' => false));
 	                            } ?>
 								</td>
-								<?php } ?>
 							</tr>
 						<?php endforeach; ?>
 						</tbody>

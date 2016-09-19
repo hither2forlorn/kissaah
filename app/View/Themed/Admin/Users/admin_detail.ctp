@@ -37,12 +37,30 @@
 							<label class="col-md-3 control-label"><?php echo __('Verified'); ?></label>
 							<div class="col-md-5"><?php echo $this->Form->input('verified', array('type' => 'checkbox')); ?></div>
 						</div>
+						<?php if(!empty($roles)) { ?>
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?php echo __('Role'); ?></label>
 							<div class="col-md-5">
 								<?php echo $this->Form->input('role_id'); ?>
 								<span class="help-block"> This is inline help </span>
 							</div>
+						</div>
+						<?php } ?>
+						<div class="form-group">
+							<label class="col-md-3 control-label"><?php echo __('Company'); ?></label>
+							<div class="col-md-5"><?php echo $this->Form->input('company_id', array('options' => $companies, 'hiddenField' => false, 'multiple' => false, 'empty' => '--SELECT--')); ?></div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label"><?php echo __('Company Admin'); ?></label>
+							<div class="col-md-5"><?php echo $this->Form->input('company_admin', array('type' => 'checkbox', 'hiddenField' => false)); ?></div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label"><?php echo __('Group'); ?></label>
+							<div class="col-md-5"><?php echo $this->Form->input('group_id', array('options' => $groups, 'hiddenField' => false, 'multiple' => false, 'empty' => '--SELECT--')); ?></div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label"><?php echo __('Group Admin'); ?></label>
+							<div class="col-md-5"><?php echo $this->Form->input('group_admin', array('type' => 'checkbox', 'hiddenField' => false)); ?></div>
 						</div>
 					</div>
 					<div class="form-actions right">

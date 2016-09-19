@@ -24,7 +24,7 @@ class UsersController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allowedActions = array('admin_view', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
+		$this->Auth->allowedActions = array('admin_view', 'admin_detail', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
 		$this->Uploader = new Uploader();
 		$this->Uploader->setup(array('tempDir' => TMP));
 		/*
@@ -746,6 +746,8 @@ class UsersController extends AppController {
 		$isAdmin = ($this->Auth->user('role_id') == 1) ? true : false;
 		if(empty($companyAdmin) && !$isAdmin) {
 			$this->redirect($this->referer());
+		} else {
+			$actions = array('edit' => true, 'delete' => true, 'login' => true, 'verify' => true);
 		}
 		$sString = '';
 		$this->set('title_for_layout', 'User List');
@@ -770,6 +772,7 @@ class UsersController extends AppController {
 			$companyList = $this->CompanyGroupsUser->CompanyGroup->find('list', array('fields' => array('id', 'id'), 'conditions' => array('OR' => array('CompanyGroup.id' => $companyAdmin, 'CompanyGroup.parent_id' => $companyAdmin)), 'contain' => false));
 			$conditions['User.id'] = $this->CompanyGroupsUser->find('list', array('fields' => array('user_id', 'user_id'), 'conditions' => array('company_group_id' => $companyList), 'contain' => false));
 			//if(empty($conditions['User.id'])) unset($conditions['User.id']);
+			$actions = array('edit' => true, 'delete' => false, 'login' => false, 'verify' => true);
 		}
 		$this->paginate = array('conditions'=> $conditions,
 								'contain'	=> false,
@@ -792,28 +795,91 @@ class UsersController extends AppController {
 		
 		}
 		$this->Session->delete('Game.query_all');
-		
+		$this->set('actions', $actions);
 		$this->set('sString', $sString);
 		$this->set('userlist', $userlist);
 	}
 
 	function admin_detail($id = null){
+		$companyAdmin = $this->Session->read('AdminAccess.company');
+		$isAdmin = ($this->Auth->user('role_id') == 1) ? true : false;
+		if(empty($companyAdmin) && !$isAdmin) {
+			$this->redirect($this->referer());
+		}
+		$this->set(compact('isAdmin'));
 		if(!empty($this->request->data)){
-			if($this->User->save($this->request->data)){
+			/*
+			 * TODO: Right now set to only one company and one branch
+			 * so force reset of all old records 
+			 */
+			$companyAdmin = $groupAdmin = false;
+			if(!empty($this->request->data['User']['company_id'])) {
+				if(!empty($this->request->data['User']['company_admin'])) {
+					$this->User->CompanyGroup->id = $this->request->data['User']['company_id'];
+					$this->User->CompanyGroup->saveField('admin_id', $this->request->data['User']['id']);
+					$companyAdmin = true;
+				}
+				$this->request->data['CompanyGroup']['CompanyGroup'][] = $this->request->data['User']['company_id'];
+			}
+			if(!empty($this->request->data['User']['group_id'])) {
+				if(!empty($this->request->data['User']['group_admin'])) {
+					$this->User->CompanyGroup->id = $this->request->data['User']['group_id'];
+					$this->User->CompanyGroup->saveField('admin_id', $this->request->data['User']['id']);
+					$groupAdmin = true;
+				}
+				$this->request->data['CompanyGroup']['CompanyGroup'][] = $this->request->data['User']['group_id'];
+			}
+			if($this->User->saveAll($this->request->data)){
+				if(!$companyAdmin) {
+					$this->User->CompanyGroup->updateAll(array('admin_id' => '0'), array('admin_id' => $this->request->data['User']['id'], 'parent_id IS NULL'));
+				}
+				if(!$groupAdmin) {
+					$this->User->CompanyGroup->updateAll(array('admin_id' => '0'), array('admin_id' => $this->request->data['User']['id'], 'parent_id IS NOT NULL'));
+				}
 				$this->Session->setFlash('User updated Successfully');
 				$this->redirect(array('controller' => 'users', 'action' => 'view'));
 			} else {
 				$this->Session->setFlash('User could not be updated');
 			}
 		}
+		$this->loadModel('CompanyGroupsUser');
+		if(!$isAdmin) {
+			if(empty($companyAdmin)) $companyAdmin = 0;
+			$companyList = $this->User->CompanyGroup->find('list', array('fields' => array('id', 'id'), 'conditions' => array('OR' => array('CompanyGroup.id' => $companyAdmin, 'CompanyGroup.parent_id' => $companyAdmin)), 'contain' => false));
+			$conditions['User.id'] = $this->CompanyGroupsUser->find('list', array('fields' => array('user_id', 'user_id'), 'conditions' => array('company_group_id' => $companyList, 'user_id' => $id), 'contain' => false));
+			$com_conditions = array('id' => $companyList);
+		} else {
+			$conditions = array('User.id' => $id);
+			$com_conditions = array();
+		}
 		
-		$this->request->data = $this->User->findById($id);
+		$this->request->data = $this->User->find('first', array('conditions' => $conditions));
 		if(empty($this->request->data)){
 			$this->Session->setFlash("Invalid User");
 			$this->redirect($this->referer());
+		} else {
+			$cmpGrp = $this->CompanyGroupsUser->find('all', array('fields' => array('CompanyGroup.id', 'CompanyGroup.parent_id', 'CompanyGroup.admin_id'), 'conditions' => array('CompanyGroupsUser.user_id' => $id)));
+			if(!empty($cmpGrp)) {
+				foreach($cmpGrp as $cg) {
+					if(empty($cg['CompanyGroup']['parent_id'])) {
+						$this->request->data['User']['company_admin'] = ($cg['CompanyGroup']['admin_id'] == $id) ? 1 : 0;
+						$this->request->data['User']['company_id'] = $cg['CompanyGroup']['id'];
+					} else {
+						$this->request->data['User']['group_admin'] = ($cg['CompanyGroup']['admin_id'] == $id) ? 1 : 0;
+						$this->request->data['User']['group_id'] = $cg['CompanyGroup']['id'];
+					}
+				}	
+			}
 		}
-		$roles = $this->User->Role->find('list', array('fields' => array('id', 'name')));
+		if(!$isAdmin) $roles = array();
+		else $roles = $this->User->Role->find('list', array('fields' => array('id', 'name')));
 		$this->set('roles', $roles);
+		$grp_conditions = array($com_conditions, 'parent_id IS NOT NULL');
+		$comp_conditions = array($com_conditions, 'parent_id IS NULL');
+		$companies = $this->User->CompanyGroup->generateTreeList($comp_conditions, null, null, '---');
+		$groups = $this->User->CompanyGroup->generateTreeList($grp_conditions, null, null, '---');
+		$this->set('companies', $companies);
+		$this->set('groups', $groups);
 	}
 	
 	//2014-10-21, Badri, This function allows  admin to login as any user

@@ -90,35 +90,38 @@
 
 					$number = 0;
 					$list = array();
-					foreach($allies_notification as $noti) {
-						$text = '';
-						if($noti['Ally']['user_id'] == $this->Session->read('Auth.User.id') && $noti['Ally']['ally_notification'] == 'Accepted') {
-							$text = $noti['MyAlly']['name'] . ' accepted your request to be an ally';
+					if(!empty($allies_notification)) {
+						foreach($allies_notification as $noti) {
+							$text = '';
+							if($noti['Ally']['user_id'] == $this->Session->read('Auth.User.id') && $noti['Ally']['ally_notification'] == 'Accepted') {
+								$text = $noti['MyAlly']['name'] . ' accepted your request to be an ally';
+								
+							} elseif($noti['Ally']['ally'] == $this->Session->read('Auth.User.id') && $noti['Ally']['ally_notification'] == 'Requested') {
+								$text = $noti['User']['name'] . ' requested you as an ally';
+								
+							}
 							
-						} elseif($noti['Ally']['ally'] == $this->Session->read('Auth.User.id') && $noti['Ally']['ally_notification'] == 'Requested') {
-							$text = $noti['User']['name'] . ' requested you as an ally';
-							
-						}
-						
-						if($text != '') {
-							$number++;
-							$list[] = $this->Html->link($this->Html->tag('span', $text, array('class' => 'details')), 
-														array('controller' => 'allies', 'action' => 'notification', 'ally_notification', $noti['Ally']['id']), 
-														array('class' => 'noti', 'escape' => false));
+							if($text != '') {
+								$number++;
+								$list[] = $this->Html->link($this->Html->tag('span', $text, array('class' => 'details')), 
+															array('controller' => 'allies', 'action' => 'notification', 'ally_notification', $noti['Ally']['id']), 
+															array('class' => 'noti', 'escape' => false));
+							}
 						}
 					}
-					
-					foreach($feedback_notification as $noti) {
-						$text = '';
-						if($noti['Ally']['user_id'] == $this->Session->read('Auth.User.id') && $noti['Ally']['feedback_notification'] == 'Feedback') {
-							$text = $noti['MyAlly']['name'] . ' has given you a feedback';
-						}
-						
-						if($text != '') {
-							$number++;
-							$list[] = $this->Html->link($this->Html->tag('span', $text, array('class' => 'details')), 
-														array('controller' => 'allies', 'action' => 'notification', 'feedback_notification', $noti['Ally']['id']), 
-														array('class' => 'noti', 'escape' => false));
+					if(!empty($feedback_notification)) {
+						foreach($feedback_notification as $noti) {
+							$text = '';
+							if($noti['Ally']['user_id'] == $this->Session->read('Auth.User.id') && $noti['Ally']['feedback_notification'] == 'Feedback') {
+								$text = $noti['MyAlly']['name'] . ' has given you a feedback';
+							}
+							
+							if($text != '') {
+								$number++;
+								$list[] = $this->Html->link($this->Html->tag('span', $text, array('class' => 'details')), 
+															array('controller' => 'allies', 'action' => 'notification', 'feedback_notification', $noti['Ally']['id']), 
+															array('class' => 'noti', 'escape' => false));
+							}
 						}
 					}
 					?>

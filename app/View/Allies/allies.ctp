@@ -33,8 +33,9 @@
 		if(count($current_allies) > 0) {
 			$my_allies = $this->Html->tag('h3', 'To see feedback from allies - click on ' . 
 												$this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right')), array('class' => 'activitytitle'));
-			
-			foreach($current_allies as $ally) {
+			$my_allies .= '<div class="row">';
+			foreach($current_allies as $ky => $ally) {
+				if($ky%3 == 0) $my_allies .= '</div><div class="row">';
 				$status = isset($ally['Ally']['status'])? $ally['Ally']['status']: 0;
 				if($status == 0) {
 					$ally_field_class = 'color-grey';
@@ -59,18 +60,19 @@
 				$span  = $this->Html->div('margin-bottom-5', $ally_name . '<br />' . $ally['UserGameStatus']['roadmap'] . '<br />' . 
 															 $btndr, array('id' => $ally['Ally']['id']));
 				
-				$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-6 text-013 margin-bottom-10 ally-box ' . $ally_field_class, $image . $span, array('data' => $ally['Ally']['id']));
+				$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-12 text-013 margin-bottom-10 ally-box ' . $ally_field_class, $image . $span, array('data' => $ally['Ally']['id']));
 									
 			}
-			
+			$my_allies .= '</div>';
 			echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20', $my_allies);
 		}
 		
 		if(count($allies_of) > 0) {
 			$my_allies = $this->Html->tag('h3', 'To give feedback to allies - click on ' .
 												$this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right')), array('class' => 'activitytitle'));
-			
-			foreach($allies_of as $ally) {
+			$my_allies .= '<div class="row">';
+			foreach($allies_of as $ky => $ally) {
+				if($ky%3 == 0) $my_allies .= '</div><div class="row">';
 				$status = isset($ally['Ally']['status'])? $ally['Ally']['status']: 0;
 				if($status == 0) {
 					$ally_field_class = 'color-grey';
@@ -106,10 +108,10 @@
 				$span  = $this->Html->div('margin-bottom-5', $ally_name . '<br />' . $ally['UserGameStatus']['roadmap'] . 
 															 '<br />' . $btndr, array('id' => $ally['Ally']['id']));
 				
-				$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-6 text-014 margin-bottom-10 ally-box ' . $ally_field_class, 
+				$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-12 text-014 margin-bottom-10 ally-box ' . $ally_field_class, 
 												$image . $span, array('data' => $ally['Ally']['id']));
 			}
-			
+			$my_allies .= '</div>';
 			echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', $my_allies);
 		}
 		?>

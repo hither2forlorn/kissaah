@@ -10,7 +10,11 @@ Class CompanyGroup extends AppModel {
 					'joinTable' => 'company_groups_users',
 					'foreignKey' => 'company_group_id',
 					'associationForeignKey' => 'user_id',
-					'unique' => 'keepExisting'
+					/*
+					 * TODO: Its set currently for one company and one group so force reset of old records
+					 * else set 'unique' => 'keepExisting'
+					 */
+					'unique' => true
 			)
 	);
 	

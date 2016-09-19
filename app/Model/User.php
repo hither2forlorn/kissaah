@@ -182,7 +182,11 @@ Class User extends AppModel {
 			'joinTable' => 'company_groups_users',
 			'foreignKey' => 'user_id',
 			'associationForeignKey' => 'company_group_id',
-			'unique' => 'keepExisting',
+			/*
+			 * TODO: Its set currently for one company and one group so force reset of old records
+			 * else set 'unique' => 'keepExisting'
+			 */
+			'unique' => true,
 			'order' => array('parent_id', 'title')
 		)
 	);
