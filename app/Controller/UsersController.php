@@ -1,6 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 App::import('Vendor', 'Uploader.Uploader');
+Configure::load('linkedin');
 /**
  * Users Controller
  *
@@ -24,7 +25,7 @@ class UsersController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allowedActions = array('admin_view', 'admin_detail', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
+		$this->Auth->allowedActions = array('auth', 'admin_view', 'admin_detail', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
 		$this->Uploader = new Uploader();
 		$this->Uploader->setup(array('tempDir' => TMP));
 		/*
@@ -963,4 +964,60 @@ class UsersController extends AppController {
 		}
 		$this->render('/Pages/home', 'master_login');
 	}
+	
+	public function auth($source = null) {
+		$this->autoRender = false;
+		if($source == 'linkedin') {
+			$linkedInConfig = Configure::read('LinkedIn');
+			if(isset($this->request->query['code'])) {
+				if(isset($this->request->query['state']) && $this->request->query['state'] != $linkedInConfig['state']) {
+					throw new NotFoundException(__('Invalid request'));
+				}
+				$post = array(
+						'grant_type' => 'authorization_code',
+						'code' => $this->request->query['code'],
+						'client_id' => $linkedInConfig['clientID'],
+						'client_secret' => $linkedInConfig['clientSecret'],
+						'state' => $linkedInConfig['state'],
+						'redirect_uri' => Router::url(array('controller' => 'users', 'action' => 'auth', 'linkedin'), true)
+				);
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL,"https://www.linkedin.com/oauth/v2/accessToken?".http_build_query($post));
+				curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)');
+				/*curl_setopt($ch, CURLOPT_POST, 1);
+				 curl_setopt($ch, CURLOPT_POSTFIELDS,
+				          http_build_query($post)); */
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				$server_output = curl_exec ($ch);
+				debug($server_output);
+				curl_close ($ch);
+				$response = json_decode($server_output);
+				debug($response); exit;
+				$this->request->data['User']['linked_in_token'] = $response['access_token'];
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL,"https://api.linkedin.com/v1/people/".$response['access_token']."?format=json");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$server_output = curl_exec ($ch);
+				curl_close ($ch);
+				$response = json_decode($server_output);
+				$this->request->data['User']['email'] = $response['email-address'];
+				$linkedInUser = $this->User->find('first', array('conditions' => array('email' => $response['email-address'])));
+				if(!empty($linkedInUser)) {
+					$this->User->id = $linkedInUser['User']['id'];
+					$this->User->saveField('linked_in_token', $this->request->data['User']['linked_in_token']);
+					$this->Auth->login($linkedInuser);
+				} else {
+					$this->request->data['User']['password'] = String::uuid();
+					if($this->register(true)) {
+						$linkedInUser = $this->User->find('first', array('conditions' => array('email' => $this->request->data['User']['email'])));
+						if(!empty($linkedInUser)) {
+							$this->Auth->login($linkedInuser);
+							$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
+						}
+					}
+				}
+			}
+		}
+	}
+	
 }

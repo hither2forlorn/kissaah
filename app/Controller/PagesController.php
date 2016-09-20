@@ -26,6 +26,7 @@
  *
  * @package       app.Controller
  */
+Configure::load('linkedin');
 class PagesController extends AppController {
 
 /**
