@@ -35,6 +35,7 @@
 				$menus[] = array('name' => ' Configure Game', 'icon' => 'icon-bar-chart', 'url' => 'admin/configurations');
 				$menus[] = array('name' => ' Value/Strength', 'icon' => 'icon-bar-chart', 'url' => 'admin/value_strength_categories');
 				$menus[] = array('name' => ' Users', 'icon' => 'icon-user', 'url' => 'admin/users/view/');
+				$menus[] = array('name' => ' Company/Group', 'icon' => 'icon-bar-chart', 'url' => 'admin/company_groups');
 				$menus[] = array('name' => ' Control Panel', 'icon' => 'icon-screen-smartphone', 'url' => 'super_admin/control_panels');
 				$menus[] = array('name' => ' Collage', 'icon' => 'icon-graph',
 								 'child' => array(

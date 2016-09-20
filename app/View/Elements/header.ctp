@@ -9,14 +9,8 @@
 	  			echo $this->Html->link($this->Html->image('kissaah-logo-wht-03.png'), 'http://www.kissaah.com', array('escape' => false));
 			}
 	  		?></div>
-	  		<div class="col-md-7 col-sm-6 col-xs-6"><?php
-			if($this->Session->check('Auth.User')) {
-	  			$name = ($this->Session->read('Auth.User.name') == '')? $this->Session->read('Auth.User.email'): $this->Session->read('Auth.User.name');
-				echo $this->Html->tag('h2', $name, array('class' => 'font-white text-right'));
-				echo $this->Html->tag('h4', $this->Session->read('ActiveGame.roadmap'), array('class' => 'font-white text-right'));
-			}
-	  		?></div>
-	  		<div class="col-md-1 col-sm-2 col-xs-2 no-padding" id="tour-step-2"><?php 
+	  		
+	  		<div class="col-md-1 col-md-offset-0 col-md-push-7 col-sm-2 col-sm-offset-0 col-sm-push-6 col-xs-4 col-xs-offset-4 no-padding" id="tour-step-2"><?php 
 			if($this->Session->check('Auth.User')) {
 				$image = $this->Session->read('Profile.Game.answer');
 				$image = (empty($image))? 'profile.png': '../files/img/small/' . $image;
@@ -28,6 +22,13 @@
 			}
 			//echo $this->Session->read('Screen.width');echo ' x ';echo $this->Session->read('Screen.height');
 			?></div>
+			<div class="col-md-7 col-md-pull-1 col-sm-6 col-sm-pull-2 col-xs-12"><?php
+			if($this->Session->check('Auth.User')) {
+	  			$name = ($this->Session->read('Auth.User.name') == '')? $this->Session->read('Auth.User.email'): $this->Session->read('Auth.User.name');
+				echo $this->Html->tag('h2', $name, array('class' => 'font-white text-right'));
+				echo $this->Html->tag('h4', $this->Session->read('ActiveGame.roadmap'), array('class' => 'font-white text-right'));
+			}
+	  		?></div>
 	  	</div>
 	</div>
 </div>
