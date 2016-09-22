@@ -25,7 +25,7 @@ class UsersController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allowedActions = array('auth', 'admin_view', 'admin_detail', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
+		$this->Auth->allowedActions = array('oauth', 'admin_view', 'admin_detail', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
 		$this->Uploader = new Uploader();
 		$this->Uploader->setup(array('tempDir' => TMP));
 		/*
@@ -965,7 +965,7 @@ class UsersController extends AppController {
 		$this->render('/Pages/home', 'master_login');
 	}
 	
-	public function auth($source = null) {
+	public function oauth($source = null) {
 		$this->autoRender = false;
 		if($source == 'linkedin') {
 			$linkedInConfig = Configure::read('LinkedIn');
@@ -979,7 +979,7 @@ class UsersController extends AppController {
 						'client_id' => $linkedInConfig['clientID'],
 						'client_secret' => $linkedInConfig['clientSecret'],
 						'state' => $linkedInConfig['state'],
-						'redirect_uri' => Router::url(array('controller' => 'users', 'action' => 'auth', 'linkedin'), true)
+						'redirect_uri' => Router::url(array('controller' => 'users', 'action' => 'oauth', 'linkedin'), true)
 				);
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL,"https://www.linkedin.com/oauth/v2/accessToken");
