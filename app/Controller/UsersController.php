@@ -982,11 +982,11 @@ class UsersController extends AppController {
 						'redirect_uri' => Router::url(array('controller' => 'users', 'action' => 'auth', 'linkedin'), true)
 				);
 				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL,"https://www.linkedin.com/oauth/v2/accessToken?".http_build_query($post));
+				curl_setopt($ch, CURLOPT_URL,"https://www.linkedin.com/oauth/v2/accessToken");
 				curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)');
-				/*curl_setopt($ch, CURLOPT_POST, 1);
-				 curl_setopt($ch, CURLOPT_POSTFIELDS,
-				          http_build_query($post)); */
+				curl_setopt($ch, CURLOPT_POST, 1);
+				curl_setopt($ch, CURLOPT_POSTFIELDS,
+				          http_build_query($post)); 
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 				$server_output = curl_exec ($ch);
 				debug($server_output);
