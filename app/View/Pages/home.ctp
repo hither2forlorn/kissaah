@@ -47,7 +47,7 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 					<h4>Or login with</h4>
 					<?php
 					$linkedInConfig = Configure::read('LinkedIn');
-					echo $this->Html->image('Sign-in-Small---Default.png', array('url' => 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='.$linkedInConfig['clientID'].'&state='.$linkedInConfig['state'].'&redirect_uri='.Router::url(array('controller' => 'users', 'action' => 'auth', 'linkedin'), true), 'class' => 'btn btn-primary pull-right collapsed')); ?>
+					echo $this->Html->image('Sign-in-Small---Default.png', array('url' => 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='.$linkedInConfig['clientID'].'&state='.$linkedInConfig['state'].'&redirect_uri='.Router::url(array('controller' => 'users', 'action' => 'oauth', 'linkedin'), true), 'class' => 'btn btn-primary pull-right collapsed')); ?>
 				</div>
 				<div class="create-account">
 					<p>Not a user yet?&nbsp;&nbsp;&nbsp;<a class="uppercase" id="register-btn" href="javascript:;">Request an account now!</a></p>
