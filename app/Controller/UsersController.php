@@ -436,7 +436,7 @@ class UsersController extends AppController {
 										'contain' 	 => false,
 										'conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id'))));
 			$this->request->data['User']['password'] = '';
-			if(!is_null($this->request->data['User']['dob'])) {
+			if(!empty($this->request->data['User']['dob'])) {
 				$this->request->data['User']['dob'] = DateTime::createFromFormat('Y-m-d', $this->request->data['User']['dob'])->format('d/m/Y');
 			}
 		}
@@ -1006,6 +1006,7 @@ class UsersController extends AppController {
 							$this->User->id = $linkedInUser['User']['id'];
 							$this->User->saveField('linked_in_token', $this->request->data['User']['linked_in_token']);
 							$this->Auth->login($linkedInUser['User']);
+							$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 						} else {
 							$this->request->data['User']['password'] = String::uuid();
 							$this->request->data['User']['name'] = $response['firstName'].' '.$response['lastName'];
