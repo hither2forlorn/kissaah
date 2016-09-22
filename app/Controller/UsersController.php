@@ -1006,7 +1006,7 @@ class UsersController extends AppController {
 						if(!empty($linkedInUser)) {
 							$this->User->id = $linkedInUser['User']['id'];
 							$this->User->saveField('linked_in_token', $this->request->data['User']['linked_in_token']);
-							$this->Auth->login($linkedInuser);
+							$this->Auth->login($linkedInUser);
 						} else {
 							$this->request->data['User']['password'] = String::uuid();
 							$this->request->data['User']['name'] = $response['firstName'].' '.$response['lastName'];
