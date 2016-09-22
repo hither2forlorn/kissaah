@@ -1,7 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 App::import('Vendor', 'Uploader.Uploader');
-//Configure::load('linkedin');
+Configure::load('linkedin');
 /**
  * Users Controller
  *
