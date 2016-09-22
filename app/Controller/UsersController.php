@@ -1013,13 +1013,12 @@ class UsersController extends AppController {
 							if($this->register(true)) {
 								$linkedInUser = $this->User->find('first', array('conditions' => array('email' => $this->request->data['User']['email'])));
 								if(!empty($linkedInUser)) {
-									$this->Auth->login($linkedInuser);
+									$this->Auth->login($linkedInUser);
 									$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 								}
 							}
 						}
-					} else exit;
-					$this->redirect('/');
+					} else $this->redirect('/');
 				} else $this->redirect('/');
 			}
 		}
