@@ -991,6 +991,7 @@ class UsersController extends AppController {
 				$server_output = curl_exec ($ch);
 				curl_close ($ch);
 				$response = json_decode($server_output, true);
+				debug($response);
 				$this->request->data['User']['linked_in_token'] = $response['access_token'];
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL,"https://api.linkedin.com/v1/people/~?oauth2_access_token=".$response['access_token']."&format=json");
