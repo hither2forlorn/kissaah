@@ -999,21 +999,20 @@ class UsersController extends AppController {
 					$server_output = curl_exec ($ch);
 					curl_close ($ch);
 					$response = json_decode($server_output, true);
-					debug($response);
 					if(!isset($response['status']) || $response['status'] != 401) {
 						$this->request->data['User']['email'] = $response['emailAddress'];
 						$linkedInUser = $this->User->find('first', array('conditions' => array('email' => $response['emailAddress'])));
 						if(!empty($linkedInUser)) {
 							$this->User->id = $linkedInUser['User']['id'];
 							$this->User->saveField('linked_in_token', $this->request->data['User']['linked_in_token']);
-							$this->Auth->login($linkedInUser);
+							$this->Auth->login($linkedInUser['User']);
 						} else {
 							$this->request->data['User']['password'] = String::uuid();
 							$this->request->data['User']['name'] = $response['firstName'].' '.$response['lastName'];
 							if($this->register(true)) {
 								$linkedInUser = $this->User->find('first', array('conditions' => array('email' => $this->request->data['User']['email'])));
 								if(!empty($linkedInUser)) {
-									$this->Auth->login($linkedInUser);
+									$this->Auth->login($linkedInUser['User']);
 									$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 								}
 							}
