@@ -109,7 +109,7 @@ class CompanyGroupsController extends AppController {
 		if(!$this->isAdmin) {
 			$conditions['OR'] = array('CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin);
 			if(empty($this->companyAdmin) || empty($this->request->data['CompanyGroup']['parent_id'])) {
-				$conditions = ['CompanyGroup.id = 0'];
+				$conditions[] = 'CompanyGroup.id = 0';
 			}
 		}
 		$parent_id = $this->CompanyGroup->generateTreeList($conditions, null, null, '---');
