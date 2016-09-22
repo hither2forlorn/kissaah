@@ -990,14 +990,14 @@ class UsersController extends AppController {
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 				$server_output = curl_exec ($ch);
 				curl_close ($ch);
-				$response = json_decode($server_output);
+				$response = json_decode($server_output, true);
 				$this->request->data['User']['linked_in_token'] = $response['access_token'];
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL,"https://api.linkedin.com/v1/people/".$response['access_token']."?format=json");
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 				$server_output = curl_exec ($ch);
 				curl_close ($ch);
-				$response = json_decode($server_output);
+				$response = json_decode($server_output, true);
 				debug($response); exit;
 				$this->request->data['User']['email'] = $response['email-address'];
 				$linkedInUser = $this->User->find('first', array('conditions' => array('email' => $response['email-address'])));
