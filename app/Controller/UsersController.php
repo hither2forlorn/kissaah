@@ -978,7 +978,7 @@ class UsersController extends AppController {
 						'code' => $this->request->query['code'],
 						'client_id' => $linkedInConfig['clientID'],
 						'client_secret' => $linkedInConfig['clientSecret'],
-						'state' => $linkedInConfig['state'],
+						//'state' => $linkedInConfig['state'],
 						'redirect_uri' => Router::url(array('controller' => 'users', 'action' => 'oauth', 'linkedin'), true)
 				);
 				$ch = curl_init();
