@@ -999,7 +999,8 @@ class UsersController extends AppController {
 					$server_output = curl_exec ($ch);
 					curl_close ($ch);
 					$response = json_decode($server_output, true);
-					if($response['status'] != 401) {
+					debug($response);
+					if(!isset($response['status']) || $response['status'] != 401) {
 						$this->request->data['User']['email'] = $response['email-address'];
 						$linkedInUser = $this->User->find('first', array('conditions' => array('email' => $response['email-address'])));
 						if(!empty($linkedInUser)) {
@@ -1016,7 +1017,8 @@ class UsersController extends AppController {
 								}
 							}
 						}
-					} else $this->redirect('/');
+					} else exit;
+					$this->redirect('/');
 				} else $this->redirect('/');
 			}
 		}
