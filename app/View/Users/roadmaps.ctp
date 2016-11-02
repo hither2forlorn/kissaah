@@ -47,6 +47,7 @@ if(isset($roadmaps)){
 	<?php
 		echo $this->Html->tag('h3', 'RoadMaps', array('class' => 'activitytitle'));
 		echo $this->Html->tag('h5', 'Click icon to switch RoadMaps', array('class' => 'activitytitle'));
+		$key = -1;
 		foreach($roadmaps as $key => $roadmap) {
 			if($roadmap['UserGameStatus']['active']) {
 				$active = 'my-roadmap-active.png';
@@ -59,33 +60,46 @@ if(isset($roadmaps)){
 			}
 			echo $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 roadmap-block', 
 				  //$show_delete .
-				  $this->Html->link(
+				$this->Html->link(
 				  		$this->Html->image($active, array('class' => 'img-responsive margin-bottom-10')), 
 				  		array('controller' => 'users', 'action' => 'roadmap_edit_active', $roadmap['UserGameStatus']['id']),
 						array('escape' => false)) . 
-				  $this->Form->label('Your') . 
-				  $this->Form->input('roadmap', array(
-						'id'	 => $roadmap['UserGameStatus']['id'],
-						'label'  => false,
-						'div'    => false,
-				    	'class'	 => 'form-control roadmap-input',
-						'type'	 => 'text',
-						'value'	 => $roadmap['UserGameStatus']['roadmap'])) .
-				  $this->Form->label('RoadMap'));
+				$this->Form->label('Your') . 
+				$this->Form->input('roadmap', array(
+						'data-id' => $roadmap['UserGameStatus']['id'],
+						'label'   => false,
+						'div'     => false,
+				    	'class'	  => 'form-control roadmap-input margin-bottom-5',
+						'type'	  => 'text',
+						'value'	  => $roadmap['UserGameStatus']['roadmap'])) .
+				$this->Form->input('configuration_id', array(
+						'conf-id' => $roadmap['UserGameStatus']['id'],
+						'label'   => false,
+						'div'     => false,
+				    	'class'	  => 'form-control roadmap-input',
+						'empty'	  => '--SELECT--',
+						'value'	  => $roadmap['UserGameStatus']['configuration_id'])) .
+				$this->Form->label('RoadMap'));
 		}
 		for($key++; $key < 3; $key++) {
 			echo $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 roadmap-block', 
-				  $this->Html->link(
+				$this->Html->link(
 						  $this->Html->image('my-roadmap-add.png', array('class' => 'img-responsive margin-bottom-10')), 
 						  '#', array('escape' => false)) .
 						  $this->Form->label('Add') . 
-				  $this->Form->input('roadmap', array(
-				  		'id'	 => 0,
-						'label'  => false,
-						'div'    => false,
-				    	'class'	 => 'form-control roadmap-input',
-						'type'	 => 'text')) .
-				  $this->Form->label('New RoadMap'));
+				$this->Form->input('roadmap', array(
+				  		'data-id' => 0,
+						'label'   => false,
+						'div'     => false,
+				    	'class'	  => 'form-control roadmap-input margin-bottom-5',
+						'type'	  => 'text')) .
+				$this->Form->input('configuration_id', array(
+						'conf-id' => 0,
+						'label'   => false,
+						'div'     => false,
+				    	'class'	  => 'form-control roadmap-input',
+						'empty'	  => '--SELECT--')) .
+				$this->Form->label('New RoadMap'));
 		}
 	?>
 <?php

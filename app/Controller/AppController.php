@@ -83,7 +83,7 @@ class AppController extends Controller {
 		if(strpos(Router::url('/', true), 'kissaah.com') !== false) {
 			Configure::write('debug', 0);
 		} else {
-			Configure::write('debug', 1);
+			Configure::write('debug', 2);
 		}
 		
 		if(strpos(Router::url('/', true), 'kissaah.org') !== false && $this->action != 'master_login' && $this->action != 'verify') {

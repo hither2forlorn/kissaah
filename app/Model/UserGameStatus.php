@@ -26,6 +26,10 @@ class UserGameStatus extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
+		'Configuration'=> array(
+			'className'		=> 'Configuration',
+			'foreignKey'	=> 'configure_id'
+		),
 		'User' => array(
 			'className' 	=> 'User',
 			'foreignKey' 	=> 'user_id',

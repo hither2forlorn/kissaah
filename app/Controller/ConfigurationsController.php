@@ -82,7 +82,7 @@ class ConfigurationsController extends AppController {
 				$this->Session->setFlash(__('The Configuration could not be saved. Please, try again.'));
 			}
 		} else {
-			$options = array('conditions' => array('Configuration.' . $this->Configuration->primaryKey => $id));
+			$options = array('conditions' => array('Configuration.' . $this->Configuration->primaryKey => $id), 'contain' => false);
 			$this->request->data = $this->Configuration->find('first', $options);
 			
 		}
@@ -179,15 +179,10 @@ class ConfigurationsController extends AppController {
 					}
 				}
 				$i++;
-			
 			}
-			//debug($data);
-			//			debug($images);
-			//		debug($answers);
 			$image_answers=$answers;
-		//	debug($image_answers);
 			$this->set(compact('image_answers'));
-		}else{
+		} else {
 			$Configure_id = $this->Configuration->find('all',array('conditions' => array('Configuration.title'=>$activity),
 															'fields'=>'Configuration.id','contain'=>false));
 			$ids=array();
@@ -207,14 +202,12 @@ class ConfigurationsController extends AppController {
 				$data[$i]['user_id']=$cap['Answer']['user_id'];
 				
 				$i++;
-				
 			}
 			$image_answers = $this->Configuration->find('all',
 					array('conditions' => array( 'Configuration.type' => 1, 'Configuration.title' => $activity,
 							'OR' => array('Answer.answer is not null', 'Answer.answer != ' => '')),
 							'contain' => array('Answer'),
 							'order' => 'Answer.id DESC', 'limit' => 100));
-		//	debug($Configure_id);
 			$images=array();
 			$i=0;
 			foreach($image_answers as $ia){
@@ -222,7 +215,7 @@ class ConfigurationsController extends AppController {
 				$images[$i]['configure_id']=$ia['Answer']['configure_id'];
 				$images[$i]['answer']=$ia['Answer']['answer'];
 				$i++;
-			}//debug($images);
+			}
 			$answers=array();
 			$i=0;
 			foreach($images as $img){
@@ -233,11 +226,7 @@ class ConfigurationsController extends AppController {
 						$answers[$i]['configure_id']=$d['configure_id'];
 						$answers[$i]['answer']=$d['answer'];
 						$answers[$i]['image']=$img['answer'];
-					}/* else{
-						$answers[$i]['user_id']=$img['user_id'];
-						$answers[$i]['configure_id']=$img['configure_id'];
-						$answers[$i]['image']=$img['answer'];
-					} */
+					}
 				}
 				$i++;
 			}

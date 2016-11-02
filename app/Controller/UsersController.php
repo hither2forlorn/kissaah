@@ -290,12 +290,12 @@ class UsersController extends AppController {
 			$this->Session->write('Profile', $profile);
 		}
 		
-		if ($this->request->isMobile() || array_shift(explode('.', $_SERVER['HTTP_HOST'])) == 'm') {
+		//if ($this->request->isMobile() || array_shift(explode('.', $_SERVER['HTTP_HOST'])) == 'm') {
 			//$this->redirect(array('controller' => 'users', 'action' => 'additional_user_info'));
 			$this->redirect(array('controller' => 'games'));
-		} else {
-			$this->redirect(array('controller' => 'games'));
-		}
+		//} else {
+			//$this->redirect(array('controller' => 'games'));
+		//}
 	}
 
 	public function forgetpassword(){
@@ -529,11 +529,12 @@ class UsersController extends AppController {
 	}
 
 	//For RoadMaps
-	public function roadmaps(){
+	public function roadmaps() {
 		$roadmaps = $this->User->UserGameStatus->find('all', array(
 						'contain' 	 => false,
 						'conditions' => array('UserGameStatus.user_id' => $this->Session->read('ActiveGame.user_id'))));
-		$this->set(compact('roadmaps'));
+		$configurations = $this->User->UserGameStatus->Configuration->find('list', array('conditions' => array('parent_id' => null, 'status' => 1)));
+		$this->set(compact('roadmaps', 'configurations'));
 	}
 	
 	public function roadmap_save(){
@@ -546,7 +547,7 @@ class UsersController extends AppController {
 		} else {
 			$id = $data['id'];
 		}
-		if($data['roadmap'] != null) {
+		if(isset($data['roadmap']) || isset($data['configuration_id'])) {
 			if($this->User->UserGameStatus->save($data)) {
 				$id = $this->User->UserGameStatus->id;
 				$roadmap = $this->User->UserGameStatus->find('first', array(
@@ -555,7 +556,8 @@ class UsersController extends AppController {
 				if($roadmap['UserGameStatus']['active']) {
 					$this->Session->write('ActiveGame.roadmap', $roadmap['UserGameStatus']['roadmap']);
 				}
-				$this->set(compact('roadmap'));
+				$configurations = $this->User->UserGameStatus->Configuration->find('list', array('conditions' => array('parent_id' => null, 'status' => 1)));
+				$this->set(compact('roadmap', 'configurations'));
 			}
 		}
 	}

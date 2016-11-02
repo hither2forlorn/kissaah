@@ -7,17 +7,17 @@ $show_narration = 1;
 foreach ($vision as $key => $list) {
     if ($list['Configuration']['step-complete'] == 0) {
         $btnclass = 'col-md-12 col-xs-12 btn btn-step btn-start';
-		$brdclass = $this->Html->image('level-start.jpg', array('class' => 'img-responsive level-' . $list['Configuration']['id'], 'id' => 'tour-step-06'));
+		$brdclass = $this->Html->image('level-start.jpg', array('class' => 'img-responsive level-' . $key . ' level-' . $list['Configuration']['id'], 'id' => 'tour-step-06'));
 		
     } elseif ($list['Configuration']['step-complete'] == 1) {
     	$show_narration = 0;
         $btnclass = 'col-md-12 col-xs-12 btn btn-step btn-in-progress';
-		$brdclass = $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-' . $list['Configuration']['id']));
+		$brdclass = $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-' . $key . ' level-' . $list['Configuration']['id']));
 		
     } else {
     	$show_narration = 0;
         $btnclass = 'col-md-12 col-xs-12 btn btn-step btn-finished';
-		$brdclass = $this->Html->image('level-finished.jpg', array('class' => 'img-responsive level-' . $list['Configuration']['id']));
+		$brdclass = $this->Html->image('level-finished.jpg', array('class' => 'img-responsive level-' . $key . ' level-' . $list['Configuration']['id']));
 		
     }
 	
@@ -86,8 +86,11 @@ foreach ($vision as $key => $list) {
 			
 			/* Level 2 */
 			$id = 1; $images = $this->Html->div('col-md-2 col-sm-2 col-xs-12', '');
-			foreach($points[$id]['display'][1] as $display) {
-				$images .= $this->Html->div('col-md-3 col-sm-3 col-xs-4', $display);
+
+			if(isset($points[$id]['display'][1])) {
+				foreach($points[$id]['display'][1] as $display) {
+					$images .= $this->Html->div('col-md-3 col-sm-3 col-xs-4', $display);
+				}
 			}
 			$title 	= $this->Html->tag('h3', $points[$id]['title'], array('class' => 'text-center margin-top-20'));
 			$title 	= $this->Html->div('row no-margin margin-bottom-20', $this->Html->div('col-md-12', $title));
@@ -104,8 +107,10 @@ foreach ($vision as $key => $list) {
 		<div class="row"><?php
 			/* Execute: Level 4 */
 			$id = 3; $images = ''; $strgs = '';
-			foreach($points[$id]['display'][9] as $display) {
-				$images .= $this->Html->div('col-md-2 col-xs-12', $display);
+			if(isset($points[$id]['display'][9])) {
+				foreach($points[$id]['display'][9] as $display) {
+					$images .= $this->Html->div('col-md-2 col-xs-12', $display);
+				}
 			}
 
 			$title 	= $this->Html->tag('h3', $points[$id]['title'], array('class' => 'text-center'));
@@ -120,10 +125,15 @@ foreach ($vision as $key => $list) {
 			
 			/* Design: Level 3 */
 			$id = 2; $images = ''; $strgs = '';
-			foreach($points[$id]['display'][1] as $display) {
-				$images .= $this->Html->div('col-md-3 col-xs-4 col-sm-3', $display);
+			if(isset($points[$id]['display'][1])) {
+				foreach($points[$id]['display'][1] as $display) {
+					$images .= $this->Html->div('col-md-3 col-xs-4 col-sm-3', $display);
+				}
 			}
-			$images .= $this->Html->div('col-md-9 col-xs-8 col-sm-9', $points[$id]['display'][8]);
+			
+			if(isset($points[$id]['display'][8])) {
+				$images .= $this->Html->div('col-md-9 col-xs-8 col-sm-9', $points[$id]['display'][8]);
+			}
 
 			$title 	= $this->Html->tag('h3', $points[$id]['title'], array('class' => 'text-center'));
 			$images = $this->Html->div('row no-margin level-display margin-bottom-20', $images);
@@ -136,6 +146,9 @@ foreach ($vision as $key => $list) {
 			$level3 = $this->Html->div('col-md-6 col-xs-6 main-component no-padding', $circle . $images . $btn . $smmry);
 			
 			$screen_width = $this->Session->read('Screen.width');
+			if(is_null($screen_width)) {
+				$screen_width = 768;
+			}
 			if($screen_width > 767) {
 				echo $level4 . $level3;
 			} else {
@@ -172,7 +185,7 @@ foreach ($vision as $key => $list) {
 		road_map = <?php echo (empty($roadmap))? 0: 1; ?>;
 		thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
 
-		screen_width = <?php echo $this->Session->read('Screen.width'); ?>;
+		screen_width = <?php echo $screen_width; ?>;
 		if(screen_width > 767) {
 			Game.StartGame();
 			Game.Support();

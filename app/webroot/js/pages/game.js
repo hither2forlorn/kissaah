@@ -263,7 +263,7 @@ var Game = function () {
     	    		
     	    		currentStep = leg.index + 1;
     	    		if(currentStep == 4) {
-    	    			$('a[data=btn-187]').trigger('click');
+    	    			$('a[data=btn-' + game_step + ']').trigger('click');
     	    		}
     	    		if(currentStep == 5) {
     			    	$('.fancybox-inner').scrollTo(2000, 800);
@@ -277,16 +277,16 @@ var Game = function () {
 						btnimage = btnimage.replace('level-start', 'level-finished');
 						btnimage = btnimage.replace('level-in-progress', 'level-finished');
 
-						$('img.level-187').attr('src', btnimage);
-    	    			$('a[data=btn-187]').attr('class', 'col-md-12 col-sm-12 btn btn-step btn-finished');
+						$('img.level-1').attr('src', btnimage);
+    	    			$('a[data=btn-1]').attr('class', 'col-md-12 col-sm-12 btn btn-step btn-finished');
     	    		}
     	    		if(currentStep == 7) {
 						btnimage = $('img.level-' + game_step).attr('src');
 						btnimage = btnimage.replace('level-in-progress', 'level-start');
 						btnimage = btnimage.replace('level-finished', 'level-start');
 
-						$('img.level-187').attr('src', btnimage);
-						$('a[data=btn-187]').attr('class', 'col-md-12 col-sm-12 btn btn-step btn-start');
+						$('img.level-1').attr('src', btnimage);
+						$('a[data=btn-' + game_step + ']').attr('class', 'col-md-12 col-sm-12 btn btn-step btn-start');
     	    		}
     	    	},
 				onLegEnd	: function(leg) {},
@@ -537,6 +537,7 @@ var Game = function () {
         	$('.fancybox-inner').on('click', '.btn-save', function() {
     			$.fancybox.close();
     			if(game_step == 81){
+    				alert(game_step);
     				$.fancybox.open({
     					'helpers' 		: {
     						'overlay'	: {
@@ -591,16 +592,29 @@ var Game = function () {
         },
         
         RoadMap: function(){
-        	$('.roadmaps').on('focusout', 'input[type=text]', function(evt){
+        	$('.roadmaps').on('focusout', 'input[type=text], select', function(evt){
         		DOM_Element = $(this);
-        		road_map_id = $(this).attr('id');
-        		road_map_name = $(this).val();
+        		road_map_id 	= $(this).attr('data-id');
+        		road_cnf_id 	= $(this).attr('conf-id');
+        		road_map_name 	= $(this).val();
+        		console.log(road_map_id);
+        		console.log(road_cnf_id);
+        		console.log(road_map_name);
         		if(road_map_name != '') {
-            		if(road_map_id > 0) {
-            			data = {data:{'id':road_map_id, 'roadmap':road_map_name}};
-            		} else {
-            			data = {data:{'roadmap':road_map_name}};
-            		}
+        			if(road_map_id != undefined) {
+                		if(road_map_id > 0) {
+                			data = {data:{'id':road_map_id, 'roadmap':road_map_name}};
+                		} else {
+                			data = {data:{'roadmap':road_map_name}};
+                		}
+        			}
+        			if(road_cnf_id != undefined) {
+                		if(road_cnf_id > 0) {
+                			data = {data:{'id':road_cnf_id, 'configuration_id':road_map_name}};
+                		} else {
+                			data = {data:{'configuration_id':road_map_name}};
+                		}
+        			}
             		$.ajax({
         				cache		: false,
         				type		: 'POST',

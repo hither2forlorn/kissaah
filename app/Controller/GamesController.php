@@ -23,7 +23,8 @@ class GamesController extends AppController {
  * @access public
  */
 	public function index() {
-		$vision = $this->Configuration->children(81, true);
+		$configuration_id = $this->Session->read('ActiveGame.configuration_id');
+		$vision = $this->Configuration->children($configuration_id, true);
 		foreach($vision as $key => $value) {
 			if($value['Configuration']['status']) {
 				$vision[$key]['Configuration']['step-complete'] = $this->step_complete($value['Configuration']['id']);
@@ -34,7 +35,6 @@ class GamesController extends AppController {
 				
 			} else {
 				unset($vision[$key]);
-				
 			}
 			
 			$steps = $this->Configuration->children($value['Configuration']['id']);
@@ -58,9 +58,6 @@ class GamesController extends AppController {
 										'Ally.feedback_notification IS NOT NULL');
 		$feedback_notification = $this->Game->User->Ally->find('all', $options);		
 		
-		//debug($allies_notification);
-		//debug($feedback_notification);
-		
 		$this->Session->write('allies_notification', $allies_notification);
 		$this->Session->write('feedback_notification',$feedback_notification);
 		
@@ -74,7 +71,8 @@ class GamesController extends AppController {
 	* @access public
 	*/
 	public function game_step() {
-		$id = isset($this->request->query['st'])? $this->request->query['st'] : 81;
+		$configuration_id = $this->Session->read('ActiveGame.configuration_id');
+		$id = isset($this->request->query['st'])? $this->request->query['st'] : $configuration_id;
 		if($this->Session->check('Current.game_step')) {
 			$this->Session->delete('Current.game_step');
 		}

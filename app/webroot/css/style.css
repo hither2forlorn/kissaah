@@ -2246,11 +2246,11 @@ a.back-to-road-map {
 }
 .game-summary h3 {
 }
-.game-area .level-187 {
+.game-area .level-0 {
 	float: right;
 	width: 80px;
 }
-.game-area .level-188 {
+.game-area .level-1 {
 	-moz-transform: rotate(90.0deg);
 	-o-transform: rotate(90.0deg);
 	-webkit-transform: rotate(90.0deg);
@@ -2259,7 +2259,7 @@ a.back-to-road-map {
 	transform: rotate(90.0deg);	
 	width: 80px;
 }
-.game-area .level-189 {
+.game-area .level-2 {
 	-moz-transform: rotate(180.0deg);
 	-o-transform: rotate(180.0deg);
 	-webkit-transform: rotate(180.0deg);
@@ -2268,7 +2268,7 @@ a.back-to-road-map {
 	transform: rotate(180.0deg);	
 	width: 80px;
 }
-.game-area .level-190 {
+.game-area .level-3 {
 	-moz-transform: rotate(270.0deg);
 	-o-transform: rotate(270.0deg);
 	-webkit-transform: rotate(270.0deg);
