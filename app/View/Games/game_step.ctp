@@ -10,8 +10,21 @@
 	$help_view  = $this->Html->div('help-view pull-right', $this->Html->image('my-help.png'));
 	$help_view .= $this->Html->div('help-text', $step_information['Configuration']['help_bubble'], array('id' => 'tour-step-05'));
 
-	echo $this->Html->div('col-md-6 col-xm-6', $this->Html->div('conf-title', $step_information['Configuration']['title']));
+	//echo $this->Html->div('col-md-6 col-xm-6', $this->Html->div('conf-title', $step_information['Configuration']['title']));
 	//echo $this->Html->div('col-md-6 col-xm-6', $fu_words . $help_view);
+	$visions = $this->Session->read('Vision');
+	foreach($visions as $vision) {
+		$selected = 'caption-subject font-blue-sharp bold uppercase';
+		if($step_information['Configuration']['id'] == $vision['Configuration']['id']) {
+			$selected = 'caption-subject font-red-mint bold uppercase';
+		}
+		echo $this->Html->div('col-md-3 col-xm-3 ' . $selected, 
+				$this->Html->tag('span', 
+						$this->Html->link($vision['Configuration']['title'], 
+								array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
+								array('class' => 'btn-step')), 
+						array('class' => $selected)));
+	}
 ?>
 </div>
 <?php

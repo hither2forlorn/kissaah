@@ -25,6 +25,7 @@ class GamesController extends AppController {
 	public function index() {
 		$configuration_id = $this->Session->read('ActiveGame.configuration_id');
 		$vision = $this->Configuration->children($configuration_id, true);
+		$this->Session->write('Vision', $vision);
 		foreach($vision as $key => $value) {
 			if($value['Configuration']['status']) {
 				$vision[$key]['Configuration']['step-complete'] = $this->step_complete($value['Configuration']['id']);

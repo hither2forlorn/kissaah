@@ -2219,10 +2219,14 @@ a.back-to-road-map {
 }
 
 .fancybox-game-popup .form-control {
-  border-radius: 0;
-  box-shadow: none;
-  color: #000;
-  text-align: center;
+	background-color: #fff;
+    border: 1px solid #c2cad8;
+    border-radius: 25px !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+
 }
 .fancybox-game-popup .save-answer .form-control {
 }
@@ -2239,7 +2243,7 @@ a.back-to-road-map {
   text-align: left;
 }
 .game-summary {
-	background-color: #FCB817;
+	/* background-color: #FCB817; */
 }
 .game-summary .image-box {
 	background-color: #FCB817 !important; 
