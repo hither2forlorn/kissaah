@@ -41,7 +41,7 @@
 </head>
 
 <!-- Body BEGIN -->
-<body class=""><!-- add class page-header-fixed, if you want to fix header -->intropage is this users?
+<body class=""><!-- add class page-header-fixed, if you want to fix header -->intropage is this used?
 	<div class="page-slider margin-bottom-40">
 		<div class="container">
 			<div class="margin-bottom-40"></div>

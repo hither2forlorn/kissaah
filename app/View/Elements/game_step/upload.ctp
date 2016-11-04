@@ -25,12 +25,12 @@ $image_form .= $this->Html->tag('i', '', array('class' => 'fa fa-upload fa-lg'))
 $image_form .= $this->Form->input($id, array('type' => 'file', 'label' => false, 'class' => 'default', 'div' => false));
 $image_form .= $this->Form->end();
 $image_form .= $this->Html->link(
-		$this->Html->tag('i', '', array('class' => 'fa fa-pinterest fa-lg upload-img', 'title' => 'Get Images From Pinterest', 'data' => $id)),
+		$this->Html->tag('i', '', array('class' => 'fa fa-pinterest fa-2 upload-img', 'title' => 'Get Images From Pinterest', 'data' => $id)),
 		array('controller' => 'games', 'action' => 'pinterest_getimages', '?' => array('cid' => $id)), 
 		array('escape' => false));
 //$image_form .= $this->Html->image('pinterest.png', array('title' => 'Get Images From Pinterest', 'data' => $id, 'id' => 'pin'));
 $image_form .= $this->Html->link(
-		$this->Html->tag('i', '', array('class' => 'fa fa-instagram fa-lg upload-img', 'title' => 'Get Images From Instagram', 'data' => $id)),
+		$this->Html->tag('i', '', array('class' => 'fa fa-instagram fa-2 upload-img', 'title' => 'Get Images From Instagram', 'data' => $id)),
 		array('controller' => 'games', 'action' => 'instagram_getImages', '?' => array('cid' => $id, 'game_step' => '123')), 
 		array('escape' => false));
 //$image_form .= $this->Html->image('Instagram.png', array('title' => 'Get Images From Instagram', 'data' => $id, 'id' => 'ins'));
