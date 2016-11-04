@@ -1042,15 +1042,17 @@ var FileUpload = function () {
 		
 		//For the image  icons below Activity Images 
 		ImageActions: function(){
-			$('.image-icon').delegate('img', 'click', function() {
+			$('.image-icon').delegate('a', 'click', function(ev) {
+				ev.preventDefault();
 				iconID	= $(this).attr('id');
 				cid		= $(this).attr('data');
-				url 	= '';
-				if(iconID == 'pin'){
+				url 	= $(this).attr('href');
+				if(iconID == 'pin') {
 					url = host_url + 'games/pinterest_getimages?cid=' + cid;
 				} else if(iconID == 'ins'){
 					url = host_url + 'games/instagram_getImages?cid=' + cid + '&game_step=' + game_step;
 				}
+				console.log(url);
 				if(url != '') {
 					$.fancybox.close();
 					setTimeout(function(){

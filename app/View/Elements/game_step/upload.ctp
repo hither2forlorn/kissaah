@@ -1,4 +1,8 @@
 <?php
+debug($selfdata);
+if($selfdata['Configuration']['sub_txt']) {
+	
+}
 $answer = 'http://placehold.it/300x300&text=X';
 if(empty($selfdata['Configuration']['dependent_id'])) {
 	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
@@ -16,11 +20,20 @@ if(empty($selfdata['Configuration']['dependent_id'])) {
 }
 
 $image_form  = $this->Form->create('Game' . $id . 'Upload', array('class' => 'btn-file pull-left fileupload'));
-$image_form .= $this->Html->image('Upload.png', array('id' => 'upl' . $id));
+$image_form .= $this->Html->tag('i', '', array('class' => 'fa fa-upload fa-lg'));
+//$image_form .= $this->Html->image('Upload.png', array('id' => 'upl' . $id));
 $image_form .= $this->Form->input($id, array('type' => 'file', 'label' => false, 'class' => 'default', 'div' => false));
 $image_form .= $this->Form->end();
-$image_form .= $this->Html->image('pinterest.png', array('title' => 'Get Images From Pinterest', 'data' => $id, 'id' => 'pin'));
-$image_form .= $this->Html->image('Instagram.png', array('title' => 'Get Images From Instagram', 'data' => $id, 'id' => 'ins'));
+$image_form .= $this->Html->link(
+		$this->Html->tag('i', '', array('class' => 'fa fa-pinterest fa-lg upload-img', 'title' => 'Get Images From Pinterest', 'data' => $id)),
+		array('controller' => 'games', 'action' => 'pinterest_getimages', '?' => array('cid' => $id)), 
+		array('escape' => false));
+//$image_form .= $this->Html->image('pinterest.png', array('title' => 'Get Images From Pinterest', 'data' => $id, 'id' => 'pin'));
+$image_form .= $this->Html->link(
+		$this->Html->tag('i', '', array('class' => 'fa fa-instagram fa-lg upload-img', 'title' => 'Get Images From Instagram', 'data' => $id)),
+		array('controller' => 'games', 'action' => 'instagram_getImages', '?' => array('cid' => $id, 'game_step' => '123')), 
+		array('escape' => false));
+//$image_form .= $this->Html->image('Instagram.png', array('title' => 'Get Images From Instagram', 'data' => $id, 'id' => 'ins'));
 
 if(!empty($selfdata['Game'][0]['Game']['answer'])) {
 	$image_form .= $this->Html->image('removeimage.png', array('title' => 'Remove', 'data' => $id, 'id' => 'rem'));

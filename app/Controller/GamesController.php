@@ -597,7 +597,8 @@ class GamesController extends AppController {
 				$this->Uploader->crop(array('width' => 100,  'height' => 100, 'append' => false));
 
 				if($uploadimage){
-					$imagename = end(explode('/', $uploadimage['path']));
+					$imagenamearray = explode('/', $uploadimage['path']);
+					$imagename = end($imagenamearray);
 					$data['Game']['answer'] = $imagename;
 					$data['Game']['user_id'] = $this->Session->read('ActiveGame.user_id');
 					$data['Game']['user_game_status_id'] = $this->Session->read('ActiveGame.id');
