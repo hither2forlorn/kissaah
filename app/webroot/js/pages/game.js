@@ -1044,45 +1044,21 @@ var FileUpload = function () {
 		ImageActions: function(){
 			$('.image-icon').delegate('a', 'click', function(ev) {
 				ev.preventDefault();
-				iconID	= $(this).attr('id');
-				cid		= $(this).attr('data');
-				url 	= $(this).attr('href');
-				if(iconID == 'pin') {
-					url = host_url + 'games/pinterest_getimages?cid=' + cid;
-				} else if(iconID == 'ins'){
-					url = host_url + 'games/instagram_getImages?cid=' + cid + '&game_step=' + game_step;
-				}
-				console.log(url);
+				url  = $(this).attr('href');
+				icon = $(this).children('i').attr('class');
 				if(url != '') {
-					$.fancybox.close();
-					setTimeout(function(){
-	        			$.fancybox.open({
-	        				'helpers' 		: {
-	        					'overlay'	: {'closeClick' : false}
-	        				},
-	        				'afterClose'	: function() {
-	        					$('a[data=btn-' + game_step + ']').trigger('click');
-	        				},
-	        				'href'			: url,
-	        				'type'			: 'ajax',
-	        			    'autoSize'		: false,
-	        				'width'         : 700,
-	        				'height'        : 'auto',
-	        				'wrapCSS'       : 'fancybox-pinterest',
-	        			});
-					}, 500);
-				} else {
-					if(iconID == 'rem'){
+					if(icon == 'fa fa-remove fa-2x') {
 						var r = confirm("Are You Sure You want to remove this image ?\n This will all delete dependent data as well");
-						if(r == true){
+						if(r == true) {
 							$.ajax({
 								beforeSend 	: function() {},
 								type 		: 'POST',
-								url 		: host_url + 'games/remove_image/' + cid,
+								url			: url,
 								dataType	: 'json',
 								success 	: function(data) {
 									message = data.message;
 									success = data.success;
+									cid		= data.cid;
 									if(success == 0 ) {
 										alert('Cannot remove image. Please try again later.');
 									} else if(success == 1) {
@@ -1098,6 +1074,24 @@ var FileUpload = function () {
 								complete 	: function() {}
 							});
 						}
+					} else {
+						$.fancybox.close();
+						setTimeout(function(){
+		        			$.fancybox.open({
+		        				'helpers' 		: {
+		        					'overlay'	: {'closeClick' : false}
+		        				},
+		        				'afterClose'	: function() {
+		        					$('a[data=btn-' + game_step + ']').trigger('click');
+		        				},
+		        				'href'			: url,
+		        				'type'			: 'ajax',
+		        			    'autoSize'		: false,
+		        				'width'         : 700,
+		        				'height'        : 'auto',
+		        				'wrapCSS'       : 'fancybox-pinterest',
+		        			});
+						}, 500);
 					}
 				}
 			});
