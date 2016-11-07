@@ -1,29 +1,29 @@
 <div class="row no-margin margin-bottom-20">
 <?php
-	$fu_words = $this->Html->div('fuwords-view pull-right', $this->Html->image('my-frequently-used-words.png'));
-    $fuwords = $this->Html->tag('h3', 'Frequently Used Words');
-    foreach ($frequentlyuw as $answer) {
-       	$fuwords .= $this->Html->div('', $answer['Game']['answer']);
-    }
-	$fu_words .= $this->Html->div('fuwords', $fuwords);
+/*
+$fu_words = $this->Html->div('fuwords-view pull-right', $this->Html->image('my-frequently-used-words.png'));
+$fuwords = $this->Html->tag('h3', 'Frequently Used Words');
+foreach ($frequentlyuw as $answer) {
+	$fuwords .= $this->Html->div('', $answer['Game']['answer']);
+}
+$fu_words .= $this->Html->div('fuwords', $fuwords);
 
-	$help_view  = $this->Html->div('help-view pull-right', $this->Html->image('my-help.png'));
-	$help_view .= $this->Html->div('help-text', $step_information['Configuration']['help_bubble'], array('id' => 'tour-step-05'));
+$help_view  = $this->Html->div('help-view pull-right', $this->Html->image('my-help.png'));
+$help_view .= $this->Html->div('help-text', $step_information['Configuration']['help_bubble'], array('id' => 'tour-step-05'));
 
-	//echo $this->Html->div('col-md-6 col-xm-6', $this->Html->div('conf-title', $step_information['Configuration']['title']));
-	//echo $this->Html->div('col-md-6 col-xm-6', $fu_words . $help_view);
+echo $this->Html->div('col-md-6 col-xm-6', $this->Html->div('conf-title', $step_information['Configuration']['title']));
+echo $this->Html->div('col-md-6 col-xm-6', $fu_words . $help_view);
+*/
 	$visions = $this->Session->read('Vision');
 	foreach($visions as $vision) {
-		$selected = 'caption-subject font-blue-sharp bold uppercase';
+		$selected = 'caption-subject font-grey-sharp bold uppercase';
 		if($step_information['Configuration']['id'] == $vision['Configuration']['id']) {
-			$selected = 'caption-subject font-red-mint bold uppercase';
+			$selected = 'caption-subject font-orange-sharp bold uppercase';
 		}
-		echo $this->Html->div('col-md-3 col-xm-3 ' . $selected, 
-				$this->Html->tag('span', 
-						$this->Html->link($vision['Configuration']['title'], 
-								array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
-								array('class' => 'btn-step')), 
-						array('class' => $selected)));
+		echo $this->Html->div('col-md-3 col-xm-3', 
+					$this->Html->link($vision['Configuration']['title'], 
+							array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
+							array('class' => 'btn-step ' . $selected)));
 	}
 ?>
 </div>

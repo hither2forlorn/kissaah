@@ -2282,4 +2282,12 @@ a.back-to-road-map {
 	float: right;
 	width: 80px;
 }
-
+.caption-subject {
+	font-size: 1.8em;
+}
+.font-grey-sharp {
+	color: #726d69 !important;
+}
+.font-orange-sharp {
+	color: #ea7328 !important;
+}
