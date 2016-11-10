@@ -49,10 +49,10 @@ if(isset($selfdata['children'])) {
 }
 
 if($selfdata['Configuration']['sub_txt'] != '') {
-	echo $this->Html->div('col-md-8 col-xs-12', $selfdata['Configuration']['sub_txt']);
-	echo $this->Html->div('col-md-4 col-sm-4 col-xs-8 padding-0 image-box', $image);
+	echo $this->Html->div('col-md-9 col-sm-8 col-xs-12', $selfdata['Configuration']['sub_txt']);
+	echo $this->Html->div('col-md-3 col-sm-4 col-xs-8 padding-0 image-box', $image);
 } else {
-	
+	echo $this->Html->div('col-md-3 col-sm-4 col-xs-8 padding-0 image-box', $image);
 }
 
 $image_class = 'col-md-offset-4';

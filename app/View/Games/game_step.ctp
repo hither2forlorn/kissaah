@@ -14,17 +14,24 @@ $help_view .= $this->Html->div('help-text', $step_information['Configuration']['
 echo $this->Html->div('col-md-6 col-xm-6', $this->Html->div('conf-title', $step_information['Configuration']['title']));
 echo $this->Html->div('col-md-6 col-xm-6', $fu_words . $help_view);
 */
-	$visions = $this->Session->read('Vision');
-	foreach($visions as $vision) {
-		$selected = 'caption-subject font-grey-sharp bold uppercase';
-		if($step_information['Configuration']['id'] == $vision['Configuration']['id']) {
-			$selected = 'caption-subject font-orange-sharp bold uppercase';
-		}
-		echo $this->Html->div('col-md-3 col-xm-3', 
-					$this->Html->link($vision['Configuration']['title'], 
+$visions = $this->Session->read('Vision');
+$next_link = false;
+foreach($visions as $vision) {
+	$selected = 'caption-subject font-grey-sharp bold uppercase';
+	if($next_link) {
+		$next_link = $this->Html->link($vision['Configuration']['title'],
 							array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
-							array('class' => 'btn-step ' . $selected)));
+							array('class' => 'btn-step'));
 	}
+	if($step_information['Configuration']['id'] == $vision['Configuration']['id']) {
+		$selected = 'caption-subject font-orange-sharp bold uppercase';
+		$next_link = true;
+	}
+	echo $this->Html->div('col-md-3 col-xm-3', 
+				$this->Html->link($vision['Configuration']['title'], 
+						array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
+						array('class' => 'btn-step ' . $selected)));
+}
 ?>
 </div>
 <?php
@@ -118,8 +125,9 @@ if($step_information['Configuration']['id'] == 189) {
 
 $screen_width = $this->Session->read('Screen.width');
 if($screen_width > 767) {
-	echo $this->Html->div('row no-margin text-center margin-bottom-20', 
-							$this->Html->link('Save and Close', '#', array('class' => 'btn btn-save', 'id' => 'tour-step-05')));
+	echo $this->Html->div('', $next_link);
+	/*echo $this->Html->div('row no-margin text-center margin-bottom-20', 
+							$this->Html->link('Save and Close', '#', array('class' => 'btn btn-save', 'id' => 'tour-step-05')));*/
 } else {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link('Save and Close', array('controller' => 'games', 'action' => 'index'), array('class' => 'btn btn-save', 'id' => 'tour-step-05')));
