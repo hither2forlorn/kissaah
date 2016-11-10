@@ -12,7 +12,7 @@ if(empty($selfdata['Configuration']['dependent_id'])) {
 	}
 	$id = $selfdata['Configuration']['dependent_id'];
 }
-$image = $this->Html->image($answer, array('class' => 'img-responsive margin-bottom-5 margin-top-10', 'data' => 'medium-' . $id));
+$image = $this->Html->image($answer, array('class' => 'img-responsive margin-bottom-5', 'data' => 'medium-' . $id));
 
 $actions = '';
 if(!$summary) {
@@ -39,7 +39,7 @@ if(!$summary) {
 				array('escape' => false)) . '&nbsp;';
 				//$actions .= $this->Html->image('removeimage.png', array('title' => 'Remove', 'data' => $id, 'id' => 'rem'));
 	}
-	$image .= $this->Html->div('image-icon', $actions, array('id' => 'tour-step-04'));
+	$image .= $this->Html->div('image-icon col-md-12 col-xs-12', $actions, array('id' => 'tour-step-04'));
 }
 
 if(isset($selfdata['children'])) {
@@ -50,7 +50,7 @@ if(isset($selfdata['children'])) {
 
 if($selfdata['Configuration']['sub_txt'] != '') {
 	echo $this->Html->div('col-md-8 col-xs-12', $selfdata['Configuration']['sub_txt']);
-	echo $this->Html->div('col-md-4 col-sm-4 col-xs-8 image-box', $image);
+	echo $this->Html->div('col-md-4 col-sm-4 col-xs-8 padding-0 image-box', $image);
 } else {
 	
 }

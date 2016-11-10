@@ -1,10 +1,23 @@
 /* General body settings */
+@font-face {
+    font-family: AvenirLTStd-Book;
+    src: url("../fonts/AvenirLTStd-Book.otf") format("opentype");
+}
+@font-face {
+    font-family: AvenirLTStd-Light;
+    src: url("../fonts/AvenirLTStd-Light.otf") format("opentype");
+}
+@font-face {
+    font-family: AvenirLTStd-Roman;
+    src: url("../fonts/AvenirLTStd-Roman.otf") format("opentype");
+}
+
 body { 
 	color: #585858;
 	direction: ltr;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: AvenirLTStd-Book, 'Josefin Sans', sans-serif;
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 20px;
 	background: #FFFFFF;
 }
 
@@ -1375,7 +1388,8 @@ li [class*=" fa-"].icon-large {
   	width: 1.5625em;
 }
 .fa-2x {
-  line-height: 1.2em;
+	font-size: 1.4em;
+	line-height: 1.2em;
 }
 .fontawesome-icon-list .col-md-3 {
     height: 32px;
@@ -1903,7 +1917,7 @@ canvas.temp {
   margin-bottom: 10px;
 }
 .image-box {
-  background: #17b3e8 none repeat scroll 0 0;
+  background: #ea7328 none repeat scroll 0 0;
 }
 .image-icon img {
 	cursor: pointer;
@@ -2283,7 +2297,7 @@ a.back-to-road-map {
 	width: 80px;
 }
 .caption-subject {
-	font-size: 1.8em;
+	font-size: 1.5em;
 }
 .font-grey-sharp {
 	color: #726d69 !important;
