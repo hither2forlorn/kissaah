@@ -19,9 +19,7 @@ $next_link = 'next_link';
 foreach($visions as $vision) {
 	$selected = 'caption-subject font-grey-sharp bold uppercase';
 	if($next_link == '') {
-		$next_link = $this->Html->link($vision['Configuration']['title'],
-							array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
-							array('class' => 'btn btn-step', 'id' => 'tour-step-05'));
+		$next_link = $vision['Configuration']['title'];
 	}
 	if($step_information['Configuration']['id'] == $vision['Configuration']['id']) {
 		$selected = 'caption-subject font-orange-sharp bold uppercase';
@@ -40,8 +38,13 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 	if($game['Configuration']['status'] && $game['Configuration']['type'] != 16) {
 		$display_game = $summary = '';
 
-		$title = $this->Html->tag('h3', $game['Configuration']['title'], array('class' => 'activitytitle'));
-		$subtx = $this->Html->tag('h5', $game['Configuration']['sub_txt'], array('class' => 'activitytitle'));
+		$title = $subtx = '';
+		if($game['Configuration']['title'] != '**NH**' && $game['Configuration']['title'] != '') {
+			$title = $this->Html->tag('h3', $game['Configuration']['title'], array('class' => 'activitytitle'));
+		}
+		if($game['Configuration']['sub_txt'] != '') {
+			$subtx = $this->Html->tag('h5', $game['Configuration']['sub_txt'], array('class' => 'activitytitle'));
+		}
 		
 		$count = (isset($game['children']))? count($game['children']): 1;
 		
@@ -87,7 +90,11 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 		}
 		
 		$display_game = $this->Html->div('col-md-12 col-sm-12', $this->Html->div('row no-margin margin-bottom-15', $display_game));
-		$border = $this->Html->div('col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6 border-bottom', '');
+		
+		$border = '';
+		if($game['Configuration']['title'] != '**NH**' && $game['Configuration']['title'] != '') {
+			$border = $this->Html->div('col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6 border-bottom', '');
+		}
 		
 		echo $this->Html->div('row no-margin padding-bottom-20' . $summary, $title . $subtx . $display_game . $border);
 	}
@@ -123,15 +130,15 @@ if($step_information['Configuration']['id'] == 189) {
 	
 }
 
+$next_btn = 'btn-save';
 $screen_width = $this->Session->read('Screen.width');
 if($screen_width > 767) {
-	echo $this->Html->div('row no-margin margin-bottom-20', $next_link);
-	/*echo $this->Html->div('row no-margin text-center margin-bottom-20', 
-							$this->Html->link('Save and Close', '#', array('class' => 'btn btn-save', 'id' => 'tour-step-05')));*/
-} else {
-	echo $this->Html->div('row no-margin text-center margin-bottom-20',
-			$this->Html->link('Save and Close', array('controller' => 'games', 'action' => 'index'), array('class' => 'btn btn-save', 'id' => 'tour-step-05')));
+	$next_btn .= ' btn-step';
 }
+echo $this->Html->div('row no-margin text-center margin-bottom-20',
+				$this->Html->link($next_link, 
+						array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
+						array('class' => $next_btn, 'id' => 'tour-step-05')));
 ?>
 <script>
 $(document).ready(function(){

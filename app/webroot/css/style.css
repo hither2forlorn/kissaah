@@ -41,7 +41,7 @@ body {
 	direction: ltr;
 	font-family: europa, 'Josefin Sans', sans-serif;
 	font-weight: 400;
-	font-size: 18px;
+	font-size: 16px;
 	background: #FFFFFF;
 }
 
@@ -1133,10 +1133,18 @@ Pre-Footer and pre-footer elements
 	padding: 0 2px;
 }
 .btn-save {
-  background-color: #f68e20;
-  color: #fff;
-  padding: 10px 20%;
-  text-transform: uppercase;
+    -moz-border-radius: 50px !important;
+    -webkit-border-radius: 50px !important;
+	background-color: #f68e20;
+	border-radius: 50px !important;
+	color: #fff;
+	float: right;
+	height: 100px;
+	line-height: 100px;
+	margin-right: 10px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100px;
 }
 .btn-collage {
     border-radius: 5px;
@@ -1942,7 +1950,7 @@ canvas.temp {
 }
 .image-box {
 	background: #ea7328 none repeat scroll 0 0;
-    border-radius: 25px;
+    border-radius: 25px !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
