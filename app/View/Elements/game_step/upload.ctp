@@ -39,7 +39,7 @@ if(!$summary) {
 				array('escape' => false)) . '&nbsp;';
 				//$actions .= $this->Html->image('removeimage.png', array('title' => 'Remove', 'data' => $id, 'id' => 'rem'));
 	}
-	$image .= $this->Html->div('image-icon col-md-12 col-xs-12', $actions, array('id' => 'tour-step-04'));
+	$image .= $this->Html->div('image-icon col-md-12 col-xs-12 margin-bottom-5', $actions, array('id' => 'tour-step-04'));
 }
 
 $child_field = '';

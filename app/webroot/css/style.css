@@ -1941,13 +1941,14 @@ canvas.temp {
   margin-bottom: 10px;
 }
 .image-box {
-  background: #ea7328 none repeat scroll 0 0;
+	background: #ea7328 none repeat scroll 0 0;
+    border-radius: 25px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
-.image-icon img {
-	cursor: pointer;
-	height: 30px;
-	padding: 2px;
-	width: 30px;
+.image-box img {
+	overflow: hidden;
+    border-radius: 25px 25px 0 0 !important;
 }
 /* Styles For Allies */
 .allies {
@@ -2278,10 +2279,6 @@ a.back-to-road-map {
 	/* background-color: #FCB817; */
 }
 .game-summary .image-box {
-    border: 1px solid #c2cad8;
-    border-radius: 25px !important;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 	background-color: #FCB817 !important; 
 }
 .game-area .level-0 {
