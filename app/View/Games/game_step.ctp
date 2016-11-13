@@ -15,15 +15,17 @@ echo $this->Html->div('col-md-6 col-xm-6', $this->Html->div('conf-title', $step_
 echo $this->Html->div('col-md-6 col-xm-6', $fu_words . $help_view);
 */
 $visions = $this->Session->read('Vision');
-$next_link = 'next_link';
+$nxt_lnk = '';
+$nxt_txt = 'next_link';
 foreach($visions as $vision) {
 	$selected = 'caption-subject font-grey-sharp bold uppercase';
-	if($next_link == '') {
-		$next_link = $vision['Configuration']['title'];
+	if($nxt_txt == '') {
+		$nxt_txt = $vision['Configuration']['title'];
+		$nxt_lnk = array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id']));
 	}
 	if($step_information['Configuration']['id'] == $vision['Configuration']['id']) {
 		$selected = 'caption-subject font-orange-sharp bold uppercase';
-		$next_link = '';
+		$nxt_txt = '';
 	}
 	echo $this->Html->div('col-md-3 col-xm-3', 
 				$this->Html->link($vision['Configuration']['title'], 
@@ -123,10 +125,10 @@ function checkfortags($answer){
 }
 
 if($step_information['Configuration']['id'] == 189) {
-	echo $this->Html->div('row no-margin text-center margin-bottom-20', 
-							$this->Html->link('Allies and feedback', 
-									array('controller' => 'allies', 'action' => 'allies'), 
-									array('class' => 'btn btn-save fbox-toolbox', 'id' => 'tour-step-05', 'data-width' => 600)));
+	echo $this->Html->div('row no-margin text-center margin-bottom-20',
+			$this->Html->link('Allies and feedback',
+					array('controller' => 'allies', 'action' => 'allies'),
+					array('class' => 'btn btn-save fbox-toolbox', 'id' => 'tour-step-05', 'data-width' => 600)));
 	
 }
 
@@ -135,10 +137,11 @@ $screen_width = $this->Session->read('Screen.width');
 if($screen_width > 767) {
 	$next_btn .= ' btn-step';
 }
-echo $this->Html->div('row no-margin text-center margin-bottom-20',
-				$this->Html->link($next_link, 
-						array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
-						array('class' => $next_btn, 'id' => 'tour-step-05')));
+
+if($nxt_txt != '') {
+	echo $this->Html->div('row no-margin text-center margin-bottom-20',
+			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => $next_btn, 'id' => 'tour-step-05')));
+}
 ?>
 <script>
 $(document).ready(function(){
