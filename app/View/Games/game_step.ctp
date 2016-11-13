@@ -15,17 +15,17 @@ echo $this->Html->div('col-md-6 col-xm-6', $this->Html->div('conf-title', $step_
 echo $this->Html->div('col-md-6 col-xm-6', $fu_words . $help_view);
 */
 $visions = $this->Session->read('Vision');
-$next_link = false;
+$next_link = 'next_link';
 foreach($visions as $vision) {
 	$selected = 'caption-subject font-grey-sharp bold uppercase';
-	if($next_link) {
+	if($next_link == '') {
 		$next_link = $this->Html->link($vision['Configuration']['title'],
 							array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
 							array('class' => 'btn-step'));
 	}
 	if($step_information['Configuration']['id'] == $vision['Configuration']['id']) {
 		$selected = 'caption-subject font-orange-sharp bold uppercase';
-		$next_link = true;
+		$next_link = '';
 	}
 	echo $this->Html->div('col-md-3 col-xm-3', 
 				$this->Html->link($vision['Configuration']['title'], 

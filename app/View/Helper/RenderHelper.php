@@ -4,7 +4,7 @@ App::uses('AppHelper', 'View/Helper');
 class RenderHelper extends AppHelper {
 	var $helpers = array ('Session');
 	
-	function display($activitytype, $game, $count, $summary = false) {
+	function display($activitytype, $game, $count, $summary = false, $raw = false) {
 		$view = '';
 		if($activitytype == 1) {
 			$view = $this->_View->element('game_step/upload', array('selfdata' => $game, 'count' => $count, 'summary' => $summary));
@@ -22,7 +22,7 @@ class RenderHelper extends AppHelper {
 			$view = $this->_View->element('game_step/textarea', array('selfdata' => $game, 'summary' => $summary));
 				
 		} elseif($activitytype == 7) {
-			$view = $this->_View->element('game_step/text', array('selfdata' => $game, 'summary' => $summary));
+			$view = $this->_View->element('game_step/text', array('selfdata' => $game, 'summary' => $summary, 'raw' => $raw));
 				
 		} elseif($activitytype == 9) {
 			$view = $this->_View->element('game_step/allies', array('selfdata' => $game, 'summary' => $summary));

@@ -1,23 +1,47 @@
 /* General body settings */
 @font-face {
-    font-family: AvenirLTStd-Book;
-    src: url("../fonts/AvenirLTStd-Book.otf") format("opentype");
+    font-family: "europa";
+    font-style: normal;
+    font-weight: 300;
+    src: url("https://use.typekit.net/af/de8f44/0000000000000000000129a3/27/l?subset_id=2&fvd=n3") format("woff2"), url("https://use.typekit.net/af/de8f44/0000000000000000000129a3/27/d?subset_id=2&fvd=n3") format("woff"), url("https://use.typekit.net/af/de8f44/0000000000000000000129a3/27/a?subset_id=2&fvd=n3") format("opentype");
 }
 @font-face {
-    font-family: AvenirLTStd-Light;
-    src: url("../fonts/AvenirLTStd-Light.otf") format("opentype");
+    font-family: "europa";
+    font-style: italic;
+    font-weight: 300;
+    src: url("https://use.typekit.net/af/4f7924/0000000000000000000129a6/27/l?subset_id=2&fvd=i3") format("woff2"), url("https://use.typekit.net/af/4f7924/0000000000000000000129a6/27/d?subset_id=2&fvd=i3") format("woff"), url("https://use.typekit.net/af/4f7924/0000000000000000000129a6/27/a?subset_id=2&fvd=i3") format("opentype");
 }
 @font-face {
-    font-family: AvenirLTStd-Roman;
-    src: url("../fonts/AvenirLTStd-Roman.otf") format("opentype");
+    font-family: "europa";
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://use.typekit.net/af/6478d5/0000000000000000000129a4/27/l?subset_id=2&fvd=n4") format("woff2"), url("https://use.typekit.net/af/6478d5/0000000000000000000129a4/27/d?subset_id=2&fvd=n4") format("woff"), url("https://use.typekit.net/af/6478d5/0000000000000000000129a4/27/a?subset_id=2&fvd=n4") format("opentype");
+}
+@font-face {
+    font-family: "europa";
+    font-style: italic;
+    font-weight: 400;
+    src: url("https://use.typekit.net/af/9e7c05/0000000000000000000129a7/27/l?subset_id=2&fvd=i4") format("woff2"), url("https://use.typekit.net/af/9e7c05/0000000000000000000129a7/27/d?subset_id=2&fvd=i4") format("woff"), url("https://use.typekit.net/af/9e7c05/0000000000000000000129a7/27/a?subset_id=2&fvd=i4") format("opentype");
+}
+@font-face {
+    font-family: "europa";
+    font-style: normal;
+    font-weight: 700;
+    src: url("https://use.typekit.net/af/e0a21b/0000000000000000000129a5/27/l?subset_id=2&fvd=n7") format("woff2"), url("https://use.typekit.net/af/e0a21b/0000000000000000000129a5/27/d?subset_id=2&fvd=n7") format("woff"), url("https://use.typekit.net/af/e0a21b/0000000000000000000129a5/27/a?subset_id=2&fvd=n7") format("opentype");
+}
+@font-face {
+    font-family: "europa";
+    font-style: italic;
+    font-weight: 700;
+    src: url("https://use.typekit.net/af/a13e2d/0000000000000000000129a8/27/l?subset_id=2&fvd=i7") format("woff2"), url("https://use.typekit.net/af/a13e2d/0000000000000000000129a8/27/d?subset_id=2&fvd=i7") format("woff"), url("https://use.typekit.net/af/a13e2d/0000000000000000000129a8/27/a?subset_id=2&fvd=i7") format("opentype");
 }
 
 body { 
 	color: #585858;
 	direction: ltr;
-	font-family: AvenirLTStd-Book, 'Josefin Sans', sans-serif;
+	font-family: europa, 'Josefin Sans', sans-serif;
 	font-weight: 400;
-	font-size: 20px;
+	font-size: 18px;
 	background: #FFFFFF;
 }
 
@@ -2297,7 +2321,7 @@ a.back-to-road-map {
 	width: 80px;
 }
 .caption-subject {
-	font-size: 1.5em;
+	font-size: 1.4em;
 }
 .font-grey-sharp {
 	color: #726d69 !important;
