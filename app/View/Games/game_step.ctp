@@ -21,7 +21,7 @@ foreach($visions as $vision) {
 	if($next_link == '') {
 		$next_link = $this->Html->link($vision['Configuration']['title'],
 							array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
-							array('class' => 'btn-step'));
+							array('class' => 'btn btn-step', 'id' => 'tour-step-05'));
 	}
 	if($step_information['Configuration']['id'] == $vision['Configuration']['id']) {
 		$selected = 'caption-subject font-orange-sharp bold uppercase';
@@ -125,7 +125,7 @@ if($step_information['Configuration']['id'] == 189) {
 
 $screen_width = $this->Session->read('Screen.width');
 if($screen_width > 767) {
-	echo $this->Html->div('', $next_link);
+	echo $this->Html->div('row no-margin margin-bottom-20', $next_link);
 	/*echo $this->Html->div('row no-margin text-center margin-bottom-20', 
 							$this->Html->link('Save and Close', '#', array('class' => 'btn btn-save', 'id' => 'tour-step-05')));*/
 } else {

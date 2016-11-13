@@ -2264,29 +2264,25 @@ a.back-to-road-map {
     padding: 6px 12px;
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
     width: 100%;
-
 }
-.fancybox-game-popup .save-answer .form-control {
-}
-.fancybox-game-popup textarea.form-control {
+.fancybox-game-popup textarea.form-control, .fancybox-game-popup .live-search-ally {
 	text-align: left;
 }
 .fancybox-game-popup .date-picker, .fancybox-game-popup .date-picker-mm-yyyy {
-  margin: 0 auto;
+	margin: 0 auto;
 }
 .fancybox-game-popup .extra-width .tt-dropdown-menu {
 	width: 300%;
-}
-.fancybox-game-popup .live-search-ally {
-  text-align: left;
 }
 .game-summary {
 	/* background-color: #FCB817; */
 }
 .game-summary .image-box {
+    border: 1px solid #c2cad8;
+    border-radius: 25px !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 	background-color: #FCB817 !important; 
-}
-.game-summary h3 {
 }
 .game-area .level-0 {
 	float: right;
