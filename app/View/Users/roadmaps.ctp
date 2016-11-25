@@ -21,7 +21,7 @@ if(isset($roadmaps)){
 	    					  array('class' => 'activitytitle margin-top-10')); 
 							  
 		echo $this->Form->input('roadmap', array(
-									'id'			=> $roadmaps[0]['UserGameStatus']['id'],
+									'data-id' 		=> $roadmaps[0]['UserGameStatus']['id'],
 									'label' 		=> false,
 									'div'   		=> false,
 								    'class'			=> 'form-control roadmap-input',

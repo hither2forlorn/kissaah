@@ -241,7 +241,7 @@ class ChallengesController extends AppController {
 		if(!empty($goal) && $goal['Challenge']['challenge_from_id'] != $this->Session->read('Auth.User.id')) {
 			$this->loadModel('Game');
 			$options['conditions'] = array('Game.answer' => $goal['Challenge']['challenge_from_id']);
-			$game = $this->Game->field('configure_id', $options['conditions']);
+			$game = $this->Game->field('configuration_id', $options['conditions']);
 			
 			$this->loadModel('Configuration');
 			$this->Configuration->id = $game;

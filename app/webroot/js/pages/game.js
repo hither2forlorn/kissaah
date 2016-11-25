@@ -1,6 +1,6 @@
 var tourActive 		= 0;
 var game_step 		= 0; 
-var configure_id 	= 0;
+var configuration_id 	= 0;
 
 var Game = function () {
 
@@ -594,25 +594,23 @@ var Game = function () {
         RoadMap: function(){
         	$('.roadmaps').on('focusout', 'input[type=text], select', function(evt){
         		DOM_Element = $(this);
-        		road_map_id 	= $(this).attr('data-id');
-        		road_cnf_id 	= $(this).attr('conf-id');
-        		road_map_name 	= $(this).val();
-        		console.log(road_map_id);
-        		console.log(road_cnf_id);
-        		console.log(road_map_name);
-        		if(road_map_name != '') {
+        		road_map_id = $(this).attr('data-id');
+        		road_cnf_id = $(this).attr('conf-id');
+        		save_value 	= $(this).val();
+
+        		if(save_value != '') {
         			if(road_map_id != undefined) {
-                		if(road_map_id > 0) {
-                			data = {data:{'id':road_map_id, 'roadmap':road_map_name}};
+                		if(road_map_id != undefined) {
+                			var data = {data:{'id':road_map_id, 'roadmap':save_value}};
                 		} else {
-                			data = {data:{'roadmap':road_map_name}};
+                			var data = {data:{'roadmap':save_value}};
                 		}
         			}
         			if(road_cnf_id != undefined) {
-                		if(road_cnf_id > 0) {
-                			data = {data:{'id':road_cnf_id, 'configuration_id':road_map_name}};
+                		if(road_cnf_id != undefined) {
+                			var data = {data:{'id':road_cnf_id, 'configuration_id':save_value}};
                 		} else {
-                			data = {data:{'configuration_id':road_map_name}};
+                			var data = {data:{'configuration_id':save_value}};
                 		}
         			}
             		$.ajax({
@@ -641,7 +639,7 @@ var Game = function () {
         			$('h5.error-message').html('Please enter the roadmap');
         		} else {
             		$('.point-road-map').html($('input[type=text]').val());
-            		$.fancybox.close();
+            		location.reload();
         		}
         	});
         },
@@ -929,7 +927,7 @@ var DreamPathGauge = function () {
 				var object = {}; 
 				object[confid] = answer;
 				ctx.fillRect(45, 80, (5 + (answer * 18)), 7);
-				key2 		= {'Game': {'configure_id': object}};
+				key2 		= {'Game': {'configuration_id': object}};
 				
 				$.ajax({
 					beforeSend	: function(){},
@@ -1102,7 +1100,7 @@ var FileUpload = function () {
 			$('.fancybox-pinterest').delegate('#pinterest-username', 'click', function(eve) {
 				eve.preventDefault();
 				$.ajax({
-					url 	: host_url + 'games/pinterest_getimages/' + $('#pinterest_user').val() + '?cid=' + $('#configure_id').val(),
+					url 	: host_url + 'games/pinterest_getimages/' + $('#pinterest_user').val() + '?cid=' + $('#configuration_id').val(),
 					type 	: 'POST',
 					success : function(response) {
 						$('.fancybox-inner').html(response);

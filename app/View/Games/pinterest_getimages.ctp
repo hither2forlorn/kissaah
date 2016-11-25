@@ -11,7 +11,7 @@
 										'label'	=> false, 
 										'value' => $pinterest_user,
 										'class'	=> 'form-control margin-bottom-10'));
-			echo $this->Form->input('configure_id', array(
+			echo $this->Form->input('configuration_id', array(
 										'type' 	=> 'hidden',
 										'div'  	=> false, 
 										'label'	=> false, 

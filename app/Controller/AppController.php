@@ -279,7 +279,7 @@ class AppController extends Controller {
 		$this->loadModel('Game');
 		$this->loadModel('Feedback');
 		
-		$options['conditions'] = array('Configuration.type' => 1, 'Game.configure_id NOT' => 36,
+		$options['conditions'] = array('Configuration.type' => 1, 'Game.configuration_id NOT' => 36,
 									   'Game.user_id' => $this->Session->read('ActiveGame.user_id'),
 									   'Game.user_game_status_id' => $user_game_status_id);
 		$files = $this->Game->find('all', $options);

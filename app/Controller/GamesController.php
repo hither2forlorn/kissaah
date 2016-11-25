@@ -23,15 +23,35 @@ class GamesController extends AppController {
  * @access public
  */
 	public function index() {
+		$options['conditions'] = array( 'OR' => array('Ally.user_id' => $this->Session->read('Auth.User.id'),
+													  'Ally.ally' => $this->Session->read('Auth.User.id')),
+										'Ally.ally_notification IS NOT NULL');
+		$allies_notification = $this->Game->User->Ally->find('all', $options);
+		
+		$options['conditions'] = array( 'Ally.user_id' => $this->Session->read('Auth.User.id'),
+										'Ally.feedback_notification IS NOT NULL');
+		$feedback_notification = $this->Game->User->Ally->find('all', $options);		
+		
+		$this->Session->write('allies_notification', $allies_notification);
+		$this->Session->write('feedback_notification', $feedback_notification);
+		
 		$configuration_id = $this->Session->read('ActiveGame.configuration_id');
+		if(is_null($configuration_id) || $configuration_id == '') {
+			$configuration_id = 81;
+		}
 		$vision = $this->Configuration->children($configuration_id, true);
 		$this->Session->write('Vision', $vision);
+		
+		if($configuration_id == 192) {
+			$this->Session->write('ActiveGame.show_dashboard', false);
+			$this->redirect(array('action' => 'game_step', '?' => array('st' => 196)));
+		}
 		foreach($vision as $key => $value) {
 			if($value['Configuration']['status']) {
 				$vision[$key]['Configuration']['step-complete'] = $this->step_complete($value['Configuration']['id']);
 				
 				if($value['Configuration']['id'] == 187 && $vision[$key]['Configuration']['step-complete'] == 0) {
-					$this->Session->write('Current.game_step', $value['Configuration']['id']);
+					$this->Session->write('Current.game_step', $value['Configuration']['id']); 
 				}
 				
 			} else {
@@ -44,24 +64,12 @@ class GamesController extends AppController {
 				if($step['Configuration']['featured']) {
 					$vision[$key]['Steps'][$step['Configuration']['id']] =  
 									$this->Game->find('first', array('contain' => false, 
-																	 'conditions' => array('configure_id' => $step['Configuration']['id'])));
+																	 'conditions' => array('configuration_id' => $step['Configuration']['id'])));
 					$vision[$key]['Steps'][$step['Configuration']['id']]['Configuration'] = $step['Configuration'];
 				}
 			}
 		}
 
-		$options['conditions'] = array( 'OR' => array('Ally.user_id' => $this->Session->read('Auth.User.id'),
-													  'Ally.ally' => $this->Session->read('Auth.User.id')),
-										'Ally.ally_notification IS NOT NULL');
-		$allies_notification = $this->Game->User->Ally->find('all', $options);
-		
-		$options['conditions'] = array( 'Ally.user_id' => $this->Session->read('Auth.User.id'),
-										'Ally.feedback_notification IS NOT NULL');
-		$feedback_notification = $this->Game->User->Ally->find('all', $options);		
-		
-		$this->Session->write('allies_notification', $allies_notification);
-		$this->Session->write('feedback_notification',$feedback_notification);
-		
 		$this->set(compact('vision'));
 	}
 	
@@ -177,14 +185,14 @@ class GamesController extends AppController {
 		$tree = array();
 		foreach ($parent as $k => $l){
 			if(!empty($l['Configuration']['dependent_id']) && $l['Configuration']['dependent_id'] > 0) {
-				$dependent = $this->Game->findAllByConfigureId($l['Configuration']['dependent_id']);
+				$dependent = $this->Game->findAllByConfigurationId($l['Configuration']['dependent_id']);
 				foreach($dependent as $dept) {
 					$dept['Game']['type'] = $dept['Configuration']['type'];
 					$l['Dependent'][] = $dept['Game'];
 				}
 			}
 			if(!in_array($l['Configuration']['type'], array(0, 4, 6, 13))) {
-				$game = $this->Game->find('all', array('contain' => false, 'conditions' => array('Game.configure_id' => $l['Configuration']['id'])));
+				$game = $this->Game->find('all', array('contain' => false, 'conditions' => array('Game.configuration_id' => $l['Configuration']['id'])));
 				$l['Game'] = $game;
 			}
 			if(isset($list[$l['Configuration']['id']])){
@@ -213,7 +221,7 @@ class GamesController extends AppController {
 				}
 			}
 			
-			$step_answer_count = $this->Game->find('count', array('conditions' => array('Game.configure_id' => $step_ids, 'Game.answer NOT' => '')));
+			$step_answer_count = $this->Game->find('count', array('conditions' => array('Game.configuration_id' => $step_ids, 'Game.answer NOT' => '')));
 			
 			if($step_answer_count === 0) {
 				$step_complete = 0; //No Answers
@@ -277,12 +285,12 @@ class GamesController extends AppController {
  	} 
 	
 	//2014-5-22,#8511,Badri added this function
-	//This function takes configure_id as parameter and deletes the image associated with that id.
+	//This function takes configuration_id as parameter and deletes the image associated with that id.
 	public function remove_image($id = null){
 		$this->autoRender = false;
 		
 		$data = $this->Game->find('first', array(
-							'conditions' => array('Game.configure_id' => $id)));
+							'conditions' => array('Game.configuration_id' => $id)));
 		
 		$return['success'] 	= 0;
 		$return['cid']		= $id;
@@ -340,7 +348,7 @@ class GamesController extends AppController {
 		$data = $this->request->data;
 
 		foreach($data['Game'] as $configure => $game) {
-			$data['Game']['configure_id'] = $configure;
+			$data['Game']['configuration_id'] = $configure;
 			foreach($game as $id => $answer) {
 				if($id != 0) { 
 					$data['Game']['id'] = $id;
@@ -359,7 +367,7 @@ class GamesController extends AppController {
 			if($this->Game->delete()) {
 				$return['id'] = 0;
 				$return['success'] = 1;
-				$return['cid'] = $data['Game']['configure_id'];
+				$return['cid'] = $data['Game']['configuration_id'];
 				
 			} else {
 				$return['success'] = 0;
@@ -369,7 +377,7 @@ class GamesController extends AppController {
 		} elseif($this->Game->save($data)) {
 			$return['id'] = $this->Game->id;
 			$return['success'] = 1;
-			$return['cid'] = $data['Game']['configure_id'];
+			$return['cid'] = $data['Game']['configuration_id'];
 		
 		} else {
 			$return['success'] = 0;
@@ -384,13 +392,13 @@ class GamesController extends AppController {
 		$save = false;
 		$data['Game']['user_id'] = $this->Session->read('ActiveGame.user_id');
 		$data['Game']['user_game_status_id'] = $this->Session->read('ActiveGame.id');
-		$configure_id = array(	'101' => '105',
+		$configuration_id = array(	'101' => '105',
 								'102' => '109',
 								'103' => '58');
 		$answer = $this->Game->find('first', array('contain' => false,
-							'conditions' => array('Game.configure_id' => $configure_id[$id])));
+							'conditions' => array('Game.configuration_id' => $configuration_id[$id])));
 		
-		$data['Game']['configure_id'] = $configure_id[$id];
+		$data['Game']['configuration_id'] = $configuration_id[$id];
 		
 		if(empty($answer)) {
 			$data['Game']['answer'] = $d;
@@ -445,8 +453,8 @@ class GamesController extends AppController {
 		$data = $this->request->data;
 		foreach($data as $id => $d) {
 			$data['Game'] = $d;
-			$data['Game']['configure_id'] = key($d);
-			$image = $data['Game'][$data['Game']['configure_id']];
+			$data['Game']['configuration_id'] = key($d);
+			$image = $data['Game'][$data['Game']['configuration_id']];
 		}
 		if(Uploader::checkMimeType(strtolower(Uploader::ext($image['name'])), $image['type']) != 'image'){
 			$allowedExts = Configure::read('Uploader.mimeTypes');
@@ -459,7 +467,7 @@ class GamesController extends AppController {
 			$return['flash'] = 'Files of type :' . $image['type'] . ', can not be uploaded ' . ' Allowed Image Types :' . $allowed;
 		} else {
 			$answer = $this->Game->find('first', array('contain' => false,
-												'conditions' => array('Game.configure_id' => $data['Game']['configure_id'])));
+												'conditions' => array('Game.configuration_id' => $data['Game']['configuration_id'])));
 			if(empty($answer)) {
 			} else {
 				$data = $answer;
@@ -482,7 +490,7 @@ class GamesController extends AppController {
 				$imagename = end($img_path);
 				$data['Game']['answer'] = $imagename;
 				$data['Game']['user_id'] = $this->Session->read('ActiveGame.user_id');
-				if($data['Game']['configure_id'] == 36) {
+				if($data['Game']['configuration_id'] == 36) {
 					$data['Game']['user_game_status_id'] = null;
 				} else {
 					$data['Game']['user_game_status_id'] = $this->Session->read('ActiveGame.id');
@@ -498,10 +506,10 @@ class GamesController extends AppController {
 						$this->Uploader->delete('files' . DS . 'img' . DS . 'small' . DS . $oldimage);
 					}
 					
-					if($data['Game']['configure_id'] == 36){
+					if($data['Game']['configuration_id'] == 36){
 						$profile['Game']['id'] = $return['kid'];
 						$profile['Game']['answer'] = $imagename;
-						$profile['Game']['configure_id'] = $data['Game']['configure_id'];
+						$profile['Game']['configuration_id'] = $data['Game']['configuration_id'];
 						$this->Session->write('Profile', $profile);
 						$this->Game->User->id = $this->Auth->user('id');
 						$this->Game->User->saveField('slug', $imagename);
@@ -510,7 +518,7 @@ class GamesController extends AppController {
 					$return['filename'] = $imagename;
 					$return['success'] = 1;
 					$return['label'] = 'Change Image';
-					$return['cid'] = $data['Game']['configure_id'];
+					$return['cid'] = $data['Game']['configuration_id'];
 				} else {
 					$return['success'] = 0;
 				}
@@ -577,10 +585,10 @@ class GamesController extends AppController {
 			if($link){
 				$this->Game->create();
 
-				$data['Game']['configure_id'] = $link['cid'];
+				$data['Game']['configuration_id'] = $link['cid'];
 				
 				$answer = $this->Game->find('first', array('contain' => false,
-						'conditions' => array('Game.configure_id' => $data['Game']['configure_id'])));
+						'conditions' => array('Game.configuration_id' => $data['Game']['configuration_id'])));
 				
 				if(empty($answer)) {
 				} else {
@@ -615,7 +623,7 @@ class GamesController extends AppController {
 						}
 						$return['filename'] = $imagename;
 						$return['success'] = 1;
-						$return['cid'] = $data['Game']['configure_id'];
+						$return['cid'] = $data['Game']['configuration_id'];
 					} else {
 						$return['success'] = 0;
 					}
@@ -699,7 +707,7 @@ class GamesController extends AppController {
 		
 		if(!empty($cid)) {
 			$this->Session->write('Current.action', 'ins');
-			$this->Session->write('Current.configure_id', $cid);
+			$this->Session->write('Current.configuration_id', $cid);
 			$this->Session->write('Current.game_step', $this->request->query['game_step']);
 		}
 		
@@ -825,7 +833,7 @@ class GamesController extends AppController {
 		$ally = $this->Ally->find('list', $options);
 		
 		$options['conditions'] 	= array('Game.answer' => $ally);
-		$options['fields'] 		= array('Game.configure_id', 'Game.answer');
+		$options['fields'] 		= array('Game.configuration_id', 'Game.answer');
 		$ally = $this->Game->find('list', $options);
 		
 		$options = array();

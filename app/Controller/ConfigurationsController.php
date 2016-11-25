@@ -136,15 +136,16 @@ class ConfigurationsController extends AppController {
 		debug('line 143'); exit;
 		$this->set('title_for_layout', 'Collage of ' . $activity);
 		if($activity=='Cartoon Upload'){
-			$Configure_id = $this->Configuration->find('all',array('conditions' => array('Configuration.title'=>$activity)));
-			$Configure_id=$Configure_id[0]['Configuration']['id'];
-			$ConfigureIDForCaption = $this->Configuration->find('all',array('conditions' => array('Configuration.dependent_id'=>$Configure_id,'Configuration.title'=>'Add Caption'),
+			$configuration_id = $this->Configuration->find('all',array('conditions' => array('Configuration.title'=>$activity)));
+			$configuration_id = $configuration_id[0]['Configuration']['id'];
+			$ConfigureIDForCaption = $this->Configuration->find('all',array(
+					'conditions' => array('Configuration.dependent_id' => $configuration_id, 'Configuration.title'=>'Add Caption'),
 					'order' => 'Answer.id DESC', 'limit' => 100));
 			$data=array();
 			$i=1;
 			foreach($ConfigureIDForCaption as $cid){
 				$data[$i]['user_id']=$cid['Answer']['user_id'];
-				$data[$i]['configure_id']=$cid['Answer']['configure_id'];
+				$data[$i]['configuration_id']=$cid['Answer']['configuration_id'];
 				$data[$i]['answer']=$cid['Answer']['answer'];
 				$i++;
 			}
@@ -158,7 +159,7 @@ class ConfigurationsController extends AppController {
 			$i=0;
 			foreach($image_answers as $ia){
 				$images[$i]['user_id']=$ia['Answer']['user_id'];
-				$images[$i]['configure_id']=$ia['Answer']['configure_id'];
+				$images[$i]['configuration_id']=$ia['Answer']['configuration_id'];
 				$images[$i]['answer']=$ia['Answer']['answer'];
 				$i++;
 			}
@@ -169,12 +170,12 @@ class ConfigurationsController extends AppController {
 				foreach($data as $d){
 					if($d['user_id']==$userID){
 						$answers[$i]['user_id']=$d['user_id'];
-						$answers[$i]['configure_id']=$d['configure_id'];
+						$answers[$i]['configuration_id']=$d['configuration_id'];
 						$answers[$i]['answer']=$d['answer'];
 						$answers[$i]['image']=$img['answer'];
 					}else{
 						$answers[$i]['user_id']=$img['user_id'];
-						$answers[$i]['configure_id']=$img['configure_id'];
+						$answers[$i]['configuration_id']=$img['configuration_id'];
 						$answers[$i]['image']=$img['answer'];
 					}
 				}
@@ -183,10 +184,10 @@ class ConfigurationsController extends AppController {
 			$image_answers=$answers;
 			$this->set(compact('image_answers'));
 		} else {
-			$Configure_id = $this->Configuration->find('all',array('conditions' => array('Configuration.title'=>$activity),
+			$configuration_id = $this->Configuration->find('all',array('conditions' => array('Configuration.title'=>$activity),
 															'fields'=>'Configuration.id','contain'=>false));
 			$ids=array();
-			foreach($Configure_id as $cid){
+			foreach($configuration_id as $cid){
 				array_push($ids,$cid['Configuration']['id']);
 			}
 			$captions = $this->Configuration->find('all',array('conditions' => array(
@@ -197,7 +198,7 @@ class ConfigurationsController extends AppController {
 			$i=0;
 			foreach($captions as $cap){
 				$data[$i]['dependent_id']=$cap['Configuration']['dependent_id'];
-				$data[$i]['configure_id']=$cap['Answer']['configure_id'];
+				$data[$i]['configuration_id']=$cap['Answer']['configuration_id'];
 				$data[$i]['answer']=$cap['Answer']['answer'];
 				$data[$i]['user_id']=$cap['Answer']['user_id'];
 				
@@ -212,7 +213,7 @@ class ConfigurationsController extends AppController {
 			$i=0;
 			foreach($image_answers as $ia){
 				$images[$i]['user_id']=$ia['Answer']['user_id'];
-				$images[$i]['configure_id']=$ia['Answer']['configure_id'];
+				$images[$i]['configuration_id']=$ia['Answer']['configuration_id'];
 				$images[$i]['answer']=$ia['Answer']['answer'];
 				$i++;
 			}
@@ -221,9 +222,9 @@ class ConfigurationsController extends AppController {
 			foreach($images as $img){
 				$userID=$img['user_id'];
 				foreach($data as $d){
-					if($d['user_id']==$userID && $d['dependent_id']==$img['configure_id']){
+					if($d['user_id']==$userID && $d['dependent_id']==$img['configuration_id']){
 						$answers[$i]['user_id']=$d['user_id'];
-						$answers[$i]['configure_id']=$d['configure_id'];
+						$answers[$i]['configuration_id']=$d['configuration_id'];
 						$answers[$i]['answer']=$d['answer'];
 						$answers[$i]['image']=$img['answer'];
 					}

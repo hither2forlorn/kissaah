@@ -263,9 +263,10 @@ class UsersController extends AppController {
 		}
 		
 		$active_game = $this->User->UserGameStatus->find('first', array(
-							'contain' 	 => false,
+							'contain' 	 => array('Configuration'),
 							'conditions' => array('UserGameStatus.user_id' => $this->Auth->user('id'),
 												  'UserGameStatus.active' => 1)));
+							
 		if(empty($active_game)) {
 			$active_game['UserGameStatus']['user_id'] = $this->Auth->user('id');
 			$active_game['UserGameStatus']['roadmap'] = '';
@@ -278,21 +279,15 @@ class UsersController extends AppController {
 			}
 		}
 		$this->Session->write('ActiveGame', $active_game['UserGameStatus']);
+		$this->Session->write('Configuration', $active_game['Configuration']);
 		$this->Session->write('ActiveGame.user_email', $this->Auth->user('email'));
-		$this->Session->write('AdminAccess.company', $this->User->CompanyGroup->find('list', array('fields' => array('id', 'id'), 'conditions' => array('admin_id' => $this->Auth->user('id'), 'parent_id IS NULL'))));
-		$profile = $this->User->Game->find('first', array(
-							'contain' 	 => false,
-							'conditions' => array('Game.configure_id' => 36)));
-		if(empty($profile)) {
-			$profile['Game']['configure_id'] = 36;
-			$this->Session->write('Profile', $profile);
-		} else {
-			$this->Session->write('Profile', $profile);
-		}
+		$this->Session->write('AdminAccess.company', $this->User->CompanyGroup->find('list', array(
+				'fields' => array('id', 'id'), 
+				'conditions' => array('admin_id' => $this->Auth->user('id'), 'parent_id IS NULL'))));
 		
 		//if ($this->request->isMobile() || array_shift(explode('.', $_SERVER['HTTP_HOST'])) == 'm') {
 			//$this->redirect(array('controller' => 'users', 'action' => 'additional_user_info'));
-			$this->redirect(array('controller' => 'games'));
+		$this->redirect(array('controller' => 'games'));
 		//} else {
 			//$this->redirect(array('controller' => 'games'));
 		//}
@@ -894,8 +889,8 @@ class UsersController extends AppController {
 										 'UserGameStatus.active'	=> 1)));
 		$user_profile = $this->User->Game->find('first', array(
 				'contain' 	 => false,
-				'fields'	 =>array('Game.id','Game.answer','Game.configure_id'),
-				'conditions' => array('Game.configure_id' => 36)));
+				'fields'	 =>array('Game.id','Game.answer','Game.configuration_id'),
+				'conditions' => array('Game.configuration_id' => 36)));
 		$this->Session->write('ActiveGame',$user_activeGame[0]['UserGameStatus']);
 		$this->Session->write('Profile',$user_profile);
 		$this->redirect('/');

@@ -26,7 +26,7 @@ class FeedbacksController extends AppController{
 			
 			$options = array();
 			$options['contain'] 	= false;
-			$options['conditions'] 	= array('Feedback.configure_id' 		=> $key,
+			$options['conditions'] 	= array('Feedback.configuration_id' 	=> $key,
 											'Feedback.user_id' 				=> $ally['MyAlly']['id'],
 											'Feedback.user_game_status_id' 	=> $ally['Ally']['user_game_status_id']);
 			
@@ -60,9 +60,9 @@ class FeedbacksController extends AppController{
 		}
 		foreach($data['Feedback'][$save_field] as $id => $d) {
 			$user_status_id = $data['Feedback']['user_game_status_id'];
-			$data['Feedback']['configure_id'] = $id;
+			$data['Feedback']['configuration_id'] = $id;
 			$answer = $this->Feedback->find('first', array('contain' => false,
-					'conditions' => array('Feedback.configure_id' => $data['Feedback']['configure_id'],
+					'conditions' => array('Feedback.configuration_id' => $data['Feedback']['configuration_id'],
 										  'Feedback.user_id' => $data['Feedback']['user_id'],
 										  'Feedback.user_game_status_id' => $data['Feedback']['user_game_status_id'])));
 			if(!empty($answer)) {
@@ -78,7 +78,7 @@ class FeedbacksController extends AppController{
 															  'Ally.ally' => $data['Feedback']['user_id']));
 			}
 			$return['success'] = 1;
-			$return['cid'] = $data['Feedback']['configure_id'];
+			$return['cid'] = $data['Feedback']['configuration_id'];
 		} else {
 			$return['success'] = 0;
 		}

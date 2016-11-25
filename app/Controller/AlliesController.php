@@ -187,7 +187,7 @@ class AlliesController extends AppController{
 			$user_exists = $this->Ally->User->field('email',array('User.email'=> $email));
 			if($user_exists == false){
 				$ally = $this->Ally->User->find('first', array(
-						'contain'	 => array('Game' => array('conditions' => array('Game.configure_id' => 36))),
+						'contain'	 => false,
 						'conditions' => array('User.email' => $email)));
 					
 				if(empty($ally)) {

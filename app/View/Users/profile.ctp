@@ -3,7 +3,7 @@
 	
 		$image = $this->Session->read('Profile.Game.answer');
 		$id = $this->Session->read('Profile.Game.id');
-		$configure = $this->Session->read('Profile.Game.configure_id');
+		$configure = $this->Session->read('Profile.Game.configuration_id');
 		if(empty($id)) {
 			$id = 0; 
 		}

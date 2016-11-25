@@ -14,7 +14,7 @@ Class Configuration extends AppModel {
 	public $hasMany = array(
 		'Game' => array(
 			'className'=>'Game',
-			'foreignKey'=>'configure_id'
+			'foreignKey'=>'configuration_id'
 			)
 	);
 }

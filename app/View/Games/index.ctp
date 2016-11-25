@@ -173,7 +173,7 @@ foreach ($vision as $key => $list) {
 	$(document).ready(function() {
 
 		open_game = <?php echo ($this->Session->check('Current.game_step'))? $this->Session->read('Current.game_step'): 0 ?>;
-		conf_id  = <?php echo ($this->Session->check('Current.configure_id'))? $this->Session->read('Current.configure_id'): 0 ?>;
+		conf_id  = <?php echo ($this->Session->check('Current.configuration_id'))? $this->Session->read('Current.configuration_id'): 0 ?>;
 		
 		narration = <?php echo $show_narration; ?>;
 		user_info = <?php echo ($this->Session->check('Auth.User.gender'))? 1: 0; ?>;

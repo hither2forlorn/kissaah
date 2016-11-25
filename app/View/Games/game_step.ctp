@@ -1,3 +1,9 @@
+<?php 
+$featured = $this->Session->read('Configuration.featured'); 
+if($featured == false) {
+	echo '<div class="col-md-6 col-md-offset-3">';
+}
+?>
 <div class="row no-margin margin-bottom-20">
 <?php
 /*
@@ -141,6 +147,10 @@ if($screen_width > 767) {
 if($nxt_txt != '') {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => $next_btn, 'id' => 'tour-step-05')));
+}
+
+if($featured == false) {
+	echo '</div>';
 }
 ?>
 <script>

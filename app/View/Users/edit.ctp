@@ -10,7 +10,7 @@
 		echo '<div class="col-md-4 col-sm-4"></div>';
 		echo '<div class="col-md-4 col-sm-4">';
 			$id = $this->Session->read('Profile.Game.id');
-			$configure = $this->Session->read('Profile.Game.configure_id');
+			$configure = $this->Session->read('Profile.Game.configuration_id');
 			$image = $this->Session->read('Profile.Game.answer');
 			if($image == '') {
 				$image = 'http://placehold.it/198x198&text=Profile Picture';
