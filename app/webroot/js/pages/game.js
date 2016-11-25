@@ -460,8 +460,8 @@ var Game = function () {
     					url			: $(this).attr('data-save'),
     					success		: function(data){
     						if(screen_width < 767){
-    							window.location.replace(host_url+'games');
-    						}else{
+    							window.location.replace(host_url + 'games');
+    						} else {
 	    	        			var object = $.parseJSON(data);
 	    	        			if(object.success) {
 	    	        				var attr_name 	= DOM_Element.attr('name');

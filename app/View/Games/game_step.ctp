@@ -1,7 +1,7 @@
 <?php 
 $featured = $this->Session->read('Configuration.featured'); 
 if($featured == false) {
-	echo '<div class="col-md-6 col-md-offset-3">';
+	echo '<div class="col-md-6 col-md-offset-3 save-answer">';
 }
 ?>
 <div class="row no-margin margin-bottom-20">

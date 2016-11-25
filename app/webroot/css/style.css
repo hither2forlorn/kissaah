@@ -1957,7 +1957,13 @@ canvas.temp {
 .image-box img {
 	overflow: hidden;
     border-radius: 25px 25px 0 0 !important;
+    margin-bottom: 5px !important;
 }
+.image-box-summary img {
+	overflow: hidden;
+    border-radius: 25px !important;
+}
+
 /* Styles For Allies */
 .allies {
 	text-align: center;

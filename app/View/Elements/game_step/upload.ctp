@@ -15,7 +15,12 @@ if(empty($selfdata['Configuration']['dependent_id'])) {
 $image = $this->Html->image($answer, array('class' => 'img-responsive margin-bottom-5', 'data' => 'medium-' . $id));
 
 $actions = '';
-if(!$summary) {
+if($summary) {
+	$image_class = 'col-md-3 col-sm-4 col-xs-8 padding-0 image-box-summary';
+	
+} else {
+	$image_class = 'col-md-3 col-sm-4 col-xs-8 padding-0 image-box';
+	
 	$actions  = $this->Form->create('Game' . $id . 'Upload', array('class' => 'btn-file pull-left fileupload'));
 	$actions .= $this->Html->tag('i', '', array('class' => 'fa fa-upload fa-2x')) . '&nbsp;';
 	//$actions .= $this->Html->image('Upload.png', array('id' => 'upl' . $id));
@@ -39,7 +44,7 @@ if(!$summary) {
 				array('escape' => false)) . '&nbsp;';
 				//$actions .= $this->Html->image('removeimage.png', array('title' => 'Remove', 'data' => $id, 'id' => 'rem'));
 	}
-	$image .= $this->Html->div('image-icon col-md-12 col-xs-12 margin-bottom-5', $actions, array('id' => 'tour-step-04'));
+	$image .= $this->Html->div('image-icon col-md-12 col-xs-12', $actions, array('id' => 'tour-step-04'));
 }
 
 $child_field = '';
@@ -51,13 +56,10 @@ if(isset($selfdata['children'])) {
 
 if($selfdata['Configuration']['sub_txt'] != '') {
 	echo $this->Html->div('col-md-9 col-sm-8 col-xs-12 padding-left-0', $selfdata['Configuration']['sub_txt'] . $child_field);
-	echo $this->Html->div('col-md-3 col-sm-4 col-xs-8 padding-0 image-box', $image);
+	echo $this->Html->div($image_class, $image);
 } else {
-	echo $this->Html->div('col-md-4 col-sm-4 col-xs-8 padding-0 image-box', $image . $child_field);
+	echo $this->Html->div($image_class, $image . $child_field);
 }
-
-$image_class = 'col-md-offset-4';
-
 
 $screen_size = $this->Session->read('Screen.width');
 if($count == 1 || $screen_size <= 767) {
