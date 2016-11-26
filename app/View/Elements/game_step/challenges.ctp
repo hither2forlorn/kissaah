@@ -97,7 +97,6 @@ foreach($selfdata['children'] as $child) {
 					} else {
 						$modalbtn = $this->Html->div('col-md-4 no-padding',
 										$this->Html->div('btn-finished pull-right', 'Challenge Completed'));
-						
 					}
 					
 					$modalheader = $this->Html->div('modal-header', 

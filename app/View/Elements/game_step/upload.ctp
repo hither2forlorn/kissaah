@@ -16,10 +16,10 @@ $image = $this->Html->image($answer, array('class' => 'img-responsive margin-bot
 
 $actions = '';
 if($summary) {
-	$image_class = 'col-md-3 col-sm-4 col-xs-8 padding-0 image-box-summary';
+	$image_class = 'col-md-4 col-sm-4 col-xs-offset-2 col-xs-8 padding-0 image-box-summary';
 	
 } else {
-	$image_class = 'col-md-3 col-sm-4 col-xs-8 padding-0 image-box';
+	$image_class = 'col-md-4 col-sm-4 col-xs-offset-2 col-xs-8 padding-0 image-box';
 	
 	$actions  = $this->Form->create('Game' . $id . 'Upload', array('class' => 'btn-file pull-left fileupload'));
 	$actions .= $this->Html->tag('i', '', array('class' => 'fa fa-upload fa-2x')) . '&nbsp;';

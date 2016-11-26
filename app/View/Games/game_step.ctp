@@ -1,5 +1,5 @@
 <?php 
-$featured = $this->Session->read('Configuration.featured'); 
+$featured = $this->Session->read('Configuration.featured');
 if($featured == false) {
 	echo '<div class="col-md-6 col-md-offset-3 save-answer">';
 }
