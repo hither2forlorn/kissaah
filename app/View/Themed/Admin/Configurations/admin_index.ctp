@@ -1,22 +1,24 @@
 <?php
-$options = array(	0 	=> '(0) Step', 
-					1 	=> '(1) Upload', 
-					2 	=> '(2) Date', 
-					3 	=> '(3) Text add more', 
-					4 	=> '(4) Sorting Group', 
-					5 	=> '(5) Text Area', 
-					6 	=> '(6) Label', 
-					7 	=> '(7) Text (Caption)', 
-					8 	=> '(8) Sorting Answer', 
-					9 	=> '(9) Allies', 
-					10 	=> '(10) Assessment Group',
-					11 	=> '(11) Assessment Child',
-					12 	=> '(12) Summary',
-					13	=> '(13) Re-sorting Parent',
-					14	=> '(14) Re-sorting Child',
-					15	=> '(15) Challenges',
-					16	=> '(16) Challenge Summary');
-					
+$options = array(
+		0 	=> '(0) Step', 
+		1 	=> '(1) Upload', 
+		2 	=> '(2) Date', 
+		3 	=> '(3) Text add more', 
+		4 	=> '(4) Sorting Group', 
+		5 	=> '(5) Text Area', 
+		6 	=> '(6) Label', 
+		7 	=> '(7) Text (Caption)', 
+		8 	=> '(8) Sorting Answer', 
+		9 	=> '(9) Allies', 
+		10 	=> '(10) Assessment Group',
+		11 	=> '(11) Assessment Child',
+		12 	=> '(12) Summary',
+		13	=> '(13) Re-sorting Parent',
+		14	=> '(14) Re-sorting Child',
+		15	=> '(15) Challenges',
+		16	=> '(16) Challenge Summary',
+		17	=> '(17) Calendar');
+
 $parent = (!empty($this->request->pass))? $this->request->pass[0]: '';
 if(!$this->request->isAjax) {
 	/* BEGIN PAGE LEVEL PLUGINS */

@@ -42,10 +42,11 @@ class GamesController extends AppController {
 		$vision = $this->Configuration->children($configuration_id, true);
 		$this->Session->write('Vision', $vision);
 		
-		if($configuration_id == 192) {
-			$this->Session->write('ActiveGame.show_dashboard', false);
-			$this->redirect(array('action' => 'game_step', '?' => array('st' => 196)));
+		$featured = $this->Session->read('Configuration.featured');
+		if($featured == false) {
+			$this->redirect(array('action' => 'game_step', '?' => array('st' => $vision[0]['Configuration']['id'])));
 		}
+
 		foreach($vision as $key => $value) {
 			if($value['Configuration']['status']) {
 				$vision[$key]['Configuration']['step-complete'] = $this->step_complete($value['Configuration']['id']);
