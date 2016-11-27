@@ -274,6 +274,7 @@ class UsersController extends AppController {
 			$active_game['UserGameStatus']['game'] 	  = 0;
 			$active_game['UserGameStatus']['points']  = 0;
 			$active_game['UserGameStatus']['active']  = 1;
+			$active_game['UserGameStatus']['configuration_id']  = 192;
 			if($this->User->UserGameStatus->save($active_game)) {
 				$active_game['UserGameStatus']['id']  = $this->User->UserGameStatus->getLastInsertID();
 			}
@@ -567,36 +568,32 @@ class UsersController extends AppController {
 	//To toggle the active RoadMap
 	public function roadmap_edit_active($user_game_status_id){
 		if(isset($user_game_status_id)){
-			$ActiveRoadMaps = $this->User->UserGameStatus->find('all',array(
-					'conditions' => array(
-							'UserGameStatus.user_id' => $this->Session->read('ActiveGame.user_id'),
-							'UserGameStatus.active'	 => 1	),
-					'contain' => false));
 			
-			foreach($ActiveRoadMaps as $ActiveRoadMap){
-				$this->User->UserGameStatus->create();
-				$this->User->UserGameStatus->id = $ActiveRoadMap['UserGameStatus']['id'];
-				$this->User->UserGameStatus->saveField('active', 0);
-			}
+			$this->User->UserGameStatus->updateAll(
+					array('UserGameStatus.active' => false), 
+					array('UserGameStatus.active' => true, 'UserGameStatus.user_id' => $this->Session->read('ActiveGame.user_id')));
 			
 			$this->User->UserGameStatus->id = $user_game_status_id;
 			$this->User->UserGameStatus->saveField('active', 1);
 				
 			$active_game = $this->User->UserGameStatus->find('first', array(
-					'contain' 	 => false,
+					'contain' 	 => array('Configuration'),
 					'conditions' => array('UserGameStatus.user_id' => $this->Session->read('ActiveGame.user_id'),
 							'UserGameStatus.active' => 1)));
+					
 			if(empty($active_game)) {
 				$active_game['UserGameStatus']['user_id'] = $this->Session->read('ActiveGame.user_id');
 				$active_game['UserGameStatus']['level']   = 0;
 				$active_game['UserGameStatus']['game'] 	  = 0;
 				$active_game['UserGameStatus']['points']  = 0;
 				$active_game['UserGameStatus']['active']  = 1;
+				$active_game['UserGameStatus']['configuration_id']  = 192;
 				if($this->User->UserGameStatus->save($active_game)) {
 					$active_game['UserGameStatus']['id']  = $this->User->UserGameStatus->getLastInsertID();
 				}
 			}
 			$this->Session->write('ActiveGame', $active_game['UserGameStatus']);
+			$this->Session->write('Configuration', $active_game['Configuration']);
 		}
 		$this->redirect(array('controller' => 'games', 'action' => 'index'));
 	}

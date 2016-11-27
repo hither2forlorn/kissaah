@@ -10,8 +10,8 @@ Class User extends AppModel {
 			'maxLength' => array(
 				'rule' => array('maxLength', 255),
 				'message' => 'No larger than 50 characters long'),
-			'notempty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'message' => 'Please provide your full name.')
 		),
 		/* 'username' => array(
@@ -23,8 +23,8 @@ Class User extends AppModel {
 				'message' => 'Oops that username has already been taken.'),
 		), */
 		'password' => array(
-			'notempty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'message' => 'Please enter the password'),
 			'lengthRule' 	=> array(
 	 			'rule'		=> array('minLength', 6),
@@ -33,7 +33,7 @@ Class User extends AppModel {
 		),
 		'confirmpassword'  => array(
 			'requiredRule'	=> array(
-				'rule'		=> 'notEmpty',
+				'rule'		=> 'notBlank',
 				'last'		=> true,
  				'message'	=> 'Please enter confirm password.'),
 	 		'lengthRule' 	=> array(
@@ -54,23 +54,23 @@ Class User extends AppModel {
 				'message' => 'This email is already registered.'),
 		),
 		'city' => array(
-				'notempty' => array(
-						'rule' => 'notEmpty',
+				'notBlank' => array(
+						'rule' => 'notBlank',
 						'message' => 'Please provide your city.')
 		),
 		'country' => array(
-				'notempty' => array(
-						'rule' => 'notEmpty',
+				'notBlank' => array(
+						'rule' => 'notBlank',
 						'message' => 'Please provide your country.')
 		),
 		'gender' => array(
-				'notempty' => array(
-						'rule' => 'notEmpty',
+				'notBlank' => array(
+						'rule' => 'notBlank',
 						'message' => 'Please provide your gender.')
 		),
 		'dob' => array(
-				'notempty' => array(
-						'rule' => 'notEmpty',
+				'notBlank' => array(
+						'rule' => 'notBlank',
 						'message' => 'Please provide your date of birth.')
 		),
 	);

@@ -10,9 +10,9 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 			echo $this->Session->flash('auth'); 
 			?>
 			<!-- BEGIN LOGIN FORM -->
-			<?php echo $this->Form->create('User', array('action' => 'login', 'class' => 'login-form', 
-														 'inputDefaults' => array('div' => false, 'label' => false, 
-														 						  'class' => 'form-control placeholder-no-fix'))); ?>
+			<?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'login'), 
+					'class' => 'login-form', 
+					'inputDefaults' => array('div' => false, 'label' => false, 'class' => 'form-control placeholder-no-fix'))); ?>
 				<h3 class="form-title">Sign In</h3>
 				<div class="alert alert-danger display-hide">
 					<button data-close="alert" class="close"></button>
@@ -56,9 +56,9 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 			<!-- END LOGIN FORM -->
 			
 			<!-- BEGIN FORGOT PASSWORD FORM -->
-			<?php echo $this->Form->create('User', array('action' => 'forgetpassword', 'class' => 'forget-form', 
-														 'inputDefaults' => array('div' => false, 'label' => false, 
-														 						  'class' => 'form-control placeholder-no-fix'))); ?>
+			<?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'forgetpassword'), 
+					'class' => 'forget-form', 
+					'inputDefaults' => array('div' => false, 'label' => false, 'class' => 'form-control placeholder-no-fix'))); ?>
 				<h3>Forget Password ?</h3>
 				<p>Enter your e-mail address below to reset your password.</p>
 				<div class="form-group">
@@ -73,9 +73,9 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 			<!-- END FORGOT PASSWORD FORM -->
 			
 			<!-- BEGIN REGISTRATION FORM -->
-			<?php echo $this->Form->create('User', array('action' => 'register', 'class' => 'register-form', 
-														 'inputDefaults' => array('div' => false, 'label' => false, 
-														 						  'class' => 'form-control placeholder-no-fix'))); ?>
+			<?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'register'), 
+					'class' => 'register-form', 
+					'inputDefaults' => array('div' => false, 'label' => false, 'class' => 'form-control placeholder-no-fix'))); ?>
 				<h3>Request Account</h3>
 				<div class="form-actions">
 					<p class="margin-top-10">Submit the form below to request for an account on Kissaah. 
@@ -119,9 +119,9 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 			<!-- END REGISTRATION FORM -->
 
 			<!-- BEGIN UPDATE FORM -->
-			<?php echo $this->Form->create('User', array('action' => 'manualLogin', 'class' => 'update-form', 
-														 'inputDefaults' => array('div' => false, 'label' => false, 
-														 						  'class' => 'form-control placeholder-no-fix'))); ?>
+			<?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'manualLogin'), 
+					'class' => 'update-form', 
+					'inputDefaults' => array('div' => false, 'label' => false, 'class' => 'form-control placeholder-no-fix'))); ?>
 				<h3>Update Profile</h3>
 				<div class="form-group">
 					<label class="control-label">Full Name</label>

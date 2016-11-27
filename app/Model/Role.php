@@ -14,8 +14,8 @@ class Role extends AppModel {
 				'rule' 		=> 'isUnique',
 				'message' 	=> 'The User Role is already taken.'
 			),
-			'name-notempty' => array(
-				'rule' 		=> 'notEmpty',
+			'name-notBlank' => array(
+				'rule' 		=> 'notBlank',
 				'message' 	=> 'The name cannot be empty.'
 			)
 		),

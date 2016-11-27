@@ -16,10 +16,10 @@ $image = $this->Html->image($answer, array('class' => 'img-responsive margin-bot
 
 $actions = '';
 if($summary) {
-	$image_class = 'col-md-4 col-sm-4 col-xs-offset-2 col-xs-8 padding-0 image-box-summary';
+	$image_class = 'col-md-4 col-sm-4 col-xs-8 padding-0 image-box-summary';
 	
 } else {
-	$image_class = 'col-md-4 col-sm-4 col-xs-offset-2 col-xs-8 padding-0 image-box';
+	$image_class = 'col-md-4 col-sm-4 col-xs-8 padding-0 image-box';
 	
 	$actions  = $this->Form->create('Game' . $id . 'Upload', array('class' => 'btn-file pull-left fileupload'));
 	$actions .= $this->Html->tag('i', '', array('class' => 'fa fa-upload fa-2x')) . '&nbsp;';
@@ -55,15 +55,19 @@ if(isset($selfdata['children'])) {
 }
 
 if($selfdata['Configuration']['sub_txt'] != '') {
+	$image_class = str_replace('col-md-4', 'col-md-3', $image_class);
 	echo $this->Html->div('col-md-9 col-sm-8 col-xs-12 padding-left-0', $selfdata['Configuration']['sub_txt'] . $child_field);
 	echo $this->Html->div($image_class, $image);
+	
 } else {
+	if($count == 1) {
+		$image_class .= ' col-md-offset-4';
+	}
 	echo $this->Html->div($image_class, $image . $child_field);
+	
 }
 
 $screen_size = $this->Session->read('Screen.width');
 if($count == 1 || $screen_size <= 767) {
-}
-if($count == 2) {	
 }
 ?>

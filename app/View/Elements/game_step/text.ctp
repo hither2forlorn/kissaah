@@ -3,8 +3,8 @@ $answer 				= '';
 $id						= $selfdata['Configuration']['id'];
 
 $options['class'] 		= 'form-control';
-$options['label'] 		= false;
 $options['type'] 		= 'text';
+$options['label'] 		= false;
 $options['div'] 		= false;
 $options['tabindex'] 	= $id;
 $options['data'] 		= $selfdata['Configuration']['dependent_id'];

@@ -13,8 +13,8 @@ class UserGameStatus extends AppModel {
 
 	var $validate = array(
 			'roadmap' => array(
-					'notempty' => array(
-							'rule' 		 => 'notEmpty',
+					'notBlank' => array(
+							'rule' 		 => 'notBlank',
 							'allowEmpty' => true,
 							'message' 	 => 'Please enter your roadmap name.')
 			),
