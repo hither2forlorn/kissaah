@@ -348,7 +348,10 @@ class UsersController extends AppController {
 	}
 	
 	public function profile(){
-		$userdetail = $this->User->find('first', array('conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id'))));
+		$userdetail = $this->User->find('first', array(
+				'conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id')),
+				'contain' => array('CompanyGroup')
+		));
 		$this->set('userdetail', $userdetail);
 	}
 

@@ -160,37 +160,27 @@ foreach ($vision as $key => $list) {
 <?php echo $this->element('tours');?>
 
 <script type="text/javascript">
-	$(window).bind('load', function() {
-		Game.TourGame();
-		Game.ToolBoxLoadLink();
+$(document).ready(function() {
 
-		start_tour = <?php echo ($this->Session->check('start-tour'))? 1: 0; ?>;
-		if(start_tour == 1) {
-			$('#game-tour').trigger('click');
-		}
-	});
+	open_game = <?php echo ($this->Session->check('Current.game_step'))? $this->Session->read('Current.game_step'): 0 ?>;
+	conf_id  = <?php echo ($this->Session->check('Current.configuration_id'))? $this->Session->read('Current.configuration_id'): 0 ?>;
+	
+	narration = <?php echo $show_narration; ?>;
+	user_info = <?php echo ($this->Session->check('Auth.User.gender'))? 1: 0; ?>;
+	
+	facebook_warning = <?php echo $this->Session->read('Auth.User.facebook_warning')? 1: 0; ?>;
+	consent_for_collage = <?php echo $this->Session->check('Auth.User.collage_status')? 1: 0; ?>;
 
-	$(document).ready(function() {
+	<?php $roadmap = $this->Session->read('ActiveGame.roadmap'); ?>
+	road_map = <?php echo (empty($roadmap))? 0: 1; ?>;
+	thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
 
-		open_game = <?php echo ($this->Session->check('Current.game_step'))? $this->Session->read('Current.game_step'): 0 ?>;
-		conf_id  = <?php echo ($this->Session->check('Current.configuration_id'))? $this->Session->read('Current.configuration_id'): 0 ?>;
-		
-		narration = <?php echo $show_narration; ?>;
-		user_info = <?php echo ($this->Session->check('Auth.User.gender'))? 1: 0; ?>;
-		
-		facebook_warning = <?php echo $this->Session->read('Auth.User.facebook_warning')? 1: 0; ?>;
-		consent_for_collage = <?php echo $this->Session->check('Auth.User.collage_status')? 1: 0; ?>;
-
-		<?php $roadmap = $this->Session->read('ActiveGame.roadmap'); ?>
-		road_map = <?php echo (empty($roadmap))? 0: 1; ?>;
-		thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
-
-		screen_width = <?php echo $screen_width; ?>;
-		if(screen_width > 767) {
-			Game.StartGame();
-			Game.Support();
-		} 
-		Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
-		
-	});
+	screen_width = <?php echo $screen_width; ?>;
+	if(screen_width > 767) {
+		Game.StartGame();
+		Game.Support();
+	} 
+	Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+	
+});
 </script>

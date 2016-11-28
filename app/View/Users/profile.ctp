@@ -123,9 +123,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		Game.TakeSurvey();
-		Game.Support();
-		Game.ToolBoxLoadLink();
-
+		
 		FileUpload.UploadFileImage();
 
 		Profile.SettingsFancyBox();

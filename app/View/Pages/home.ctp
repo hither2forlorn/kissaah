@@ -220,7 +220,7 @@ if ($this->action == 'register') {
 }
 ?>
 <script type="text/javascript">
-	jQuery(document).ready(function() {
-		Login.init('<?php echo $action; ?>');
-	});
+jQuery(document).ready(function() {
+	Login.init('<?php echo $action; ?>');
+});
 </script>

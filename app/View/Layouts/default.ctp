@@ -118,10 +118,20 @@
     <!-- END FOOTER -->
 
 <script type="text/javascript">
-	jQuery(document).ready(function() {
-		Metronic.init();
-		Game.UpdateNotification();
-	});
+$(window).bind('load', function() {
+	Game.TourGame();
+	Game.ToolBoxLoadLink();
+
+	start_tour = <?php echo ($this->Session->check('start-tour'))? 1: 0; ?>;
+	if(start_tour == 1) {
+		$('#game-tour').trigger('click');
+	}
+});
+
+jQuery(document).ready(function() {
+	Metronic.init();
+	Game.UpdateNotification();
+});
 </script>
 </body>
 </html>
