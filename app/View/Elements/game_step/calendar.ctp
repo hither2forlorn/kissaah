@@ -1,69 +1,142 @@
 <?php
-$answer = 'http://placehold.it/300x300&text=X';
+echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 btn-finished margin-bottom-5', $selfdata['Configuration']['title']);
+
+
+$answer 				= '';
+$id						= $selfdata['Configuration']['id'];
+
+$options['class'] 		= 'form-control';
+$options['type'] 		= 'text';
+$options['label'] 		= false;
+$options['div'] 		= false;
+$options['tabindex'] 	= $id;
+$options['data'] 		= $selfdata['Configuration']['dependent_id'];
+$options['placeholder'] = $selfdata['Configuration']['title'];
+$options['data-save'] 	= $this->Html->url(array('controller' => 'games', 'action' => 'save'));
+
+$input  = 'Game.' . $id . '.0';
 if(empty($selfdata['Configuration']['dependent_id'])) {
-	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
-		$answer = '/files/img/medium/' . $selfdata['Game'][0]['Game']['answer'];
+	if(!empty($selfdata['Game'])) {
+		$answer	= $selfdata['Game'][0]['Game']['answer'];
+		$input  = 'Game.' . $id . '.' . $selfdata['Game'][0]['Game']['id'];
 	}
-	$id = $selfdata['Configuration']['id'];
 	
 } else {
 	if(!empty($selfdata['Dependent'][0]['answer'])) {
-		$answer = '/files/img/medium/' . $selfdata['Dependent'][0]['answer'];
+		$answer = $selfdata['Dependent'][0]['answer'];
 	}
 	$id = $selfdata['Configuration']['dependent_id'];
+	$input  = 'Game.' . $id . '.' . $selfdata['Configuration']['id'];
 }
-$image = $this->Html->image($answer, array('class' => 'img-responsive margin-bottom-5', 'data' => 'medium-' . $id));
 
-$actions = '';
 if($summary) {
-	$image_class = 'col-md-3 col-sm-4 col-xs-8 padding-0 image-box-summary';
+	$input = $this->Form->label('Game.answer', $answer, array('class' => 'control-label margin-bottom-10'));
+
+} else {
+	$options['value'] = $answer;
+	$input 	= $this->Form->input($input, $options);
+
+}
+
+if(1 == 1) {
+	echo $input;
 	
 } else {
-	$image_class = 'col-md-3 col-sm-4 col-xs-8 padding-0 image-box';
+	$display = $this->Html->div('form-group margin-bottom-15 margin-top-10 save-answer', $input);
 	
-	$actions  = $this->Form->create('Game' . $id . 'Upload', array('class' => 'btn-file pull-left fileupload'));
-	$actions .= $this->Html->tag('i', '', array('class' => 'fa fa-upload fa-2x')) . '&nbsp;';
-	//$actions .= $this->Html->image('Upload.png', array('id' => 'upl' . $id));
-	$actions .= $this->Form->input($id, array('type' => 'file', 'label' => false, 'class' => 'default', 'div' => false));
-	$actions .= $this->Form->end();
-	$actions .= $this->Html->link(
-			$this->Html->tag('i', '', array('class' => 'fa fa-pinterest fa-2x', 'title' => 'Get Images From Pinterest')),
-			array('controller' => 'games', 'action' => 'pinterest_getimages', '?' => array('cid' => $id)),
-			array('escape' => false)) . '&nbsp;';
-			//$actions .= $this->Html->image('pinterest.png', array('title' => 'Get Images From Pinterest', 'data' => $id, 'id' => 'pin'));
-	$actions .= $this->Html->link(
-			$this->Html->tag('i', '', array('class' => 'fa fa-instagram fa-2x', 'title' => 'Get Images From Instagram')),
-			array('controller' => 'games', 'action' => 'instagram_getImages', '?' => array('cid' => $id, 'game_step' => $this->request->query['st'])),
-			array('escape' => false)) . '&nbsp;';
-			//$actions .= $this->Html->image('Instagram.png', array('title' => 'Get Images From Instagram', 'data' => $id, 'id' => 'ins'));
-
-	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
-		$actions .= $this->Html->link(
-				$this->Html->tag('i', '', array('class' => 'fa fa-remove fa-2x', 'title' => 'Remove Image')),
-				array('controller' => 'games', 'action' => 'remove_image', $id),
-				array('escape' => false)) . '&nbsp;';
-				//$actions .= $this->Html->image('removeimage.png', array('title' => 'Remove', 'data' => $id, 'id' => 'rem'));
+	if($selfdata['Configuration']['sub_txt'] != '') {
+		echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $selfdata['Configuration']['sub_txt']);
 	}
-	$image .= $this->Html->div('image-icon col-md-12 col-xs-12', $actions, array('id' => 'tour-step-04'));
+	echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $display);
+	
 }
 
-$child_field = '';
-if(isset($selfdata['children'])) {
-	foreach($selfdata['children'] as $child) {
-		$child_field = $this->Render->display($child['Configuration']['type'], $child, 1, $summary, true);
+debug($selfdata);
+$options['data-save'] 	= $this->Html->url(array('controller' => 'challenges', 'action' => 'set_challenge'));
+$options['label'] 		= false;
+
+
+	if(isset($selfdata['Dependent'])) {
+		
+		foreach($selfdata['Dependent'] as $dependent) {
+			
+			$calendar  = $this->Html->tag('span', '', array('class' => '_start'));
+			$calendar .= $this->Html->tag('span', '', array('class' => '_end'));
+			$calendar .= $this->Html->tag('span', $dependent['answer'], array('class' => '_summary'));
+			$calendar .= $this->Html->tag('span', '', array('class' => '_description'));
+			$calendar .= $this->Html->tag('span', 'true', array('class' => '_all_day_event'));
+
+			$calendar = $this->Html->link('Add to Calendar' . $calendar, '#', array('class' => 'pull-right addthisevent event', 
+																					'title' => 'Add to Calendar',
+																					'data' 	=> 'addto-' . $dependent['id'],
+																					'escape'=> false));
+			$calendar = $this->Html->div('col-md-4 col-sm-4 col-xs-8 margin-top-5 no-padding', $calendar);
+
+			if($summary) {
+				$modalbtn = $modal = '';
+				if(!empty($goal)) {
+					if($goal['Challenge']['status'] != 'Completed') {
+						$modalbtn = $this->Html->div('col-md-4 col-sm-4 col-xs-8 margin-top-5 no-padding',
+										$this->Html->link('Review Challenge', '#Challenge-' . $goal['Challenge']['id'], 
+													array('role' => 'button', 'class' => 'btn blue pull-right', 'data-toggle' => 'modal',
+														  'data' => 'goal-' . $goal['Challenge']['id'])));
+						
+					} else {
+						$modalbtn = $this->Html->div('col-md-4 no-padding',
+										$this->Html->div('btn-finished pull-right', 'Challenge Completed'));
+					}
+					
+					$modalheader = $this->Html->div('modal-header', 
+						$this->Form->button('', array('type' => 'button', 'class' => 'close', 'data-dismiss' => 'modal', 'aria-hidden' => 'true')) .
+						$this->Html->tag('h4', $goal['Challenge']['name'], array('class' => 'modal-title')));
+					
+					$modalfooter = $this->Html->div('modal-footer', 
+						$this->Form->button('Cancel', array('type' => 'button', 'class' => 'btn default', 'data-dismiss' => 'modal', 'aria-hidden' => 'true')) .
+						$this->Form->button('Challenge Completed', array('type' => 'button', 'class' => 'btn yellow', 'data-dismiss' => 'modal',
+														  'data-save' => $this->Html->url(array('controller' => 'challenges', 'action' => 'set_challenge')),
+														  'data' => $goal['Challenge']['id'])));
+					
+					$optionsid['type'] 		= 'hidden';
+					$optionsid['data-depn'] = $dependent['id'];
+					$optionsid['value'] 	= $goal['Challenge']['id'];
+					$optionsid['data'] 		= 'challenge-' . $dependent['id'];
+					$optionsid['value'] 	= $goal['Challenge']['rating'];
+					$optionsid['data'] 		= 'rating-' . $dependent['id'];
+					$rating = $this->Form->input('Challenge.rating', $optionsid);
+					$rating = $this->Html->div('rating', '', array('data-score' => $optionsid['value'], 'data-depn' => $dependent['id'])) . $rating;
+					$rating = $this->Html->div('col-md-12 no-padding', $this->Html->div('btn-label dark-blue', $rating));
+					
+					$status = $this->Form->input('Challenge.status', array('type' => 'hidden', 'value' => 'Completed'));
+					
+					$modalbody = $this->Html->div('modal-body', $rating . $feedback . $status);
+					
+					$modalcontent = $this->Html->div('modal-content', $modalheader . $modalbody . $modalfooter);
+					
+					$modaldialog = $this->Html->div('modal-dialog', $modalcontent);
+					
+					$modal = $this->Html->div('modal fade', $modaldialog, array('id' => 'Challenge-' . $goal['Challenge']['id'],
+																				'tabindex' => '-1', 'role' => 'dialog',
+																				'aria-hidden' => 'true'));
+				}
+
+				$left_block = $this->Html->div('col-md-10 col-sm-10 col-xs-9 padding-right-0', $challenge_id . $challenge . $complete_by . 
+																			$modalbtn . $description . $modal);
+				
+			} else {
+				$left_block = $this->Html->div('col-md-10 col-sm-10 col-xs-9 padding-right-0', $calendar);
+			}
+			
+			$ally = (empty($goal['Challenge']['goal']))? '&nbsp;': $goal['Challenge']['goal'];
+			$ally = $this->Html->div('col-md-12 col-sm-12 col-xs-12 btn-in-progress margin-bottom-5', $ally, array('data' => 'label-' . $dependent['id']));
+			
+			if(($summary && !empty($goal)) || !$summary) {
+				echo $this->Html->div('row no-margin margin-bottom-10', $left_block);
+			}
+		}
 	}
-}
-
-if($selfdata['Configuration']['sub_txt'] != '') {
-	echo $this->Html->div('col-md-9 col-sm-8 col-xs-12 padding-left-0', $selfdata['Configuration']['sub_txt'] . $child_field);
-	echo $this->Html->div($image_class, $image);
-} else {
-	echo $this->Html->div($image_class, $image . $child_field);
-}
-
-$screen_size = $this->Session->read('Screen.width');
-if($count == 1 || $screen_size <= 767) {
-}
-if($count == 2) {	
-}
 ?>
+<script type="text/javascript">
+	$(document).ready(function() {
+		addthisevent.refresh();
+	});
+</script>

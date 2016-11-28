@@ -32,7 +32,6 @@ if($summary) {
 } else {
 	$options['value'] = $answer;
 	$input 	= $this->Form->input($input, $options);
-
 }
 
 if($raw) {
@@ -45,6 +44,5 @@ if($raw) {
 		echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $selfdata['Configuration']['sub_txt']);
 	}
 	echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $display);
-	
 }
 ?>

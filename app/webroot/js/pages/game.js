@@ -452,6 +452,7 @@ var Game = function () {
         
         SaveGame: function() {
     		$('.save-answer').on('focusout', 'input[type=text], textarea, select', function(evt) {
+    			console.log('line 455');
     			var DOM_Element = $(this);
     			if(DOM_Element.attr('data-save') !== undefined) {
     				$.ajax({

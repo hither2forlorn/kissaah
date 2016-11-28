@@ -43,6 +43,7 @@
 
     echo $this->Html->script(array( '../plugins/jquery.min',
     								'../plugins/jquery-migrate.min',
+    								'../plugins/moment.min',
     								'../plugins/jquery-ui/jquery-ui.min',
     								'../plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min',
     								'../plugins/jquery.form',
@@ -123,8 +124,4 @@
 	});
 </script>
 </body>
-<?php 
-//echo $this->Facebook->init();
-//echo $this->Facebook->init(array('perms' => 'email, publish_stream'));
-?>
 </html>
