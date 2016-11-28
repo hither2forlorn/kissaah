@@ -48,22 +48,22 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->css('custom');
 
         /* START CORE PLUGINS */
-        echo $this->Html->script(array('../plugins/respond.min',
-                                       '../plugins/excanvas.min',
-                                       '../plugins/jquery.min',
-                                       '../plugins/jquery-migrate.min',
-                                       '../plugins/jquery-ui/jquery-ui.min',
-                                       '../plugins/bootstrap/js/bootstrap.min',
-                                       '../plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min',
-                                       '../plugins/jquery.blockui.min',
-                                       '../plugins/jquery.cokie.min',
-                                       '../plugins/uniform/jquery.uniform.min',
-                                       '../plugins/bootstrap-switch/js/bootstrap-switch.min'));
+        echo $this->Html->script(array( '../plugins/respond.min',
+                                        '../plugins/excanvas.min',
+										'../plugins/jquery.min',
+                                 		'../plugins/jquery-migrate.min',
+        								'../plugins/moment.min',
+                                        '../plugins/jquery-ui/jquery-ui.min',
+                                        '../plugins/bootstrap/js/bootstrap.min',
+                                        '../plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min',
+                                        '../plugins/jquery.blockui.min',
+                                        '../plugins/jquery.cokie.min',
+                                        '../plugins/uniform/jquery.uniform.min',
+                                        '../plugins/bootstrap-switch/js/bootstrap-switch.min'));
 		/* END CORE PLUGINS */
         echo $this->Html->script(array('../plugins/select2/select2.min',
                                        '../plugins/datatables/media/js/jquery.dataTables.min',
                                        '../plugins/datatables/plugins/bootstrap/dataTables.bootstrap',
-									   '../plugins/bootstrap-daterangepicker/moment.min',
 									   '../plugins/bootstrap-daterangepicker/daterangepicker',
 									   '../plugins/bootstrap-datepicker/js/bootstrap-datepicker'));
 				

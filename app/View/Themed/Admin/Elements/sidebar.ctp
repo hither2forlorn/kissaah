@@ -26,7 +26,9 @@
 				<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
 				<!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
 				<!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-				<?php echo $this->Form->create('Account', array('action' => 'search', 'class' => 'sidebar-search')); ?>
+				<?php echo $this->Form->create('Account', array(
+						'url' => array('action' => 'search'), 
+						'class' => 'sidebar-search')); ?>
 				<a href="javascript:;" class="remove"> <i class="icon-close"></i> </a>
 				<div class="input-group">
 					<?php echo $this->Form-> input('search', array('label' => false, 'div' => false, 'placeholder' => 'Search...', 'class' => 'form-control')); ?>

@@ -700,7 +700,7 @@ class UsersController extends AppController {
 
 	function admin_index(){
 		$this->set('title_for_layout', 'Dashboard');
-		$totalUsers = $this->User->find('count');
+		$totalUsers = $this->User->find('count', array('contain' => false));
 		$this->loadModel('Configuration');
 		$totalImagesUploaded = $this->Configuration->find('count',array(
 																'conditions'=>array(
@@ -721,10 +721,8 @@ class UsersController extends AppController {
 		 }
 		 shuffle($Answers);
 		 
-		$Users=$this->User->find('all',array(
-											'conditions'=>array(),
-											'order'=>'User.id DESC',
-											'limit'=>20));
+		$Users = $this->User->find('all', 
+				array('contain' => false, 'order' => 'User.id DESC', 'limit' => 20));
 		$i = 1;
 		foreach($Users as $User){
 			$UserList[$i]['name']	 = $User['User']['name'];
@@ -733,7 +731,7 @@ class UsersController extends AppController {
 			$i++;
 		}
 		//debug($UserList);		 
-		$this->set(compact('totalUsers','totalImagesUploaded','totalComments','Answers','UserList'));
+		$this->set(compact('totalUsers', 'totalImagesUploaded', 'totalComments', 'Answers', 'UserList'));
 	}
 
 	function admin_view() {
