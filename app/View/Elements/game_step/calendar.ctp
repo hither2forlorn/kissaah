@@ -21,12 +21,7 @@ if(!empty($selfdata['Dependent'][0]['answer'])) {
 																			'data' 	=> 'addto-' . $selfdata['Dependent'][0]['id'],
 																			'escape'=> false));
 	
-	echo $this->Html->div('col-md-6 col-sm-6 col-xs-12', $input);
-	echo $this->Html->div('col-md-6 col-sm-6 col-xs-12', $calendar);
+	echo $this->Html->div('col-md-6 col-sm-6 col-xs-12 no-padding margin-bottom-5', $input);
+	echo $this->Html->div('col-md-6 col-sm-6 col-xs-12 no-padding margin-bottom-5', $calendar);
 }
 ?>
-<script type="text/javascript">
-$(document).ready(function() {
-	//addthisevent.refresh();
-});
-</script>
