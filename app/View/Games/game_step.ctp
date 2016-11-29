@@ -124,17 +124,6 @@ if($step_information['Configuration']['id'] == 191) {
 	$games = $changed;
 }
 
-function checkfortags($answer){
-	$ans 		= explode(' ', $answer);
-	$returntext	= array();
-	foreach($ans as $a){
-		if(substr($a, 0, 1) === '#') {
-			$returntext[] = $a;
-		}
-	}
-	return($returntext);
-}
-
 if($step_information['Configuration']['id'] == 189) {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link('Allies and feedback',
@@ -154,7 +143,6 @@ if($featured == false) {
 ?>
 <script>
 $(document).ready(function(){
-	screen_width = <?php echo $this->Session->read('Screen.width'); ?>;
 	Game.SaveGame();
 	Game.SaveAndCloseGame();
 	Game.GameToolBar();

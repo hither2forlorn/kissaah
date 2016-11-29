@@ -460,25 +460,21 @@ var Game = function () {
     					data		: $(this).serializeArray(),
     					url			: $(this).attr('data-save'),
     					success		: function(data){
-    						if(screen_width < 767){
-    							window.location.replace(host_url + 'games');
-    						} else {
-	    	        			var object = $.parseJSON(data);
-	    	        			if(object.success) {
-	    	        				var attr_name 	= DOM_Element.attr('name');
-	    	        				attr_name 		= attr_name.replace('[0]', '[' + object.id + ']');
-	
-	    	        				if(DOM_Element.attr('data-child') == 'true') {
-	    	        					DOM_Element.parents('div.form-group').children('div:first-child').children('input').attr('name', attr_name); 
-	    	        					DOM_Element.parents('div.form-group').children('div:last-child').children('input').attr('name', attr_name);
-	    	        					
-	    	        				} else {
-	    	        					DOM_Element.attr('name', attr_name);
-	    	        				}
-	    	        				
-	    	        				$('label[data="' + object.cid + '"]').html(DOM_Element.attr('value'));
-	    	        			}
-    					   }
+    	        			var object = $.parseJSON(data);
+    	        			if(object.success) {
+    	        				var attr_name 	= DOM_Element.attr('name');
+    	        				attr_name 		= attr_name.replace('[0]', '[' + object.id + ']');
+
+    	        				if(DOM_Element.attr('data-child') == 'true') {
+    	        					DOM_Element.parents('div.form-group').children('div:first-child').children('input').attr('name', attr_name); 
+    	        					DOM_Element.parents('div.form-group').children('div:last-child').children('input').attr('name', attr_name);
+    	        					
+    	        				} else {
+    	        					DOM_Element.attr('name', attr_name);
+    	        				}
+    	        				
+    	        				$('label[data="' + object.cid + '"]').html(DOM_Element.attr('value'));
+    	        			}
     					}
     				});
     			}
