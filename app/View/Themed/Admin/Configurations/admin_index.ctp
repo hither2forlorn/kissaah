@@ -17,7 +17,9 @@ $options = array(
 		14	=> '(14) Re-sorting Child',
 		15	=> '(15) Challenges',
 		16	=> '(16) Challenge Summary',
-		17	=> '(17) Calendar');
+		17	=> '(17) Calendar',
+		18	=> '(18) Video'
+);
 
 $parent = (!empty($this->request->pass))? $this->request->pass[0]: '';
 if(!$this->request->isAjax) {
