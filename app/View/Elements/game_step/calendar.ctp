@@ -11,8 +11,8 @@ if(!empty($selfdata['Dependent'][0]['answer'])) {
 	$input  = 'Game.' . $selfdata['Dependent'][0]['id'] . '.' . $selfdata['Configuration']['dependent_id'];
 	$input 	= $this->Form->input($input, $options);
 	
-	$calendar  = $this->Html->tag('span', '', array('class' => '_start'));
-	$calendar .= $this->Html->tag('span', '', array('class' => '_end'));
+	$calendar  = $this->Html->tag('span', date('m/d/Y'), array('class' => '_start'));
+	$calendar .= $this->Html->tag('span', date('m/d/Y'), array('class' => '_end'));
 	$calendar .= $this->Html->tag('span', $options['value'], array('class' => '_summary'));
 	$calendar .= $this->Html->tag('span', '', array('class' => '_description'));
 	$calendar .= $this->Html->tag('span', 'true', array('class' => '_all_day_event'));
