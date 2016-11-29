@@ -14,7 +14,6 @@
 	<script type="text/javascript">var host_url =   '<?php echo Router::url('/', true); ?>';</script>
 
 	<?php
-	//echo $this->Facebook->html();
 	//echo $this->Html->meta('icon', $this->Html->url('http://kissaah.com/wp-content/uploads/KissaahFlower2015.png'));
 	echo $this->Html->meta('favicon.ico', '/favicon.ico', array('type' => 'icon'));
 	//echo $this->Html->css('http://fonts.googleapis.com/css?family=Signika:400,300,600,700&subset=all');
@@ -96,41 +95,43 @@
 	ga('create', 'UA-19274647-23', 'kissaah.org');
 	ga('send', 'pageview');
 </script>
-<!-- Body BEGIN -->
-<body class="for-line"><!-- add class page-header-fixed, if you want to fix header -->
+<?php 
+$screen_width = $this->Session->read('Screen.width');
+if(is_null($screen_width)) {
+	$screen_width = 768;
+}
+?>
+<body class="for-line">
 	<div class="mask"></div>
-    <!-- BEGIN HEADER -->
     <?php echo $this->element('header'); ?>
-    <!-- Header END -->
     <div class="main">
 		<div class="container"><?php 
 			echo $this->Session->flash('email');
 			echo $content_for_layout;
 		?></div>
     </div>
-    <!-- BEGIN FOOTER -->
     <?php 
     if(!$this->Session->check('Auth.User')) {
 		echo $this->element('footer');
 	}
     echo $this->element('sql_dump');
     ?>
-    <!-- END FOOTER -->
-
+    
 <script type="text/javascript">
 $(window).bind('load', function() {
 	Game.TourGame();
 	Game.ToolBoxLoadLink();
-
-	start_tour = <?php echo ($this->Session->check('start-tour'))? 1: 0; ?>;
-	if(start_tour == 1) {
-		$('#game-tour').trigger('click');
-	}
 });
 
 jQuery(document).ready(function() {
 	Metronic.init();
 	Game.UpdateNotification();
+
+	screen_width = <?php echo ($screen_width != '')? 800: $screen_width; ?>;
+	if(screen_width > 767) {
+		Game.StartGame();
+		Game.Support();
+	} 
 });
 </script>
 </body>

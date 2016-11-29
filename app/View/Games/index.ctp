@@ -160,6 +160,13 @@ foreach ($vision as $key => $list) {
 <?php echo $this->element('tours');?>
 
 <script type="text/javascript">
+$(window).bind('load', function() {
+	start_tour = <?php echo ($this->Session->check('start-tour'))? 1: 0; ?>;
+	if(start_tour == 1) {
+		$('#game-tour').trigger('click');
+	}
+});
+
 $(document).ready(function() {
 
 	open_game = <?php echo ($this->Session->check('Current.game_step'))? $this->Session->read('Current.game_step'): 0 ?>;
@@ -175,11 +182,6 @@ $(document).ready(function() {
 	road_map = <?php echo (empty($roadmap))? 0: 1; ?>;
 	thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
 
-	screen_width = <?php echo $screen_width; ?>;
-	if(screen_width > 767) {
-		Game.StartGame();
-		Game.Support();
-	} 
 	Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
 	
 });

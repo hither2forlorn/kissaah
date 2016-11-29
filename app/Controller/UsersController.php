@@ -849,7 +849,7 @@ class UsersController extends AppController {
 			$com_conditions = array();
 		}
 		
-		$this->request->data = $this->User->find('first', array('conditions' => $conditions));
+		$this->request->data = $this->User->find('first', array('conditions' => $conditions, 'contain' => false));
 		if(empty($this->request->data)){
 			$this->Session->setFlash("Invalid User");
 			$this->redirect($this->referer());
@@ -882,14 +882,17 @@ class UsersController extends AppController {
 	public function admin_login($id = null) {
 		$this->Session->write('Profile_admin',$this->Session->read('Profile'));
 		$this->Session->write('ActiveGame_admin',$this->Session->read('ActiveGame'));
-		$user_activeGame = $this->User->UserGameStatus->find('all',array(
-				'conditions'	=>array ('UserGameStatus.user_id'   => $id,
-										 'UserGameStatus.active'	=> 1)));
+		$user_activeGame = $this->User->UserGameStatus->find('first', array(
+				'contain'		=> array('Configuration'),
+				'conditions'	=> array('UserGameStatus.user_id' => $id,
+										 'UserGameStatus.active'  => 1)));
 		$user_profile = $this->User->Game->find('first', array(
 				'contain' 	 => false,
-				'fields'	 =>array('Game.id','Game.answer','Game.configuration_id'),
+				'fields'	 => array('Game.id','Game.answer','Game.configuration_id'),
 				'conditions' => array('Game.configuration_id' => 36)));
-		$this->Session->write('ActiveGame',$user_activeGame[0]['UserGameStatus']);
+		
+		$this->Session->write('ActiveGame', $user_activeGame['UserGameStatus']);
+		$this->Session->write('Configuration', $user_activeGame['Configuration']);
 		$this->Session->write('Profile',$user_profile);
 		$this->redirect('/');
 	}

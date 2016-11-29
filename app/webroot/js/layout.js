@@ -335,8 +335,6 @@ var Layout = function () {
     var handleFixedSidebar = function () {
         var menu = $('.page-sidebar-menu');
 
-        Metronic.destroySlimScroll(menu);
-
         if ($('.page-sidebar-fixed').size() === 0) {
             handleSidebarAndContentHeight();
             return;
@@ -344,7 +342,6 @@ var Layout = function () {
 
         if (Metronic.getViewPort().width >= resBreakpointMd) {
             menu.attr("data-height", _calculateFixedSidebarViewportHeight());
-            Metronic.initSlimScroll(menu);
             handleSidebarAndContentHeight();
         }
     };
