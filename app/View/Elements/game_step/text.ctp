@@ -38,7 +38,7 @@ if($raw) {
 	echo $input;
 	
 } else {
-	$display = $this->Html->div('form-group margin-bottom-15 margin-top-10 save-answer', $input);
+	$display = $this->Html->div('form-group margin-bottom-15 margin-top-10', $input);
 	
 	if($selfdata['Configuration']['sub_txt'] != '') {
 		echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $selfdata['Configuration']['sub_txt']);

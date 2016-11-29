@@ -3,6 +3,11 @@ $featured = $this->Session->read('Configuration.featured');
 if($featured == false) {
 	echo '<div class="col-md-6 col-md-offset-3 save-answer">';
 }
+$next_btn = '';
+$screen_width = $this->Session->read('Screen.width');
+if($screen_width > 767 && $featured == true) {
+	$next_btn = ' btn-step';
+}
 ?>
 <div class="row no-margin margin-bottom-20">
 <?php
@@ -36,7 +41,7 @@ foreach($visions as $vision) {
 	echo $this->Html->div('col-md-3 col-xm-3', 
 				$this->Html->link($vision['Configuration']['title'], 
 						array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
-						array('class' => 'btn-step ' . $selected)));
+						array('class' => $selected . $next_btn)));
 }
 ?>
 </div>
@@ -138,15 +143,9 @@ if($step_information['Configuration']['id'] == 189) {
 	
 }
 
-$next_btn = 'btn-save';
-$screen_width = $this->Session->read('Screen.width');
-if($screen_width > 767) {
-	$next_btn .= ' btn-step';
-}
-
 if($nxt_txt != '') {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
-			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => $next_btn, 'id' => 'tour-step-05')));
+			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
 }
 
 if($featured == false) {
