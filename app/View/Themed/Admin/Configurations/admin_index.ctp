@@ -96,7 +96,7 @@ if(!$this->request->isAjax) {
 							<td><?php echo h($configuration['Configuration']['sub_txt']); ?>&nbsp;</td>
 						</tr>
 						<tr>
-							<td><?php echo __('Help Bubble'); ?></td>
+							<td><?php echo __('Summary Text'); ?></td>
 							<td><?php echo h($configuration['Configuration']['help_bubble']); ?>&nbsp;</td>
 						</tr>
 						<tr>

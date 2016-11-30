@@ -60,7 +60,6 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 		}
 		
 		$count = (isset($game['children']))? count($game['children']): 1;
-		
 		if($game['Configuration']['type'] == 4) {
 			$display_game .= $this->Render->display($game['Configuration']['type'], $game, $count);
 			
@@ -83,7 +82,6 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 						$summary 		= ' game-summary padding-top-20';
 						$depen_id 		= $item['Configuration']['dependent_id'];
 						$summary_items 	= $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', $depen_id));
-						
 						$count 			= count($summary_items[$depen_id]['children']);
 
 						foreach($summary_items[$depen_id]['children'] as $item => $summary_item) {

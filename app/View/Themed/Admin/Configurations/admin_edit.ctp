@@ -49,7 +49,7 @@ $options = array(
 							<div class="col-md-5"><?php echo $this->Form->input('sub_txt'); ?></div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-3 control-label"><?php echo __('Help Bubble'); ?></label>
+							<label class="col-md-3 control-label"><?php echo __('Summary Text'); ?></label>
 							<div class="col-md-5"><?php echo $this->Form->input('help_bubble'); ?></div>
 						</div>
 						<div class="form-group">

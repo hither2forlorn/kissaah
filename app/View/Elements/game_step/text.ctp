@@ -40,7 +40,9 @@ if($raw) {
 } else {
 	$display = $this->Html->div('form-group margin-bottom-15 margin-top-10', $input);
 	
-	if($selfdata['Configuration']['sub_txt'] != '') {
+	if($summary && $selfdata['Configuration']['help_bubble'] != '') {
+		echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $selfdata['Configuration']['help_bubble']);
+	} elseif($selfdata['Configuration']['sub_txt'] != '') {
 		echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $selfdata['Configuration']['sub_txt']);
 	}
 	echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $display);
