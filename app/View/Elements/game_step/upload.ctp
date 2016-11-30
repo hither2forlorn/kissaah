@@ -21,7 +21,9 @@ if($summary) {
 } else {
 	$image_class = 'col-md-4 col-sm-4 col-xs-8 padding-0 image-box';
 	
-	$actions  = $this->Form->create('Game' . $id . 'Upload', array('class' => 'btn-file pull-left fileupload'));
+	$actions  = $this->Form->create('Game' . $id . 'Upload', array(
+			'class' => 'btn-file pull-left fileupload',
+			'data-save' => $this->Html->url(array('controller' => 'games', 'action' => 'upload', 'image'))));
 	$actions .= $this->Html->tag('i', '', array('class' => 'fa fa-upload fa-2x')) . '&nbsp;';
 	//$actions .= $this->Html->image('Upload.png', array('id' => 'upl' . $id));
 	$actions .= $this->Form->input($id, array('type' => 'file', 'label' => false, 'class' => 'default', 'div' => false));

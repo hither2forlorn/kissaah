@@ -447,7 +447,7 @@ class GamesController extends AppController {
 		return json_encode($return);
 	}
 	
-	function upload(){
+	function upload($type = 'image'){
 		$this->autoRender = false;
 		$this->Game->create();
 		#Check the Session Data to match if it is valid or not then only save the data
@@ -457,16 +457,7 @@ class GamesController extends AppController {
 			$data['Game']['configuration_id'] = key($d);
 			$image = $data['Game'][$data['Game']['configuration_id']];
 		}
-		if(Uploader::checkMimeType(strtolower(Uploader::ext($image['name'])), $image['type']) != 'image'){
-			$allowedExts = Configure::read('Uploader.mimeTypes');
-			$allowedImageExts = $allowedExts['image'];
-			$allowed = '';
-			foreach($allowedImageExts as $a){
-				$allowed = $allowed . ',' . $a;
-			}
-			$return['success'] = 0;
-			$return['flash'] = 'Files of type :' . $image['type'] . ', can not be uploaded ' . ' Allowed Image Types :' . $allowed;
-		} else {
+		if(Uploader::checkMimeType(strtolower(Uploader::ext($image['name'])), $image['type']) == $type) {
 			$answer = $this->Game->find('first', array('contain' => false,
 												'conditions' => array('Game.configuration_id' => $data['Game']['configuration_id'])));
 			if(empty($answer)) {
@@ -523,9 +514,58 @@ class GamesController extends AppController {
 				} else {
 					$return['success'] = 0;
 				}
-			}else{
+			} else {
 				$return['success'] = 0;
 			}
+		} elseif(Uploader::checkMimeType(strtolower(Uploader::ext($image['name'])), $image['type']) == $type) {
+			$answer = $this->Game->find('first', array('contain' => false,
+												'conditions' => array('Game.configuration_id' => $data['Game']['configuration_id'])));
+			if(!empty($answer)) {
+				$data = $answer;
+				$return['kid'] = $data['Game']['id'];
+				$oldimage = $data['Game']['answer'];
+			}
+			
+			$this->Uploader->uploadDir = '/files/video';
+			$uploadimage = $this->Uploader->upload($image, array(
+															'overwrite' => false, 
+															'name' 		=> $this->__fileName(), 
+															'multiple' 	=> false));
+
+			if($uploadimage){
+				$img_path = explode('/', $uploadimage['path']); 
+				$imagename = end($img_path);
+				$data['Game']['answer'] = $imagename;
+				$data['Game']['user_id'] = $this->Session->read('ActiveGame.user_id');
+				$data['Game']['user_game_status_id'] = $this->Session->read('ActiveGame.id');
+				
+				if($this->Game->save($data)){
+					if(empty($return['kid'])){
+						$return['kid'] = $this->Game->getLastInsertId();
+					}
+					if(isset($oldimage)){
+						$this->Uploader->delete('files' . DS . 'video' . DS . $oldimage);
+					}
+					
+					$return['filename'] = $imagename;
+					$return['success'] = 1;
+					$return['label'] = 'Change Image';
+					$return['cid'] = $data['Game']['configuration_id'];
+				} else {
+					$return['success'] = 0;
+				}
+			} else {
+				$return['success'] = 0;
+			}
+		} else {
+			$allowedExts = Configure::read('Uploader.mimeTypes');
+			$allowedImageExts = $allowedExts['image'];
+			$allowed = '';
+			foreach($allowedImageExts as $a){
+				$allowed = $allowed . ',' . $a;
+			}
+			$return['success'] = 0;
+			$return['flash'] = 'Files of type :' . $image['type'] . ', can not be uploaded ' . ' Allowed Image Types :' . $allowed;
 		}
 		return json_encode($return);
 	}

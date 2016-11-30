@@ -109,17 +109,3 @@ var Profile = function() {
 		}
 	}
 }();
-
-//For Create Your Own Avatar
-
-$('.avatar').click(function(){
-	//alert("Ok");
-	$.fancybox({
-		href : 'http://gamer2.researchthroughgaming.com/?g=act-new',
-		type : 'iframe',
-		padding : 0,
-		width :720,
-		height :480
-		//auto-dimensions : false
-	})	;
-});

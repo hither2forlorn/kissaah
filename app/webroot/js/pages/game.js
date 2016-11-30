@@ -452,7 +452,6 @@ var Game = function () {
         
         SaveGame: function() {
     		$('.save-answer').on('focusout', 'input[type=text], textarea, select', function(evt) {
-    			console.log('line 455');
     			var DOM_Element = $(this);
     			if(DOM_Element.attr('data-save') !== undefined) {
     				$.ajax({
@@ -960,7 +959,8 @@ var FileUpload = function () {
 			var ReqHan = new Array();
 			$('.fileupload').change(function(ev){
 				FileUpload.startFileLoading($(this).closest('.image-box'), 'Uploading');
-				upload_DOM	= $(this).find('input[type=file]');
+				upload_DOM = $(this).find('input[type=file]');
+				upload_URL = $(this).attr('data-save');
 				formElement = upload_DOM.parents('form').attr('id');
 				if(typeof(ReqHan[formElement]) == 'undefined') {
 					ReqHan[formElement] = false;
@@ -969,7 +969,7 @@ var FileUpload = function () {
 					ReqHan[formElement] = $('#' + formElement).ajaxForm({
 						beforeSend		: function(){},
 						data			: {},
-						url				: host_url + 'games/upload',
+						url				: upload_URL,
 						uploadProgress	: function(ev, position, total, percentComplete){},
 						success			: function(data) {
 							var object = $.parseJSON(data);

@@ -1,7 +1,14 @@
 <?php
 echo $this->Html->css(array('login'));
 echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.min', 'pages/login'));
+
+if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+	$company = 'Human Catalyst';
+} else {
+	$company = 'Kissaah';
+}
 ?>
+
 <div class="row margin-bottom-20">
 	<div class="col-md-6 col-sm-6 col-xs-12 login">
 		<div class="content">
@@ -78,7 +85,7 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 					'inputDefaults' => array('div' => false, 'label' => false, 'class' => 'form-control placeholder-no-fix'))); ?>
 				<h3>Request Account</h3>
 				<div class="form-actions">
-					<p class="margin-top-10">Submit the form below to request for an account on Kissaah. 
+					<p class="margin-top-10">Submit the form below to request for an account on <?php echo $company; ?>. 
 						Once an account is created a login link will be emailed to you.</p>
 				</div>
 				<div class="form-group">
@@ -201,7 +208,7 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 		?></div>
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1 margin-bottom-15 text-center">
-				We've developed Kissaah through our extensive study in how people articulate their life stories to bring about 
+				We've developed <?php echo $company; ?> through our extensive study in how people articulate their life stories to bring about 
 				positive change and well-being. Find out more about our research <a href="http://www.kissaah.com/academic-references/" target="_blank">here</a>.
 			</div>
 		</div>
