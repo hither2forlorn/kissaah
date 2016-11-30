@@ -2,11 +2,18 @@
 	<div class="container">
 		<div class="row">
 	  		<div class="col-md-4 col-sm-4 col-xs-4 site-logo"><?php 
+	  		if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+	  			$image = $this->Html->image('humancatalyst.png');
+	  			$link  = 'http://hc.humancatalyst.co';
+	  		} else {
+	  			$image = $this->Html->image('kissaah-logo-wht-03.png');
+	  			$link  = 'http://www.kissaah.com';
+	  		}
+	  		 
 			if($this->Session->check('Auth.User')) {
-	  			echo $this->Html->link($this->Html->image('kissaah-logo-wht-03.png'), 
-	  								   array('controller' => 'games', 'action' => 'index'), array('escape' => false));
+	  			echo $this->Html->link($image, array('controller' => 'games', 'action' => 'index'), array('escape' => false));
 			} else {
-	  			echo $this->Html->link($this->Html->image('kissaah-logo-wht-03.png'), 'http://www.kissaah.com', array('escape' => false));
+	  			echo $this->Html->link($image, $link, array('escape' => false));
 			}
 	  		?></div>
 	  		
