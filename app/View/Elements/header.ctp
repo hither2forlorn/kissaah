@@ -3,7 +3,7 @@
 		<div class="row">
 	  		<div class="col-md-4 col-sm-4 col-xs-4 site-logo"><?php 
 	  		if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
-	  			$image = $this->Html->image('humancatalyst.png');
+	  			$image = $this->Html->image('HumanCatalystGrey.png');
 	  			$link  = 'http://hc.humancatalyst.co';
 	  		} else {
 	  			$image = $this->Html->image('kissaah-logo-wht-03.png');
