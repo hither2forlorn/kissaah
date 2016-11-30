@@ -5,17 +5,25 @@
 <html lang="en" class="no-js">
 <!--<![endif]-->
 <head>
+<?php 
+if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+	$title = 'Human Catalyst';
+	$favicon = 'hcfavicon.gif';
+} else {
+	$title = 'Kissaah';
+	$favicon = 'favicon.ico';
+}
+?>
 	<meta charset="utf-8">
-	<title>Kissaah</title>
+	<title><?php echo $title; ?></title>
 	<meta name="description" content="">
 	<meta name="author" content="Kissaah by Victoria Woo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<script type="text/javascript">var host_url =   '<?php echo Router::url('/', true); ?>';</script>
+	<script type="text/javascript">var host_url = '<?php echo Router::url('/', true); ?>';</script>
 
 	<?php
-	//echo $this->Html->meta('icon', $this->Html->url('http://kissaah.com/wp-content/uploads/KissaahFlower2015.png'));
-	echo $this->Html->meta('favicon.ico', '/favicon.ico', array('type' => 'icon'));
+	echo $this->Html->meta($favicon, '/' . $favicon, array('type' => 'icon'));
 	//echo $this->Html->css('http://fonts.googleapis.com/css?family=Signika:400,300,600,700&subset=all');
 	//echo $this->Html->css('http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all');
 	echo $this->Html->css('http://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,700,700i');

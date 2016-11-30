@@ -948,7 +948,7 @@ var FileUpload = function () {
 	return {
         startFileLoading: function(container, message) {
             $('.page-loading').remove();
-            container.append('<div class="page-loading"><img src="' + host_url + 'img/ajax-loader.gif" />&nbsp;&nbsp;<span>' + (message ? message : 'Loading...') + '</span></div>');
+            container.append('<div class="page-loading"><img src="' + host_url + 'img/loading-spinner-blue.gif" />&nbsp;&nbsp;<span>' + (message ? message : 'Loading...') + '</span></div>');
         },
 
         stopFileLoading: function() {
@@ -959,7 +959,7 @@ var FileUpload = function () {
 			var upload_DOM, formElement;
 			var ReqHan = new Array();
 			$('.fileupload').change(function(ev){
-				FileUpload.startFileLoading($(this).closest('.image-box'), 'File Uploading');
+				FileUpload.startFileLoading($(this).closest('.image-box'), 'Uploading');
 				upload_DOM	= $(this).find('input[type=file]');
 				formElement = upload_DOM.parents('form').attr('id');
 				if(typeof(ReqHan[formElement]) == 'undefined') {
@@ -1004,7 +1004,7 @@ var FileUpload = function () {
 				DOM_element = $(this);
 				var parentID = DOM_element.attr('id');
 				parentID = parentID.substr(6,2);
-				FileUpload.startFileLoading(DOM_element.closest('div.uploadMultipleDiv').next('div').find('.image-box'), 'File Uploading');
+				FileUpload.startFileLoading(DOM_element.closest('div.uploadMultipleDiv').next('div').find('.image-box'), 'Uploading');
 				
 				$('#Model' + parentID + 'GameStepForm').ajaxForm({
 					beforeSend		: function(){},
