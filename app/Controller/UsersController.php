@@ -999,7 +999,9 @@ class UsersController extends AppController {
 					$response = json_decode($server_output, true);
 					if(!isset($response['status']) || $response['status'] != 401) {
 						$this->request->data['User']['email'] = $response['emailAddress'];
-						$linkedInUser = $this->User->find('first', array('conditions' => array('email' => $response['emailAddress'])));
+						$linkedInUser = $this->User->find('first', array(
+								'contain' => false,
+								'conditions' => array('email' => $response['emailAddress'])));
 						if(!empty($linkedInUser)) {
 							$this->User->id = $linkedInUser['User']['id'];
 							$this->User->saveField('linked_in_token', $this->request->data['User']['linked_in_token']);

@@ -977,9 +977,7 @@ var FileUpload = function () {
 							if(success){
 								$('img[data="medium-' + object.cid + '"]').attr('src', host_url + 'files/img/medium/' + object.filename);
 								$('img[data="small-' + object.cid + '"]').attr('src', host_url + 'files/img/small/' + object.filename);
-								if($('img#rem[data="' + object.cid + '"]').length == 0) {
-									$('.image-icon').append('<a href="/kissaah/games/remove_image/' + object.cid + '"><i class="fa fa-remove fa-2x" title="Remove Image"></i></a>');
-								}
+								$('.image-icon').append('<a href="/kissaah/games/remove_image/' + object.cid + '"><i class="fa fa-remove fa-2x" title="Remove Image"></i></a>');
 								if($('#' + formElement).closest('.col-md-12').prev('.uploadMultipleDiv').length){
 									$('#' + formElement).closest('.col-md-12').prev('.uploadMultipleDiv').remove();
 								}
@@ -1018,7 +1016,7 @@ var FileUpload = function () {
 								$('.row-multi-upload').hide();
 								$('img[data="medium-' + val.cid + '"]').attr('src', host_url + 'files/img/medium/' + val.filename);
 								$('img[data="small-' + val.cid + '"]').attr('src', host_url + 'files/img/small/' + val.filename);
-								$('<img id="rem" alt="" data="' + val.cid + '" title="Remove" src="' + host_url + 'img/removeimage.png">').insertAfter($('img#ins[data="' + val.cid + '"]'));
+								$('.image-icon').append('<a href="/kissaah/games/remove_image/' + object.cid + '"><i class="fa fa-remove fa-2x" title="Remove Image"></i></a>');
 							} else {
 								alert(val.flash);
 							}
