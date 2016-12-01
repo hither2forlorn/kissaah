@@ -141,6 +141,8 @@ $(document).ready(function() {
 		Game.Support();
 	}
 
+	<?php if($this->Session->read('Auth.User')) { ?>
+
 	narration = <?php echo ($this->Session->check('Narration'))? 1: 0; ?>;
 	user_info = <?php echo ($this->Session->check('Auth.User.gender'))? 1: 0; ?>;
 	
@@ -152,7 +154,7 @@ $(document).ready(function() {
 	thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
 
 	Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
-	
+	<?php } ?>
 });
 </script>
 </body>
