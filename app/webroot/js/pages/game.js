@@ -978,7 +978,7 @@ var FileUpload = function () {
 								$('img[data="medium-' + object.cid + '"]').attr('src', host_url + 'files/img/medium/' + object.filename);
 								$('img[data="small-' + object.cid + '"]').attr('src', host_url + 'files/img/small/' + object.filename);
 								if($('img#rem[data="' + object.cid + '"]').length == 0) {
-									$('<img id="rem" alt="" data="' + object.cid + '" title="Remove" src="' + host_url + 'img/removeimage.png">').insertAfter($('img#ins[data="' + object.cid + '"]'));
+									$('.image-icon').append('<a href="/kissaah/games/remove_image/' + object.cid + '"><i class="fa fa-remove fa-2x" title="Remove Image"></i></a>');
 								}
 								if($('#' + formElement).closest('.col-md-12').prev('.uploadMultipleDiv').length){
 									$('#' + formElement).closest('.col-md-12').prev('.uploadMultipleDiv').remove();
@@ -1039,6 +1039,7 @@ var FileUpload = function () {
 		ImageActions: function(){
 			$('.image-icon').delegate('a', 'click', function(ev) {
 				ev.preventDefault();
+				element = $(this);
 				url  = $(this).attr('href');
 				icon = $(this).children('i').attr('class');
 				if(url != '') {
@@ -1057,9 +1058,9 @@ var FileUpload = function () {
 									if(success == 0 ) {
 										alert('Cannot remove image. Please try again later.');
 									} else if(success == 1) {
+										element.remove();
 										$('img[data="medium-' + cid + '"]').attr('src', 'http://placehold.it/198x198&text=X');
-										$('img[data="small-' + cid + '"]').attr('src', 'http://placehold.it/198x198&text=No Image');
-										$('img#rem[data="' + cid + '"]').remove();
+										$('img[data="small-' + cid + '"]').attr('src', 'http://placehold.it/198x198&text=X');
 										$('textarea[data="' + cid + '"]').attr('value', '');
 										$('input[data="' + cid + '"]').attr('value', '');
 										$('div[data="' + cid + '"]').html('');

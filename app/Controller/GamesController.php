@@ -559,11 +559,7 @@ class GamesController extends AppController {
 			}
 		} else {
 			$allowedExts = Configure::read('Uploader.mimeTypes');
-			$allowedImageExts = $allowedExts['image'];
-			$allowed = '';
-			foreach($allowedImageExts as $a){
-				$allowed = $allowed . ',' . $a;
-			}
+			$allowed = implode(',', $allowedExts[$type]);
 			$return['success'] = 0;
 			$return['flash'] = 'Files of type :' . $image['type'] . ', can not be uploaded ' . ' Allowed Image Types :' . $allowed;
 		}

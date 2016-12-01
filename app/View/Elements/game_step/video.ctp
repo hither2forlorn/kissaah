@@ -8,25 +8,31 @@ echo $this->Html->script(array(
 $answer = '';
 if(empty($selfdata['Configuration']['dependent_id'])) {
 	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
-		$answer = '/files/img/large/' . $selfdata['Game'][0]['Game']['answer'];
+		$answer = '<source src="http://localhost/kissaah/files/img/large/' . $selfdata['Game'][0]['Game']['answer'] . '" type="vidoe/webm">';
+		//<source src="movie.mp4" type="video/mp4">
 	}
 	$id = $selfdata['Configuration']['id'];
 	
 } else {
 	if(!empty($selfdata['Dependent'][0]['answer'])) {
 		$answer = '/files/img/large/' . $selfdata['Dependent'][0]['answer'];
+		$answer = '<source src="http://localhost/kissaah/files/img/large/' . $selfdata['Dependent'][0]['answer'] . '" type="vidoe/webm">';
 	}
 	$id = $selfdata['Configuration']['dependent_id'];
 }
+
+debug($answer);
 
 $options = array('WebM' => 'WebM', 'Mp4' => 'Mp4', 'WAV' => 'WAV', 'Ogg' => 'Ogg', 'Gif' => 'Gif');
 
 $video_control = $this->Html->div('col-md-4 padding-0', 
 		$this->Form->input('Recording.Type', array('class' => 'form-control recording-media', 'type' => 'select')) .
 		$this->Form->input('Recording.Format', array('class' => 'form-control media-container-format', 'type' => 'select', 'options' => $options)) .
-		$this->Form->button('Start Recording', array('class' => 'btn margin-top-5')));
+		$this->Form->button('Start Recording', array('class' => 'btn margin-top-5')) . 
+		$this->Form->button('Save To Disk', array('class' => 'btn margin-top-5 hidden', 'id' => 'save-to-disk')) . 
+		$this->Form->button('Open New Tab', array('class' => 'btn margin-top-5 hidden', 'id' => 'open-new-tab')));
 		
-$video = $this->Html->div('col-md-8 padding-right-0', '<video controls muted></video>');
+$video = $this->Html->div('col-md-8 padding-right-0', '<video controls muted>' . $answer . '</video>');
 
 $video_class = 'col-md-12 col-sm-12 col-xs-12 padding-0 recordrtc';
 
@@ -62,16 +68,12 @@ if($selfdata['Configuration']['sub_txt'] != '') {
 	echo $this->Html->div($video_class, $video_control . $video . $child_field);
 	
 }
-?>    
-    <style>
-        .recordrtc option[disabled] {
-            display: none;
-        }
-    </style>
-            <div style="text-align: center; display: none;">
-                <button id="save-to-disk">Save To Disk</button>
-                <button id="open-new-tab">Open New Tab</button>
-            </div>
+?>
+<style>
+.recordrtc option[disabled] {
+	display: none;
+}
+</style>
 <script type="text/javascript">
 jQuery(document).ready(function() {
 	Video.init();

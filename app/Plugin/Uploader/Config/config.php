@@ -101,7 +101,8 @@ $config['Uploader']['mimeTypes'] = array(
 		'mp4'	=> 'video/mp4',
 		'viv' 	=> 'video/vnd.vivo',
 		'vivo' 	=> 'video/vnd.vivo',
-		'wmv'	=> 'video/x-ms-wmv'
+		'wmv'	=> 'video/x-ms-wmv',
+		'webm'	=> 'video/webm'
 	),
 	'application' => array(
 		'js'	=> 'application/x-javascript',

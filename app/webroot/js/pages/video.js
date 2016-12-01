@@ -342,6 +342,8 @@ var Video = function() {
 
             function saveToDiskOrOpenNewTab(recordRTC) {
                 recordingDIV.querySelector('#save-to-disk').parentNode.style.display = 'block';
+                $('#save-to-disk').removeClass('hidden');
+                $('#open-new-tab').removeClass('hidden');
                 recordingDIV.querySelector('#save-to-disk').onclick = function() {
                     if(!recordRTC) return alert('No recording found.');
 
