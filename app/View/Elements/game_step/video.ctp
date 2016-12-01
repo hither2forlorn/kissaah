@@ -8,7 +8,7 @@ echo $this->Html->script(array(
 $answer = '';
 if(empty($selfdata['Configuration']['dependent_id'])) {
 	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
-		$answer = '<source src="http://localhost/kissaah/files/img/large/' . $selfdata['Game'][0]['Game']['answer'] . '" type="vidoe/webm">';
+		$answer = '<source src="/files/img/large/' . $selfdata['Game'][0]['Game']['answer'] . '" type="vidoe/webm">';
 		//<source src="movie.mp4" type="video/mp4">
 	}
 	$id = $selfdata['Configuration']['id'];
@@ -16,12 +16,10 @@ if(empty($selfdata['Configuration']['dependent_id'])) {
 } else {
 	if(!empty($selfdata['Dependent'][0]['answer'])) {
 		$answer = '/files/img/large/' . $selfdata['Dependent'][0]['answer'];
-		$answer = '<source src="http://localhost/kissaah/files/img/large/' . $selfdata['Dependent'][0]['answer'] . '" type="vidoe/webm">';
+		$answer = '<source src="/files/img/large/' . $selfdata['Dependent'][0]['answer'] . '" type="vidoe/webm">';
 	}
 	$id = $selfdata['Configuration']['dependent_id'];
 }
-
-debug($answer);
 
 $options = array('WebM' => 'WebM', 'Mp4' => 'Mp4', 'WAV' => 'WAV', 'Ogg' => 'Ogg', 'Gif' => 'Gif');
 
@@ -50,7 +48,8 @@ if(!empty($selfdata['Game'][0]['Game']['answer'])) {
 			array('controller' => 'games', 'action' => 'remove_image', $id),
 			array('escape' => false)) . '&nbsp;';
 }
-$video .= $this->Html->div('image-icon col-md-12 col-xs-12', $actions);
+$text = $this->Html->para('pull-left', 'Once the video is recroded please upload from here -');
+$video .= $this->Html->div('margin-top-10 image-icon col-md-12 col-xs-12', $text . $actions);
 
 $child_field = '';
 if(isset($selfdata['children'])) {
