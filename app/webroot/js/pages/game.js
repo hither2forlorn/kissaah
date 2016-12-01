@@ -4,7 +4,7 @@ var configuration_id 	= 0;
 
 var Game = function () {
 
-	var narration_box = function(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id) {
+	var narration_box = function(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale) {
 		if(narration == 0 && road_map == ''){
 	    	$.fancybox.open({
 			    'helpers'		:  {
@@ -20,15 +20,15 @@ var Game = function () {
 				'height'        : 'auto',
 				'wrapCSS'		: 'fancybox-popup',
 				'afterClose'	: function(){
-					user_info_box(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+					user_info_box(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
 			    }
 			});
 		} else {
-			user_info_box(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+			user_info_box(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
 		}
 	}
 	
-	var user_info_box = function(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id) {
+	var user_info_box = function(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale) {
 		if(user_info == 0) {
 			$.fancybox.open({
     		    'helpers'		:  {
@@ -44,15 +44,15 @@ var Game = function () {
     			'height'        : 'auto',
     			'wrapCSS'		: 'fancybox-popup',
     			'afterClose'	: function() {
-    				first_time_survey(facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+    				first_time_survey(facebook_warning, consent_for_collage, road_map, thriving_scale);
     			}
     		}); 
 		} else {
-			facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+			facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
 		}
 	}
 	
-	var first_time_survey = function(facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id) {
+	var first_time_survey = function(facebook_warning, consent_for_collage, road_map, thriving_scale) {
 		$.fancybox.open({
 			'helpers' 		: {
 				'overlay'	: {
@@ -63,12 +63,12 @@ var Game = function () {
 			'href'			: 'https://docs.google.com/forms/d/1XDZyawtEEudu9Etx3ntXDauDiZXHoW0aucxBPiTTYE0/viewform?embedded=true',
 			'type'			: 'iframe',
 			'afterClose'	: function(){
-				facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+				facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
 			}
 		});            				
 	}
 	
-	var facebook_warining_box = function(facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id) {
+	var facebook_warining_box = function(facebook_warning, consent_for_collage, road_map, thriving_scale) {
 		if(facebook_warning == 0) {
 			$.fancybox.open({
     		    'helpers'		:  {
@@ -84,15 +84,15 @@ var Game = function () {
     			'height'        : 'auto',
     			'wrapCSS'		: 'fancybox-popup',
     			'afterClose'	: function() {
-    				consent_for_collage_box(consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+    				consent_for_collage_box(consent_for_collage, road_map, thriving_scale);
     			}
     		});            				
 		} else {
-			consent_for_collage_box(consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+			consent_for_collage_box(consent_for_collage, road_map, thriving_scale);
 		}
 	}
 	
-	var consent_for_collage_box = function(consent_for_collage, road_map, thriving_scale, open_game, conf_id) {
+	var consent_for_collage_box = function(consent_for_collage, road_map, thriving_scale) {
 		if(consent_for_collage == -1) {
 			$.fancybox.open({
 				'helpers' 		: {
@@ -108,15 +108,15 @@ var Game = function () {
 				'height'        : 'auto',
 				'wrapCSS'		: 'collage-box text-center',
     			'afterClose'	: function(){
-    				road_map_box(road_map, thriving_scale, open_game, conf_id);
+    				road_map_box(road_map, thriving_scale);
     			}
     		});            				
 		} else {
-			road_map_box(road_map, thriving_scale, open_game, conf_id);
+			road_map_box(road_map, thriving_scale);
 		}
 	}
 
-	var road_map_box = function(road_map, thriving_scale, open_game, conf_id) {
+	var road_map_box = function(road_map, thriving_scale) {
 		if(road_map == 0) {
 			$.fancybox.open({
 				'helpers' 		: {
@@ -132,15 +132,15 @@ var Game = function () {
 				'height'        : 'auto',
 				'wrapCSS'		: 'fancybox-popup text-center',
     			'afterClose'	: function() {
-    				thriving_scale_box(thriving_scale, open_game, conf_id);
+    				thriving_scale_box(thriving_scale);
     			}
     		});            				
 		} else {
-			thriving_scale_box(thriving_scale, open_game, conf_id);
+			thriving_scale_box(thriving_scale);
 		}
 	}
 
-	var thriving_scale_box = function(thriving_scale, open_game, conf_id) {
+	var thriving_scale_box = function(thriving_scale) {
 		if(thriving_scale != 2) {
 			$.fancybox.open({
 				'helpers' 		: {
@@ -156,21 +156,16 @@ var Game = function () {
 				'height'        : 'auto',
 				'closeBtn'		: false,
 				'wrapCSS'		: 'fancybox-game-popup',
-    			'afterClose'	: function() {
-    				Game.OpenGame(open_game, conf_id);
-    			}
     		});            				
-		} else {
-			Game.OpenGame(open_game, conf_id);
 		}
 	}
 	
 	return {
-        init: function (narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id) {
+        init: function (narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale) {
         	$.ajaxSetup({
         		cache: false
         	});
-       		narration_box(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
+       		narration_box(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
         },
         
         FacebookSession: function(){

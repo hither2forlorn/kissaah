@@ -50,6 +50,9 @@ class GamesController extends AppController {
 		foreach($vision as $key => $value) {
 			if($value['Configuration']['status']) {
 				$vision[$key]['Configuration']['step-complete'] = $this->step_complete($value['Configuration']['id']);
+				if($vision[$key]['Configuration']['step-complete'] != 0) {
+					$this->Session->write('Narration', 0);
+				}
 				
 				if($value['Configuration']['id'] == 187 && $vision[$key]['Configuration']['step-complete'] == 0) {
 					$this->Session->write('Current.game_step', $value['Configuration']['id']); 

@@ -131,7 +131,7 @@ $(window).bind('load', function() {
 	Game.ToolBoxLoadLink();
 });
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
 	Metronic.init();
 	Game.UpdateNotification();
 
@@ -139,7 +139,20 @@ jQuery(document).ready(function() {
 	if(screen_width > 767) {
 		Game.StartGame();
 		Game.Support();
-	} 
+	}
+
+	narration = <?php echo ($this->Session->check('Narration'))? 1: 0; ?>;
+	user_info = <?php echo ($this->Session->check('Auth.User.gender'))? 1: 0; ?>;
+	
+	facebook_warning = <?php echo $this->Session->read('Auth.User.facebook_warning')? 1: 0; ?>;
+	consent_for_collage = <?php echo $this->Session->check('Auth.User.collage_status')? 1: 0; ?>;
+
+	<?php $roadmap = $this->Session->read('ActiveGame.roadmap'); ?>
+	road_map = <?php echo (empty($roadmap))? 0: 1; ?>;
+	thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
+
+	Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
+	
 });
 </script>
 </body>

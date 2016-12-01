@@ -2,7 +2,6 @@
 <?php
 $default_image = 'http://placehold.it/300x300&text=X';
 $title_text = $points = $place_images = $activity_images = $path_images = array();
-$show_narration = 1;
 
 foreach ($vision as $key => $list) {
     if ($list['Configuration']['step-complete'] == 0) {
@@ -10,15 +9,12 @@ foreach ($vision as $key => $list) {
 		$brdclass = $this->Html->image('level-start.jpg', array('class' => 'img-responsive level-' . $key . ' level-' . $list['Configuration']['id'], 'id' => 'tour-step-06'));
 		
     } elseif ($list['Configuration']['step-complete'] == 1) {
-    	$show_narration = 0;
         $btnclass = 'col-md-12 col-xs-12 btn btn-step btn-in-progress';
 		$brdclass = $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-' . $key . ' level-' . $list['Configuration']['id']));
 		
     } else {
-    	$show_narration = 0;
         $btnclass = 'col-md-12 col-xs-12 btn btn-step btn-finished';
 		$brdclass = $this->Html->image('level-finished.jpg', array('class' => 'img-responsive level-' . $key . ' level-' . $list['Configuration']['id']));
-		
     }
 	
 	$url  = array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $list['Configuration']['id']));
@@ -168,21 +164,8 @@ $(window).bind('load', function() {
 });
 
 $(document).ready(function() {
-
 	open_game = <?php echo ($this->Session->check('Current.game_step'))? $this->Session->read('Current.game_step'): 0 ?>;
 	conf_id  = <?php echo ($this->Session->check('Current.configuration_id'))? $this->Session->read('Current.configuration_id'): 0 ?>;
-	
-	narration = <?php echo $show_narration; ?>;
-	user_info = <?php echo ($this->Session->check('Auth.User.gender'))? 1: 0; ?>;
-	
-	facebook_warning = <?php echo $this->Session->read('Auth.User.facebook_warning')? 1: 0; ?>;
-	consent_for_collage = <?php echo $this->Session->check('Auth.User.collage_status')? 1: 0; ?>;
-
-	<?php $roadmap = $this->Session->read('ActiveGame.roadmap'); ?>
-	road_map = <?php echo (empty($roadmap))? 0: 1; ?>;
-	thriving_scale = <?php echo isset($step_complete[192])? $step_complete[192]: 2; ?>;
-
-	Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale, open_game, conf_id);
-	
+	Game.OpenGame(open_game, conf_id);
 });
 </script>

@@ -81,6 +81,11 @@ class UsersController extends AppController {
 				$this->request->data['UserGameStatus'][0]['points'] = 0;
 				$this->request->data['UserGameStatus'][0]['active'] = 1;
 				$this->request->data['UserGameStatus'][0]['roadmap'] = '';
+				if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+					$this->request->data['UserGameStatus'][0]['configuration_id'] = 192;
+				} else {
+					$this->request->data['UserGameStatus'][0]['configuration_id'] = 81;
+				}
 				$this->request->data['User']['hash'] = Security::hash($this->request->data['User']['email']);
 				
 				if($this->User->saveAll($this->request->data)){
@@ -182,8 +187,9 @@ class UsersController extends AppController {
 			$isLogin = $this->Auth->login();
 			if($isLogin) {
 				if(isset($this->request->data['User']['remember_me']) && $this->request->data['User']['remember_me']) {
-					$this->Cookie->write('Auth.User', $this->request->data['User'], true, '2 weeks');
+					//$this->Cookie->write('Auth.User', $this->request->data['User'], true, '2 weeks');
 				}
+				$this->Session->write('Narration', 1);
 				$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 			} else {
 				$user = $this->User->find('first', array(
@@ -274,7 +280,11 @@ class UsersController extends AppController {
 			$active_game['UserGameStatus']['game'] 	  = 0;
 			$active_game['UserGameStatus']['points']  = 0;
 			$active_game['UserGameStatus']['active']  = 1;
-			$active_game['UserGameStatus']['configuration_id']  = 192;
+			if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+				$active_game['UserGameStatus']['configuration_id'] = 192;
+			} else {
+				$active_game['UserGameStatus']['configuration_id'] = 81;
+			}
 			if($this->User->UserGameStatus->save($active_game)) {
 				$active_game['UserGameStatus']['id']  = $this->User->UserGameStatus->getLastInsertID();
 			}
