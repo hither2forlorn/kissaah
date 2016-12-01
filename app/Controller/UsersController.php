@@ -189,7 +189,7 @@ class UsersController extends AppController {
 				if(isset($this->request->data['User']['remember_me']) && $this->request->data['User']['remember_me']) {
 					//$this->Cookie->write('Auth.User', $this->request->data['User'], true, '2 weeks');
 				}
-				$this->Session->write('Narration', 1);
+				$this->Session->write('Narration', 0);
 				$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 			} else {
 				$user = $this->User->find('first', array(
@@ -725,14 +725,13 @@ class UsersController extends AppController {
 		 										'limit'=>10));
 		
 		$i=1;
-		 foreach($Img_Answers as $img){
-		 	$Answers[$i]['type']='image';
+		foreach($Img_Answers as $img){
+			$Answers[$i]['type']='image';
 		 	$Answers[$i]['user_id']=($img['User']['id']);
 		 	$Answers[$i]['user_email']=($img['User']['email']);
 		 	$Answers[$i]['GameConfigure_title']=($img['Configuration']['title']);
 		 	$i++;
-		 }
-		 shuffle($Answers);
+		}
 		 
 		$Users = $this->User->find('all', 
 				array('contain' => false, 'order' => 'User.id DESC', 'limit' => 20));
@@ -743,7 +742,6 @@ class UsersController extends AppController {
 			$UserList[$i]['created'] = $User['User']['created'];
 			$i++;
 		}
-		//debug($UserList);		 
 		$this->set(compact('totalUsers', 'totalImagesUploaded', 'totalComments', 'Answers', 'UserList'));
 	}
 

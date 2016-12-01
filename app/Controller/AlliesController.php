@@ -216,5 +216,19 @@ class AlliesController extends AppController{
 		$this->Ally->id = $id;
 		$this->Ally->saveField($field, null);
 	}
+	
+	public function notify_ally() {
+		$options = array(
+				'subject' 	=> 'Human Catalyst 100 : ' . $this->Auth->user('name') . ' wants to add you as an ally',
+				'template' 	=> 'notify_ally',
+				'to'		=>  $this->request->data['Ally']['ally_email']
+		);
+		$this->request->data['Ally']['user_email'] = $this->Session->read('ActiveGame.user_email');
+		$data['name'] = $this->Auth->user('name');
+		$data['roadmap'] = $this->Session->read('ActiveGame.roadmap');
+			
+		$this->_sendEmail($options, $data);
+		
+	}
 }
 ?>

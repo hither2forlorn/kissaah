@@ -142,6 +142,36 @@ var Allies = function(){
 					complete 	: function() {}
 				});
 			});
+        },
+        
+        NotifyAlly: function(){
+        	$('.save-answer').on('click', '.btn-notify-ally', function(eve) {
+        		eve.preventDefault();
+        		$.ajax({
+        			cache		: false,
+        			beforeSend	: function(){},
+        			type		: 'POST',
+        			url			: $(this).attr('href'),
+        			success		: function(msg){
+        				var obj = $.parseJSON(msg);
+        				var success = obj.success;
+        				if(success == 1){
+        					var condition 	= obj.condition;
+        					var id 			= obj.id;
+        					if(condition == 'delete' || condition == 'block') {
+        						$('div[data="' + id + '"]').remove();
+   							
+        					} else if(condition == 'accept') {
+        						$('div[data="' + id + '"]').switchClass('color-grey', 'color-finished');
+        						$('div[data="' + id + '"]').find('a').removeClass('hidden');
+        						$('div[data="' + id + '"]').find('i.fa-check-square').parent('a').remove();
+        					}
+        				}
+        			},
+        			error		: function(){},
+        			complete	: function(){}
+        		});
+			});
         }
 	}
 }();

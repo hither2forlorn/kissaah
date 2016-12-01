@@ -23,6 +23,7 @@ class GamesController extends AppController {
  * @access public
  */
 	public function index() {
+		$this->Session->write('Narration', 1);
 		$options['conditions'] = array( 'OR' => array('Ally.user_id' => $this->Session->read('Auth.User.id'),
 													  'Ally.ally' => $this->Session->read('Auth.User.id')),
 										'Ally.ally_notification IS NOT NULL');
