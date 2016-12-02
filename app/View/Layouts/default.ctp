@@ -29,17 +29,17 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 	echo $this->Html->css('http://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,700,700i');
 	
     echo $this->Html->css(array('../plugins/font-awesome/css/font-awesome.min',
-    							'../plugins/simple-line-icons/simple-line-icons.min',
-								'../plugins/bootstrap/css/bootstrap.min',
-                                '../plugins/uniform/css/uniform.default',
-                                '../plugins/bootstrap-switch/css/bootstrap-switch.min',
-								'../plugins/bootstrap-fileinput/bootstrap-fileinput',
-								'../plugins/bootstrap-datepicker/css/datepicker',
-								'../plugins/fancybox/source/jquery.fancybox',
-								'../plugins/jquery-tourbus/dist/jquery-tourbus.min',
-								'../plugins/typeahead/typeahead',
-								'../plugins/fullcalendar/fullcalendar.min',
-								'../plugins/raty/lib/jquery.raty'));
+    	'../plugins/simple-line-icons/simple-line-icons.min',
+		'../plugins/bootstrap/css/bootstrap.min',
+        '../plugins/uniform/css/uniform.default',
+    	'../plugins/bootstrap-switch/css/bootstrap-switch.min',
+		'../plugins/bootstrap-fileinput/bootstrap-fileinput',
+		'../plugins/bootstrap-datepicker/css/datepicker',
+		'../plugins/fancybox/source/jquery.fancybox',
+		'../plugins/jquery-tourbus/dist/jquery-tourbus.min',
+		'../plugins/typeahead/typeahead',
+		'../plugins/fullcalendar/fullcalendar.min',
+		'../plugins/raty/lib/jquery.raty'));
 								
 	echo $this->Html->css(array('components', 'plugins', 'style', 'challenges', 'custom'));
     
@@ -48,14 +48,15 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
     echo $this->Html->script(array( '../plugins/respond.min', '../plugins/excanvas.min'));
 	echo '<![endif]-->';
 
-    echo $this->Html->script(array( '../plugins/jquery.min',
-    								'../plugins/jquery-migrate.min',
-    								'../plugins/moment.min',
-    								'../plugins/jquery-ui/jquery-ui.min',
-    								'../plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min',
-    								'../plugins/jquery.form',
-									'../plugins/bootstrap/js/bootstrap.min',
-									'../plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min',
+    echo $this->Html->script(array(
+    		'../plugins/jquery.min',
+    		'../plugins/jquery-migrate.min',
+    		'../plugins/moment.min',
+    		'../plugins/jquery-ui/jquery-ui.min',
+    		'../plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min',
+    		'../plugins/jquery.form',
+			'../plugins/bootstrap/js/bootstrap.min',
+			'../plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min',
                                     '../plugins/jquery-slimscroll/jquery.slimscroll.min',
                                     '../plugins/jquery.blockui.min',
                                     '../plugins/jquery.cokie.min',
@@ -64,22 +65,24 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
                                     '../plugins/select2/select2.min',
                                     '../plugins/datatables/media/js/jquery.dataTables.min',
                                     '../plugins/datatables/plugins/bootstrap/dataTables.bootstrap',
-									'../plugins/bootstrap-daterangepicker/moment.min',
-									'../plugins/bootstrap-datepicker/js/bootstrap-datepicker',
-									'../plugins/fancybox/source/jquery.fancybox',
-									'../plugins/fancybox/source/jquery.fancybox.pack',
-									'../plugins/fancybox/source/helpers/jquery.fancybox-buttons',
-									'../plugins/flot/jquery.flot.min', 
-									'../plugins/flot/jquery.flot.JUMlib', 
-									'../plugins/flot/jquery.flot.spider',
-									'../plugins/bootstrap-fileinput/bootstrap-fileinput',
-									'../plugins/jquery.scrollTo/jquery.scrollTo.min',
-									'../plugins/jquery-tourbus/dist/jquery-tourbus.min',
-									'../plugins/jquery-inputmask/jquery.inputmask.bundle.min',
-									'../plugins/typeahead/handlebars.min',
-									'../plugins/typeahead/typeahead.bundle.min',
-									'../plugins/fullcalendar/fullcalendar.min',
-									'../plugins/raty/lib/jquery.raty'));
+			'../plugins/bootstrap-daterangepicker/moment.min',
+			'../plugins/bootstrap-datepicker/js/bootstrap-datepicker',
+			'../plugins/fancybox/source/jquery.fancybox',
+			'../plugins/fancybox/source/jquery.fancybox.pack',
+			'../plugins/fancybox/source/helpers/jquery.fancybox-buttons',
+			'../plugins/flot/jquery.flot.min', 
+			'../plugins/flot/jquery.flot.JUMlib', 
+			'../plugins/flot/jquery.flot.spider',
+			'../plugins/bootstrap-fileinput/bootstrap-fileinput',
+			'../plugins/jquery.scrollTo/jquery.scrollTo.min',
+			'../plugins/jquery-tourbus/dist/jquery-tourbus.min',
+			'../plugins/jquery-inputmask/jquery.inputmask.bundle.min',
+			'../plugins/typeahead/handlebars.min',
+			'../plugins/typeahead/typeahead.bundle.min',
+			'../plugins/fullcalendar/fullcalendar.min',
+			'../plugins/raty/lib/jquery.raty',
+    		'../plugins/countdown/jquery.countdown.min'
+    ));
 	
 	echo $this->Html->script(array('metronic', 'pages/game', 'pages/allies', 'pages/challenges', 'pages/profile'));
 

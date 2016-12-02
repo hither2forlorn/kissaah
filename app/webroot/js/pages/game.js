@@ -788,14 +788,14 @@ var Game = function () {
 					cache		: false,
     				type		: 'POST',
     				url			: $(this).attr('href'),
-    				success		: function() {
-    	    			alert_count = $('#notification').find('span.bold').text();
-    	    			alert_count = alert_count - 1;
-    	    			$('#notification').find('span.bold').text(alert_count);
-    	    			$('#notification').find('span.badge').text(alert_count);
-    	    			if(alert_count == 0) {
-    	    				$('#notification').find('span.badge').remove();
-    	    			}
+    				success		: function(data) {
+    		            var object = $.parseJSON(data)
+    		            console.log(object.flash);
+				        if(object.success) {
+	    		            var austDay = new Date(object.flash);
+	    		            console.log(austDay);
+	    		            $('#defaultCountdown').countdown({until: austDay});
+						}
     				}
 				});
 			});

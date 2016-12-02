@@ -576,6 +576,12 @@ class UsersController extends AppController {
 		$vision_date = date("Y-m-d h:i:sa", strtotime('+100 Days'));
 		$this->User->UserGameStatus->id = $this->Session->read('ActiveGame.id');
 		$this->User->UserGameStatus->saveField('vision_date', $vision_date);
+		$this->Session->write('ActiveGame.vision_date', $vision_date);
+		
+		$return['success'] = 1;
+		$return['flash'] = $vision_date;
+		return(json_encode($return));
+		
 	}
 	
 	public function roadmap_delete($user_game_status_id){

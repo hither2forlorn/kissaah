@@ -146,7 +146,6 @@ var Allies = function(){
         
         NotifyAlly: function(){
         	$('.save-answer').on('click', '.btn-notify-ally', function(eve) {
-        		alert('Line 149');
         		eve.preventDefault();
         		DOM_Element = $(this);
         		$.ajax({

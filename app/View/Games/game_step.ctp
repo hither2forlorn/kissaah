@@ -151,7 +151,7 @@ if($nxt_txt != '' && $nxt_txt != 'next_link') {
 	echo $minutes_remaining . ' MIN';
 	*/
 	echo '100 DAYS: 0 HRS: 0 MIN'; 
-	
+	echo $this->Html->div('', '123', array('id' => 'defaultCountdown'));
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link('Start', 
 					array('controller' => 'users', 'action' => 'start_vision'), 
