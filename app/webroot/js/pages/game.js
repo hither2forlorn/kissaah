@@ -790,11 +790,11 @@ var Game = function () {
     				url			: $(this).attr('href'),
     				success		: function(data) {
     		            var object = $.parseJSON(data)
-    		            console.log(object.flash);
 				        if(object.success) {
-	    		            var austDay = new Date(object.flash);
-	    		            console.log(austDay);
-	    		            $('#defaultCountdown').countdown({until: austDay});
+				        	//var t = object.flash.split(/[- :]/);
+				        	//var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+	    		            var d = new Date(object.flash);
+	    		            $('#defaultCountdown').countdown({until: d});
 						}
     				}
 				});

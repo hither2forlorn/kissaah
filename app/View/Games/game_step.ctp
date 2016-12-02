@@ -140,19 +140,16 @@ if($nxt_txt != '' && $nxt_txt != 'next_link') {
 					array('class' => 'btn-save ' . $next_btn)));
 } elseif($this->request->query['st'] == 202) {
 	
-	$date = strtotime('December 5, 2016 2:00 PM');
-	$remaining = $date - time();
-	$days_remaining = floor($remaining / 86400);
-	$hours_remaining = floor(($remaining % 86400) / 3600);
-	$minutes_remaining = floor((($remaining % 86400) / 3600) / 3600);
-	/* 
-	echo $days_remaining . ' DAYS: '; 
-	echo $hours_remaining . ' HRS: ';
-	echo $minutes_remaining . ' MIN';
-	*/
-	echo '100 DAYS: 0 HRS: 0 MIN'; 
-	echo $this->Html->div('', '123', array('id' => 'defaultCountdown'));
+	$default = $this->Html->tag('span', 
+		$this->Html->tag('span', $this->Html->tag('span', '100', array('class' => 'countdown_amount')) . '<br />Days', array('class' => 'countdown_section')) .
+		$this->Html->tag('span', $this->Html->tag('span', '0', array('class' => 'countdown_amount')) . '<br />Hours', array('class' => 'countdown_section')) .
+		$this->Html->tag('span', $this->Html->tag('span', '0', array('class' => 'countdown_amount')) . '<br />Minutes', array('class' => 'countdown_section')) .
+		$this->Html->tag('span', $this->Html->tag('span', '0', array('class' => 'countdown_amount')) . '<br />Seconds', array('class' => 'countdown_section')), 
+		array('class' => 'countdown_row countdown_show4'));
+	
+	$count_down = $this->Html->div('col-md-8 padding-0', $default, array('id' => 'defaultCountdown'));
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
+			$count_down . 
 			$this->Html->link('Start', 
 					array('controller' => 'users', 'action' => 'start_vision'), 
 					array('class' => 'btn-save btn-start-vision')));

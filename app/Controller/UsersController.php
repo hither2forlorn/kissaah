@@ -573,7 +573,7 @@ class UsersController extends AppController {
 	
 	public function start_vision() {
 		$this->autoRender = false;
-		$vision_date = date("Y-m-d h:i:sa", strtotime('+100 Days'));
+		$vision_date = date("Y-m-d H:i:s", strtotime('+100 Days'));
 		$this->User->UserGameStatus->id = $this->Session->read('ActiveGame.id');
 		$this->User->UserGameStatus->saveField('vision_date', $vision_date);
 		$this->Session->write('ActiveGame.vision_date', $vision_date);
