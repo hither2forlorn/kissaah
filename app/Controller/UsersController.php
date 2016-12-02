@@ -572,7 +572,8 @@ class UsersController extends AppController {
 	}
 	
 	public function start_vision() {
-		
+		$d = strtotime('+100 Days');
+		debug(date("Y-m-d h:i:sa", $d));
 	}
 	
 	public function roadmap_delete($user_game_status_id){
