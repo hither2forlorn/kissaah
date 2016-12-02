@@ -550,11 +550,11 @@ class UsersController extends AppController {
 		$data = $this->request->data;
 		$data['user_id'] = $this->Session->read('ActiveGame.user_id');
 		$id = 0;
-		if(!isset($data['id'])) {
+		if(isset($data['id']) && $data['id'] > 0) {
+			$id = $data['id'];
+		} else {
 			$data['active']  = 0;
 			$data['level']   = 0;
-		} else {
-			$id = $data['id'];
 		}
 		if(isset($data['roadmap']) || isset($data['configuration_id'])) {
 			if($this->User->UserGameStatus->save($data)) {

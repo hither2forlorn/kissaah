@@ -146,7 +146,9 @@ var Allies = function(){
         
         NotifyAlly: function(){
         	$('.save-answer').on('click', '.btn-notify-ally', function(eve) {
+        		alert('Line 149');
         		eve.preventDefault();
+        		DOM_Element = $(this);
         		$.ajax({
         			cache		: false,
         			beforeSend	: function(){},
@@ -155,17 +157,8 @@ var Allies = function(){
         			success		: function(msg){
         				var obj = $.parseJSON(msg);
         				var success = obj.success;
-        				if(success == 1){
-        					var condition 	= obj.condition;
-        					var id 			= obj.id;
-        					if(condition == 'delete' || condition == 'block') {
-        						$('div[data="' + id + '"]').remove();
-   							
-        					} else if(condition == 'accept') {
-        						$('div[data="' + id + '"]').switchClass('color-grey', 'color-finished');
-        						$('div[data="' + id + '"]').find('a').removeClass('hidden');
-        						$('div[data="' + id + '"]').find('i.fa-check-square').parent('a').remove();
-        					}
+        				if(success == 1) {
+        					DOM_Element.text('Ally Notified');
         				}
         			},
         			error		: function(){},

@@ -143,7 +143,7 @@ $(document).ready(function() {
 
 	<?php if($this->Session->read('Auth.User')) { ?>
 
-	narration = <?php echo ($this->Session->check('Narration'))? 1: 0; ?>;
+	narration = <?php echo ($this->Session->check('Narration'))? 1: 1; ?>;
 	user_info = <?php echo ($this->Session->check('Auth.User.gender'))? 1: 0; ?>;
 	
 	facebook_warning = <?php echo $this->Session->read('Auth.User.facebook_warning')? 1: 0; ?>;

@@ -36,7 +36,7 @@ var Game = function () {
     		            'closeClick': false
     		        }
     		    },
-    		    'closeBtn'		: false,
+    		    'closeBtn'		: true,
     			'href'			: host_url + 'users/edit/additional_user_info',
     			'type'			: 'ajax',
     		    'autoSize'		: false,
@@ -76,7 +76,7 @@ var Game = function () {
     		            'closeClick': false
     		        }
     		    },
-    		    'closeBtn'		: false,
+    		    'closeBtn'		: true,
     			'href'			: host_url + 'users/facebook_login'	,
     			'type'			: 'ajax',
     		    'autoSize'		: false,
@@ -124,7 +124,7 @@ var Game = function () {
 						'closeClick' : false
 					}
 				},
-				'closeBtn'		: false,
+				'closeBtn'		: true,
 				'href'			: host_url + 'users/roadmaps',
 				'type'			: 'ajax',
 			    'autoSize'		: false,

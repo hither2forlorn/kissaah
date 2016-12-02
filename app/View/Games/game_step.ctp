@@ -130,9 +130,32 @@ if($step_information['Configuration']['id'] == 189) {
 	
 }
 
-if($nxt_txt != '') {
+if($nxt_txt != '' && $nxt_txt != 'next_link') {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
+} elseif($this->request->query['st'] == 198) {
+	echo $this->Html->div('row no-margin text-center margin-bottom-20',
+			$this->Html->link('Confirm', 
+					array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => 202)), 
+					array('class' => 'btn-save ' . $next_btn)));
+} elseif($this->request->query['st'] == 202) {
+	
+	$date = strtotime('December 5, 2016 2:00 PM');
+	$remaining = $date - time();
+	$days_remaining = floor($remaining / 86400);
+	$hours_remaining = floor(($remaining % 86400) / 3600);
+	$minutes_remaining = floor((($remaining % 86400) / 3600) / 3600);
+	/* 
+	echo $days_remaining . ' DAYS: '; 
+	echo $hours_remaining . ' HRS: ';
+	echo $minutes_remaining . ' MIN';
+	*/
+	echo '100 DAYS: 0 HRS: 0 MIN'; 
+	
+	echo $this->Html->div('row no-margin text-center margin-bottom-20',
+			$this->Html->link('Start', 
+					array('controller' => 'users', 'action' => 'start_vision'), 
+					array('class' => 'btn-save')));
 }
 
 if($featured == false) {

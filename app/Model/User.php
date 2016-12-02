@@ -154,19 +154,6 @@ Class User extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Message' => array(
-			'className' => 'Message',
-			'foreignKey' => 'user_id',
-			'dependent' => true,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
 	);
 	
 	var $belongsTo = array(
