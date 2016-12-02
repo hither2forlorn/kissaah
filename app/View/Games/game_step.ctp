@@ -155,7 +155,7 @@ if($nxt_txt != '' && $nxt_txt != 'next_link') {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link('Start', 
 					array('controller' => 'users', 'action' => 'start_vision'), 
-					array('class' => 'btn-save')));
+					array('class' => 'btn-save btn-start-vision')));
 }
 
 if($featured == false) {
@@ -172,6 +172,7 @@ $(document).ready(function(){
 	Game.AddMore();
 	Game.handleDatePicker();
 	Game.SelectAlly();
+	Game.StartVision();
 
 	FileUpload.UploadFileImage();
 	FileUpload.UploadMultipleImages();

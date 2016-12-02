@@ -571,6 +571,9 @@ class UsersController extends AppController {
 		}
 	}
 	
+	public function start_vision() {
+		
+	}
 	
 	public function roadmap_delete($user_game_status_id){
 		$this->_reset_roadmap($user_game_status_id);

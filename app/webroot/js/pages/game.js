@@ -781,6 +781,26 @@ var Game = function () {
 			});
 		},
     
+		StartVision: function() {
+			$('a.btn-start-vision').on('click', function(evt) {
+				evt.preventDefault();
+    			$.ajax({
+					cache		: false,
+    				type		: 'POST',
+    				url			: $(this).attr('href'),
+    				success		: function() {
+    	    			alert_count = $('#notification').find('span.bold').text();
+    	    			alert_count = alert_count - 1;
+    	    			$('#notification').find('span.bold').text(alert_count);
+    	    			$('#notification').find('span.badge').text(alert_count);
+    	    			if(alert_count == 0) {
+    	    				$('#notification').find('span.badge').remove();
+    	    			}
+    				}
+				});
+			});
+		},
+    
 		SelectAlly: function() {
 			var setHelper = new Bloodhound({
 				datumTokenizer: function(d) { return d.tokens; },
