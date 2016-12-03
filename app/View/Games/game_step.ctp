@@ -11,20 +11,6 @@ if($screen_width > 767 && $featured == true) {
 ?>
 <div class="row no-margin margin-bottom-20">
 <?php
-/*
-$fu_words = $this->Html->div('fuwords-view pull-right', $this->Html->image('my-frequently-used-words.png'));
-$fuwords = $this->Html->tag('h3', 'Frequently Used Words');
-foreach ($frequentlyuw as $answer) {
-	$fuwords .= $this->Html->div('', $answer['Game']['answer']);
-}
-$fu_words .= $this->Html->div('fuwords', $fuwords);
-
-$help_view  = $this->Html->div('help-view pull-right', $this->Html->image('my-help.png'));
-$help_view .= $this->Html->div('help-text', $step_information['Configuration']['help_bubble'], array('id' => 'tour-step-05'));
-
-echo $this->Html->div('col-md-6 col-xm-6', $this->Html->div('conf-title', $step_information['Configuration']['title']));
-echo $this->Html->div('col-md-6 col-xm-6', $fu_words . $help_view);
-*/
 $visions = $this->Session->read('Vision');
 $nxt_lnk = '';
 $nxt_txt = 'next_link';

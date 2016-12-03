@@ -291,7 +291,7 @@ class UsersController extends AppController {
 		}
 		$this->Session->write('ActiveGame', $active_game['UserGameStatus']);
 		$this->Session->write('Configuration', $active_game['Configuration']);
-		$this->Session->write('ActiveGame.user_email', $this->Auth->user('email'));
+		//$this->Session->write('ActiveGame.user_email', $this->Auth->user('email'));
 		$this->Session->write('AdminAccess.company', $this->User->CompanyGroup->find('list', array(
 				'fields' => array('id', 'id'), 
 				'conditions' => array('admin_id' => $this->Auth->user('id'), 'parent_id IS NULL'))));

@@ -51,7 +51,7 @@ var Metronic = function() {
     };
     
     var handleSize = function() {
-    	$.post('http://kissaah.org/users/screen_size', { width: screen.width, height:screen.height }, function(json) {
+    	$.post(host_url + 'users/screen_size', { width: screen.width, height:screen.height }, function(json) {
             if(json.outcome == 'success') {}
         }, 'json');
     };

@@ -133,12 +133,20 @@ class AppController extends Controller {
 			$defaults['from'] 		= Configure::read('App.defaultEmail');
 			$defaults['subject'] 	= 'Kissaah Communication';
 			$defaults['layout'] 	= 'default';
-
-			$options = array_merge($defaults, $options);
 				
+			$options = array_merge($defaults, $options);
+			
 			$email = $this->_getMailInstance();
 			
-			$email->to($options['to']);
+			if(isset($options['to'])) {
+				$email->to($options['to']);
+			}
+			if(isset($options['cc'])) {
+				$email->to($options['cc']);
+			}
+			if(isset($options['bcc'])) {
+				$email->to($options['bcc']);
+			}
 			$email->subject($options['subject']);
 			$email->from($options['from']);
 			$email->template($options['template']);

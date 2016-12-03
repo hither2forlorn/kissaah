@@ -153,11 +153,11 @@ var Allies = function(){
         			beforeSend	: function(){},
         			type		: 'POST',
         			url			: $(this).attr('href'),
-        			success		: function(msg){
-        				var obj = $.parseJSON(msg);
-        				var success = obj.success;
+        			success		: function(data){
+        				var object = $.parseJSON(data);
+        				var success = object.success;
         				if(success == 1) {
-        					DOM_Element.text('Ally Notified');
+        					$('.btn-notify-ally').text('Ally Notified');
         				}
         			},
         			error		: function(){},

@@ -146,12 +146,12 @@ class AlliesController extends AppController{
 				if($this->Ally->save($this->request->data['Ally'])){
 					$this->autoRender = false;
 					$options = array(
-							'subject' 	=> 'Kissaah : ' . $this->Auth->user('name') . ' wants to add you as an ally',
+							'subject' 	=> 'Kissaah : ' . $this->Auth->User('name') . ' wants to add you as an ally',
 							'template' 	=> 'ally_request',
 							'to'		=>  $this->request->data['Ally']['ally_email']
 					);
-					$this->request->data['Ally']['user_email'] = $this->Session->read('ActiveGame.user_email');
-					$data['name'] = $this->Auth->user('name');
+					$this->request->data['Ally']['user_email'] = $this->Auth->User('email');
+					$data['name'] = $this->Auth->User('name');
 					$data['roadmap'] = $this->Session->read('ActiveGame.roadmap');
 					
 					$this->_sendEmail($options, $data);
@@ -218,22 +218,29 @@ class AlliesController extends AppController{
 	}
 	
 	public function notify_ally() {
+		$this->autoRender = false;
+		
+		$summary_items 	= $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', 181));
+		$data['answers'] = $summary_items;
+		
 		$allies = $this->Ally->find('all', array(
+				'contain' => array('MyAlly'),
 				'conditions' => array(
 						'Ally.user_id' => $this->Session->read('ActiveGame.user_id'), 
 						'Ally.user_game_status_id' => $this->Session->read('ActiveGame.id'))));
-		debug($allies);
-		$options = array(
-				'subject' 	=> 'Human Catalyst 100 : ' . $this->Auth->user('name') . ' wants to add you as an ally',
-				'template' 	=> 'notify_ally',
-				'to'		=>  $this->request->data['Ally']['ally_email']
-		);
-		$this->request->data['Ally']['user_email'] = $this->Session->read('ActiveGame.user_email');
-		$data['name'] = $this->Auth->user('name');
-		$data['roadmap'] = $this->Session->read('ActiveGame.roadmap');
-			
-		//$this->_sendEmail($options, $data);
 		
+		foreach($allies as $ally) {
+			$data['Ally'] = $ally;
+			$options = array(
+					'subject' 	=> 'Human Catalyst 100 : ' . $this->Auth->User('name') . ' wants you to help',
+					'template' 	=> 'notify_ally',
+					'from'		=> $this->Auth->User('email'),
+					'to'		=> $ally['MyAlly']['email']
+			);
+			$this->_sendEmail($options, $data);
+		}
+		$return['success'] = 1;
+		return json_encode($return);
 	}
 }
 ?>
