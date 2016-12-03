@@ -170,6 +170,7 @@ $(document).ready(function(){
 	Game.handleDatePicker();
 	Game.SelectAlly();
 	Game.StartVision();
+	Allies.NotifyAlly();
 
 	FileUpload.UploadFileImage();
 	FileUpload.UploadMultipleImages();

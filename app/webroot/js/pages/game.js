@@ -44,7 +44,8 @@ var Game = function () {
     			'height'        : 'auto',
     			'wrapCSS'		: 'fancybox-popup',
     			'afterClose'	: function() {
-    				first_time_survey(facebook_warning, consent_for_collage, road_map, thriving_scale);
+    				facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
+    				//first_time_survey(facebook_warning, consent_for_collage, road_map, thriving_scale);
     			}
     		}); 
 		} else {

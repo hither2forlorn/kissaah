@@ -22,8 +22,3 @@ if(!empty($selfdata['Dependent'][0]['answer'])) {
 	echo $this->Html->div('col-md-3 col-sm-6 col-xs-12 no-padding margin-bottom-5', $notify);
 }
 ?>
-<script type="text/javascript">
-jQuery(document).ready(function() {
-	Allies.NotifyAlly();
-});
-</script>
