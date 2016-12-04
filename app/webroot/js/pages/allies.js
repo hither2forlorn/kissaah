@@ -157,7 +157,9 @@ var Allies = function(){
         				var object = $.parseJSON(data);
         				var success = object.success;
         				if(success == 1) {
-        					$('.btn-notify-ally').text('Ally Notified');
+        					$('.btn-notify-ally').text('Notified');
+        				} else {
+        					$('.btn-notify-ally').text('Failed');
         				}
         			},
         			error		: function(){},
