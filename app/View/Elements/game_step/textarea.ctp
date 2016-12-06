@@ -49,7 +49,10 @@ if($summary) {
 							 					
 }								
 
-$display = $this->Html->div('form-group margin-bottom-5 save-answer', $label . $input); 
+if($selfdata['Configuration']['sub_txt'] != '')
+	echo $this->Html->div('col-md-9 col-sm-8 col-xs-12 padding-left-0', $selfdata['Configuration']['sub_txt']);
+	
+$display = $this->Html->div('form-group margin-bottom-5', $label . $input); 
 
 echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $display);
 ?>

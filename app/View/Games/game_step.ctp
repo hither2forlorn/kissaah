@@ -118,7 +118,7 @@ if($step_information['Configuration']['id'] == 189) {
 
 if($nxt_txt != '' && $nxt_txt != 'next_link') {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
-			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
+			$this->Html->link('NEXT: ' . $nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
 } elseif($this->request->query['st'] == 198) {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link('Confirm', 
