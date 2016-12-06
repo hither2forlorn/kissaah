@@ -65,7 +65,7 @@ if($summary) {
 	
 	if($selfdata['Configuration']['sub_txt'] != '') {
 		$video_class = str_replace('col-md-4', 'col-md-3', $video_class);
-		echo $this->Html->div('col-md-9 col-sm-8 col-xs-12 padding-left-0', $selfdata['Configuration']['sub_txt'] . $child_field);
+		echo $this->Html->div('col-md-9 col-sm-8 col-xs-12 padding-left-0', nl2br($selfdata['Configuration']['sub_txt']) . $child_field);
 		echo $this->Html->div($video_class, $video);
 	
 	} else {

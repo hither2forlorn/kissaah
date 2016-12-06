@@ -18,7 +18,14 @@ if(!empty($selfdata['Game'])) {
 	$input  = 'Game.' . $selfdata['Configuration']['id'] . '.' . $selfdata['Game'][0]['Game']['id'];
 }
 
-$label = $this->Form->label('Game.dependent_id', '', array('data' => $selfdata['Configuration']['dependent_id'], 'class' => 'control-label margin-top-10'));
+if($summary) {
+	$label = '';
+	
+} else {
+	$label = $this->Form->label('Game.dependent_id', '', array('data' => $selfdata['Configuration']['dependent_id'], 'class' => 'control-label margin-top-10'));
+	
+}
+
 if(isset($selfdata['Dependent'][0])) {
 	
 	if($selfdata['Dependent'][0]['type'] == 7) {
@@ -35,7 +42,7 @@ if(isset($selfdata['Dependent'][0])) {
 			
 		}
 		$image 			= $this->Html->image($image, array('class' => 'img-responsive thumbnail', 'data'  => 'small-' . $selfdata['Dependent'][0]['id']));
-		$label 			=  $this->Html->div('col-md-2 col-sm-2 no-padding', $image);
+		$label 			= $this->Html->div('col-md-2 col-sm-2 no-padding', $image);
 		$options['div'] = 'col-md-10 col-sm-10 padding-right-0';
 	}
 }
@@ -50,7 +57,7 @@ if($summary) {
 }								
 
 if($selfdata['Configuration']['sub_txt'] != '')
-	echo $this->Html->div('col-md-9 col-sm-8 col-xs-12 padding-left-0', $selfdata['Configuration']['sub_txt']);
+	echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 padding-left-0', nl2br($selfdata['Configuration']['sub_txt']));
 	
 $display = $this->Html->div('form-group margin-bottom-5', $label . $input); 
 

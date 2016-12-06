@@ -42,7 +42,7 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 			$title = $this->Html->tag('h3', $game['Configuration']['title'], array('class' => 'activitytitle'));
 		}
 		if($game['Configuration']['sub_txt'] != '') {
-			$subtx = $this->Html->tag('h5', $game['Configuration']['sub_txt'], array('class' => 'activitytitle'));
+			$subtx = $this->Html->tag('h5', nl2br($game['Configuration']['sub_txt']), array('class' => 'activitytitle'));
 		}
 		
 		$count = (isset($game['children']))? count($game['children']): 1;
