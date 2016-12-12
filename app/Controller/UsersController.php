@@ -726,35 +726,30 @@ class UsersController extends AppController {
 	function admin_index(){
 		$this->set('title_for_layout', 'Dashboard');
 		$totalUsers = $this->User->find('count', array('contain' => false));
-		$this->loadModel('Configuration');
-		$totalImagesUploaded = $this->Configuration->find('count',array(
-																'conditions'=>array(
-																		'Configuration.status'=>1,
-																		'Configuration.title'=>'Image Activity')));
-		$Img_Answers = $this->User->Game->find('all',array(
-		 										'conditions'=>array('Configuration.type'=>1),
-		 										'order'=>'Game.id DESC',
-		 										'limit'=>10));
 		
-		$i=1;
-		foreach($Img_Answers as $img){
-			$Answers[$i]['type']='image';
-		 	$Answers[$i]['user_id']=($img['User']['id']);
-		 	$Answers[$i]['user_email']=($img['User']['email']);
-		 	$Answers[$i]['GameConfigure_title']=($img['Configuration']['title']);
-		 	$i++;
+		$this->loadModel('Configuration');
+		$totalImagesUploaded = $this->Configuration->find('count', array(
+				'conditions' => array('Configuration.status' => 1, 'Configuration.title' => 'Image Activity')));
+		
+		$img_answers = $this->User->Game->find('all', array(
+				'conditions' => array('Configuration.type' => 1), 
+				'order' => 'Game.id DESC', 'limit' => 10));
+		
+		$answers = array();
+		foreach($img_answers as $cnt => $img){
+			$answers[$cnt]['type']				= 'image';
+		 	$answers[$cnt]['user_id']				= ($img['User']['id']);
+		 	$answers[$cnt]['user_email']			= ($img['User']['email']);
+		 	$answers[$cnt]['GameConfigure_title']	= ($img['Configuration']['title']);
 		}
 		 
-		$Users = $this->User->find('all', 
-				array('contain' => false, 'order' => 'User.id DESC', 'limit' => 20));
-		$i = 1;
-		foreach($Users as $User){
-			$UserList[$i]['name']	 = $User['User']['name'];
-			$UserList[$i]['email']	 = $User['User']['email'];
-			$UserList[$i]['created'] = $User['User']['created'];
-			$i++;
+		$users = $this->User->find('all', array('contain' => false, 'order' => 'User.id DESC', 'limit' => 20));
+		foreach($users as $cnt => $user){
+			$UserList[$cnt]['name']	 	= $user['User']['name'];
+			$UserList[$cnt]['email']	= $user['User']['email'];
+			$UserList[$cnt]['created'] 	= $user['User']['created'];
 		}
-		$this->set(compact('totalUsers', 'totalImagesUploaded', 'totalComments', 'Answers', 'UserList'));
+		$this->set(compact('totalUsers', 'totalImagesUploaded', 'totalComments', 'answers', 'UserList'));
 	}
 
 	function admin_view() {
