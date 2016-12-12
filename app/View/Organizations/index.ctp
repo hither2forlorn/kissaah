@@ -14,7 +14,9 @@ foreach($organizations as $org) {
 	foreach($display as $dis) {
 		$row .= $this->Html->div('col-md-3', $dis);
 	}
-	$row .= $this->Html->div('col-md-1', $this->Html->link('Create map', '#', array('class' => 'btn btn-save orange')));
+	$row .= $this->Html->div('col-md-1', $this->Html->link('Create map', 
+			array('action' => 'map', $org['Organization']['id']), 
+			array('class' => 'btn btn-save orange')));
 	
 	echo $this->Html->div('row margin-bottom-15', $row);
 }

@@ -4,7 +4,6 @@ class OrganizationsController extends AppController {
 	public $helpers = array('TreeList');
 	
 	public function index() {
-		$organizations = $this->Organization->generateTreeList();
 		$organizations = $this->Organization->find('all', array(
 				'contain' => false,
 				'conditions' => array('parent_id' => null)));
@@ -14,6 +13,15 @@ class OrganizationsController extends AppController {
 			$levels[$org['Organization']['id']] = $this->Organization->children($org['Organization']['id']);
 		}
 		$this->set(compact('organizations', 'levels'));
+	}
+	
+	public function map($id) {
+		$organization = $this->Organization->find('first', array(
+				'contain' => false,
+				'conditions' => array('id' => $id)));
+		
+		$level = $this->Organization->children($id);
+		$this->set(compact('organization', 'level'));
 	}
 	
 	public function admin_locTree() {
