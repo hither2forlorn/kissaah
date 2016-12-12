@@ -47,7 +47,7 @@ if(!$this->request->isAjax) {
 
 				echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus')) . ' ' . __('View Organization Map'), 
 										array('action' => 'index', 'admin' => false), 
-										array('class' => 'btn btn-default btn-sm', 'escape' => false));
+										array('class' => 'btn btn-default btn-sm', 'target' => '_blank', 'escape' => false));
 				?></div>
 			</div>
 			<?php if(isset($organization) && !empty($organization['Organization'])): ?>

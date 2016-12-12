@@ -43,18 +43,19 @@
 				$menus[] = array('name' => ' Configure Game', 'icon' => 'icon-bar-chart', 'url' => 'admin/configurations');
 				$menus[] = array('name' => ' Value/Strength', 'icon' => 'icon-bar-chart', 'url' => 'admin/value_strength_categories');
 			}
+				$menus[] = array('name' => ' Organizations', 'icon' => 'icon-user', 'url' => 'admin/organizations');
 				$menus[] = array('name' => ' Users', 'icon' => 'icon-user', 'url' => 'admin/users/view/');
 				$menus[] = array('name' => ' Company/Group', 'icon' => 'icon-bar-chart', 'url' => 'admin/company_groups');
-			if($admin == 1) {
-				$menus[] = array('name' => ' Control Panel', 'icon' => 'icon-screen-smartphone', 'url' => 'super_admin/control_panels');
-			}
 				$menus[] = array('name' => ' Collage', 'icon' => 'icon-graph',
 								 'child' => array(
 											array('name' => ' Image Activity', 'url' => 'admin/games/collage/Image%20Activity', 'icon' => 'fa-bullhorn'),
 											array('name' => ' Cartoon Upload', 'url' => 'admin/games/collage/Cartoon%20Upload', 'icon' => 'fa-bullhorn'),
 											array('name' => ' Image Place', 'url' => 'admin/games/collage/Image%20Place', 'icon' => 'fa-bullhorn'),
-											array('name' => ' Image Path', 'url' => 'admin/games/collage/Image%20Path', 'icon' => 'fa-bullhorn'),
-						  ));
+											array('name' => ' Image Path', 'url' => 'admin/games/collage/Image%20Path', 'icon' => 'fa-bullhorn')
+								 ));
+				if($admin == 1) {
+					$menus[] = array('name' => ' Control Panel', 'icon' => 'icon-screen-smartphone', 'url' => 'super_admin/control_panels');
+				}
 				
 				foreach($menus as $id => $menu) {
 					$class = '';
