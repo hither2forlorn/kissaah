@@ -1,20 +1,20 @@
 <?php
 foreach($organizations as $org) {
 	$display = array();
-	$row = $this->Html->div('col-md-2', $org['Organization']['title']);
+	$row = $this->Html->div('col-md-2 padding-left-0', $org['Organization']['title']);
 	foreach($levels[$org['Organization']['id']] as $level) {
 		if($level['Organization']['parent_id'] == $org['Organization']['id']) {
 			$display[$level['Organization']['id']] = 
-				$this->Html->tag('span', $level['Organization']['title'], array('class' => 'btn btn-primary activitytitle'));
+				$this->Html->tag('h4', $level['Organization']['title'], array('class' => 'alert-heading'));
 		} else {
 			$display[$level['Organization']['parent_id']] .= '<br />' . $level['Organization']['title'];
 		}
 	}
 	
 	foreach($display as $dis) {
-		$row .= $this->Html->div('col-md-3', $dis);
+		$row .= $this->Html->div('col-md-3 padding-left-0', $this->Html->div('alert alert-warning', $dis));
 	}
-	$row .= $this->Html->div('col-md-1', $this->Html->link('Create map', 
+	$row .= $this->Html->div('col-md-1 padding-0', $this->Html->link('Create map', 
 			array('action' => 'map', $org['Organization']['id']), 
 			array('class' => 'btn btn-save orange')));
 	

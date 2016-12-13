@@ -10,7 +10,7 @@ foreach($level as $l) {
 	if($l['Organization']['parent_id'] == $organization['Organization']['id'] && $row == '') {
 		echo $this->Html->tag('h3', $l['Organization']['title']);
 	} elseif($l['Organization']['parent_id'] == $organization['Organization']['id'] && $row != '') {
-		echo $this->Html->div('row margin-bottom-15', $row);
+		echo $this->Html->div('alert alert-success', $row);
 		$row = '';
 		echo $this->Html->tag('h3', $l['Organization']['title']);
 		
