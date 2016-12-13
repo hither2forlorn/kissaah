@@ -1,5 +1,6 @@
-<?php echo $this->Html->css(array('challenges')); ?>
-<?php echo $this->Html->script(array('../plugins/jquery-inputmask/jquery.inputmask.bundle.min')); ?>
+<?php 
+echo $this->Html->css(array('challenges'));
+echo $this->Html->script(array('../plugins/jquery-inputmask/jquery.inputmask.bundle.min')); ?>
 
 <?php echo $this->Form->create('Challenge', array('inputDefaults' => array('label' => false, 'div' => false, 'class' => 'form-control'), 
 												  'action' => 'set_challenge')); ?>
