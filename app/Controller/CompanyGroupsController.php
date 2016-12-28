@@ -46,7 +46,7 @@ class CompanyGroupsController extends AppController {
 			$options['conditions'] = array('CompanyGroup.id' => $id);
 			if(!$this->isAdmin) $options['conditions']['OR'] = array('CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin);
 			$company_group = $this->CompanyGroup->find('first', $options);
-			
+			$company_group_users = $this->CompanyGroup->User->find('all', array('recursive'=>-1, 'conditions'=>array('User.company'=>$company_group['CompanyGroup']['code'])));
 			if(!empty($company_group['CompanyGroup'])) {
 				if($this->isAdmin) {
 					$actions = array('new' => true, 'edit' => true, 'move_up' => true, 'move_down' => true, 'delete' => true);
@@ -66,7 +66,7 @@ class CompanyGroupsController extends AppController {
 					$actions['move_down'] = false;
 				}
 				
-				$this->set(compact('company_group'));
+				$this->set(compact('company_group', 'company_group_users'));
 				
 			}
 		}

@@ -65,7 +65,7 @@ class UsersController extends AppController {
 			
 		} else {
 			if(!empty($this->request->data)){
-				$this->request->data['User']['role_id'] = 2;
+				//$this->request->data['User']['role_id'] = 2;
 				if(!isset($this->request->data['User']['verified'])) {
 					$this->request->data['User']['verified'] = 0;
 				}
