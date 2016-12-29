@@ -10,14 +10,10 @@ class RolesController extends AppController	{
 
 	function index() {
 		$this->autoRender = false;
-		//$data['Role'][0]['id'] = 1;
-		//$data['Role'][0]['name'] = 'Admin';
-		//$data['Role'][1]['id'] = 2;
-		//$data['Role'][1]['name'] = 'User';
-                $data['Role'][2]['id'] = 3;
-		$data['Role'][2]['name'] = 'Champion';
-                $data['Role'][3]['id'] = 4;
-		$data['Role'][3]['name'] = 'Leader';
+		$data['Role'][0]['id'] = 3;
+		$data['Role'][0]['name'] = 'Leader';
+		$data['Role'][1]['id'] = 4;
+		$data['Role'][1]['name'] = 'Champion';
  		debug($this->Role->saveMany($data['Role']));
 	}
 }
