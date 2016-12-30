@@ -17,11 +17,10 @@ foreach($level as $l) {
 	} else {
 		$row .= '<br />' . $l['Organization']['title'];
 	}
-	
 }
-
-//debug($organization);
-//debug($level);
+echo $this->Html->div('alert alert-success', $row);
+debug($organization);
+debug($level);
 ?>
 	<div id="chart-container"></div>
 </div>

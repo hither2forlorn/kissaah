@@ -20,7 +20,9 @@ $options = array(
 		16	=> '(16) Challenge Summary',
 		17	=> '(17) Calendar',
 		18	=> '(18) Video',
-		19	=> '(19) Confirm'
+		19	=> '(19) Confirm',
+		20	=> '(20) Competencies',
+		21	=> '(21) Org Maps'
 );
 ?>
 <div class="row categories form">

@@ -330,6 +330,8 @@ class GamesController extends AppController {
 			$conditions = array('ValueStrengthCategory.type' => 'Values');
 		} elseif($sorting_type == 77) {
 			$conditions = array('ValueStrengthCategory.type' => 'Strengths');
+		} else {
+			$conditions = array();
 		}
 		$sortlist = $this->ValueStrengthCategory->find('list', array('conditions' => $conditions, 'order' => array('title')));
 		return $sortlist;

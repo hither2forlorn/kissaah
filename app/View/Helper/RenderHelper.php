@@ -53,6 +53,9 @@ class RenderHelper extends AppHelper {
 		} elseif($activitytype == 19) {
 			$view = $this->_View->element('game_step/confirm', array('selfdata' => $game, 'summary' => $summary));
 				
+		} elseif($activitytype == 20) {
+			$view = $this->_View->element('game_step/competencies', array('selfdata' => $game, 'summary' => $summary));
+				
 		}
 		
 		return $view;

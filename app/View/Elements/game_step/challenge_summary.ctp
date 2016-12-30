@@ -1,6 +1,10 @@
 <?php
 echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 btn-finished margin-bottom-5', $selfdata['Configuration']['title']);
 
+if(!isset($selfdata['children']) && isset($selfdata['Dependent'])) {
+	$selfdata['children'][] = $selfdata;
+}
+
 foreach($selfdata['children'] as $child) {
 	$options['data-conf'] 	= $child['Configuration']['id'];
 	$optionsid['data-conf'] = $child['Configuration']['id'];

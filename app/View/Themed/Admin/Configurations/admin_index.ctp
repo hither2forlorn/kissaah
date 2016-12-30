@@ -19,15 +19,15 @@ $options = array(
 		16	=> '(16) Challenge Summary',
 		17	=> '(17) Calendar',
 		18	=> '(18) Video',
-		19	=> '(19) Confirm'
+		19	=> '(19) Confirm',
+		20	=> '(20) Competencies',
+		21	=> '(21) Org Maps'
 );
 
 $parent = (!empty($this->request->pass))? $this->request->pass[0]: '';
 if(!$this->request->isAjax) {
-	/* BEGIN PAGE LEVEL PLUGINS */
 	echo $this->Html->css(array('../plugins/jstree/dist/themes/default/style.min'), null, array('inline' => false));
 	echo $this->Html->script(array('../plugins/jstree/dist/jstree.min'), array('inline' => false));
-	/* END PAGE LEVEL PLUGINS */
 }
 ?>
 <?php if(!$this->request->isAjax) { ?>

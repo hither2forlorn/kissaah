@@ -80,7 +80,7 @@ if(!$this->request->isAjax) {
 						</tr>
 						<tr>
 							<td><?php echo __('Featured'); ?></td>
-							<td><?php echo ($organization['Organization']['Featured'])? 'Yes': 'No'; ?>&nbsp;</td>
+							<td><?php echo ($organization['Organization']['featured'])? 'Yes': 'No'; ?>&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
