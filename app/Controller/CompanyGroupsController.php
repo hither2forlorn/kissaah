@@ -43,11 +43,15 @@ class CompanyGroupsController extends AppController {
 		if($this->isAdmin) $actions = array('new' => true, 'edit' => false, 'move_up' => false, 'move_down' => false, 'delete' => false);
 		if($this->request->is('ajax')) {
 			$options['contain'] = array('Admin');
+                        //$options['conditions'] = array('User.id' => $id);
 			$options['conditions'] = array('CompanyGroup.id' => $id);
-			if(!$this->isAdmin) $options['conditions']['OR'] = array('CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin);
+			if(!$this->isAdmin) $options['conditions']['OR'] = array( 'CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin);
 			$company_group = $this->CompanyGroup->find('first', $options);
+                        //$company_group_users = $this->User->find('all', array('recursive'=>-1, 'conditions'=>array('User.company'=>$company_group['CompanyGroup']['code'])));
 			$company_group_users = $this->CompanyGroup->User->find('all', array('recursive'=>-1, 'conditions'=>array('User.company'=>$company_group['CompanyGroup']['code'])));
-			if(!empty($company_group['CompanyGroup'])) {
+			
+                       
+                        if(!empty($company_group['CompanyGroup'])) {
 				if($this->isAdmin) {
 					$actions = array('new' => true, 'edit' => true, 'move_up' => true, 'move_down' => true, 'delete' => true);
 				} else {
@@ -88,8 +92,33 @@ class CompanyGroupsController extends AppController {
 		$admins = $this->CompanyGroup->Admin->find('list');
 		$this->set(compact('parent_id', 'admins'));
 	}
-	
+     
+    public function admin_usere($id = null){
+              if (!$this->CompanyGroup->User->exits($id)){
+                throw new NotFoundException(__('Invalid User'));
+            }
+
+                        if ($this->request->is(array('post', 'put'))){
+                            if ($this->CompanyGroup->User->save($this->request->data)){
+                                $this->Sessiom->setFlash(__('user has been saved'));
+                                        return $this->redirect(array('action' => 'index'));
+                            }else{
+                                $this->Session->setFlash(__('User has not been saved'));
+                            }
+                            }else {
+			$company_group_users = $this->CompanyGroup->User->find('all', array('recursive'=>-1, 'conditions'=>array('User.company'=>$company_group['CompanyGroup']['code'])));
+			
+			
+		}
+                            
+                        
+                        $admins = $this->CompanyGroup->Admin->find('list', array('conditions' => $admin_conditions));
+                        $this->set(compact('company_group_users'));
+                      
+          }
 	public function admin_edit($id = null) {
+            
+                          
 		if (!$this->CompanyGroup->exists($id)) {
 			throw new NotFoundException(__('Invalid CompanyGroup'));
 		}
@@ -149,7 +178,9 @@ class CompanyGroupsController extends AppController {
 		}
 		return $this->redirect($this->referer());
 	}
-	
+
+  
+
 	function admin_delete($id = null){
 		$this->CompanyGroup->id = $id;
 		if (!$this->CompanyGroup->exists()) {
