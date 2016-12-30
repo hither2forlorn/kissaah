@@ -79,8 +79,8 @@ if(!$this->request->isAjax) {
 							<td><?php echo h($organization['Organization']['dependent']); ?>&nbsp;</td>
 						</tr>
 						<tr>
-							<td><?php echo __('Feedback'); ?></td>
-							<td><?php echo ($organization['Organization']['feedback'])? 'Yes': 'No'; ?>&nbsp;</td>
+							<td><?php echo __('Featured'); ?></td>
+							<td><?php echo ($organization['Organization']['Featured'])? 'Yes': 'No'; ?>&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>

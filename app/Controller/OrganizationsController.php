@@ -6,7 +6,7 @@ class OrganizationsController extends AppController {
 	public function index() {
 		$organizations = $this->Organization->find('all', array(
 				'contain' => false,
-				'conditions' => array('parent_id' => null, 'featured' => 1)));
+				'conditions' => array('parent_id' => null)));
 
 		$levels = array();
 		foreach($organizations as $org) {

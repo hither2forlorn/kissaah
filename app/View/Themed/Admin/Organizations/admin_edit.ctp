@@ -32,8 +32,8 @@
 							<div class="col-md-5"><?php echo $this->Form->input('status', array('options' => array(0 => 'Disable', 1 => 'Active'))); ?></div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-3 control-label"><?php echo __('Feedback'); ?></label>
-							<div class="col-md-5"><?php echo $this->Form->input('feedback'); ?></div>
+							<label class="col-md-3 control-label"><?php echo __('Featured'); ?></label>
+							<div class="col-md-5"><?php echo $this->Form->input('featured'); ?></div>
 						</div>
 					</div>
 					<div class="form-actions right">
