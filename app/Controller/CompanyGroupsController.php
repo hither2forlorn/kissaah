@@ -93,29 +93,9 @@ class CompanyGroupsController extends AppController {
 		$this->set(compact('parent_id', 'admins'));
 	}
      
-    public function admin_usere($id = null){
-              if (!$this->CompanyGroup->User->exits($id)){
-                throw new NotFoundException(__('Invalid User'));
-            }
-
-                        if ($this->request->is(array('post', 'put'))){
-                            if ($this->CompanyGroup->User->save($this->request->data)){
-                                $this->Sessiom->setFlash(__('user has been saved'));
-                                        return $this->redirect(array('action' => 'index'));
-                            }else{
-                                $this->Session->setFlash(__('User has not been saved'));
-                            }
-                            }else {
-			$company_group_users = $this->CompanyGroup->User->find('all', array('recursive'=>-1, 'conditions'=>array('User.company'=>$company_group['CompanyGroup']['code'])));
-			
-			
-		}
-                            
-                        
-                        $admins = $this->CompanyGroup->Admin->find('list', array('conditions' => $admin_conditions));
-                        $this->set(compact('company_group_users'));
+  
                       
-          }
+          
 	public function admin_edit($id = null) {
             
                           

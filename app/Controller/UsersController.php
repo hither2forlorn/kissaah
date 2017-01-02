@@ -1,4 +1,4 @@
-<?php
+ <?php
 App::uses('AppController', 'Controller');
 App::import('Vendor', 'Uploader.Uploader');
 Configure::load('linkedin');
@@ -28,14 +28,15 @@ class UsersController extends AppController {
 		$this->Auth->allowedActions = array('oauth', 'admin_view', 'admin_detail', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
 		$this->Uploader = new Uploader();
 		$this->Uploader->setup(array('tempDir' => TMP));
-		/*
+               
+		
 		$this->Uploader->addMimeType('image', 'gif', 'image/gif');
 		$this->Uploader->addMimeType('image', 'jpg', 'image/jpeg');
 		$this->Uploader->addMimeType('image', 'jpe', 'image/jpeg');
 		$this->Uploader->addMimeType('image', 'jpeg', 'image/jpeg');
 		$this->Uploader->addMimeType('image', 'png', array('image/png', 'image/x-png'));
 		$this->Uploader->addMimeType('image', 'PNG', array('image/png', 'image/x-png'));
-		*/
+		
 	}
 	
 	public function screen_size() {
@@ -176,7 +177,13 @@ class UsersController extends AppController {
 		
 	}
 	
-	public function facebook_login() {}
+	public function facebook_login() {
+                //var $name = 'Users';
+                //var $components = array('Faceboo.Content','Auth');
+                //var $helperrs =  array('Facebook.Facebook');
+                
+        }
+       
 
 	public function login() {
 		if($this->Auth->user('id')){
@@ -390,7 +397,7 @@ class UsersController extends AppController {
 		$this->autoRender = false;
 		$users = $this->User->find('all', array('contain' => false));
 		foreach($users as $user) {
-			$parent = $this->Acl->Aro->field('id', array('foreign_key' => 2, 'model' => 'Role'));
+			$parent = $this->Acl->Aro->field('id', array('foreign_key' =>'role_id', 'model' => 'Role'));
 			$has_aro = $this->Acl->Aro->field('id', array('foreign_key' => $user['User']['id'], 'model' => 'User'));
 			if(!$has_aro) {
 				$this->Acl->Aro->id = null;
@@ -441,6 +448,7 @@ class UsersController extends AppController {
 				return json_encode($return);
 			}
 		} else {
+                    
 			$this->request->data = $this->User->find('first', array(
 										'contain' 	 => false,
 										'conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id'))));
