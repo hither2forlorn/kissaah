@@ -38,7 +38,8 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		// BEGIN THEME STYLES
         echo $this->Html->css(array('../plugins/select2/select2',
         							'../plugins/datatables/plugins/bootstrap/dataTables.bootstrap',
-									'../plugins/bootstrap-datepicker/css/bootstrap-datepicker'));
+                                    '../plugins/bootstrap-daterangepicker/daterangepicker-bs3',
+									'../plugins/bootstrap-datepicker/css/datepicker'));
 		
 		echo $this->fetch('css');
         echo $this->Html->css('components', array('id' => 'style_components'));
@@ -56,12 +57,14 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                                         '../plugins/bootstrap/js/bootstrap.min',
                                         '../plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min',
                                         '../plugins/jquery.blockui.min',
+                                        '../plugins/jquery.cokie.min',
                                         '../plugins/uniform/jquery.uniform.min',
                                         '../plugins/bootstrap-switch/js/bootstrap-switch.min'));
 		/* END CORE PLUGINS */
         echo $this->Html->script(array('../plugins/select2/select2.min',
                                        '../plugins/datatables/media/js/jquery.dataTables.min',
                                        '../plugins/datatables/plugins/bootstrap/dataTables.bootstrap',
+									   '../plugins/bootstrap-daterangepicker/daterangepicker',
 									   '../plugins/bootstrap-datepicker/js/bootstrap-datepicker'));
 				
 		echo $this->Html->script(array('metronic', 'layout', 'demo', 'pages/admin'));

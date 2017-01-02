@@ -23,7 +23,7 @@ if(!$this->request->isAjax) {
 <?php } ?>
 		<div class="portlet box yellow">
 			<div class="portlet-title">
-				<div class="caption"><i class="fa fa-user"></i><?php echo empty($company_group['CompanyGroup']['parent']) ? __('Company') : __('Group'); ?></div>
+				<div class="caption"><i class="fa fa-user"></i><?php echo empty($company_group['CompanyGroup']['parent']) ? __('Company') : __('Sub Company'); ?></div>
 				<div class="actions"><?php 
 				if(isset($company_group) && !empty($company_group['CompanyGroup'])) {
 					if($actions['edit']) {
@@ -87,7 +87,7 @@ if(!$this->request->isAjax) {
 		</div>
            <div class="portlet box green">
 			<div class="portlet-title">
-				<div class="caption"><i class="fa fa-user"></i><?php echo empty($company_group['CompanyGroup']['parent']) ? __('Company') : __('Group'); ?></div>
+				<div class="caption"><i class="fa fa-user"></i><?php echo empty($company_group['CompanyGroup']['parent']) ? __('Company') : __('Users List'); ?></div>
 				<div class="actions"><?php 
 				if(isset($company_group) && !empty($company_group['CompanyGroup'])) {
 					
@@ -140,13 +140,13 @@ if(!$this->request->isAjax) {
                                                           
 	                            <?php if($actions['edit']) {
 	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-pencil')) . ' ' . __('Edit'), 
-	                                                             array('controller'=>'CompanyGroups', 'action' => 'admin_usere',  $company_group_user['User']['id'], 'admin' => true), 
+	                                                             array('controller'=>'users', 'action' => 'detail',  $company_group_user['User']['id'], 'admin' => true), 
 	                                                             array('class' => 'btn default btn-xs blue', 'escape' => false, 'target' => '_blank')); 
 								} ?>
                                                        
 	                            <?php if($actions['delete']) {
 	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o')), 
-	                                                             array('controller'=>'CompanyGroups', 'action' => 'delete', $company_group_user['User']['id'], 'admin' => true), 
+	                                                             array('controller'=>'users','action' => 'delete', $company_group_user['User']['id'], 'admin' => true), 
 	                                                             array('class' => 'btn default btn-xs grey user-delete', 'escape' => false));
 								} ?>
 	                            

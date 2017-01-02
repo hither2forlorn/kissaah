@@ -106,6 +106,9 @@
 			<div class="form-group">
 				<?php echo $this->Form->button('Save', array('type' => 'submit', 'class' => 'btn btn-primary')); ?>
 			</div>
+                <div class="form-group">
+				<?php echo $this->Form->button('Save', array('type' => 'submit', 'class' => 'btn btn-primary')); ?>
+			</div>
 		<?php echo $this->Form->end(); ?>
 	</div>
 </div>
