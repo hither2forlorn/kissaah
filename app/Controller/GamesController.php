@@ -186,7 +186,11 @@ class GamesController extends AppController {
  		}
  	}
  	
-	function __createTree(&$list, $parent){
+	public function spark_board() {
+
+	}
+	
+	public function __createTree(&$list, $parent){
 		$tree = array();
 		foreach ($parent as $k => $l){
 			if(!empty($l['Configuration']['dependent_id']) && $l['Configuration']['dependent_id'] > 0) {

@@ -2,7 +2,6 @@
 echo $this->Html->css(array('../plugins/OrgChart/dist/css/jquery.orgchart'));
 echo $this->Html->script(array('../plugins/OrgChart/dist/js/jquery.orgchart', '../plugins/OrgChart/examples/vertical-depth/scripts')); 
 ?>
-
 <div class="col-md-6 col-md-offset-3">
 <?php
 $row = '';
@@ -19,8 +18,6 @@ foreach($level as $l) {
 	}
 }
 echo $this->Html->div('alert alert-success', $row);
-debug($organization);
-debug($level);
 ?>
 	<div id="chart-container"></div>
 </div>

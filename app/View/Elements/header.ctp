@@ -52,7 +52,7 @@
 				echo $this->Html->div('pull-left icon-wrapper', $tool);
 				
 				$tool  = $this->Html->div('tool-box-info', 'Calendar' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->image('my-challenges.png', array('class' => 'img-responsive')),
+				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-calendar-check-o', 'aria-hidden' => 'true')),
 				                            array('controller' => 'challenges', 'action' => 'calendar'), 
 				                            array('class' => 'fbox-challenges', 'data-width' => '600', 'escape' => false));
 				echo $this->Html->div('pull-left icon-wrapper', $tool);
@@ -64,11 +64,20 @@
 				echo $this->Html->div('pull-left icon-wrapper', $tool);
 				
 				$tool  = $this->Html->div('tool-box-info', 'Export Roadmap' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->image('my-word.png', array('class' => 'img-responsive', 'id' => 'tour-step-08')),
+				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-file-word-o', 'aria-hidden' => 'true', 'id' => 'tour-step-08')),
 				    						array('controller' => 'games', 'action' => 'summary', 'export'), 
 				    						array('escape' => false));
 				echo $this->Html->div('pull-left icon-wrapper', $tool);
 				
+				$tool  = $this->Html->div('tool-box-info', 'Organization Map' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-sitemap', 'aria-hidden' => 'true')),
+				    						array('controller' => 'organizations'), array('escape' => false));
+				echo $this->Html->div('pull-left icon-wrapper', $tool);
+				
+				$tool  = $this->Html->div('tool-box-info', 'Spark Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-table', 'aria-hidden' => 'true')),
+				    						array('controller' => 'games', 'action' => 'spark_board'), array('escape' => false));
+				echo $this->Html->div('pull-left icon-wrapper', $tool);
 				/*
 				$tool  = $this->Html->div('tool-box-info', 'Allies Feedback' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 				$tool .= $this->Html->link( $this->Html->image('my-feedback.png', array('class' => 'img-responsive')), 

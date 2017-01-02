@@ -21,7 +21,8 @@ $options = array(
 		18	=> '(18) Video',
 		19	=> '(19) Confirm',
 		20	=> '(20) Competencies',
-		21	=> '(21) Org Maps'
+		21	=> '(21) Org Maps',
+		22	=> '(22) Countdown'
 );
 
 $parent = (!empty($this->request->pass))? $this->request->pass[0]: '';

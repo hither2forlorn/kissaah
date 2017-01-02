@@ -20,6 +20,4 @@ foreach($organizations as $org) {
 	
 	echo $this->Html->div('row margin-bottom-15', $row);
 }
-debug($organizations);
-debug($levels);
 ?>
