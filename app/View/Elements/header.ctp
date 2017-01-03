@@ -19,7 +19,7 @@
 	  		
 	  		<div class="col-md-1 col-md-offset-0 col-md-push-7 col-sm-2 col-sm-offset-0 col-sm-push-6 col-xs-4 col-xs-offset-4 no-padding" id="tour-step-2"><?php 
 			if($this->Session->check('Auth.User')) {
-				$image = $this->Session->read('Profile.Game.answer');
+				$image = $this->Session->read('Auth.User.slug');
 				$image = (empty($image))? 'profile.png': '../files/img/small/' . $image;
 	
 		        echo $this->Html->image($image, array('alt' => $this->Session->read('Auth.User.name'),

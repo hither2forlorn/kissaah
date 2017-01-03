@@ -1,12 +1,6 @@
 <div class="row margin-bottom-40 padding-top-30">
 	<div class="col-md-2 col-sm-3 col-xs-4"><?php
-	
-		$image = $this->Session->read('Profile.Game.answer');
-		$id = $this->Session->read('Profile.Game.id');
-		$configure = $this->Session->read('Profile.Game.configuration_id');
-		if(empty($id)) {
-			$id = 0; 
-		}
+		$image = $this->Session->read('Auth.User.slug');
 		if(empty($image)) {
 			$image = 'http://placehold.it/220x220&text=No Image';
 		} else {
@@ -15,7 +9,7 @@
 		
 		echo $this->Html->image($image, array('alt' => $this->Session->read('Auth.User.name'), 
 											  'class' => 'img-responsive',
-											  'data' => 'medium-' . $configure));
+											  'data' => 'medium-' . $this->Session->read('Auth.User.id')));
 
 		echo $this->Html->div('margin-top-10',
 				$this->Html->link(
@@ -53,10 +47,11 @@
 	<div class="col-md-4 col-sm-5 col-xs-8 profile-general-settings">
 		<h2>General Settings</h2>
 		<?php 
-		echo $this->Form->create('Game' . $id . 'upload', array('class' => 'btn-file fileupload'));
-		echo $this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o', 'id' => 'upl' . $configure));
+		echo $this->Form->create('User', array('class' => 'btn-file fileupload', 
+				'data-save' => $this->Html->url(array('controller' => 'games', 'action' => 'upload', 'image'))));
+		echo $this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o', 'id' => 'upl' . $this->Session->read('Auth.User.id')));
 		echo $this->Html->tag('span', ' Profile Picture', array('class' => ''));
-		echo $this->Form->input($configure, array(
+		echo $this->Form->input($this->Session->read('Auth.User.id'), array(
 											'type' 		=> 'file', 
 											'label' 	=> false, 
 											'class'		=> 'default', 
@@ -81,7 +76,7 @@
 					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Email', 
 								   array('controller' => 'users', 'action' => 'edit/profile'), 
 								   array('escape' => false, 'class' => 'open-fancybox ')) .
-				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.email'),array('id'=>'Email')));
+				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.email'), array('id' => 'Email')));
 
 		echo $this->Html->div('margin-bottom-10',
 				$this->Html->link(

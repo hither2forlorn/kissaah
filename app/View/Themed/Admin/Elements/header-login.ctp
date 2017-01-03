@@ -2,9 +2,9 @@
 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 <li class="dropdown dropdown-user">
 	<?php
-	$image = $this->Session->read('Profile.Game.answer');
+	$image = $this->Session->read('Auth.User.slug');
 	if (!empty($image)) :
-		$image = '../files/img/small/' . $this->Session->read('Profile.Game.answer');
+		$image = '../files/img/small/' . $image;
 	else :
 		$image = 'profilecover.jpg';
 	endif;

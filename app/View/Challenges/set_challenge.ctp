@@ -22,7 +22,7 @@
 			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 no-padding thumbnail"><?php
 			$image = 'profile.png';
 			if($this->request->pass[0] == 'myself') {
-				$image = $this->Session->read('Profile.Game.answer');
+				$image = $this->Session->read('Auth.User.slug');
 	        	if (!empty($image)) :
 					$image = '../files/img/medium/' . $image;
 	        	else :

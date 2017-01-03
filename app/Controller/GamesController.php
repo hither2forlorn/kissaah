@@ -462,20 +462,28 @@ class GamesController extends AppController {
 		$this->Game->create();
 		#Check the Session Data to match if it is valid or not then only save the data
 		$data = $this->request->data;
+		$saveto = 'Game';
 		foreach($data as $id => $d) {
-			$data['Game'] = $d;
-			$data['Game']['configuration_id'] = key($d);
-			$image = $data['Game'][$data['Game']['configuration_id']];
+			if($id == 'User') {
+				$saveto = 'User';
+				$image = $data['User'][$this->Auth->user('id')];
+				if($this->Session->read('Auth.User.slug') != '') {
+					$oldimage = $this->Session->read('Auth.User.slug');
+				}
+			} else {
+				$data['Game'] = $d;
+				$data['Game']['configuration_id'] = key($d);
+				$image = $data['Game'][$data['Game']['configuration_id']];
+				$answer = $this->Game->find('first', array('contain' => false,
+													'conditions' => array('Game.configuration_id' => $data['Game']['configuration_id'])));
+				if(!empty($answer)) {
+					$data = $answer;
+					$return['kid'] = $data['Game']['id'];
+					$oldimage = $data['Game']['answer'];
+				}
+			}
 		}
 		if(Uploader::checkMimeType(strtolower(Uploader::ext($image['name'])), $image['type']) == $type) {
-			$answer = $this->Game->find('first', array('contain' => false,
-												'conditions' => array('Game.configuration_id' => $data['Game']['configuration_id'])));
-			if(empty($answer)) {
-			} else {
-				$data = $answer;
-				$return['kid'] = $data['Game']['id'];
-				$oldimage = $data['Game']['answer'];
-			}
 			
 			$this->Uploader->uploadDir = '/files/img/large';
 			$uploadimage = $this->Uploader->upload($image, array(
@@ -492,49 +500,39 @@ class GamesController extends AppController {
 				$imagename = end($img_path);
 				$data['Game']['answer'] = $imagename;
 				$data['Game']['user_id'] = $this->Session->read('ActiveGame.user_id');
-				if($data['Game']['configuration_id'] == 36) {
-					$data['Game']['user_game_status_id'] = null;
-				} else {
-					$data['Game']['user_game_status_id'] = $this->Session->read('ActiveGame.id');
-				}
+				$data['Game']['user_game_status_id'] = $this->Session->read('ActiveGame.id');
 				
-				if($this->Game->save($data)){
-					if(empty($return['kid'])){
-						$return['kid'] = $this->Game->getLastInsertId();
-					}
-					if(isset($oldimage)){
-						$this->Uploader->delete('files' . DS . 'img' . DS . 'large' . DS . $oldimage);
-						$this->Uploader->delete('files' . DS . 'img' . DS . 'medium' . DS . $oldimage);
-						$this->Uploader->delete('files' . DS . 'img' . DS . 'small' . DS . $oldimage);
-					}
-					
-					if($data['Game']['configuration_id'] == 36){
-						$profile['Game']['id'] = $return['kid'];
-						$profile['Game']['answer'] = $imagename;
-						$profile['Game']['configuration_id'] = $data['Game']['configuration_id'];
-						$this->Session->write('Profile', $profile);
-						$this->Game->User->id = $this->Auth->user('id');
-						$this->Game->User->saveField('slug', $imagename);
-					}
-						
+				if($saveto == 'User') {
+					$this->Game->User->id = $this->Auth->user('id');
+					$this->Game->User->saveField('slug', $imagename);
+					$this->Session->write('Auth.User.slug', $imagename);
 					$return['filename'] = $imagename;
 					$return['success'] = 1;
 					$return['label'] = 'Change Image';
-					$return['cid'] = $data['Game']['configuration_id'];
+					$return['cid'] = $this->Auth->user('id');
 				} else {
-					$return['success'] = 0;
+					if($this->Game->save($data)){
+						if(empty($return['kid'])){
+							$return['kid'] = $this->Game->getLastInsertId();
+						}
+						$return['filename'] = $imagename;
+						$return['success'] = 1;
+						$return['label'] = 'Change Image';
+						$return['cid'] = $data['Game']['configuration_id'];
+					} else {
+						$return['success'] = 0;
+					}
+				}
+				
+				if(isset($oldimage)){
+					$this->Uploader->delete('files' . DS . 'img' . DS . 'large' . DS . $oldimage);
+					$this->Uploader->delete('files' . DS . 'img' . DS . 'medium' . DS . $oldimage);
+					$this->Uploader->delete('files' . DS . 'img' . DS . 'small' . DS . $oldimage);
 				}
 			} else {
 				$return['success'] = 0;
 			}
 		} elseif(Uploader::checkMimeType(strtolower(Uploader::ext($image['name'])), $image['type']) == $type) {
-			$answer = $this->Game->find('first', array('contain' => false,
-												'conditions' => array('Game.configuration_id' => $data['Game']['configuration_id'])));
-			if(!empty($answer)) {
-				$data = $answer;
-				$return['kid'] = $data['Game']['id'];
-				$oldimage = $data['Game']['answer'];
-			}
 			
 			$this->Uploader->uploadDir = '/files/video';
 			$uploadimage = $this->Uploader->upload($image, array(

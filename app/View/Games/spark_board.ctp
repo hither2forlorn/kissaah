@@ -65,15 +65,12 @@
 		<h3 class="activitytitle">My Next 3-12 months</h3>
 		<div class="col-md-12 col-sm-12">
 			<div class="row no-margin margin-bottom-15">
-				<div
-					class="col-md-12 col-sm-12 col-xs-12 btn-finished margin-bottom-5">Development</div>
+				<div class="col-md-12 col-sm-12 col-xs-12 btn-finished margin-bottom-5">Development</div>
 				<div class="row no-margin margin-bottom-10 save-challenge">
 					<div class="col-md-2 col-sm-2 col-xs-3 no-padding">
-						<div data="label-12"
-							class="col-md-12 col-sm-12 col-xs-12 btn-in-progress margin-bottom-5">&nbsp;</div>
+						<div data="label-12" class="col-md-12 col-sm-12 col-xs-12 btn-in-progress margin-bottom-5">&nbsp;</div>
 						<div class="col-md-12 no-padding margin-bottom-5">
-							<img src="/kissaah/img/profile.png" data="medium-12"
-								class="img-responsive" alt="">
+							<img src="/kissaah/img/profile.png" data="medium-12" class="img-responsive" alt="">
 						</div>
 						<div class="col-md-12 no-padding extra-width">
 							<input name="data[Challenge][ally]"
