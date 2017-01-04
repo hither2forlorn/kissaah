@@ -1163,9 +1163,7 @@ var FileUpload = function () {
 var SortingValues = function () {
 	return {
 		DragAndDrop: function() {
-			
 			var finalconfid;
-			
 			$(document).on('mouseenter', '.draggable-list', function(e) {
 				var item = $(this); 
 				item.draggable({
