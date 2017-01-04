@@ -2,7 +2,6 @@
 	<div class="row no-margin padding-top-20">
 		<div class="col-md-2 col-sm-2">
 			<h3 class="activitytitle">Sort by:</h3>
-			
 		</div>
 		<div class="col-md-10 col-sm-10">
 			<h3 class="activitytitle">Summary of individual Catalyst Plans</h3>
@@ -66,64 +65,27 @@
 		</div>
 	</div>
 	<div class="row no-margin padding-bottom-20">
-		<h3 class="activitytitle">My Next 3-12 months</h3>
-		<div class="col-md-12 col-sm-12">
-			<div class="row margin-bottom-15">
-				<div class="col-md-3 col-sm-3 col-xs-12"></div>
-				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Capture Learning</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Add Date</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Add Context</div>
-			</div>
-			<div class="row margin-bottom-15">
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-left-0">Relationship Building</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-			</div>
-			<div class="row margin-bottom-15">
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-left-0">Creative</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-			</div>
-			<div class="row margin-bottom-15">
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-left-0">Consciencious</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-			</div>
+		<div class="col-md-2 col-sm-2">
+			<h3 class="activitytitle">#Give</h3>
+			<div class="table-bordered"></div>
+		</div>
+		<div class="col-md-5 col-sm-5">
+			<h3 class="activitytitle">Purpose</h3>
+			<div class="table-bordered"></div>
+		</div>
+		<div class="col-md-5 col-sm-5">
+			<h3 class="activitytitle">Aspirations</h3>
+			<div class="table-bordered"></div>
 		</div>
 	</div>
 	<div class="row no-margin padding-bottom-20 margin-bottom-20">
-		<div class="col-md-4 col-sm-4 col-xs-12 padding-0">
-			Development <a href="#" class="add-more" data="data[Game][218][0]" data-add="218"><i class="fa fa-lg fa-plus-circle"></i></a>
-			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Development" type="text">
+		<div class="col-md-2 col-sm-2">
+			<h3 class="activitytitle">#Ask</h3>
+			<div class="table-bordered"></div>
 		</div>
-		<div class="col-md-4 col-sm-4 col-xs-12 padding-right-0">
-			Exposure <a href="#" class="add-more" data="data[Game][218][0]" data-add="218"><i class="fa fa-lg fa-plus-circle"></i></a>
-			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Exposure" type="text">
-		</div>
-		<div class="col-md-4 col-sm-4 col-xs-12 padding-right-0">
-			Connections <a href="#" class="add-more" data="data[Game][218][0]" data-add="218"><i class="fa fa-lg fa-plus-circle"></i></a>
-			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Connections" type="text">
+		<div class="col-md-10 col-sm-10">
+			<h3 class="activitytitle">Motivation</h3>
+			<div class="table-bordered"></div>
 		</div>
 	</div>
 </div>
