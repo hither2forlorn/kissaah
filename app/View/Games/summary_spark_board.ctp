@@ -1,17 +1,23 @@
-<div class="col-md-8 col-md-offset-2 save-answer">
-	<div class="row no-margin padding-bottom-20 padding-top-20">
-		<h3 class="activitytitle">Catalyst Plans</h3>
-		<div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+<div class="col-md-12">
+	<div class="row no-margin padding-top-20">
+		<div class="col-md-2 col-sm-2">
+			<h3 class="activitytitle">Sort by:</h3>
+			
+		</div>
+		<div class="col-md-10 col-sm-10">
+			<h3 class="activitytitle">Summary of individual Catalyst Plans</h3>
 			<div class="table-scrollable">
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
+							<th>Name</th>
 							<th colspan="3">Development</th>
 							<th colspan="3">Exposure</th>
 							<th colspan="3">Connections</th>
 							<th colspan="2">Ally Feedback</th>
 						</tr>
 						<tr>
+							<th></th>
 							<th>Development</th>
 							<th>Due</th>
 							<th>%</th>
@@ -27,6 +33,7 @@
 					</thead>
 					<tbody>
 						<tr>
+							<td>Tod Mac</td>
 							<td>Write good proposal</td>
 							<td>2017-08-25</td>
 							<td>10%</td>
@@ -40,6 +47,7 @@
 							<td>Comments</td>
 						</tr>
 						<tr>
+							<td>Rob Tod</td>
 							<td>Write good proposal</td>
 							<td>2017-08-25</td>
 							<td>10%</td>

@@ -187,7 +187,9 @@ class GamesController extends AppController {
  	}
  	
 	public function spark_board() {
-
+	}
+	
+	public function summary_spark_board() {
 	}
 	
 	public function __createTree(&$list, $parent){
