@@ -1363,3 +1363,16 @@ var SortingValues = function () {
 		},
 	}
 }();
+
+var OrganizationMap = function () {
+	return {
+		init: function(data_map) {
+			$('#chart-container').orgchart({
+				'data' 			: data_map,
+				'nodeContent'	: 'title',
+				'verticalDepth'	: 3,
+				'depth'			: 4
+			});
+		},
+	}
+}();

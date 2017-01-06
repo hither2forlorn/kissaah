@@ -42,13 +42,12 @@ foreach($org_map as $k1 => $m1) {
 
 $maps = substr(json_encode($maps), 1, -1);
 ?>
-	
-	<script>
-		var data_map = <?php echo $maps; ?>;
-	</script>
-	
 	<div id="chart-container"></div>
 </div>
-<?php 
-echo $this->Html->script(array('../plugins/OrgChart/examples/vertical-depth/scripts')); 
-?>
+
+<script type="text/javascript">
+var data_map = <?php echo $maps; ?>;
+jQuery(document).ready(function() {
+	OrganizationMap.init(data_map);
+});
+</script>
