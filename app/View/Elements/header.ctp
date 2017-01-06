@@ -71,7 +71,7 @@
 				
 				$tool  = $this->Html->div('tool-box-info', 'Organization Map' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-sitemap', 'aria-hidden' => 'true')),
-				    						array('controller' => 'organizations'), array('escape' => false));
+				    						array('controller' => 'organizations', 'action' => 'index'), array('escape' => false));
 				echo $this->Html->div('pull-left icon-wrapper', $tool);
 				
 				$tool  = $this->Html->div('tool-box-info', 'Spark Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));

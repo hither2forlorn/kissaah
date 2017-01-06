@@ -4,7 +4,7 @@
 
   $(function() {
 
-    var datascource = {
+	  var datascource = {
       'name': 'Lao Lao',
       'title': 'general manager',
       'children': [
@@ -43,14 +43,13 @@
         }
       ]
     };
-
+    console.log(data_map);
     $('#chart-container').orgchart({
-      'data' : datascource,
-      'nodeContent': 'title',
-      'verticalDepth': 3,
-      'depth': 4
+    	'data' : data_map,
+    	'nodeContent': 'title',
+    	'verticalDepth': 3,
+    	'depth': 4
     });
-
   });
 
 })(jQuery);

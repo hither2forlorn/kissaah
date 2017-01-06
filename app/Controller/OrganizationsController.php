@@ -12,16 +12,57 @@ class OrganizationsController extends AppController {
 		foreach($organizations as $org) {
 			$levels[$org['Organization']['id']] = $this->Organization->children($org['Organization']['id']);
 		}
+		
 		$this->set(compact('organizations', 'levels'));
 	}
 	
 	public function map($id) {
-		$organization = $this->Organization->find('first', array(
-				'contain' => false,
-				'conditions' => array('id' => $id)));
+		$lists[$id] = $id;
 		
-		$level = $this->Organization->children($id);
-		$this->set(compact('organization', 'level'));
+		$level = $this->Organization->children($id, false, 'id');
+		foreach($level as $value) {
+			$lists[$value['Organization']['id']] = $value['Organization']['id'];
+		}
+		
+		$options['contain'] = false;
+		$options['conditions'] = array('type' => null, 'company_group_id' => null, 'id' => $lists);
+		$level = $this->Organization->find('threaded', $options);
+
+		$options['conditions'] = array('type' => 1, 'company_group_id' => null, 'id' => $lists);
+		$options['fields'] = array('id', 'title', 'description', 'parent_id');
+		$org_map = $this->Organization->find('threaded', $options);
+		
+		$this->set(compact('level', 'org_map'));
+	}
+	
+	public function json_map($id) {
+		$this->autoRender = false;
+		$lists[$id] = $id;
+		
+		$level = $this->Organization->children($id, false, 'id');
+		foreach($level as $value) {
+			$lists[$value['Organization']['id']] = $value['Organization']['id'];
+		}
+		
+		$options['contain'] = false;
+		$options['conditions'] = array('type' => 1, 'company_group_id' => null, 'id' => $lists);
+		$options['fields'] = array('id', 'title', 'description', 'parent_id');
+		$org_map = $this->Organization->find('threaded', $options);
+		
+		$maps = array();
+		foreach($org_map as $m1) {
+			
+			foreach($m1['children'] as $k2 => $m2) {
+				$maps[$k2]['name'] = $m2['Organization']['title'];
+				$maps[$k2]['title'] = $m2['Organization']['description'];
+				
+				foreach($m2['children'] as $k3 => $m3) {
+					$maps[$k2]['children'][$k3]['name'] = $m2['Organization']['title'];
+					$maps[$k2]['children'][$k3]['title'] = $m2['Organization']['description'];
+				}
+			}
+		}
+		echo json_encode($maps);
 	}
 	
 	public function admin_locTree() {

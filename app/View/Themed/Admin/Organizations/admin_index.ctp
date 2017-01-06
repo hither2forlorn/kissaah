@@ -6,6 +6,7 @@ if(!$this->request->isAjax) {
 	echo $this->Html->script(array('../plugins/jstree/dist/jstree.min'), array('inline' => false));
 	/* END PAGE LEVEL PLUGINS */
 }
+$options = array('1' => 'Org Map');
 ?>
 <?php if(!$this->request->isAjax) { ?>
 <div class="row categories index">
@@ -63,8 +64,12 @@ if(!$this->request->isAjax) {
 							<td><?php echo h($organization['Organization']['title']); ?>&nbsp;</td>
 						</tr>
 						<tr>
+							<td><?php echo __('Description'); ?></td>
+							<td><?php echo h($organization['Organization']['description']); ?>&nbsp;</td>
+						</tr>
+						<tr>
 							<td><?php echo __('Type'); ?></td>
-							<td><?php echo h($organization['Organization']['type']); ?>&nbsp;</td>
+							<td><?php echo h($options[$organization['Organization']['type']]); ?>&nbsp;</td>
 						</tr>
 						<tr>
 							<td><?php echo __('Status'); ?></td>
