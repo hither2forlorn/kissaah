@@ -50,6 +50,7 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 			$display_game .= $this->Render->display($game['Configuration']['type'], $game, $count);
 			
 		} elseif($game['Configuration']['type'] == 12 && !isset($game['children'])) {
+			debug($game);
 			$summary 		= ' game-summary padding-top-20';
 			$depen_id 		= $game['Configuration']['dependent_id'];
 			$summary_items 	= $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', $depen_id));
@@ -65,10 +66,13 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 				if($item['Configuration']['status']) {
 					/* This is summary only */
 					if($item['Configuration']['type'] == 12) {
+						debug($item);
 						$summary 		= ' game-summary padding-top-20';
 						$depen_id 		= $item['Configuration']['dependent_id'];
 						$summary_items 	= $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', $depen_id));
 						$count 			= count($summary_items[$depen_id]['children']);
+						
+						debug($summary_items);
 
 						foreach($summary_items[$depen_id]['children'] as $item => $summary_item) {
 							/* Dirty fix to not show values and strength you continue to embrace */
@@ -135,7 +139,7 @@ $(document).ready(function(){
 	Game.SaveGame();
 	Game.SaveAndCloseGame();
 	Game.GameToolBar();
-	Game.TakeSurvey();
+	//Game.TakeSurvey();
 	Game.HashTag();
 	Game.AddMore();
 	Game.handleDatePicker();

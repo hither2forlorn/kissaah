@@ -368,7 +368,7 @@ var Game = function () {
 				'afterClose'	: function() {
 					$('a[data=btn-' + game_step + ']').trigger('click');
 				},
-        	})
+        	});
         },
         
         StartGame: function() {

@@ -120,7 +120,7 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		Game.TakeSurvey();
+		//Game.TakeSurvey();
 		
 		FileUpload.UploadFileImage();
 

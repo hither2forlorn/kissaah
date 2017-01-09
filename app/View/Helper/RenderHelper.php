@@ -5,6 +5,7 @@ class RenderHelper extends AppHelper {
 	var $helpers = array ('Session');
 	
 	function display($activitytype, $game, $count, $summary = false, $raw = false) {
+		debug($game);
 		$view = '';
 		if($activitytype == 1) {
 			$view = $this->_View->element('game_step/upload', array('selfdata' => $game, 'count' => $count, 'summary' => $summary));

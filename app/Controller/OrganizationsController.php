@@ -25,14 +25,21 @@ class OrganizationsController extends AppController {
 		}
 		
 		$options['contain'] = false;
-		$options['conditions'] = array('type' => null, 'company_group_id' => null, 'id' => $lists);
-		$level = $this->Organization->find('threaded', $options);
+
+		if($this->request->is('requested') == false) {
+			$options['conditions'] = array('type' => null, 'company_group_id' => null, 'id' => $lists);
+			$level = $this->Organization->find('threaded', $options);
+		}
 
 		$options['conditions'] = array('type' => 1, 'company_group_id' => null, 'id' => $lists);
 		$options['fields'] = array('id', 'title', 'description', 'parent_id');
 		$org_map = $this->Organization->find('threaded', $options);
 		
-		$this->set(compact('level', 'org_map'));
+		if($this->request->is('requested')) {
+			return $org_map;
+		} else {
+			$this->set(compact('level', 'org_map'));
+		}
 	}
 	
 	public function admin_locTree() {
