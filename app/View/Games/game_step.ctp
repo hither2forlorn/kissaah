@@ -54,10 +54,10 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 			$depen_id 		= $game['Configuration']['dependent_id'];
 			$summary_items 	= $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', $depen_id));
 			$count 			= count($summary_items[$depen_id]['children']);
-			
+
 			foreach($summary_items[$depen_id]['children'] as $summary_item) {
+				$summary_item['Dependent'] = $game['Configuration'];
 				$display_game .= $this->Render->display($summary_item['Configuration']['type'], $summary_item, $count, true);
-				
 			}
 			
 		} else {
@@ -69,18 +69,17 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 						$depen_id 		= $item['Configuration']['dependent_id'];
 						$summary_items 	= $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', $depen_id));
 						$count 			= count($summary_items[$depen_id]['children']);
-
+						
+						//dhiraj.khadka@
 						foreach($summary_items[$depen_id]['children'] as $item => $summary_item) {
 							/* Dirty fix to not show values and strength you continue to embrace */
 							if($item != 102 && $item != 243) {
 								$display_game .= $this->Render->display($summary_item['Configuration']['type'], $summary_item, $count, true);
-								
 							}
 						}
 						
 					} else {
 						$display_game .= $this->Render->display($item['Configuration']['type'], $item, $count);
-						
 					}
 				}
 			}

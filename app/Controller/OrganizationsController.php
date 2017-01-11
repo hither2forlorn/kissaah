@@ -42,6 +42,19 @@ class OrganizationsController extends AppController {
 		}
 	}
 	
+	public function get_competencies() {
+		$options['contain'] 	= false;
+		$options['conditions'] 	= array('parent_id' => 1, 'title' => 'Competencies');
+		$compet = $this->Organization->find('first', $options);
+		
+		if(!empty($compet)) {
+			$options['conditions'] 	= array('parent_id' => $compet['Organization']['id']);
+			$compet = $this->Organization->find('list', $options);
+		}
+
+		return $compet;
+	}
+	
 	public function admin_locTree() {
 		$this->autoRender = false;
 		$tree_list = array();
