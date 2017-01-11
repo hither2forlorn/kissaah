@@ -150,8 +150,10 @@ class ChallengesController extends AppController {
 			
 			if(empty($this->request->data['Challenge']['complete_by'])) {
 				unset($this->request->data['Challenge']['complete_by']);
+				$return['complete_by'] = '';
 			} else {
 				$this->request->data['Challenge']['complete_by'] = date('Y-m-d' , strtotime($this->request->data['Challenge']['complete_by']));
+				$return['complete_by'] = $this->request->data['Challenge']['complete_by'];
 			}
 			if(isset($this->request->data['Challenge']['new_complete_by'])) {
 				$this->request->data['Challenge']['new_complete_by'] = date('Y-m-d' , strtotime($this->request->data['Challenge']['new_complete_by']));
@@ -177,6 +179,7 @@ class ChallengesController extends AppController {
 			}
 			
 			if($this->Challenge->saveAll($this->request->data)) {
+				$return['goal_id'] 	= $this->request->data['Challenge']['goal_id'];
 				$return['success'] 	= 1;
 				$return['id'] 		= $this->Challenge->id;
 				$return['link'] 	= Router::url(array('controller' => 'challenges', 'action' => 'view', $return['id']), true);

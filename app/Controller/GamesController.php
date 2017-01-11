@@ -374,6 +374,12 @@ class GamesController extends AppController {
 		return json_encode($return);
 	}
 	
+	public function save_rating($id, $rating){
+		$this->autoRender = false;
+		$this->Game->id = $id;
+		$this->Game->saveField('rating', $rating);
+	}
+	
 	//2014-10-28, Badri
 	// this function will populate dreampath titles from image paths captions if dreampath titles are empty
 	function _saveDreamPaths($id , $d){

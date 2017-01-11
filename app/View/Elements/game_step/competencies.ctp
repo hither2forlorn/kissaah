@@ -11,10 +11,7 @@
 				console.log(id);
 
 				if(confid != undefined) {
-					$('div[data="drop-' + confid + '"]').html(ui.item.text());
-					$('div[data="dropsummary-' + confid + '"]').html(ui.item.text());
-					$('div[data="dropsummary-' + confid + '"]').attr('class', 'btn-in-progress btn-featured');
-					
+				
 					var data = { };
 					data['data[Game][' + confid + '][' + id + ']'] = ui.item.text();
 
@@ -44,15 +41,25 @@ if($summary) {
 		$heading = $this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10', $selfdata['Configuration']['title']);
 		
 		$li = '';
+		$r_li = '';
 		foreach($selfdata['Game'] as $answer) {
 			$li .= $this->Html->tag('li', $answer['Game']['answer'], array(
 					'class' 	=> 'col-xs-4',
-					'data-id' 	=> $answer['Game']['id']
-			));
+					'data-id' 	=> $answer['Game']['id']));
+			
+			$rating = $this->Html->div('rating', '', array(
+					'data-score' 	=> $answer['Game']['rating'], 
+					'data-id' 		=> $answer['Game']['id'],
+					'data-save'		=> $this->Html->url(array('controller' => 'games', 'action' => 'save_rating', $answer['Game']['id']))));
+			$r_li  .= $this->Html->div('col-md-12 no-padding margin-top-5 margin-bottom-10', $rating);
+				
 		}
 		
-		$ul = $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 competencies-list', 'data-conf' => $selfdata['Configuration']['id']));
-		echo $this->Html->div('col-md-4 col-md-offset-4 col-sm-4 col-xs-4 no-padding padding-left-10 hidden-xs', $heading . $ul);
+		$ul = $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 competencies-list'));
+		$r_ul = $this->Html->tag('ul', $r_li, array('class' => 'col-md-12 col-sm-12 col-xs-12 text-center'));
+		echo $this->Html->div('col-md-4 col-md-offset-2 col-sm-4 col-xs-4 no-padding padding-left-10 hidden-xs', $heading . $ul);
+		echo $this->Html->div('col-md-4 col-sm-4 col-xs-4 no-padding padding-left-10 hidden-xs', 
+				$this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10', 'Rating') . $r_ul);
 		
 	}
 
@@ -91,3 +98,8 @@ if($summary) {
 	}
 }
 ?>
+<script>
+$(document).ready(function(){
+	Game.handleRating();
+});
+</script>
