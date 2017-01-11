@@ -62,10 +62,7 @@
 							<label class="col-md-3 control-label"><?php echo __('Group Admin'); ?></label>
 							<div class="col-md-5"><?php echo $this->Form->input('group_admin', array('type' => 'checkbox', 'hiddenField' => false)); ?></div>
 						</div>
-                                            <div class="form-group">
-							<label class="col-md-3 control-label"></label>
-							<div class="col-md-5"><?php echo $this->Form->input('upload', array('type'=>'file')); ?></div>
-						</div>
+                                          
 					</div>
 					<div class="form-actions right">
 						<button class="btn green" type="submit"><i class="fa fa-check"></i> Save</button>
