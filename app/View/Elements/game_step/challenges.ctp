@@ -17,18 +17,18 @@ foreach($selfdata['children'] as $child) {
 			
 			$goal = $this->requestAction(array('controller' => 'challenges', 'action' => 'goal', $dependent['id']));
 			
-			$optionsch = array();
-			$optionsch['type'] = 'hidden';
+			$optionsch 				= array();
+			$optionsch['type'] 		= 'hidden';
 			$optionsch['data-depn'] = $dependent['id'];
 			
-			$optionsch['value'] = $this->Session->read('Auth.User.id');
+			$optionsch['value'] 	= $this->Session->read('Auth.User.id');
 			$user_id = $this->Form->input('Challenge.user_id', $optionsch);
 	
 			$optionsch['value'] = 'myself';
-			$created_by = $this->Form->input('Challenge.created_by', $optionsch);
+			$created_by 			= $this->Form->input('Challenge.created_by', $optionsch);
 	
 			$optionsch['value'] = (empty($goal['Challenge']['name']))? $dependent['answer']: $goal['Challenge']['name'];
-			$challenge_name = $this->Form->input('Challenge.name', $optionsch);
+			$challenge_name 		= $this->Form->input('Challenge.name', $optionsch);
 	
 			$optionsch['value'] = $dependent['id'];
 			$goal_id = $this->Form->input('Challenge.goal_id', $optionsch);
@@ -37,9 +37,9 @@ foreach($selfdata['children'] as $child) {
 			$optionsch['data'] = 'from-' . $dependent['id'];
 			$challenge_from_id = $this->Form->input('Challenge.challenge_from_id', $optionsch);
 	
-			$optionsch['value'] = (empty($goal['Challenge']['id']))? '': $goal['Challenge']['id'];
-			$optionsch['data'] = 'challenge-' . $dependent['id'];
-			$challenge_id = $this->Form->input('Challenge.id', $optionsch);
+			$optionsch['value'] 	= (empty($goal['Challenge']['id']))? '': $goal['Challenge']['id'];
+			$optionsch['data'] 		= 'challenge-' . $dependent['id'];
+			$challenge_id 			= $this->Form->input('Challenge.id', $optionsch);
 	
 			$challenge = $this->Html->div('col-md-12 col-sm-12 col-xs-12 btn-in-progress text-left', 
 								(empty($goal['Challenge']['name']))? $dependent['answer']: $goal['Challenge']['name']);

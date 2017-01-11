@@ -368,7 +368,7 @@ var Game = function () {
 				'afterClose'	: function() {
 					$('a[data=btn-' + game_step + ']').trigger('click');
 				},
-        	})
+        	});
         },
         
         StartGame: function() {
@@ -517,6 +517,7 @@ var Game = function () {
 				            	$('a[data=addto-' + depen_id + ']').children('._start').text(completeby);
 				            	$('a[data=addto-' + depen_id + ']').children('._end').text(completeby);
 				            	$('a[data=addto-' + depen_id + ']').children('._description').text(description);
+				            	$('a[data=addto-' + depen_id + ']').removeClass('hidden');
 					            addthisevent.refresh();
     	        			}
     					}
@@ -737,18 +738,28 @@ var Game = function () {
 	    
 	    handleRating: function() {
 	    	$('.rating').raty({
-	    	    starHalf    : 'plugins/raty/lib/images/star-half.png',
-	    	    starOff     : 'plugins/raty/lib/images/star-off.png',
-	    	    starOn      : 'plugins/raty/lib/images/star-on.png',
+	    	    starHalf    : '../plugins/raty/lib/images/star-half.png',
+	    	    starOff     : '../plugins/raty/lib/images/star-off.png',
+	    	    starOn      : '../plugins/raty/lib/images/star-on.png',
 	    	    score		: function() {
 	    		    return $(this).attr('data-score');
 	      		},
 	      		click: function(score, evt) {
-	       			//alert('ID: ' + this.data + "\nscore: " + score + "\nevent: " + evt);
-					depen_id = $(this).attr('data-depn');
+	      			console.log(score);
+	      			console.log(evt);
+	      			console.log($(this).attr('data-id'));
 
-					var DOM_Element = $('input[data=rating-' + depen_id + ']');
-					DOM_Element.attr('value', score);
+	    			if($(this).attr('data-save') !== undefined) {
+	    				$.ajax({
+	    					url	: $(this).attr('data-save') + '/' + score
+	    				});
+	    			} else {
+		      			//alert('ID: ' + this.data + "\nscore: " + score + "\nevent: " + evt);
+						depen_id = $(this).attr('data-depn');
+						var DOM_Element = $('input[data=rating-' + depen_id + ']');
+						DOM_Element.attr('value', score);
+
+	    			}
 	      		}
 	    	});
 	    	
@@ -1359,6 +1370,19 @@ var SortingValues = function () {
 						$(this).parent('.add-wild-card').find('input').hide();
 					}
 				}
+			});
+		},
+	}
+}();
+
+var OrganizationMap = function () {
+	return {
+		init: function(data_map) {
+			$('#chart-container').orgchart({
+				'data' 			: data_map,
+				'nodeContent'	: 'title',
+				'verticalDepth'	: 3,
+				'depth'			: 4
 			});
 		},
 	}

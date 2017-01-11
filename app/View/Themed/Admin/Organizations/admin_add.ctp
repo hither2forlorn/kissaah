@@ -1,6 +1,6 @@
 <?php 
 $parent = (!empty($this->request->pass))? $this->request->pass[0]: ''; 
-$options = array();
+$options = array('1' => 'Org Map');
 ?>
 <div class="row categories form">
 	<div class="col-md-12">
@@ -19,6 +19,10 @@ $options = array();
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?php echo __('Title'); ?></label>
 							<div class="col-md-5"><?php echo $this->Form->input('title'); ?></div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label"><?php echo __('Description'); ?></label>
+							<div class="col-md-5"><?php echo $this->Form->input('description'); ?></div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?php echo __('Type'); ?></label>

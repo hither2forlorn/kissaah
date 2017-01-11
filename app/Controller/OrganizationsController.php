@@ -12,16 +12,34 @@ class OrganizationsController extends AppController {
 		foreach($organizations as $org) {
 			$levels[$org['Organization']['id']] = $this->Organization->children($org['Organization']['id']);
 		}
+		
 		$this->set(compact('organizations', 'levels'));
 	}
 	
 	public function map($id) {
-		$organization = $this->Organization->find('first', array(
-				'contain' => false,
-				'conditions' => array('id' => $id)));
+		$lists[$id] = $id;
 		
-		$level = $this->Organization->children($id);
-		$this->set(compact('organization', 'level'));
+		$level = $this->Organization->children($id, false, 'id');
+		foreach($level as $value) {
+			$lists[$value['Organization']['id']] = $value['Organization']['id'];
+		}
+		
+		$options['contain'] = false;
+
+		if($this->request->is('requested') == false) {
+			$options['conditions'] = array('type' => null, 'company_group_id' => null, 'id' => $lists);
+			$level = $this->Organization->find('threaded', $options);
+		}
+
+		$options['conditions'] = array('type' => 1, 'company_group_id' => null, 'id' => $lists);
+		$options['fields'] = array('id', 'title', 'description', 'parent_id');
+		$org_map = $this->Organization->find('threaded', $options);
+		
+		if($this->request->is('requested')) {
+			return $org_map;
+		} else {
+			$this->set(compact('level', 'org_map'));
+		}
 	}
 	
 	public function admin_locTree() {

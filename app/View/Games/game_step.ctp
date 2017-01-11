@@ -135,7 +135,7 @@ $(document).ready(function(){
 	Game.SaveGame();
 	Game.SaveAndCloseGame();
 	Game.GameToolBar();
-	Game.TakeSurvey();
+	//Game.TakeSurvey();
 	Game.HashTag();
 	Game.AddMore();
 	Game.handleDatePicker();

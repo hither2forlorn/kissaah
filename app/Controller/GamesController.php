@@ -104,18 +104,7 @@ class GamesController extends AppController {
 			$parent['Configuration']['type'] 	= 0;
 			$games = $this->__createTree($game_step, array($parent));
 			
-			$this->Session->write('Game.query_all', 1);
-			$frequentlyuw = $this->Game->find('all', array(
-										'fields' => array('answer', 'COUNT(Game.answer)'),
-										'conditions' => array('Configuration.type NOT IN (0, 1, 2, 9, 10)',
-																	'Configuration.status' => 1,
-																	'Game.answer NOT' => ''),
-										'group' => array('Game.answer'),
-										'order' => array('COUNT(Game.answer) DESC'),
-										'limit' => 10));
-			$this->Session->delete('Game.query_all');
-			
-			$this->set(compact('games', 'step_information', 'frequentlyuw'));
+			$this->set(compact('games', 'step_information'));
 			
 		} else {
 			$this->Session->write('Current.game_step', $id);
@@ -127,25 +116,12 @@ class GamesController extends AppController {
 			foreach ($childrens as $a){
 				$game_step[$a['Configuration']['parent_id']][] = $a;
 			}
-				
+
 			$parent['Configuration']['id'] 		= $id;
 			$parent['Configuration']['type'] 	= 0;
 			$games = $this->__createTree($game_step, array($parent));
-				
-			$this->Session->write('Game.query_all', 1);
-			$frequentlyuw = $this->Game->find('all', array(
-					'fields' => array('answer', 'COUNT(Game.answer)'),
-					'conditions' => array('Configuration.type NOT IN (0, 1, 2, 9, 10)',
-							'Configuration.status' => 1,
-							'Game.answer NOT' => ''),
-					'group' => array('Game.answer'),
-					'order' => array('COUNT(Game.answer) DESC'),
-					'limit' => 10));
-			$this->Session->delete('Game.query_all');
-				
-			$this->set(compact('games', 'step_information', 'frequentlyuw'));
-			//$this->redirect(array('controller' => 'games', 'action' => 'index'));
-			
+
+			$this->set(compact('games', 'step_information'));
 		}
 	}
 	
@@ -168,14 +144,14 @@ class GamesController extends AppController {
  			
  			$parent['Configuration']['id'] 		= $key;
  			$parent['Configuration']['type'] 	= 0;
- 			if(isset($this->request->params['requested']) && $this->request->params['requested']) {
+ 			if($this->request->is('requested')) {
  				$step_games = $this->__createTree($game_step, array($parent));
  			} else {
  				$step_games[$key] = $this->__createTree($game_step, array($parent));
  			}
  		}
  		
- 		if(isset($this->request->params['requested']) && $this->request->params['requested']) {
+ 		if($this->request->is('requested')) {
  			return $step_games;
  		} else {
 	 		$this->set(compact('step_games'));
@@ -187,10 +163,17 @@ class GamesController extends AppController {
  	}
  	
 	public function spark_board() {
-	}
+            //debug($this->Session->read('ActiveGame.user_id'));
+            $configuration_question = $this->Game->Configuration->find('list', array('fields' => array('sub_txt', 'id'), 'conditions' => array('Configuration.parent_id' => 197)));
+            $spark_ans['Development'] = $this->Game->field('answer', array('configuration_id' => 59 , 'user_id' => $this->Session->read('ActiveGame.user_id')));
+            $spark_ans['Exposure'] = $this->Game->field('answer', array('configuration_id' => 118, 'user_id' => $this->Session->read('ActiveGame.user_id')));
+            $spark_ans['Connections'] = $this->Game->field('answer', array('configuration_id' => 185, 'user_id' => $this->Session->read('ActiveGame.user_id')));
+
+            $this->set('spark_ans', $spark_ans);
+            
+        }
 	
-	public function summary_spark_board() {
-	}
+	public function summary_spark_board() {}
 	
 	public function __createTree(&$list, $parent){
 		$tree = array();
@@ -199,6 +182,7 @@ class GamesController extends AppController {
 				$dependent = $this->Game->findAllByConfigurationId($l['Configuration']['dependent_id']);
 				foreach($dependent as $dept) {
 					$dept['Game']['type'] = $dept['Configuration']['type'];
+					$l['DependentConf'] = $dept['Configuration'];
 					$l['Dependent'][] = $dept['Game'];
 				}
 			}
@@ -397,6 +381,12 @@ class GamesController extends AppController {
 			
 		}
 		return json_encode($return);
+	}
+	
+	public function save_rating($id, $rating){
+		$this->autoRender = false;
+		$this->Game->id = $id;
+		$this->Game->saveField('rating', $rating);
 	}
 	
 	//2014-10-28, Badri

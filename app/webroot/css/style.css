@@ -1831,7 +1831,6 @@ div.value-list-xs {
   margin: 0;
   padding: 30% 5% 0;
 }
-
 .droppable-answer-xs {
   height: 40px;
   padding: 0 2px;
@@ -1846,7 +1845,6 @@ div.value-list-xs {
   text-align: center;
   margin: 0;
 }
-
 .draggable-drop-here {
   background-color: #cccccc;
   color: #aaaaaa;
@@ -1912,6 +1910,22 @@ div.value-list-xs {
 .add-wild-card a {
 	display: inline-block;
 	padding: 15px 0;
+}
+
+ul.competencies-list {
+	min-height:300px;
+	padding: 0;
+}
+ul.competencies-list li {
+  background-color: #0567a5;
+  color: #ffffff;
+  cursor: move;
+  display: inline-block;
+  margin: 1px 0;
+  padding: 7px 2px;
+  text-align: center;
+  width: 100%;
+  z-index: 300;
 }
 
 canvas.temp {
