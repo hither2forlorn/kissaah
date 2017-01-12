@@ -163,14 +163,15 @@ class GamesController extends AppController {
  	}
  	
 	public function spark_board() {
-            //debug($this->Session->read('ActiveGame.user_id'));
+            $configuration_id = $this->Session->read('ActiveGame.configuration_id');
+              //debug($this->Session->read('ActiveGame.user_id'));
             $configuration_question = $this->Game->Configuration->find('list', array('fields' => array('sub_txt', 'id'), 'conditions' => array('Configuration.parent_id' => 197)));
-            $spark_ans['Development'] = $this->Game->field('answer', array('configuration_id' => 59 , 'user_id' => $this->Session->read('ActiveGame.user_id')));
-            $spark_ans['Exposure'] = $this->Game->field('answer', array('configuration_id' => 118, 'user_id' => $this->Session->read('ActiveGame.user_id')));
-            $spark_ans['Connections'] = $this->Game->field('answer', array('configuration_id' => 185, 'user_id' => $this->Session->read('ActiveGame.user_id')));
+            $spark_ans['Development'] = $this->Game->field('answer', array('configuration_id' => 59));
+            $spark_ans['Exposure'] = $this->Game->field('answer', array('configuration_id' => 118));
+            $spark_ans['Connections'] = $this->Game->field('answer', array('configuration_id' => 185));
+            
 
             $this->set('spark_ans', $spark_ans);
-            
         }
 	
 	public function summary_spark_board() {}

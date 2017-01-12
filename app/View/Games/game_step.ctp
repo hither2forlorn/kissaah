@@ -33,7 +33,6 @@ foreach($visions as $vision) {
 </div>
 <?php
 foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
-	
 	if($game['Configuration']['status'] && $game['Configuration']['type'] != 16) {
 		$display_game = $summary = '';
 
