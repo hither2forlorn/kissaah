@@ -59,6 +59,7 @@
 	</div>
 	<div class="row no-margin padding-bottom-20">
 		<h3 class="activitytitle">My Next 3-12 months</h3>
+                 <?php //echo $spark_ans['compentancies']; ?>
 		<div class="col-md-12 col-sm-12">
 			<div class="row margin-bottom-15">
 				<div class="col-md-3 col-sm-3 col-xs-12"></div>
@@ -104,19 +105,22 @@
 			</div>
 		</div>
 	</div>
+    
 	<div class="row no-margin padding-bottom-20 margin-bottom-20">
-           
+          <?php //foreach ($spark_ans as $spkansdbg){ ?>
+            <?php //print print_r($spark_ans); ?>
 		<div class="col-md-4 col-sm-4 col-xs-12 padding-0">
 			Development <a href="#" class="add-more" data="data[Game][218][0]" data-add="218"><i class="fa fa-lg fa-plus-circle"></i></a>
 			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Development" type="text" value="<?php echo $spark_ans['Development']; ?>">
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-12 padding-right-0">
 			Exposure <a href="#" class="add-more" data="data[Game][218][0]" data-add="218"><i class="fa fa-lg fa-plus-circle"></i></a>
-			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Exposure" type="text" value="<?php echo $spark_ans['Exposure']; ?>">
+			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Exposure" type="text" value="">
 		</div>
 		<div class="col-md-4 col-sm-4 col-xs-12 padding-right-0">
 			Connections <a href="#" class="add-more" data="data[Game][218][0]" data-add="218"><i class="fa fa-lg fa-plus-circle"></i></a>
-			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Connections" type="text" value="<?php echo $spark_ans['Connections']; ?>">
-		</div>
+			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Connections" type="text" value="">
+	
 	</div>
+          <?php // } ?>
 </div>

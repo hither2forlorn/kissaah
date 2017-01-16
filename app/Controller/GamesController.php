@@ -163,15 +163,30 @@ class GamesController extends AppController {
  	}
  	
 	public function spark_board() {
-            $configuration_id = $this->Session->read('ActiveGame.configuration_id');
+            //$configuration_id = $this->Session->read('ActiveGame.configuration_id');
               //debug($this->Session->read('ActiveGame.user_id'));
-            $configuration_question = $this->Game->Configuration->find('list', array('fields' => array('sub_txt', 'id'), 'conditions' => array('Configuration.parent_id' => 197)));
-            $spark_ans['Development'] = $this->Game->field('answer', array('configuration_id' => 59));
-            $spark_ans['Exposure'] = $this->Game->field('answer', array('configuration_id' => 118));
-            $spark_ans['Connections'] = $this->Game->field('answer', array('configuration_id' => 185));
+            //$configuration_question = $this->Game->Configuration->find('list', array('fields' => array('sub_txt', 'id'), 'conditions' => array('Configuration.parent_id' => 197)));
+            //$configuration_ids = array_values($configuration_question); 
+            //$main_required_config_ids = $this->Game->Configuration->find('list', array('fields'=> array('parent_id', 'id'), 'conditions'=>array('OR'=>array('parent_id'=>$configuration_ids))));
+            //$main_required_config_ids = array_values($main_required_config_ids);
+            // $spark_ans_debug = $this->Game->field('answer', array('configuration_id'=> array('OR' => array('configuration_id' => $configuration_ids))));
+            //$spark_ans_debug = $this->Game->find('list', array('fields'=>array('id', 'answer'), 'conditions'=>array('AND'=> array('configuration_id'=> $main_required_config_ids))));
             
 
+
+            //debug($main_required_config_ids);
+            //debug($spark_ans_debug); exit; 
+            
+            $configuration_comp = $this->Game->Configuration->find('list', array('fields' => array( 'id', 'title'), 'conditions' => array('Configuration.parent_id' => 172)));
+            $spark_comp = $this->Game->field('answer', array('configuration_id' => 111, 'user_id' => $this->Session->read('ActiveGame.user_id')));
+           debug($spark_comp);
+            $configuration_question = $this->Game->Configuration->find('list', array('fields' => array('sub_txt', 'id'), 'conditions' => array('Configuration.parent_id' => 197)));
+            $spark_ans['Development'] = $this->Game->field('answer', array('configuration_id' => 59 , 'user_id' => $this->Session->read('ActiveGame.user_id')));
+            $spark_ans['Exposure'] = $this->Game->field('answer', array('configuration_id' => 118, 'user_id' => $this->Session->read('ActiveGame.user_id')));
+            $spark_ans['Connections'] = $this->Game->field('answer', array('configuration_id' => 185, 'user_id' => $this->Session->read('ActiveGame.user_id')));
+
             $this->set('spark_ans', $spark_ans);
+            
         }
 	
 	public function summary_spark_board() {}
