@@ -33,10 +33,7 @@
 							<label class="col-md-3 control-label"><?php echo __('Code'); ?></label>
 							<div class="col-md-5"><?php echo $this->Form->input('company'); ?></div>
 						</div>
-                                            <div class="form-group">
-							<label class="col-md-3 control-label"></label>
-							<div class="col-md-5"><?php echo $this->Form->input('upload', array('type'=>'file')); ?></div>
-						</div>
+                                           
 					</div>
 					<div class="form-actions right">
 						<?php echo $this->Html->link('Cancel', $this->request->referer(), array('class' => 'btn default')); ?>
