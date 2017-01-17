@@ -43,14 +43,14 @@ if($summary) {
 		
 		$li = '';
 		$r_li = '';
-		$offset = ' col-md-offset-4';
+		$offset = ' col-md-offset-2';
 		foreach($selfdata['Game'] as $answer) {
 			$li .= $this->Html->tag('li', $answer['Game']['answer'], array(
 					'class' 	=> 'col-xs-4',
 					'data-id' 	=> $answer['Game']['id']));
 			
 			if($selfdata['Dependent']['feedback']) {
-				$offset = ' col-md-offset-2';
+				$offset = '';
 				$rating = $this->Html->div('rating', '', array(
 						'data-score' 	=> $answer['Game']['rating'],
 						'data-id' 		=> $answer['Game']['id'],
@@ -60,7 +60,7 @@ if($summary) {
 		}
 		
 		$ul = $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 competencies-list', 'data-conf' => $selfdata['Configuration']['id']));
-		echo $this->Html->div('col-md-4 col-sm-4 col-xs-4 no-padding padding-left-10 hidden-xs' . $offset, $heading . $ul);
+		echo $this->Html->div('col-md-8 col-sm-12 col-xs-12 no-padding padding-left-10 hidden-xs' . $offset, $heading . $ul);
 		
 		if($selfdata['Dependent']['feedback']) {
 			$r_ul = $this->Html->tag('ul', $r_li, array('class' => 'col-md-12 col-sm-12 col-xs-12 text-center'));

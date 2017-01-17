@@ -2355,3 +2355,10 @@ a.back-to-road-map {
 .font-orange-sharp {
 	color: #ea7328 !important;
 }
+
+.save-challenge .btn-in-progress {
+	height:42px;
+}
+.save-challenge input[type=text] {
+	height:42px;
+}

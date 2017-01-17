@@ -219,57 +219,7 @@ class GamesController extends AppController {
 		}
 		return $step_complete;
 	}
-	
-	//For the Graph (My Thriving Scale)
-	public function graph_data(){
-		$this->autoRender = false;
-		$default_data = $this->Configuration->find('all', array(
-				'contain'	 => array('Game' => array('conditions' => array(
-						'Game.user_id' => $this->Session->read('ActiveGame.user_id'),
-						'OR' => array('Game.user_game_status_id' => $this->Session->read('ActiveGame.id'),
-								'Game.user_game_status_id IS NULL')))),
-				'conditions' => array('Configuration.type' => array(1, 10), 'Configuration.status' => 1, 'Configuration.id NOT' => 36),
-				'order' 	 => array('Configuration.lft')));
-		foreach ($default_data as $data) {
-			if ($data['Configuration']['title'] != 'Image Activity' &&
-				$data['Configuration']['title'] != 'Cartoon Upload' &&
-				$data['Configuration']['title'] != 'Image Place'    &&
-				$data['Configuration']['title'] != 'Image Path'	) {
-				$dependent_id = ($data['Configuration']['dependent_id'] == '')? 'BaseLine': $data['Configuration']['dependent_id'];
-				$spider[$dependent_id][] = (empty($data['Game'][0]['answer']))? 0: $data['Game'][0]['answer'];
-			}
-		}
-		$colors = array('105' => 'blue', '109' => 'green', '58' => 'orange', 'BaseLine' => 'red');
-		$labels = array('105' => '&nbsp;Path #1', '109' => '&nbsp;Path #2', '58' => '&nbsp;Path #3', 'BaseLine' => '&nbsp;Base Line');
-		$spider_data = '[';
-		foreach($spider as $i => $s) {
-			$spider_data .= '{';
-			$spider_data .= 'color: "' . $colors[$i] . '"';
-			$spider_data .= ', label: "' . $labels[$i] . '"';
-			$d = '[';
-			foreach($s as $key => $value) {
-				if(count($s) == ($key + 1)) {
-					$d .= '[' . $key . ',' . $value . ']';
-				} else {
-					$d .= '[' . $key . ',' . $value . '],';
-				}
-			}
-			$d .= ']';
-			$spider_data .= ',data:' . $d;
-			$spider_data .= ',spider: {"show":true, "lineWidth":3}';
-			$spider_data .= '},';
-		}
-		$spider_data .= ']';
-		return($spider_data);
-	}
-	
-	public function render_spider(){
-		$this->autoRender = false;
-		$this->render('/Elements/spider');
-	 	/* $spider_data = $this->graph_data();
-		return json_encode($spider_data); */
- 	} 
-	
+		
 	//2014-5-22,#8511,Badri added this function
 	//This function takes configuration_id as parameter and deletes the image associated with that id.
 	public function remove_image($id = null){
@@ -801,19 +751,6 @@ class GamesController extends AppController {
 	public function collage_signup() {}
 	
 	public function collage_roadmap_completed(){}
-	
-	//2014-7-11 Badri ,For Mobile Views
-	function discover(){	
-		$this->layout='pages';
-	}
-	
-	function dream(){
-		$this->layout='pages';
-	}
-	
-	function design(){
-		$this->layout='pages';
-	}
 	
 	public function admin_collage($activity) {
 		$companyAdmin = $this->Session->read('AdminAccess.company');

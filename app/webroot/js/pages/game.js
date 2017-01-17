@@ -758,7 +758,6 @@ var Game = function () {
 						depen_id = $(this).attr('data-depn');
 						var DOM_Element = $('input[data=rating-' + depen_id + ']');
 						DOM_Element.attr('value', score);
-
 	    			}
 	      		}
 	    	});

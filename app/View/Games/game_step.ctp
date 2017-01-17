@@ -70,7 +70,6 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 						$summary_items 	= $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', $depen_id));
 						$count 			= count($summary_items[$depen_id]['children']);
 						
-						//dhiraj.khadka@
 						foreach($summary_items[$depen_id]['children'] as $item => $summary_item) {
 							/* Dirty fix to not show values and strength you continue to embrace */
 							if($item != 102 && $item != 243) {

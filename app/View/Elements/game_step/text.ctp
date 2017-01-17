@@ -1,4 +1,9 @@
 <?php
+$vision_date = $this->Session->read('ActiveGame.vision_date');
+if(!is_null($vision_date) || $vision_date != '') {
+	$options['readonly'] = 'readonly';
+}
+
 $answer 				= '';
 $id						= $selfdata['Configuration']['id'];
 

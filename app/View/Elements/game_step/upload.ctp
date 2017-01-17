@@ -1,4 +1,6 @@
 <?php
+$vision_date = $this->Session->read('ActiveGame.vision_date');
+
 $answer = 'http://placehold.it/300x300&text=X';
 if(empty($selfdata['Configuration']['dependent_id'])) {
 	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
@@ -15,7 +17,7 @@ if(empty($selfdata['Configuration']['dependent_id'])) {
 $image = $this->Html->image($answer, array('class' => 'img-responsive margin-bottom-5', 'data' => 'medium-' . $id));
 
 $actions = '';
-if($summary) {
+if($summary || !is_null($vision_date) || $vision_date != '') {
 	$image_class = 'col-md-4 col-sm-4 col-xs-8 padding-0 image-box-summary';
 	
 } else {

@@ -57,6 +57,10 @@
 			</div>
 		</div>
 	</div>
+	<?php 
+	$my_next = $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', 172));
+	//debug($my_next);
+	?>
 	<div class="row no-margin padding-bottom-20">
 		<h3 class="activitytitle">My Next 3-12 months</h3>
 		<div class="col-md-12 col-sm-12">
