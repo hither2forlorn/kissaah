@@ -1,6 +1,10 @@
 <?php
 $title = str_replace('%roadmap%', $this->Session->read('ActiveGame.roadmap'), $selfdata['Configuration']['title']);
 
+$vision_date = $this->Session->read('ActiveGame.vision_date');
+if(!is_null($vision_date) || $vision_date != '') {
+	$options['readonly'] = 'readonly';
+}
 $options['class'] 		= 'form-control';
 $options['label'] 		= false;
 $options['type'] 		= 'textarea';

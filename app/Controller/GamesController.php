@@ -531,8 +531,8 @@ class GamesController extends AppController {
 		if(!is_null($pinterest_user)){
 			Unirest::verifyPeer(false);
 			$response = Unirest::get('https://ismaelc-pinterest.p.mashape.com/' . $pinterest_user . '/pins',
-						array('X-Mashape-Authorization' => 'IBcgqYg6oSMaoNXp7drOhj3BujhywzKT'), null);
-				
+						array('X-Mashape-Authorization' => 'qNmcpxBvG6mshprCvV9PDbnaMwf1p1dceGbjsnM2uc4hySaHRV'), null);
+			
 			if(!empty($response)){
 				$res 	= $response->raw_body;
 				$r		= json_decode($res,false);
