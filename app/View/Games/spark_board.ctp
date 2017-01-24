@@ -57,22 +57,33 @@
 			</div>
 		</div>
 	</div>
-	<?php 
-	$my_next = $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', 172));
-	foreach($my_next[172]['children'] as $key => $next) {
-		debug($key);
-	}
-	debug($my_next);
-	?>
 	<div class="row no-margin padding-bottom-20">
 		<h3 class="activitytitle">My Next 3-12 months</h3>
 		<div class="col-md-12 col-sm-12">
 			<div class="row margin-bottom-15">
 				<div class="col-md-3 col-sm-3 col-xs-12"></div>
-				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Capture Learning</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Add Date</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Add Context</div>
+				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Learning</div>
+				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Date Added</div>
+				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Context</div>
 			</div>
+<?php 
+	$my_next = $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', 172));
+	foreach($my_next[172]['children'] as $key => $next) {
+		if($key == 111 && !empty($next['Game'])) {
+			foreach($next['Game'] as $game) {
+				$text  = $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-left-0', $game['Game']['answer']);
+				$text .= $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-0', 
+						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '')));
+				$text .= $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-0', 
+						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '')));
+				$text .= $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-0', 
+						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '')));
+				
+				echo $this->Html->div('row margin-bottom-15', $text);
+			}
+		}
+	}
+?>
 			<div class="row margin-bottom-15">
 				<div class="col-md-3 col-sm-3 col-xs-12 padding-left-0">Relationship Building</div>
 				<div class="col-md-3 col-sm-3 col-xs-12 padding-0">
