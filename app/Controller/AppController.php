@@ -57,7 +57,7 @@ class AppController extends Controller {
 
 	public $helpers = array('Form', 'Html', 'Js', 'Session', 'Text', 'Paginator'); //, 'Facebook.Facebook');
 	
-	function beforeFilter(){
+	function beforeFilter() {
 		parent::beforeFilter();
 		if(!$this->Auth->user()){
 			$cookie = $this->Cookie->read('Auth.User');
@@ -80,7 +80,7 @@ class AppController extends Controller {
 			}
 		}
 		
-		if(strpos(Router::url('/', true), 'kissaah.com') !== false) {
+		if(strpos(Router::url('/', true), 'kissaah.com') !== false || strpos(Router::url('/', true), 'humancatalyst') !== false) {
 			Configure::write('debug', 0);
 		} else {
 			Configure::write('debug', 1);
@@ -91,6 +91,16 @@ class AppController extends Controller {
 				//$this->redirect(array('controller' => 'users', 'action' => 'master_login'));
 			}
 		}
+		
+		if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+			$this->Session->write('Company.name', 'Human Catalyst');
+			$this->Session->write('Company.link', 'humancatalyst.co');
+		} else {
+			$this->Session->write('Company.name', 'Kissaah');
+			$this->Session->write('Company.link', 'kissaah.com');
+		}
+		
+		debug($this->Session->read());
 	}
 	
 	function beforeRender() {
@@ -131,7 +141,7 @@ class AppController extends Controller {
 	protected function _sendEmail($options = array(), $data = array()){
 		if(isset($options['template'])) {
 			$defaults['from'] 		= Configure::read('App.defaultEmail');
-			$defaults['subject'] 	= 'Kissaah Communication';
+			$defaults['subject'] 	= $this->Session->read('Company.name') . ' Communication';
 			$defaults['layout'] 	= 'default';
 				
 			$options = array_merge($defaults, $options);

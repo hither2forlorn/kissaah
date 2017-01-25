@@ -32,7 +32,7 @@
 		
 		if(empty($ally['User']['id'])) {
 			echo $this->Html->para( 'margin-bottom-10 margin-top-10', 
-									'As this person is not a Kissaah user right now, 
+									'As this person is not a ' . $this->Session->read('Company.name') . ' user right now, 
 									 can you tell us their gender so we can address
 									 them appropriately on your behalf?');
 			echo $this->Form->radio('gender', array('M' => 'Male', 'F' => 'Female'), array(

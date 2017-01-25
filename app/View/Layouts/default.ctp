@@ -7,17 +7,15 @@
 <head>
 <?php 
 if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
-	$title = 'Human Catalyst';
 	$favicon = 'hcfavicon.gif';
 } else {
-	$title = 'Kissaah';
 	$favicon = 'favicon.ico';
 }
 ?>
 	<meta charset="utf-8">
-	<title><?php echo $title; ?></title>
+	<title><?php echo $this->Session->read('Company.name'); ?></title>
 	<meta name="description" content="">
-	<meta name="author" content="Kissaah by Victoria Woo">
+	<meta name="author" content="<?php echo $this->Session->read('Company.name'); ?> by Victoria Woo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<script type="text/javascript">var host_url = '<?php echo Router::url('/', true); ?>';</script>

@@ -7,7 +7,7 @@ if($message != ''){
 	if(count($answers) == 0) {
 			
 		$message = $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12',
-						$this->Html->para(null, 'Enter your friends email to invite them to join Kissaah as your ally.'));
+						$this->Html->para(null, 'Enter your friends email to invite them to join ' . $this->Session->read('Company.name') . ' as your ally.'));
 		
 		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', $message);
 

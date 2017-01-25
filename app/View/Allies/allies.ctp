@@ -27,7 +27,8 @@
 		<?php
 		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', 
 				$this->Html->para('margin-bottom-20', 
-								  'Once you\'ve typed in their name, you\'ll be able to see if your Ally is already a Kissaah user.') . 
+								  'Once you\'ve typed in their name, you\'ll be able to see if your 
+								   Ally is already a ' . $this->Session->read('Company.name') . ' user.') . 
 				$this->Html->para('margin-bottom-20', 'If so you can add them as an ally easily at the touch of a button.'));
 		
 		if(count($current_allies) > 0) {

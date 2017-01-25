@@ -101,14 +101,14 @@ class UsersController extends AppController {
 						return 1;
 					} else {
 						$options = array(
-								'subject' 	=> 'Kissaah: Welcome To Kissaah ',
+								'subject' 	=> 'Welcome to ' . $this->Session->read('Company.name'),
 								'template' 	=> 'users_register',
 								'to'		=> $this->request->data['User']['email']
 						);
 						$this->_sendEmail($options, $this->request->data);
 							
 						$options = array(
-								'subject' 	=> 'Kissaah: New User Registration',
+								'subject' 	=> $this->Session->read('Company.name') . ': New User Registration',
 								'template' 	=> 'users_register_admin',
 								'to'		=> array('bob@himalayantechies.com', 'support@kissaah.com', 'vic@kissaah.com', 'hello@humancatalyst.co')
 						);
@@ -149,18 +149,18 @@ class UsersController extends AppController {
 					$this->User->saveField('verified', 1);
 					if($admin == 1) {
 						$options = array(
-								'subject' 	=> 'Kissaah: Your account is verified',
+								'subject' 	=> $this->Session->read('Company.name') . ': Your account is verified',
 								'template' 	=> 'verified',
 								'to'		=>  $email
 						);
 						$this->_sendEmail($options, $data);
 					}
 					
-					$this->Session->setFlash('Your account is validated. Thank you for signing up with Kissaah.', 'default',
+					$this->Session->setFlash('Your account is validated. Thank you for signing up with ' . $this->Session->read('Company.name'), 'default',
 											 array('class' => 'flashSuccess margin-bottom-20'));
 				} else {
 					/* User does not exist */
-					$this->Session->setFlash('You have not yet registered with kissaah. Please register to continue.', 'default',
+					$this->Session->setFlash('You have not yet registered with ' . $this->Session->read('Company.name') . '. Please register to continue.', 'default',
 							array('class' => 'flashError margin-bottom-20'));
 				}
 			} else {
@@ -198,7 +198,7 @@ class UsersController extends AppController {
 					$data['User']['email'] 		= $this->request->data['User']['email'];
 					$data['User']['hash'] 		= Security::hash($this->request->data['User']['email']);
 					$options = array(
-						'subject' 	=> 'Kissaah: Welcome To Kissaah ',
+						'subject' 	=> 'Welcome to ' . $this->Session->read('Company.name'),
 						'template' 	=> 'users_register',
 						'to'		=> $this->request->data['User']['email']
 					);
@@ -314,7 +314,7 @@ class UsersController extends AppController {
 					if ($this->User->saveField('password', $resetPassword)) {
 						$resetUser['User']['password'] = $resetPassword;
 						$options = array(
-								'subject' 	=> 'Kissaah: Reset Password',
+								'subject' 	=> $this->Session->read('Company.name') . ': Reset Password',
 								'template' 	=> 'resetpassword',
 								'to'		=> $resetUser[$this->modelClass]['email']
 						);
@@ -506,7 +506,7 @@ class UsersController extends AppController {
 		}
 		
 		$options = array(
-				'subject' 	=> 'Kissaah : Self Notes',
+				'subject' 	=> $this->Session->read('Company.name') . ': Self Notes',
 				'template' 	=> 'self_note',
 				'to'		=> $this->Auth->User('email'),
 				'setFlash'	=> false
