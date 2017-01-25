@@ -80,7 +80,7 @@
 		echo $this->Html->div('margin-bottom-10',
 			$this->Html->link(
 				$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Terms of Service', 
-								   'http://www.kissaah.com/terms-of-service/', 
+								   $this->Session->read('Company.link') . '/terms-of-service/', 
 								   array('escape' => false, 'target' => '_blank', 'class' => '')));
 		?>
 	</div>
@@ -91,7 +91,7 @@
 
 		//echo $this->Html->div('col-md-12', $this->Html->tag('h3', 'Feedback'));
 		 
-		echo $this->Html->div('col-md-12', $this->Html->para(null, 'Got an idea about Kissaah you\'d like to share, or 
+		echo $this->Html->div('col-md-12', $this->Html->para(null, 'Got an idea about ' . $this->Session->read('Company.name') . ' you\'d like to share, or 
 																	some feedback about your experience? Fill out this survey'));
 																	
 		echo $this->Html->div('col-md-12 margin-bottom-10', $this->Html->link('Start Survey', 

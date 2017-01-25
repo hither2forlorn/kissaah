@@ -1,6 +1,6 @@
 <div class="game-header row">
 	<div class="col-md-12 col-xm-12">
-		<?php echo $this->Html->tag('h3', 'Welcome to Kissaah', array('class' => 'activitytitle')); ?>
+		<?php echo $this->Html->tag('h3', 'Welcome to ' . $this->Session->read('Company.name'), array('class' => 'activitytitle')); ?>
 	</div>
 </div>
 <div class="no-margin row">

@@ -86,21 +86,13 @@ class AppController extends Controller {
 			Configure::write('debug', 1);
 		}
 		
-		if(strpos(Router::url('/', true), 'kissaah.org') !== false && $this->action != 'master_login' && $this->action != 'verify') {
-			if(!$this->Session->check('MasterLogin')) {
-				//$this->redirect(array('controller' => 'users', 'action' => 'master_login'));
-			}
-		}
-		
 		if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 			$this->Session->write('Company.name', 'Human Catalyst');
-			$this->Session->write('Company.link', 'humancatalyst.co');
+			$this->Session->write('Company.link', 'http://www.humancatalyst.co');
 		} else {
 			$this->Session->write('Company.name', 'Kissaah');
-			$this->Session->write('Company.link', 'kissaah.com');
+			$this->Session->write('Company.link', 'http://www.kissaah.com');
 		}
-		
-		debug($this->Session->read());
 	}
 	
 	function beforeRender() {

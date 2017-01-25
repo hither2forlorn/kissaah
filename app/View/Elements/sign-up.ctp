@@ -161,7 +161,7 @@
 		<div class="form-actions">
 			<div class="form-group">
 				<?php 
-				echo $this->Form->submit(__('Join Kissaah'), array('class' => 'btn btn-primary collapsed', 'div' => false));
+				echo $this->Form->submit(__('Join ' . $this->Session->read('Company.name')), array('class' => 'btn btn-primary collapsed', 'div' => false));
 				echo $this->Facebook->login(array('custom' => true, 'label' => 'Log In with Facebook',
 												  'class' => 'btn btn-primary pull-right collapsed'), 'Log In with Facebook'); 
 				?>

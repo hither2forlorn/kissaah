@@ -37,7 +37,7 @@ if(isset($img)){
 			if(isset($i)){
 				echo $this->Html->div('col-md-4 col-sm-4 pin-images',
 						$this->Html->image($i, array('class' => 'img-responsive thumbnail')) .
-						$this->Html->link('Upload to Kissaah', '#', array('class' => 'pinterest-upload', 'data' => $cid)));
+						$this->Html->link('Upload to ' . $this->Session->read('Company.name'), '#', array('class' => 'pinterest-upload', 'data' => $cid)));
 			}
 		}
 		?>

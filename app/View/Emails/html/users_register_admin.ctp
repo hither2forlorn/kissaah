@@ -4,13 +4,13 @@
 					array('controller' => 'users', 'action' => 'verify', $data['User']['email'], $data['User']['hash'], 'full_base' => true),
 					array('fullBase' => true));
 	
-	echo $this->Html->para(null, $data['User']['name'] . ' has requested an account with Kissaah!');
+	echo $this->Html->para(null, $data['User']['name'] . ' has requested an account with ' . $this->Session->read('Company.name') . '!');
 	//echo $this->Html->para(null, 'Please ' . $link . ' to confirm your email.');
 	echo $this->Html->para(null, 'Please head on to the admin screen to approve the new user and get them started on their way.');
 ?>
 
-<p>The Kissaah Team</p>
-<p>Join the Kissaah Community, find us on:</p>
+<p>The <?php echo $this->Session->read('Company.name');?> Team</p>
+<p>Join the <?php echo $this->Session->read('Company.name'); ?> Community, find us on:</p>
 <div><?php 
 	echo $this->Html->image('social/FB-f-Logo__blue_29.png', 
 							array('fullBase' => true, 'url' => 'https://www.facebook.com/kissaah'));

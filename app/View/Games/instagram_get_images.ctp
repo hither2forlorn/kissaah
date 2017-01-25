@@ -4,7 +4,7 @@
 		echo $this->Html->tag('h3', 'Connect to Instagram');
 		if($this->Session->read('Instagram.error_reason') == 'user_denied') {
 			echo $this->Html->para(null, 'Unable to retrieve images.');
-			echo $this->Html->para(null, 'You have denied access from Kissaah to your Instagram account.');
+			echo $this->Html->para(null, 'You have denied access from ' . $this->Session->read('Company.name') . ' to your Instagram account.');
 		}
 		echo 'Click the link to get started:&nbsp;&nbsp;&nbsp;';
 		echo $this->Html->link('CONNECT', $link);
@@ -25,7 +25,7 @@ if(isset($instagram_images)){
 		foreach($instagram_images as $image){
 			echo $this->Html->div('col-md-4 col-sm-4 pin-images',
 					$this->Html->image($image, array('class' => 'img-responsive thumbnail')) .
-					$this->Html->link('Upload to Kissaah', '#', array('class' => 'pinterest-upload', 'data' => $cid)));
+					$this->Html->link('Upload to ' . $this->Session->read('Company.name'), '#', array('class' => 'pinterest-upload', 'data' => $cid)));
 		}
 		?>
 		</div>

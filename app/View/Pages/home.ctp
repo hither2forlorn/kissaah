@@ -3,14 +3,11 @@ echo $this->Html->css(array('login'));
 echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.min', 'pages/login'));
 
 if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
-	$company = 'Human Catalyst';
 	$text = 'Embark';
 } else {
-	$company = 'Kissaah';
 	$text = 'Envision';
 }
 ?>
-
 <div class="row margin-bottom-20">
 	<div class="col-md-6 col-sm-6 col-xs-12 login">
 		<div class="content">
@@ -42,8 +39,10 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 					<label class="rememberme check">
 					<span><?php echo $this->Form->input('remember_me', array( 'error' => false, 'type' => 'checkbox', 'checked')); ?></span> Remember </label>
 					<a class="forget-password" id="forget-password" href="javascript:;">Forgot Password?</a>
-					<p class="margin-top-10">By clicking Sign In, you are agreeing to <a href="http://www.kissaah.com/terms-of-service/" target="_blank">
-						Terms of Service </a>&amp; <a href="http://www.kissaah.com/privacy-policy" target="_blank">Privacy Policy </a> </p>
+					<p class="margin-top-10">By clicking Sign In, you are agreeing to 
+						<a href="<?php echo $this->Session->read('Company.link'); ?>/terms-of-service/" target="_blank">
+						Terms of Service </a>&amp; 
+						<a href="<?php echo $this->Session->read('Company.link'); ?>/privacy-policy" target="_blank">Privacy Policy </a> </p>
 				</div>
 				<?php /*
 				<div class="login-options">
@@ -87,7 +86,7 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 					'inputDefaults' => array('div' => false, 'label' => false, 'class' => 'form-control placeholder-no-fix'))); ?>
 				<h3>Request Account</h3>
 				<div class="form-actions">
-					<p class="margin-top-10">Submit the form below to request for an account on <?php echo $company; ?>. 
+					<p class="margin-top-10">Submit the form below to request for an account on <?php echo $this->Session->read('Company.name'); ?>. 
 						Once an account is created a login link will be emailed to you.</p>
 				</div>
 				<div class="form-group">
@@ -210,8 +209,9 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 		?></div>
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1 margin-bottom-15 text-center">
-				We've developed <?php echo $company; ?> through our extensive study in how people articulate their life stories to bring about 
-				positive change and well-being. Find out more about our research <a href="http://www.kissaah.com/academic-references/" target="_blank">here</a>.
+				We've developed <?php echo $this->Session->read('Company.name'); ?> through our extensive study in how people 
+				articulate their life stories to bring about positive change and well-being. Find out more about our research 
+				<a href="<?php echo $this->Session->read('Company.link'); ?>/academic-references/" target="_blank">here</a>.
 			</div>
 		</div>
 	</div>

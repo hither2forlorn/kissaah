@@ -1,6 +1,6 @@
 <?php
 	echo '<p style="text-align: center;">
-		<strong>Kissaah </strong>- story/ tale in Sanskrit - operationalizes academic research in cognitive, 
+		<strong>' . $this->Session->read('Company.name') . ' </strong>- story/ tale in Sanskrit - operationalizes academic research in cognitive, 
 		behavioral and decision sciences.</p>';
 ?>
 <table>
@@ -57,5 +57,5 @@
 <?php
 	echo '<br />';
 	echo '<br />';
-	echo "Please do not reply to this email as your message will not be read. If you need help from a Kissaah team member, please email support@kissaah.com";
+	echo "Please do not reply to this email as your message will not be read. If you need help from a ' . $this->Session->read('Company.name') . ' team member, please email support@kissaah.com";
 ?>

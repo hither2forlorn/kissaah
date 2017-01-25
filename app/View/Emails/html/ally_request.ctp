@@ -17,19 +17,19 @@
 	echo $this->Html->para('', $data['name'] . ' appreciates your help! 
 								You can also ask for help back by making ' . $data['name'] . ' your Ally too!');
 								
-	echo $this->Html->para('', 'If you\'re not a kissaah user, no worries at all! ' . 
+	echo $this->Html->para('', 'If you\'re not a ' . $this->Session->read('Company.name') . ' user, no worries at all! ' . 
 								$this->Html->link('Click here', array('controller' => 'users', 'action' => 'register', 'full_base' => true), 
 												   array('fullBase' => true)) . 
-								' to follow the brief steps, and start being a recognized kissaah Ally!');
+								' to follow the brief steps, and start being a recognized ' . $this->Session->read('Company.name') . ' Ally!');
 
-	echo $this->Html->para('', 'Thank you for your contribution to ' . $data['name'] . '\'s journey on kissaah.');
+	echo $this->Html->para('', 'Thank you for your contribution to ' . $data['name'] . '\'s journey on ' . $this->Session->read('Company.name') . '.');
 
-	echo $this->Html->para('', 'Best,<br />The Kissaah team');
+	echo $this->Html->para('', 'Best,<br />The ' . $this->Session->read('Company.name') . ' team');
 	
 	echo $this->Html->para('', 'PS. You will not be bombarded by any marketing emails. 
 								This email is purely because you\'ve been specifically requested as an Ally, and we hope you can help!');
 	
-	echo $this->Html->para('', 'Join the Kissaah Community, and find us on:');
+	echo $this->Html->para('', 'Join the ' . $this->Session->read('Company.name') . ' Community, and find us on:');
 
 	$social  = $this->Html->image('social/FB-f-Logo__blue_29.png', 
 							array('fullBase' => true, 'url' => 'https://www.facebook.com/kissaah'));

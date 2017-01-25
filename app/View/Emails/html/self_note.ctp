@@ -36,6 +36,6 @@ Here are the notes and reminder for you
 <?php
 	echo '<br />';
 	echo '<br />';
-	echo "Please do not reply to this email as your message will not be read. If you need help from a Kissaah team member, please email support@kissaah.com";
+	echo "Please do not reply to this email as your message will not be read. If you need help from a ' . $this->Session->read('Company.name') . ' team member, please email support@kissaah.com";
 	
 ?>

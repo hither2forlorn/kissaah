@@ -25,18 +25,16 @@ class UsersController extends AppController {
 	
 	function beforeFilter(){
 		parent::beforeFilter();
-		$this->Auth->allowedActions = array('oauth', 'admin_view', 'admin_detail', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'master_login', 'manualLogin', 'screen_size');
+		$this->Auth->allowedActions = array('oauth', 'forgetpassword', 'login', 'register', 'logout', 'verify', 'manualLogin', 'screen_size');
 		$this->Uploader = new Uploader();
 		$this->Uploader->setup(array('tempDir' => TMP));
                
-		
 		$this->Uploader->addMimeType('image', 'gif', 'image/gif');
 		$this->Uploader->addMimeType('image', 'jpg', 'image/jpeg');
 		$this->Uploader->addMimeType('image', 'jpe', 'image/jpeg');
 		$this->Uploader->addMimeType('image', 'jpeg', 'image/jpeg');
 		$this->Uploader->addMimeType('image', 'png', array('image/png', 'image/x-png'));
 		$this->Uploader->addMimeType('image', 'PNG', array('image/png', 'image/x-png'));
-		
 	}
 	
 	public function screen_size() {
@@ -951,27 +949,6 @@ class UsersController extends AppController {
 		$roles = $this->User->Role->find('list', array('fields' => array('id', 'name')));
 		$this->set('roles', $roles);
 	} 
-	
-	public function master_login() {
-		if($this->Auth->user('id')){
-			$this->redirect(array('controller' => 'games'));
-		}
-		if($this->Session->check('MasterLogin')) {
-			$this->redirect(array('controller' => 'users', 'action' => 'login'));
-		}
-		$this->layout = 'ajax';
-		if($this->request->is('post')) {
-			$is_verified = $this->User->find('first', array(
-					'contain'	 => false,
-					'conditions' => array('User.email' => $this->request->data['User']['email'],
-										  'User.password' => Security::hash($this->request->data['User']['password'], 'sha1', true))));
-			if(!empty($is_verified)) {
-				$this->Session->write('MasterLogin', true);
-				$this->redirect(array('controller' => 'users', 'action' => 'login'));
-			}
-		}
-		$this->render('/Pages/home', 'master_login');
-	}
 	
 	public function oauth($source = null) {
 		$this->autoRender = false;
