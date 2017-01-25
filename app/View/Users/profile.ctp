@@ -11,12 +11,6 @@
 											  'class' => 'img-responsive',
 											  'data' => 'medium-' . $this->Session->read('Auth.User.id')));
 
-		echo $this->Html->div('margin-top-10',
-				$this->Html->link(
-					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Language', 
-								   '#', array('escape' => false, 'class' => '')) .
-				$this->Html->div('margin-left-20', 'English(US)'));
-		
 		if(empty($userdetail['User']['company'])) {
 			echo $this->Html->div('margin-bottom-10',
 				$this->Html->link(
@@ -60,23 +54,19 @@
 
 		echo $this->Html->div('margin-bottom-10',
 				$this->Html->link(
-					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Screen Name', 
+					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' User Info Settings', 
 								   array('controller' => 'users', 'action' => 'edit/profile'), 
 								   array('escape' => false, 'class' => 'open-fancybox ')) . 
-				$this->Html->div('margin-left-25 ScreenName', $userdetail['User']['name'] . ''));
+				$this->Html->div('margin-left-25 ScreenName', $userdetail['User']['name'] . '') .
+				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.email'), array('id' => 'Email')) .
+				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.city')) .
+				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.country')));
 
 		echo $this->Html->div('margin-bottom-10',
 			$this->Html->link(
 				$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Log In Password', 
 								   array('controller' => 'users', 'action' => 'edit/password'), 
 								   array('escape' => false, 'class' => 'open-fancybox ')));
-
-		echo $this->Html->div('margin-bottom-10',
-				$this->Html->link(
-					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Email', 
-								   array('controller' => 'users', 'action' => 'edit/profile'), 
-								   array('escape' => false, 'class' => 'open-fancybox ')) .
-				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.email'), array('id' => 'Email')));
 
 		echo $this->Html->div('margin-bottom-10',
 				$this->Html->link(

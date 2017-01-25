@@ -125,7 +125,7 @@ class GamesController extends AppController {
 		}
 	}
 	
- 	public function summary($display = 'summary', $id = null) {
+ 	public function summary($display = 'summary', $id = null, $road_map = 'current') {
  		if(is_null($id)) {
  			$tree_list = $this->Game->Configuration->generateTreeList(array('Configuration.status' => '1', 'Configuration.type' => 0));
  		} else {
@@ -162,7 +162,24 @@ class GamesController extends AppController {
  		}
  	}
  	
-	public function spark_board() {}
+	public function spark_board() {
+		$this->Session->write('Game.query_all', 1);
+		$options['contain'] = false;
+		$options['conditions'] = array('user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 59);
+		$development = $this->Game->find('all', $options);
+		
+		$options['conditions'] = array('user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 118);
+		$exposure = $this->Game->find('all', $options);
+		
+		$options['conditions'] = array('user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 185);
+		$connection = $this->Game->find('all', $options);
+
+		$options['conditions'] = array('user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 111);
+		$next = $this->Game->find('all', $options);
+		
+		$this->set(compact('development', 'exposure', 'connection', 'next'));
+		$this->Session->write('Game.query_all', 0);
+	}
 	
 	public function summary_spark_board() {}
 	
@@ -284,7 +301,7 @@ class GamesController extends AppController {
 		$this->autoRender = false;
 		$this->Game->create();
 		$data = $this->request->data;
-
+		
 		foreach($data['Game'] as $configure => $game) {
 			$data['Game']['configuration_id'] = $configure;
 			foreach($game as $id => $answer) {
@@ -294,6 +311,7 @@ class GamesController extends AppController {
 				$data['Game']['answer'] = $answer;
 			}
 		}
+		
 		$data['Game']['user_id'] = $this->Session->read('ActiveGame.user_id');
 		$data['Game']['user_game_status_id'] = $this->Session->read('ActiveGame.id');
 		

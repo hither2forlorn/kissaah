@@ -6,52 +6,65 @@
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th colspan="3">Development</th>
-							<th colspan="3">Exposure</th>
-							<th colspan="3">Connections</th>
-							<th colspan="2">Ally Feedback</th>
-						</tr>
-						<tr>
-							<th>Development</th>
+							<th>Type</th>
+							<th>Title</th>
 							<th>Due</th>
 							<th>%</th>
-							<th>Exposure</th>
-							<th>Due</th>
-							<th>%</th>
-							<th>Connections</th>
-							<th>Due</th>
-							<th>%</th>
-							<th>Rating</th>
+							<th>Ally</th>
 							<th>Comments</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Write good proposal</td>
-							<td>2017-08-25</td>
-							<td>10%</td>
-							<td>makr124</td>
-							<td>2017-08-25</td>
-							<td>10%</td>
-							<td>Otto</td>
-							<td>2017-04-25</td>
-							<td>50%</td>
-							<td>Mark</td>
-							<td>Comments</td>
-						</tr>
-						<tr>
-							<td>Write good proposal</td>
-							<td>2017-08-25</td>
-							<td>10%</td>
-							<td>makr124</td>
-							<td>2017-08-25</td>
-							<td>10%</td>
-							<td>Otto</td>
-							<td>2017-04-25</td>
-							<td>50%</td>
-							<td>Mark</td>
-							<td>Comments</td>
-						</tr>
+					<?php 
+					$count = count($development);
+					if($count == 0) {
+						$table[] = array('Development', '', 'Due', '10%', 'Mark', 'Comment');
+						
+					} else {
+						foreach($development as $key => $value) {
+							if($key == 0) {
+								$table[] = array(array('Development', array('rowspan' => $count)), $value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
+							
+							} else {
+								$table[] = array($value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
+							
+							}
+						}
+					}
+
+					$count = count($exposure);
+					if($count == 0) {
+						$table[] = array('Exposure', '', 'Due', '10%', 'Mark', 'Comment');
+						
+					} else {
+						foreach($exposure as $key => $value) {
+							if($key == 0) {
+								$table[] = array(array('Exposure', array('rowspan' => $count)), $value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
+							
+							} else {
+								$table[] = array($value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
+							
+							}
+						}
+					}
+					
+					$count = count($connection);
+					if($count == 0) {
+						$table[] = array('Connections', '', 'Due', '10%', 'Mark', 'Comment');
+						
+					} else {
+						foreach($connection as $key => $value) {
+							if($key == 0) {
+								$table[] = array(array('Connections', array('rowspan' => $count)), $value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
+							
+							} else {
+								$table[] = array($value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
+							
+							}
+						}
+					}
+					echo $this->Html->tableCells($table);
+					?> 
 					</tbody>
 				</table>
 			</div>
@@ -66,60 +79,19 @@
 				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Date Added</div>
 				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Context</div>
 			</div>
-<?php 
-	$my_next = $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', 172));
-	foreach($my_next[172]['children'] as $key => $next) {
-		if($key == 111 && !empty($next['Game'])) {
-			foreach($next['Game'] as $game) {
-				$text  = $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-left-0', $game['Game']['answer']);
+			<?php 
+			foreach($next as $key => $value) {
+				$text  = $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-left-0', $value['Game']['answer']);
 				$text .= $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-0', 
-						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '')));
+						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '', 'div' => false, 'label' => false)));
 				$text .= $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-0', 
-						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '')));
+						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '', 'div' => false, 'label' => false)));
 				$text .= $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-0', 
-						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '')));
+						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '', 'div' => false, 'label' => false)));
 				
 				echo $this->Html->div('row margin-bottom-15', $text);
 			}
-		}
-	}
-?>
-			<div class="row margin-bottom-15">
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-left-0">Relationship Building</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-			</div>
-			<div class="row margin-bottom-15">
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-left-0">Creative</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-			</div>
-			<div class="row margin-bottom-15">
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-left-0">Consciencious</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 padding-right-0">
-					<input name="data[Challenge][complete_by]" class="form-control" placeholder="Complete by" type="text">
-				</div>
-			</div>
+			?>
 		</div>
 	</div>
 	<div class="row no-margin padding-bottom-20 margin-bottom-20">

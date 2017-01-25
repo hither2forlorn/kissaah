@@ -45,8 +45,7 @@ class Game extends AppModel{
 	
 	public function beforeFind($queryData) {
 		$query_all = CakeSession::read('Game.query_all');
-		if(!isset($query_all)) {
-			//debug(CakeSession::read('ActiveGame.0.user_id'));
+		if($query_all == 0) {
 			$queryData['conditions'][$this->alias.'.user_id'] = CakeSession::read('ActiveGame.user_id'); //AuthComponent::user('id');
 			$queryData['conditions']['OR'][$this->alias.'.user_game_status_id'] = CakeSession::read('ActiveGame.id');
 			$queryData['conditions']['OR'][][$this->alias.'.user_game_status_id'] = null;
@@ -55,6 +54,8 @@ class Game extends AppModel{
 	}
 	
 	function beforeSave($options = Array()) {
+		$this->data['Game']['user_id'] = CakeSession::read('ActiveGame.user_id');
+		$this->data['Game']['user_game_status_id'] = CakeSession::read('ActiveGame.id');
 		return true;
 	}
 }

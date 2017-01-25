@@ -4,8 +4,10 @@ echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.
 
 if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 	$company = 'Human Catalyst';
+	$text = 'Embark';
 } else {
 	$company = 'Kissaah';
+	$text = 'Envision';
 }
 ?>
 
@@ -182,7 +184,7 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 			echo $this->Html->div('col-md-6 col-xs-6 home-main-component no-padding', $title . $images . $circle);
 			
 			/* Envision: Level 2 */
-			$title 	= $this->Html->tag('h3', 'Envision', array('class' => 'text-center margin-top-20'));
+			$title 	= $this->Html->tag('h3', $text, array('class' => 'text-center margin-top-20'));
 			$images = $this->Html->div('row', $this->Html->image('envision.png', array('class' => 'img-responsive kissaah-step')));
 			$circle	= $this->Html->div('row no-margin', $this->Html->image('level-in-progress.jpg', array('class' => 'img-responsive level-1')));
 			

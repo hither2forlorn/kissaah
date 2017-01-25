@@ -1,16 +1,25 @@
+<?php 
+if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+	$company = 'Human Catalyst';
+	$link = 'humancatalyst.co';
+} else {
+	$company = 'Kissaah';
+	$link = 'kissaah.com';
+}
+?>
 <div class="footer">
 	<div class="container">
 		<div class="row">
 			<!-- BEGIN COPYRIGHT -->
 			<div class="col-md-6 col-sm-6 padding-top-10"><?php 
-				echo date('Y') . ' &copy; Kissaah. All Rights Reserved.&nbsp;';
+				echo date('Y') . ' &copy; ' . $company . '. All Rights Reserved.&nbsp;';
 			?></div>
 			<div class="col-md-6 col-sm-6 padding-top-10"><?php 
-				echo $this->Html->link('Privacy Policy', 'http://www.kissaah.com/privacy-policy', array('target' => '_blank'))." | ";
-				echo $this->Html->link('Terms of Service', 'http://www.kissaah.com/terms-of-service/', array('target' => '_blank'))." | ";
-				echo $this->Html->link('About Us', 'http://www.kissaah.com/what-is-kissaah/', array('target' => '_blank'))." | ";
-				//echo $this->Html->link('Blog', 'http://kissaah.com/blog', array('target' => '_blank'))." | ";
-				echo $this->Html->link('Advisory Board', 'http://www.kissaah.com/advisors/', array('target' => '_blank'));
+				echo $this->Html->link('Privacy Policy', 'http://www.' . $link . '.com/privacy-policy', array('target' => '_blank'))." | ";
+				echo $this->Html->link('Terms of Service', 'http://www.' . $link . '.com/terms-of-service/', array('target' => '_blank'))." | ";
+				echo $this->Html->link('About Us', 'http://www.' . $link . '.com/what-is-kissaah/', array('target' => '_blank'))." | ";
+				//echo $this->Html->link('Blog', 'http://www.' . $link . '.com/blog', array('target' => '_blank'))." | ";
+				//echo $this->Html->link('Advisory Board', 'http://www.' . $link . '.com/advisors/', array('target' => '_blank'));
 			?></div>
 			<!-- END COPYRIGHT -->
 			<!-- BEGIN PAYMENTS -->

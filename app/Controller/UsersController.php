@@ -110,7 +110,7 @@ class UsersController extends AppController {
 						$options = array(
 								'subject' 	=> 'Kissaah: New User Registration',
 								'template' 	=> 'users_register_admin',
-								'to'		=> array('bob@himalayantechies.com', 'support@kissaah.com', 'vic@kissaah.com')
+								'to'		=> array('bob@himalayantechies.com', 'support@kissaah.com', 'vic@kissaah.com', 'hello@humancatalyst.co')
 						);
 						$this->_sendEmail($options, $this->request->data);
 						
@@ -177,14 +177,6 @@ class UsersController extends AppController {
 		
 	}
 	
-	public function facebook_login() {
-                //var $name = 'Users';
-                //var $components = array('Faceboo.Content','Auth');
-                //var $helperrs =  array('Facebook.Facebook');
-                
-        }
-       
-
 	public function login() {
 		if($this->Auth->user('id')){
 			$this->redirect(array('controller' => 'games'));
@@ -298,17 +290,12 @@ class UsersController extends AppController {
 		}
 		$this->Session->write('ActiveGame', $active_game['UserGameStatus']);
 		$this->Session->write('Configuration', $active_game['Configuration']);
-		//$this->Session->write('ActiveGame.user_email', $this->Auth->user('email'));
+		$this->Session->write('Game.query_all', 0);
 		$this->Session->write('AdminAccess.company', $this->User->CompanyGroup->find('list', array(
 				'fields' => array('id', 'id'), 
 				'conditions' => array('admin_id' => $this->Auth->user('id'), 'parent_id IS NULL'))));
 		
-		//if ($this->request->isMobile() || array_shift(explode('.', $_SERVER['HTTP_HOST'])) == 'm') {
-			//$this->redirect(array('controller' => 'users', 'action' => 'additional_user_info'));
 		$this->redirect(array('controller' => 'games'));
-		//} else {
-			//$this->redirect(array('controller' => 'games'));
-		//}
 	}
 
 	public function forgetpassword(){
@@ -684,7 +671,7 @@ class UsersController extends AppController {
 				}
 			}
 		}
-		$to = array('bob@himalayantechies.com', 'support@kissaah.com', 'bguragain@himalayantechies.com', 'vic@kissaah.com');
+		$to = array('bob@himalayantechies.com', 'support@kissaah.com', 'hello@humancatalyst.co', 'vic@kissaah.com');
 		if(count($images) > 0){
 			$options = array(
 					'subject' 	=> $data['subject'],
