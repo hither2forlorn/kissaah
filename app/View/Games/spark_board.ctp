@@ -27,7 +27,6 @@
 							
 							} else {
 								$table[] = array($value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
-							
 							}
 						}
 					}
@@ -43,7 +42,6 @@
 							
 							} else {
 								$table[] = array($value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
-							
 							}
 						}
 					}
@@ -59,7 +57,6 @@
 							
 							} else {
 								$table[] = array($value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
-							
 							}
 						}
 					}

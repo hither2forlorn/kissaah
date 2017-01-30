@@ -318,7 +318,7 @@ class GamesController extends AppController {
 		if(!isset($data['Game']['id']) && $data['Game']['answer'] == '') {
 			$return['success'] = 0;
 			
-		} elseif(isset($data['Game']['id']) && $data['Game']['answer'] == '') {
+		} elseif(isset($data['Game']['id']) && ($data['Game']['answer'] == '' || $data['Game']['configuration_id'] == 0)) {
 			$this->Game->id = $data['Game']['id'];
 			if($this->Game->delete()) {
 				$return['id'] = 0;

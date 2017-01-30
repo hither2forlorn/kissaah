@@ -1374,14 +1374,23 @@ var SortingValues = function () {
 	}
 }();
 
-var OrganizationMap = function () {
+var OrganizationMap = function() {
 	return {
-		init: function(data_map) {
+		init : function(data_map) {
 			$('#chart-container').orgchart({
-				'data' 			: data_map,
-				'nodeContent'	: 'title',
-				'verticalDepth'	: 3,
-				'depth'			: 4
+				'data' 		 	: data_map,
+				'nodeID' 	 	: 'id',
+				'verticalDepth' : 3,
+				'depth'			: 4,
+				'createNode' 	: function($node, data) {
+					var organizationDesc = $('<i>', {
+						'class' : 'fa fa-info-circle org-desc',
+						click : function() {
+							$(this).siblings('.description').toggle();
+						}
+					});
+					$node.append(organizationDesc).append('<div class="description">' + data.title + '</div>');
+				}
 			});
 		},
 	}
