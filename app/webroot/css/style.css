@@ -2258,4 +2258,7 @@ a.back-to-road-map {
 	padding: 10px 5px;
 }
 
-
+.summary-text {
+	font-size: 1.2em;
+	color: #ea7328 !important;
+}

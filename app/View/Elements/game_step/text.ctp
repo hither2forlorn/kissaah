@@ -32,7 +32,7 @@ if(empty($selfdata['Configuration']['dependent_id'])) {
 }
 
 if($summary) {
-	$input = $this->Form->label('Game.answer', $answer, array('class' => 'control-label margin-bottom-10'));
+	$input = $this->Html->para('summary-text', $answer);
 
 } else {
 	$options['value'] = $answer;

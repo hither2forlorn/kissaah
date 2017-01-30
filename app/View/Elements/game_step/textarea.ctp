@@ -52,7 +52,7 @@ if(isset($selfdata['Dependent'][0])) {
 }
 
 if($summary) {
-	$input = $this->Form->label('Game.answer', $answer, array('class' => 'control-label margin-top-10'));
+	$input = $this->Html->para('summary-text', $answer);
 
 } else {
 	$options['value'] = $answer;

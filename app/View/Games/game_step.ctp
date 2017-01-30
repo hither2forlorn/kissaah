@@ -20,14 +20,20 @@ foreach($visions as $vision) {
 		$nxt_txt = $vision['Configuration']['title'];
 		$nxt_lnk = array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id']));
 	}
-	if($step_information['Configuration']['id'] == $vision['Configuration']['id']) {
-		$selected = 'caption-subject font-orange-sharp bold uppercase';
-		$nxt_txt = '';
+	if(in_array($vision['Configuration']['id'], array($step_information['Configuration']['id'], $step_information['Configuration']['dependent_id']))) {
+	   	$selected = 'caption-subject font-orange-sharp bold uppercase';
+	   	if($vision['Configuration']['id'] == $step_information['Configuration']['dependent_id']) {
+	   		$nxt_txt = 'Next';
+	   	} else {
+	   		$nxt_txt = '';
+	   	}
 	}
-	echo $this->Html->div('col-md-3 col-xm-3', 
-				$this->Html->link($vision['Configuration']['title'], 
+	if($vision['Configuration']['title'] != '**NP**') {
+		echo $this->Html->div('col-md-3 col-xm-3',
+				$this->Html->link($vision['Configuration']['title'],
 						array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
 						array('class' => $selected . $next_btn)));
+	}
 }
 ?>
 </div>
@@ -116,7 +122,8 @@ if($step_information['Configuration']['id'] == 189) {
 
 if($nxt_txt != '' && $nxt_txt != 'next_link') {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
-			$this->Html->link('NEXT: ' . $nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
+			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
+	
 } elseif($this->request->query['st'] == 198) {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link('Confirm', 
