@@ -1,7 +1,6 @@
 <div class="footer">
 	<div class="container">
 		<div class="row">
-			<!-- BEGIN COPYRIGHT -->
 			<div class="col-md-6 col-sm-6 padding-top-10"><?php 
 				echo date('Y') . ' &copy; ' . $this->Session->read('Company.name') . '. All Rights Reserved.&nbsp;';
 			?></div>
@@ -12,8 +11,6 @@
 				//echo $this->Html->link('Blog', $this->Session->read('Company.link') . '/blog', array('target' => '_blank'))." | ";
 				//echo $this->Html->link('Advisory Board', $this->Session->read('Company.link') . '/advisors/', array('target' => '_blank'));
 			?></div>
-			<!-- END COPYRIGHT -->
-			<!-- BEGIN PAYMENTS -->
 			<div class="col-md-6 col-sm-6 padding-top-10 hidden-md hidden-sm hidden-xs">
 			<?php
 			$list[] = $this->Html->link(
@@ -49,7 +46,6 @@
 			}
 			?>
 			</div>
-			<!-- END PAYMENTS -->
 		</div>
 	</div>
 </div>

@@ -83,7 +83,7 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 	echo $this->fetch('script');
 ?>
 </head>
-<script>
+<script type="text/javascript">
 	(function(i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;
 		i[r] = i[r] ||
@@ -120,7 +120,6 @@ if(is_null($screen_width)) {
 	}
     echo $this->element('sql_dump');
     ?>
-    
 <script type="text/javascript">
 $(window).bind('load', function() {
 	Game.TourGame();
@@ -151,6 +150,10 @@ $(document).ready(function() {
 
 	Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
 	<?php } ?>
+
+	if ( $( "#myDiv" ).length ) {
+		$( "#myDiv" ).show();
+	}	
 });
 </script>
 </body>

@@ -1,5 +1,4 @@
-<div class='no-margin row allies'>
-<?php
+<div class='no-margin row allies'><?php
 	echo $this->Html->div('highlighted margin-bottom-15', $this->Session->flash(), array('id' => 'message'));
 	
 	echo $this->Html->tag('h3', 'Who can give you feedback before moving forward?', array('class' => 'activitytitle'));

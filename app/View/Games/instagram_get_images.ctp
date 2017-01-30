@@ -35,9 +35,8 @@ if(isset($instagram_images)){
 }
 ?>	
 </div>
-
 <script>
-	$(document).ready(function() {
-		FileUpload.UploadPinterestImage();
-	});
+$(document).ready(function() {
+	FileUpload.UploadPinterestImage();
+});
 </script>
