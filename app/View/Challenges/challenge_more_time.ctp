@@ -4,7 +4,6 @@ echo $this->Html->script(array('../plugins/jquery-inputmask/jquery.inputmask.bun
 
 <?php echo $this->Form->create('Challenge', array('inputDefaults' => array('label' => false, 'div' => false, 'class' => 'form-control'), 
 												  'action' => 'set_challenge')); ?>
-
 <div class="row no-margin">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><?php
 		echo $this->Html->div('challenge-title pull-left margin-top-10', 'Ask for <br />more time');
@@ -14,7 +13,6 @@ echo $this->Html->script(array('../plugins/jquery-inputmask/jquery.inputmask.bun
 	?></div>
 </div>
 <hr />
-
 <div class="row no-margin">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center"><?php
 
@@ -78,5 +76,4 @@ echo $this->Html->script(array('../plugins/jquery-inputmask/jquery.inputmask.bun
 	});*/
 	Challenges.RejectChallenge();
 	Challenges.SaveChallenge();
-	Metronic.DateOnlyFuture();
 </script>

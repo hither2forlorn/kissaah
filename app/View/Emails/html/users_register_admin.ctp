@@ -8,7 +8,6 @@
 	//echo $this->Html->para(null, 'Please ' . $link . ' to confirm your email.');
 	echo $this->Html->para(null, 'Please head on to the admin screen to approve the new user and get them started on their way.');
 ?>
-
 <p>The <?php echo $this->Session->read('Company.name');?> Team</p>
 <p>Join the <?php echo $this->Session->read('Company.name'); ?> Community, find us on:</p>
 <div><?php 

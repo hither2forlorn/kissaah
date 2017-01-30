@@ -105,5 +105,4 @@
 	Challenges.SelectAlly();
 	Challenges.SaveChallenge();
 	Challenges.PreviewChallenge();
-	Metronic.DateOnlyFuture();
 </script>

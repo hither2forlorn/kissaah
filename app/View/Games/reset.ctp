@@ -7,7 +7,7 @@ echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12',
 					  		'Please note that you will loose all your current Roadmap data. <br />Enter CONFIRM to really reset the Roadmap.'));
 ?>
 <div class="col-md-12 col-sm-12">
-	<?php echo $this->Form->create('Game', array('action' => 'reset')); ?>
+	<?php echo $this->Form->create('Game'); ?>
 		<div class="form-group">
 			<?php echo $this->Form->input('confirm', array('label' => false, 
 														'div' 			=> false,

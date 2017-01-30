@@ -755,7 +755,9 @@ class GamesController extends AppController {
 		$this->set(compact('users_with_tag'));
 	}
 	
-	public function reset($confirm = false){
+	public function reset($confirm = false) {
+		debug($confirm);
+		debug($this->request->data);
 		if($this->request->is('post')) {
 			if(strtoupper($this->request->data['Game']['confirm']) == 'CONFIRM') {
 				$this->_reset_roadmap($this->Session->read('ActiveGame.id'));

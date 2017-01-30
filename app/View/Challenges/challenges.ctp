@@ -178,6 +178,5 @@ foreach($challenges as $id => $challenge) {
 if(isset($id) && ($id%2 == 0)) {
 	echo $this->Html->tag('hr', null, array('class' => 'clear'));
 }
-
 ?>
 </div>

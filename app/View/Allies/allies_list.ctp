@@ -41,7 +41,6 @@ if($message != ''){
 		}
 
 		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20', $my_allies);
-		
 	}
 }
 ?>

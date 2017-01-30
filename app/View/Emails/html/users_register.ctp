@@ -9,7 +9,6 @@
 	echo $this->Html->para(null, 'We have received your request for an account with Kissaah. Our team is working to verify the request and provide you with an account.');
 	echo $this->Html->para(null, 'We hope you enjoy changing your story with Kissaah.');
 ?>
-
 <p>The Kissaah Team</p>
 <p>Join the Kissaah Community, find us on:</p>
 <div><?php 

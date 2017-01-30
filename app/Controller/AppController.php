@@ -260,34 +260,11 @@ class AppController extends Controller {
 		return $pee;
 	}
 	
-	function beforeFacebookSave(){
-		
-		$fb_id = $this->Connect->user('id');
-		
-		if(!empty($fb_id)) {
-			//$this->Connect->authUser[$this->Connect->model]['username'] = $this->Connect->user('email');
-			$this->Connect->authUser[$this->Connect->model]['role_id'] = 2;
-			$this->Connect->authUser[$this->Connect->model]['verified'] = 1;
-			$this->Connect->authUser[$this->Connect->model]['email'] = $this->Connect->user('email');
-			$this->Connect->authUser[$this->Connect->model]['last_login'] = date('Y-m-d h:i:s');
-			$this->Connect->authUser[$this->Connect->model]['login_ip'] = $this->_getRealIpAddr();
-			$this->Connect->authUser[$this->Connect->model]['facebook_warning'] = 0;
-			
-		} else {
-			return false;
-		}
-		return true; //Must return true or will not save.
-	}
-	
-	function afterFacebookLogin(){
-		$this->Session->write('Facebook', 1);
-		$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
-	}
-	
 	protected function _reset_roadmap($user_game_status_id) {
 		$this->Session->write('Game.query_all', 1);
 		$this->loadModel('Game');
 		$this->loadModel('Feedback');
+		$this->loadModel('Challenge');
 		
 		$options['conditions'] = array('Configuration.type' => 1, 'Game.configuration_id NOT' => 36,
 									   'Game.user_id' => $this->Session->read('ActiveGame.user_id'),
@@ -307,6 +284,6 @@ class AppController extends Controller {
 		$this->Game->deleteAll(array('Game.user_id' => $this->Session->read('ActiveGame.user_id'),
 									 'Game.user_game_status_id' => $user_game_status_id));
 		
-		$this->Session->delete('Game.query_all');
+		$this->Session->write('Game.query_all', 0);
 	}
 }

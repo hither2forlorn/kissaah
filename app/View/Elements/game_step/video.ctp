@@ -73,12 +73,11 @@ if($summary) {
 	
 	}
 }
-
 ?>
+<?php if(!$summary) { ?>
 <script type="text/javascript">
 jQuery(document).ready(function() {
-<?php if(!$summary) { ?>
 	Video.init();
-<?php } ?>
 });
 </script>
+<?php } ?>
