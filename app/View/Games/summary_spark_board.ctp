@@ -34,7 +34,7 @@
 						<tr>
 							<td></td>
 							<td><?php echo $spark_ans['Development']; ?></td>
-							<td><?php echo $spark_ans['Completed']; ?>ß</td>
+							<td></td>
 							<td>10%</td>
 							<td><?php echo $spark_ans['Exposure']; ?></td>
 							<td>2017-08-25</td>
