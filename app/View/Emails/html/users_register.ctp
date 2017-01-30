@@ -4,7 +4,7 @@
 					array('controller' => 'users', 'action' => 'verify', $data['User']['email'], $data['User']['hash'], 'full_base' => true),
 					array('fullBase' => true));
 	
-	echo $this->Html->para(null, 'Thank you for signing up to Kissaah!');
+	echo $this->Html->para(null, 'Thank you for signing up to ' . $this->Session->read('Company.name') . '!');
 	//echo $this->Html->para(null, 'Please ' . $link . ' to confirm your email.');
 	echo $this->Html->para(null, 'We have received your request for an account with Kissaah. Our team is working to verify the request and provide you with an account.');
 	echo $this->Html->para(null, 'We hope you enjoy changing your story with Kissaah.');

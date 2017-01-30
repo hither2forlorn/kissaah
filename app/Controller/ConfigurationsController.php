@@ -1,8 +1,6 @@
 <?php
 class ConfigurationsController extends AppController {
 	
-	public $helpers = array('TreeList');
-	
 	public function admin_locTree() {
 		$this->autoRender = false;
 		$tree_list = array();
