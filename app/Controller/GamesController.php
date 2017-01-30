@@ -327,7 +327,6 @@ class GamesController extends AppController {
 				
 			} else {
 				$return['success'] = 0;
-				
 			}
 			
 		} elseif($this->Game->save($data)) {
@@ -337,8 +336,8 @@ class GamesController extends AppController {
 		
 		} else {
 			$return['success'] = 0;
-			
 		}
+		
 		return json_encode($return);
 	}
 	

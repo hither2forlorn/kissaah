@@ -2,13 +2,15 @@
 echo $this->Html->script(array(
 		'https://cdn.webrtc-experiment.com/RecordRTC.js', 
 		'https://cdn.webrtc-experiment.com/gumadapter.js',
+                'https://cdn.webrtc-experiment.com/getScreenId.js',
+                'https://cdn.webrtc-experiment.com/gumadapter.js',
 		'pages/video'
 ));
 
 $answer = '';
 if(empty($selfdata['Configuration']['dependent_id'])) {
 	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
-		$answer = '<source src="/files/img/large/' . $selfdata['Game'][0]['Game']['answer'] . '" type="vidoe/webm">';
+		$answer = '<source src="/files/img/large/' . $selfdata['Game'][0]['Game']['answer'] . '" type="video/webm">';
 		//<source src="movie.mp4" type="video/mp4">
 	}
 	$id = $selfdata['Configuration']['id'];
@@ -16,7 +18,7 @@ if(empty($selfdata['Configuration']['dependent_id'])) {
 } else {
 	if(!empty($selfdata['Dependent'][0]['answer'])) {
 		$answer = '/files/img/large/' . $selfdata['Dependent'][0]['answer'];
-		$answer = '<source src="/files/img/large/' . $selfdata['Dependent'][0]['answer'] . '" type="vidoe/webm">';
+		$answer = '<source src="/files/img/large/' . $selfdata['Dependent'][0]['answer'] . '" type="video/webm">';
 	}
 	$id = $selfdata['Configuration']['dependent_id'];
 }

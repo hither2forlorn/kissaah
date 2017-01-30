@@ -51,7 +51,7 @@ var Video = function() {
             function intallFirefoxScreenCapturingExtension() {
                 InstallTrigger.install({
                     'Foo': {
-                        // URL: 'https://addons.mozilla.org/en-US/firefox/addon/enable-screen-capturing/',
+                       URL: 'https://addons.mozilla.org/en-US/firefox/addon/enable-screen-capturing/',
                         URL: 'https://addons.mozilla.org/firefox/downloads/file/355418/enable_screen_capturing_in_firefox-1.0.006-fx.xpi?src=cb-dl-hotness',
                         toString: function() {
                             return this.URL;
@@ -113,6 +113,8 @@ var Video = function() {
                                 stopStream();
 
                                 saveToDiskOrOpenNewTab(button.recordRTC);
+                                window.open(URL.createObjectURL(button.recordRTC.getBlob()));
+
                             });
                         }
                     }
@@ -295,10 +297,10 @@ var Video = function() {
                 var options = [];
                 if(webrtcDetectedBrowser === 'firefox') {
                     if(this.value === 'record-audio') {
-                        options.push('Ogg');
+                        options.push('Ogg', 'Mp4');
                     }
                     else {
-                        options.push('WebM', 'Mp4');
+                        options.push('WebM', 'Mp4', 'Gif');
                     }
 
                     setMediaContainerFormat(options);

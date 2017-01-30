@@ -32,33 +32,20 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Tod Mac</td>
-							<td>Write good proposal</td>
+							<td></td>
+							<td><?php echo $spark_ans['Development']; ?></td>
+							<td></td>
+							<td>10%</td>
+							<td><?php echo $spark_ans['Exposure']; ?></td>
 							<td>2017-08-25</td>
 							<td>10%</td>
-							<td>makr124</td>
-							<td>2017-08-25</td>
-							<td>10%</td>
-							<td>Otto</td>
+							<td><?php echo $spark_ans['Connections']; ?></td>
 							<td>2017-04-25</td>
 							<td>50%</td>
 							<td>Mark</td>
 							<td>Comments</td>
 						</tr>
-						<tr>
-							<td>Rob Tod</td>
-							<td>Write good proposal</td>
-							<td>2017-08-25</td>
-							<td>10%</td>
-							<td>makr124</td>
-							<td>2017-08-25</td>
-							<td>10%</td>
-							<td>Otto</td>
-							<td>2017-04-25</td>
-							<td>50%</td>
-							<td>Mark</td>
-							<td>Comments</td>
-						</tr>
+						
 					</tbody>
 				</table>
 			</div>
