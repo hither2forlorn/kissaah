@@ -1,8 +1,6 @@
 <?php
 class OrganizationsController extends AppController {
 	
-	public $helpers = array('TreeList');
-	
 	public function index() {
 		$organizations = $this->Organization->find('all', array(
 				'contain' => false,

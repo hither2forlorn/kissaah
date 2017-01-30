@@ -1,7 +1,6 @@
 <?php
 class CompanyGroupsController extends AppController {
 	
-	public $helpers = array('TreeList');
 	protected $isAdmin = false;
 	protected $companyAdmin = array();
 	
