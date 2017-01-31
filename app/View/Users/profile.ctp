@@ -86,11 +86,6 @@
 	</div>
 	<div class="col-md-3 col-sm-4 col-xs-12 profile-accounts">
 	<?php
-      
-                //echo $this->Facebook->logout(array('redirect' => array('controller' => 'users', 'action' => 'logout')));
-
-		//echo $this->Html->div('col-md-12', $this->Html->tag('h3', 'Feedback'));
-		 
 		echo $this->Html->div('col-md-12', $this->Html->para(null, 'Got an idea about ' . $this->Session->read('Company.name') . ' you\'d like to share, or 
 																	some feedback about your experience? Fill out this survey'));
 																	
