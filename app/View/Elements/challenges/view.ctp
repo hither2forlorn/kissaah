@@ -182,7 +182,8 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$(document).ready(function() {
-		addthisevent.refresh();
-	});
+$(document).ready(function() {
+	Game.initAddToCalendar();
+	addthisevent.refresh();
+});
 </script>

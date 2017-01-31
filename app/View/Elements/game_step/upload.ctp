@@ -69,7 +69,4 @@ if($selfdata['Configuration']['sub_txt'] != '') {
 	}
 	echo $this->Html->div($image_class, $image . $child_field);
 }
-
-$screen_size = $this->Session->read('Screen.width');
-if($count == 1 || $screen_size <= 767) {}
 ?>

@@ -67,6 +67,11 @@ if(isset($selfdata['Dependent'])) {
 																				'escape'=> false));
 
 		if($summary) {
+			$left_block = $this->Html->div('col-md-10 col-sm-10 col-xs-9 padding-right-0', $challenge . $complete_by . $calendar . 
+																	    $challenge_id . $challenge_name . $challenge_from_id . 
+																	    $user_id . $created_by . $goal_id);
+			$save_challenge = ' save-challenge';
+		
 		} else {
 			$left_block = $this->Html->div('col-md-10 col-sm-10 col-xs-9 padding-right-0', $challenge . $complete_by . $calendar . 
 																	    $challenge_id . $challenge_name . $challenge_from_id . 
@@ -90,6 +95,8 @@ if(isset($selfdata['Dependent'])) {
 <?php if(!$summary) { ?>
 <script type="text/javascript">
 	$(document).ready(function() {
+		Game.handleDatePicker();
+		Game.initAddToCalendar();
 		addthisevent.refresh();
 	});
 </script>

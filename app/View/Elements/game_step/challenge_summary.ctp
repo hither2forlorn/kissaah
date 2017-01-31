@@ -13,7 +13,6 @@ foreach($selfdata['children'] as $child) {
 		foreach($child['Dependent'] as $dependent) {
 			
 			$goal = $this->requestAction(array('controller' => 'challenges', 'action' => 'goal', $dependent['id']));
-			//debug($goal);
 			if(!empty($goal) && $goal['Challenge']['status'] == 'Completed') {
 				
 				$optionsid['type'] 		= 'hidden';

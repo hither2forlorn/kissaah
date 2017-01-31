@@ -780,6 +780,14 @@ var Game = function () {
 	    	});
 	    },
 	    
+	    initAddToCalendar: function() {
+			$.getScript('https://addthisevent.com/libs/ate-latest.min.js').success(
+					function(script, textStatus) {
+						console.log(textStatus);
+					}).fail(function(jqxhr, settings, exception) {
+			});
+	    },
+	    
 		AddMore: function() {
 			$('a.add-more').on('click', function(evt) {
 				evt.preventDefault();

@@ -452,18 +452,7 @@ var Metronic = function() {
             });
         }
     };
-    
-    var handleLoadScript = function() {
-    	$.getScript( 'https://addthisevent.com/libs/ate-latest.min.js' )
-		 .success(function( script, textStatus ) {
-			console.log( textStatus );
-		 })
-		 .fail(function( jqxhr, settings, exception ) {
-			//$( "div.log" ).text( "Triggered ajaxError handler." );
-		});    	
-    };
-
-    //* END:CORE HANDLERS *//
+    // * END:CORE HANDLERS *//
 
     return {
 
@@ -494,8 +483,6 @@ var Metronic = function() {
 
             // Hacks
             handleFixInputPlaceholderForIE(); //IE8 & IE9 input placeholder issue fix
-            
-            handleLoadScript();
         },
 
         //main function to initiate core javascript after ajax complete

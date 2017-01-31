@@ -22,7 +22,8 @@ $options = array(
 		19	=> '(19) Confirm',
 		20	=> '(20) Competencies',
 		21	=> '(21) Org Maps',
-		22	=> '(22) Countdown'
+		22	=> '(22) Countdown',
+		23	=> '(23) Confirm Summary',
 );
 
 $parent = (!empty($this->request->pass))? $this->request->pass[0]: '';
