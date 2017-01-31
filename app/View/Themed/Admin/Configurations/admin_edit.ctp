@@ -24,6 +24,7 @@ $options = array(
 		21	=> '(21) Org Maps',
 		22	=> '(22) Countdown',
 		23	=> '(23) Confirm Summary',
+		24	=> '(24) Capture Learning',
 );
 ?>
 <div class="row categories form">

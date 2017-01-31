@@ -3,7 +3,7 @@ $vision_date = $this->Session->read('ActiveGame.vision_date');
 if(!is_null($vision_date) || $vision_date != '') {
 	$options['readonly'] = 'readonly';
 }
-
+debug($selfdata);
 $options['data-save'] 	= $this->Html->url(array('controller' => 'challenges', 'action' => 'set_challenge'));
 $options['label'] 		= false;
 
@@ -96,8 +96,6 @@ if(isset($selfdata['Dependent'])) {
 <script type="text/javascript">
 	$(document).ready(function() {
 		Game.handleDatePicker();
-		Game.initAddToCalendar();
-		addthisevent.refresh();
 	});
 </script>
 <?php }?>
