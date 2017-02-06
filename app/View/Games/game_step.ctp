@@ -12,14 +12,23 @@ if($screen_width > 767 && $featured == true) {
 <div class="row no-margin margin-bottom-20">
 <?php
 $visions = $this->Session->read('Vision');
-$nxt_lnk = '';
 $nxt_txt = 'next_link';
+$nxt_lnk = '';
+
 foreach($visions as $vision) {
 	$selected = 'caption-subject font-grey-sharp bold uppercase';
+	
 	if($nxt_txt == '') {
-		$nxt_txt = $vision['Configuration']['title'];
-		$nxt_lnk = array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id']));
+
+		if($this->request->query['st'] == 292) {
+			$nxt_txt = 'Start';
+			$nxt_lnk = array('controller' => 'users', 'action' => 'start_vision', '?' => array('st' => $vision['Configuration']['id']));
+		} else {
+			$nxt_txt = $vision['Configuration']['title'];
+			$nxt_lnk = array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id']));
+		}
 	}
+	
 	if(in_array($vision['Configuration']['id'], array($step_information['Configuration']['id'], $step_information['Configuration']['dependent_id']))) {
 	   	$selected = 'caption-subject font-orange-sharp bold uppercase';
 	   	if($vision['Configuration']['id'] == $step_information['Configuration']['dependent_id']) {
@@ -28,6 +37,7 @@ foreach($visions as $vision) {
 	   		$nxt_txt = '';
 	   	}
 	}
+	
 	if($vision['Configuration']['title'] != '**NP**') {
 		echo $this->Html->div('col-md-3 col-xm-3',
 				$this->Html->link($vision['Configuration']['title'],
@@ -35,6 +45,10 @@ foreach($visions as $vision) {
 						array('class' => $selected . $next_btn)));
 	}
 }
+
+//debug($selected);
+//debug($nxt_txt);
+//debug($nxt_lnk);
 ?>
 </div>
 <?php
@@ -127,12 +141,6 @@ if($nxt_txt != '' && $nxt_txt != 'next_link') {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
 	
-} elseif($this->request->query['st'] == 198) {
-	
-	echo $this->Html->div('row no-margin text-center margin-bottom-20',
-			$this->Html->link('Confirm', 
-					array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => 202)), 
-					array('class' => 'btn-save ' . $next_btn)));
 }
 
 if($featured == false) {

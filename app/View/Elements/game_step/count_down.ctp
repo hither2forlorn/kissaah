@@ -19,19 +19,12 @@ $default = $this->Html->tag('span',
 	$this->Html->tag('span', $this->Html->tag('span', $interval->s, array('class' => 'countdown_amount')) . '<br />Seconds', array('class' => 'countdown_section')), 
 	array('class' => 'countdown_row countdown_show4'));
 
+$count_down = $this->Html->div('col-md-8 padding-0 col-md-offset-2', $default, array('id' => 'defaultCountdown'));
+echo $this->Html->div('row no-margin text-center margin-bottom-20', $count_down . $start_btn);
 
-if($startCounter != '') {
-	$class = ' col-md-offset-2';
-?>
+if($startCounter != '') { ?>
 <script>
 	var d = new Date('<?php echo $startCounter; ?>');
 	$('#defaultCountdown').countdown({until: d});
 </script>
-<?php 
-} else {
-	$start_btn = $this->Html->link('Start', array('controller' => 'users', 'action' => 'start_vision'), array('class' => 'btn-save btn-start-vision'));
-}
-
-$count_down = $this->Html->div('col-md-8 padding-0' . $class, $default, array('id' => 'defaultCountdown'));
-echo $this->Html->div('row no-margin text-center margin-bottom-20', $count_down . $start_btn);
-?>
+<?php } ?>
