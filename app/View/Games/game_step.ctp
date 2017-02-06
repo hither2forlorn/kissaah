@@ -113,18 +113,22 @@ if($step_information['Configuration']['id'] == 191) {
 }
 
 if($step_information['Configuration']['id'] == 189) {
+	
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link('Allies and feedback',
 					array('controller' => 'allies', 'action' => 'allies'),
 					array('class' => 'btn btn-save fbox-toolbox', 'id' => 'tour-step-05', 'data-width' => 600)));
-	
 }
 
 if($nxt_txt != '' && $nxt_txt != 'next_link') {
+	if($nxt_txt == '**NP**')
+		$nxt_txt = 'Next';
+	
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
 	
 } elseif($this->request->query['st'] == 198) {
+	
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link('Confirm', 
 					array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => 202)), 
