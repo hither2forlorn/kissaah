@@ -46,9 +46,9 @@ foreach($visions as $vision) {
 	}
 }
 
-//debug($selected);
-//debug($nxt_txt);
-//debug($nxt_lnk);
+debug($selected);
+debug($nxt_txt);
+debug($nxt_lnk);
 ?>
 </div>
 <?php
