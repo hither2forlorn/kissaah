@@ -43,6 +43,22 @@ class Game extends AppModel{
 		),
 	);
 	
+	public $hasMany = array(
+		'Challenge' => array(
+			'className' => 'Challenge',
+			'foreignKey' => 'goal_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+
 	public function beforeFind($queryData) {
 		$query_all = CakeSession::read('Game.query_all');
 		if($query_all == 0) {

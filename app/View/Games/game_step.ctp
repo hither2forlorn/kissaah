@@ -20,12 +20,19 @@ foreach($visions as $vision) {
 	
 	if($nxt_txt == '') {
 
+		$nxt_txt = $vision['Configuration']['title'];
+		$nxt_lnk = array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id']));
+
 		if($this->request->query['st'] == 292) {
-			$nxt_txt = 'Start';
-			$nxt_lnk = array('controller' => 'users', 'action' => 'start_vision', '?' => array('st' => $vision['Configuration']['id']));
-		} else {
-			$nxt_txt = $vision['Configuration']['title'];
-			$nxt_lnk = array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id']));
+			$vision_date = $this->Session->read('ActiveGame.vision_date');
+			if(!is_null($vision_date) || $vision_date != '') {
+				$nxt_txt = 'Capture';
+				
+			} else {
+				$nxt_txt = 'Start';
+				$nxt_lnk = array('controller' => 'users', 'action' => 'start_vision', '?' => array('st' => $vision['Configuration']['id']));
+				
+			}
 		}
 	}
 	
@@ -45,10 +52,10 @@ foreach($visions as $vision) {
 						array('class' => $selected . $next_btn)));
 	}
 }
-
+/*
 debug($selected);
 debug($nxt_txt);
-debug($nxt_lnk);
+debug($nxt_lnk); */
 ?>
 </div>
 <?php

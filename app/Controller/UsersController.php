@@ -566,17 +566,12 @@ class UsersController extends AppController {
 	
 	public function start_vision() {
 		$this->autoRender = false;
-		
-		debug($this->request->query['st']);
 		$vision_date = date('Y-m-d H:i:s', strtotime('+100 Days'));
 		$this->User->UserGameStatus->id = $this->Session->read('ActiveGame.id');
 		//$this->User->UserGameStatus->saveField('vision_date', $vision_date);
 		$this->Session->write('ActiveGame.vision_date', $vision_date);
 		
-		$return['success'] = 1;
-		$return['flash'] = $vision_date;
-		return(json_encode($return));
-		
+		$this->redirect(array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $this->request->query['st'])));
 	}
 	
 	public function roadmap_delete($user_game_status_id){

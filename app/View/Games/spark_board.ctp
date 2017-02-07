@@ -69,26 +69,43 @@
 	</div>
 	<div class="row no-margin padding-bottom-20">
 		<h3 class="activitytitle">My Next 3-12 months</h3>
-		<div class="col-md-12 col-sm-12">
-			<div class="row margin-bottom-15">
-				<div class="col-md-3 col-sm-3 col-xs-12"></div>
-				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Learning</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Date Added</div>
-				<div class="col-md-3 col-sm-3 col-xs-12 btn-in-progress">Context</div>
+		<div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+			<div class="table-scrollable">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th></th>
+							<th><div class="col-md-12 col-sm-12 col-xs-12 btn-in-progress">Learning</div></th>
+							<th><div class="col-md-12 col-sm-12 col-xs-12 btn-in-progress">Date Added</div></th>
+							<th><div class="col-md-12 col-sm-12 col-xs-12 btn-in-progress">Context</div></th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php 
+					$table = array();
+					foreach($next as $key => $value) {
+						$count = count($value['Challenge']);
+						if($count == 0) {
+							$table[] = array($value['Game']['answer'], '', '', '');
+
+						} else {
+
+							foreach($value['Challenge'] as $k => $v) {
+								if($k == 0) {
+									$table[] = array(array($value['Game']['answer'], array('rowspan' => $count)), 
+													 $v['name'], $v['complete_by'], $v['description']);
+								} else {
+									$table[] = array($v['name'], $v['complete_by'], $v['description']);
+								}
+							}
+						}
+					}
+
+					echo $this->Html->tableCells($table);
+					?> 
+					</tbody>
+				</table>
 			</div>
-			<?php 
-			foreach($next as $key => $value) {
-				$text  = $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-left-0', $value['Game']['answer']);
-				$text .= $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-0', 
-						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '', 'div' => false, 'label' => false)));
-				$text .= $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-0', 
-						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '', 'div' => false, 'label' => false)));
-				$text .= $this->Html->div('col-md-3 col-sm-3 col-xs-12 padding-0', 
-						$this->Form->input('Challenge.title', array('class' => 'form-control', 'placeholder' => '', 'div' => false, 'label' => false)));
-				
-				echo $this->Html->div('row margin-bottom-15', $text);
-			}
-			?>
 		</div>
 	</div>
 	<div class="row no-margin padding-bottom-20 margin-bottom-20">

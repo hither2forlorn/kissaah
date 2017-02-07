@@ -145,6 +145,7 @@ class ChallengesController extends AppController {
 	}
 	
 	public function set_challenge() {
+		debug($this->request->data);
 		if(($this->request->is('put') || $this->request->is('post'))) {
 			$this->autoRender = false;
 			
@@ -163,7 +164,7 @@ class ChallengesController extends AppController {
 			}
 			if(empty($this->request->data['Challenge']['id'])) {
 				$this->request->data['Challenge']['created_on'] = date('Y-m-d');
-				$this->request->data['Challenge']['status'] = 'Created';
+				$this->request->data['Challenge']['status'] 	= 'Created';
 			}
 			
 			if(isset($this->request->data['UserGameStatus'])) {
@@ -184,12 +185,14 @@ class ChallengesController extends AppController {
 				$return['id'] 		= $this->Challenge->id;
 				$return['link'] 	= Router::url(array('controller' => 'challenges', 'action' => 'view', $return['id']), true);
 				
-				return json_encode($return);
-				
 			} else {
 				//debug($this->Challenge->validationErrors);
 				$return['success'] = 0;
-				return json_encode($return);
+			}
+			if ($this->request->is('ajax')) {
+				return json_encode($return);		
+			} else {
+				$this->redirect($this->referer());
 			}
 		}
 		$options['fields'] = array('UserGameStatus.id', 'UserGameStatus.roadmap');
