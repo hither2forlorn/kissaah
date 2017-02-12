@@ -177,6 +177,5 @@ $(document).ready(function(){
 		Game.initAddToCalendar();
 		addthisevent.refresh();
 	}
-		
 });
 </script>

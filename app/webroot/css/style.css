@@ -1913,7 +1913,7 @@ div.value-list-xs {
 }
 
 ul.competencies-list {
-	min-height:40px;
+	min-height: 100px;
 	padding: 0;
 }
 ul.competencies-list li {

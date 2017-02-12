@@ -49,8 +49,3 @@ if(isset($selfdata['Dependent'])) {
 	}
 }
 ?>
-<script type="text/javascript">
-	$(document).ready(function() {
-		Game.handleDatePicker();
-	});
-</script>

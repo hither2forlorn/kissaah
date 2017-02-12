@@ -93,16 +93,10 @@ if(isset($selfdata['Dependent'])) {
 		$left_block = $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $challenge . $complete_by . $calendar .
 																    $challenge_id . $challenge_name . $challenge_from_id . 
 																    $user_id . $created_by . $goal_id . $users);
-		$save_challenge = ' save-challenge';
 		
 		if(($summary && !empty($goal)) || !$summary) {
-			echo $this->Html->div('row no-margin margin-bottom-10' . $save_challenge, $left_block);
+			echo $this->Html->div('row no-margin margin-bottom-10 save-challenge', $left_block);
 		}
 	}
 }
 ?>
-<script type="text/javascript">
-	$(document).ready(function() {
-		Game.handleDatePicker();
-	});
-</script>

@@ -452,7 +452,7 @@ var Game = function () {
     			var data 		= $(this).serializeArray();
     			var challenge 	= $(this).closest('.save-challenge').length;
 
-    			if(DOM_Element.attr('data-save') !== undefined) {
+    			if(DOM_Element.attr('data-save') !== undefined && DOM_Element.attr('class').search('date-picker') == -1) {
     				if(challenge > 0) {
     					depen_id = $(this).attr('data-depn');
     		    		data 	 = $(this).closest('.save-challenge').find(':input').serializeArray();
@@ -677,7 +677,6 @@ var Game = function () {
 					format		: 'mm/dd/yyyy',
 					autoclose	: true
 	    	    }).on('changeDate', function(e) {
-	    	    	
 					var DOM_Element = $(this);
 					depen_id = $(this).attr('data-depn');
 	    			if(DOM_Element.attr('data-save') !== undefined) {
@@ -694,6 +693,7 @@ var Game = function () {
 					            	$('a[data=addto-' + depen_id + ']').children('._start').text(completeby);
 					            	$('a[data=addto-' + depen_id + ']').children('._end').text(completeby);
 					            	$('a[data=addto-' + depen_id + ']').children('._description').text(description);
+					            	$('a[data=addto-' + depen_id + ']').removeClass('hidden');
 						            addthisevent.refresh();
 	    	        			}
 	    					}
