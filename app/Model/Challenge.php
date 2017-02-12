@@ -125,7 +125,6 @@ class Challenge extends AppModel {
  * hasAndBelongsToMany associations
  *
  * @var array
- */
 	public $hasAndBelongsToMany = array(
 		'UserGameStatus' => array(
 			'className' => 'UserGameStatus',
@@ -141,5 +140,6 @@ class Challenge extends AppModel {
 			'finderQuery' => '',
 		)
 	);
+ */
 
 }

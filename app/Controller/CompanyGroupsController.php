@@ -12,6 +12,7 @@ class CompanyGroupsController extends AppController {
 			$this->redirect($this->referer());
 		}
 	}
+	
 	public function admin_locTree() {
 		$this->autoRender = false;
 		$tree_list = array();
@@ -92,12 +93,7 @@ class CompanyGroupsController extends AppController {
 		$this->set(compact('parent_id', 'admins'));
 	}
      
-  
-                      
-          
 	public function admin_edit($id = null) {
-            
-                          
 		if (!$this->CompanyGroup->exists($id)) {
 			throw new NotFoundException(__('Invalid CompanyGroup'));
 		}
@@ -158,9 +154,7 @@ class CompanyGroupsController extends AppController {
 		return $this->redirect($this->referer());
 	}
 
-  
-
-	function admin_delete($id = null){
+	public function admin_delete($id = null){
 		$this->CompanyGroup->id = $id;
 		if (!$this->CompanyGroup->exists()) {
 			throw new NotFoundException(__('Invalid CompanyGroup'));
@@ -173,6 +167,23 @@ class CompanyGroupsController extends AppController {
 		}
 		
 		return $this->redirect(array('action' => 'index'));
+	}
+	
+	public function company_group_users() {
+		$user_id = $this->Auth->user('id');
+		$options['conditions'] = array('user_id' => $user_id);
+		$company = $this->CompanyGroup->CompanyGroupsUser->field('company_group_id', $options['conditions']);
+		
+		$options['fields'] = array('id', 'user_id');
+		$options['conditions'] = array('company_group_id' => $company);
+		$groups = $this->CompanyGroup->CompanyGroupsUser->find('list', $options);
+		
+		$options = array();
+		$options['contain'] = false;
+		$options['conditions'] = array('User.id' => $groups);
+		$users = $this->CompanyGroup->User->find('all', $options);
+		
+		return $users;
 	}
 }
 ?>

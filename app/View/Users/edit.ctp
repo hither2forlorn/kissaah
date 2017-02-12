@@ -7,18 +7,27 @@
 <div class="row no-margin">
 <?php 
 	if ($action == 'additional_user_info') {
-		echo '<div class="col-md-4 col-sm-4"></div>';
-		echo '<div class="col-md-4 col-sm-4">';
-			$id = $this->Session->read('Profile.Game.id');
-			$configure = $this->Session->read('Profile.Game.configuration_id');
-			$image = $this->Session->read('Profile.Game.answer');
+		echo '<div class="col-offset-md-4 col-md-4 col-sm-4">';
+			$id 	= $this->Session->read('Auth.User.id');
+			$image  = $this->Session->read('Auth.User.slug');
 			if($image == '') {
 				$image = 'http://placehold.it/198x198&text=Profile Picture';
 			} else {
 				$image = '/files/img/medium/' . $image;
 			}
 			echo $this->Html->image($image, array('class' => 'img-responsive thumbnail margin-bottom-5 margin-top-10', 
-												 'data' => 'medium-' . $configure));
+												 'data' => 'medium-' . $id));
+			
+			$image_form  = $this->Form->create('Profile', array('class' => 'btn-file fileupload',
+					'data-save' => $this->Html->url(array('controller' => 'games', 'action' => 'upload', 'image'))));
+			$image_form .= $this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o', 'id' => 'upl' . $id));
+			$image_form .= $this->Form->input('User.' . $this->Session->read('Auth.User.id'), array(
+								'type' 		=> 'file',
+								'label' 	=> false,
+								'class'		=> 'default',
+								'div' 		=> false));
+			$image_form .= $this->Form->end();
+			/*
 			$image_form = $this->Form->create('Game' .$id. 'Upload', array('class' => 'btn-file pull-left fileupload'));
 			$image_form .= $this->Html->image('upload-lightblue.png', array('id' => 'upl'.'36'));
 			$image_form .= $this->Form->input($configure, array(
@@ -27,11 +36,10 @@
 											'class'		=> 'default', 
 											'div' 		=> false));
 			$image_form .= $this->Form->end();
-			
+			*/
 			echo $this->Html->div('image-icon', $image_form );
-			echo '</div>';
-			echo '<div class="col-md-4 col-sm-4"></div>';
- 	}
+		echo '</div>';
+	}
 ?>
 	<div class="col-md-12 col-sm-12">
 		<?php echo $this->Form->create('User', array('inputDefaults' => array('label' => false, 'div' => false, 'class' => 'form-control'))); ?>
@@ -104,9 +112,6 @@
 			</div>
 		<?php } ?>
 			<div class="form-group">
-				<?php echo $this->Form->button('Save', array('type' => 'submit', 'class' => 'btn btn-primary')); ?>
-			</div>
-                <div class="form-group">
 				<?php echo $this->Form->button('Save', array('type' => 'submit', 'class' => 'btn btn-primary')); ?>
 			</div>
 		<?php echo $this->Form->end(); ?>

@@ -68,7 +68,7 @@ foreach($selfdata['children'] as $key => $value) {
 		$textfieldclass = 'col-md-7 col-sm-7 col-xs-7 no-padding text-014';
 	}
 	 
-	$input = $this->Html->div('form-group text-center save-answer', $input, array('data-add' => $value['Configuration']['id']));
+	$input = $this->Html->div('form-group text-center', $input, array('data-add' => $value['Configuration']['id']));
 	$display .= $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $header . $this->Html->div($textfieldclass, $input) . $addmore);
 }
 

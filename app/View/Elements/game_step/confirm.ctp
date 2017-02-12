@@ -1,15 +1,39 @@
 <?php
 $vision_date = $this->Session->read('ActiveGame.vision_date');
-if(!is_null($vision_date) || $vision_date != '') {
+if(!is_null($vision_date) || $vision_date != '' || $summary == true) {
 	$options['readonly'] = 'readonly';
 }
 
-$options['data-save'] 	= $this->Html->url(array('controller' => 'challenges', 'action' => 'set_challenge'));
-$options['label'] 		= false;
+$options['data-save'] = $this->Html->url(array('controller' => 'challenges', 'action' => 'set_challenge'));
+$options['label'] 	  = false;
 
 echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 btn-finished margin-bottom-5', $selfdata['Configuration']['title']);
 
 $optionsch['data-conf'] = $options['data-conf'] = $selfdata['Configuration']['id'];
+
+$users = '';
+$group_users = $this->requestAction(array('controller' => 'company_groups', 'action' => 'company_group_users'));
+foreach($group_users as $key => $value) {
+	
+	if(empty($value['User']['slug']) || $value['User']['slug'] == '' || is_null($value['User']['slug'])) {
+		$img = 'profile.png';
+	} else {
+		$img = '../files/img/medium/' . $value['User']['slug'];
+	}
+	
+	$img = $this->Html->div('col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 
+			$this->Html->image($img, array('data-user' => $value['User']['id'], 'class' => 'img-responsive')));
+	
+	$users .= $img;
+	/*$img = (empty($goal['ChallengeFrom']['slug']) || $goal['ChallengeFrom']['id'] == $this->Session->read('Auth.User.id'))?
+					'profile.png': '../files/img/medium/' . $goal['ChallengeFrom']['slug'];
+	$img = $this->Html->div('col-md-12 no-padding margin-bottom-5',
+			$this->Html->image($img, array('data' => 'medium-' . $dependent['id'], 'class' => 'img-responsive')));
+	
+	$rght_block = $this->Html->div('col-md-2 col-sm-2 col-xs-3 no-padding', $img);
+	*/
+}
+$users = $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5', $users);
 
 if(isset($selfdata['Dependent'])) {
 	
@@ -66,38 +90,19 @@ if(isset($selfdata['Dependent'])) {
 																				'data' 	=> 'addto-' . $dependent['id'],
 																				'escape'=> false));
 
-		if($summary) {
-			$left_block = $this->Html->div('col-md-10 col-sm-10 col-xs-9 padding-right-0', $challenge . $complete_by . 
-																	    $challenge_id . $challenge_name . $challenge_from_id . 
-																	    $user_id . $created_by . $goal_id);
-			$save_challenge = ' save-challenge';
-		
-		} else {
-			$left_block = $this->Html->div('col-md-10 col-sm-10 col-xs-9 padding-right-0', $challenge . $complete_by . $calendar . 
-																	    $challenge_id . $challenge_name . $challenge_from_id . 
-																	    $user_id . $created_by . $goal_id);
-			$save_challenge = ' save-challenge';
-		}
-		
-		$img = (empty($goal['ChallengeFrom']['slug']) || $goal['ChallengeFrom']['id'] == $this->Session->read('Auth.User.id'))? 
-						'profile.png': '../files/img/medium/' . $goal['ChallengeFrom']['slug'];
-		$img = $this->Html->div('col-md-12 no-padding margin-bottom-5', 
-									$this->Html->image($img, array('data' => 'medium-' . $dependent['id'], 'class' => 'img-responsive')));
-		
-		$rght_block = $this->Html->div('col-md-2 col-sm-2 col-xs-3 no-padding', $img);
+		$left_block = $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $challenge . $complete_by . $calendar .
+																    $challenge_id . $challenge_name . $challenge_from_id . 
+																    $user_id . $created_by . $goal_id . $users);
+		$save_challenge = ' save-challenge';
 		
 		if(($summary && !empty($goal)) || !$summary) {
-			echo $this->Html->div('row no-margin margin-bottom-10' . $save_challenge, $rght_block . $left_block);
+			echo $this->Html->div('row no-margin margin-bottom-10' . $save_challenge, $left_block);
 		}
 	}
 }
 ?>
-<?php if(!$summary) { ?>
 <script type="text/javascript">
 	$(document).ready(function() {
 		Game.handleDatePicker();
-		Game.initAddToCalendar();
-		addthisevent.refresh();
 	});
 </script>
-<?php }?>

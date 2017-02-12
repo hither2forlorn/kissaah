@@ -33,7 +33,7 @@ if(isset($roadmaps)){
 	    echo $this->Html->tag('h4', 'RoadMap', array('class' => 'activitytitle margin-top-10'));
 		
 		echo $this->Html->link('Save RoadMap', 
-				array('controller' => 'games', 'action' => 'index'),
+				array('controller' => 'users', 'action' => 'roadmap_edit_active'),
 				array('class' => 'btn btn-primary collapsed roadmap-save', 'escape' => false));
 				
 		echo $this->Html->para('margin-top-10', 

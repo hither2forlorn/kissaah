@@ -2,7 +2,7 @@
 	<div class="col-md-2 col-sm-3 col-xs-4"><?php
 		$image = $this->Session->read('Auth.User.slug');
 		if(empty($image)) {
-			$image = 'http://placehold.it/220x220&text=No Image';
+			$image = 'http://placehold.it/220x220&text=Profile';
 		} else {
 			$image = '/files/img/medium/' . $image;
 		}
@@ -58,9 +58,9 @@
 								   array('controller' => 'users', 'action' => 'edit/profile'), 
 								   array('escape' => false, 'class' => 'open-fancybox ')) . 
 				$this->Html->div('margin-left-25 ScreenName', $userdetail['User']['name'] . '') .
-				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.email'), array('id' => 'Email')) .
-				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.city')) .
-				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.country')));
+				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.email') . '', array('id' => 'Email')) .
+				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.city') . '') .
+				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.country') . ''));
 
 		echo $this->Html->div('margin-bottom-10',
 			$this->Html->link(

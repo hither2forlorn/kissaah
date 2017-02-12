@@ -174,11 +174,3 @@ foreach($selfdata['children'] as $child) {
 	}
 }
 ?>
-<?php if(!$summary) { ?>
-<script type="text/javascript">
-$(document).ready(function() {
-	Game.initAddToCalendar();
-	addthisevent.refresh();
-});
-</script>
-<?php }?>

@@ -145,7 +145,6 @@ class ChallengesController extends AppController {
 	}
 	
 	public function set_challenge() {
-		debug($this->request->data);
 		if(($this->request->is('put') || $this->request->is('post'))) {
 			$this->autoRender = false;
 			

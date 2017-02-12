@@ -74,7 +74,8 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 			'../plugins/typeahead/typeahead.bundle.min',
 			'../plugins/fullcalendar/fullcalendar.min',
 			'../plugins/raty/lib/jquery.raty',
-    		'../plugins/countdown/jquery.countdown.min'
+    		'../plugins/countdown/jquery.countdown.min',
+    		'https://addthisevent.com/libs/ate-latest.min.js'
     ));
 	
 	echo $this->Html->script(array('metronic', 'pages/game', 'pages/allies', 'pages/challenges', 'pages/profile'));

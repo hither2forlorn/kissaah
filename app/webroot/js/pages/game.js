@@ -378,6 +378,11 @@ var Game = function () {
 			            'closeClick' : false
 			        }
 			    },
+				'type'			: 'ajax',
+			    'autoSize'		: false,
+				'width'         : 700,
+				'height'        : 'auto',
+				'wrapCSS'		: 'fancybox-game-popup save-answer',
 			    'beforeShow'	: function() {},
 			    'afterLoad'		: function(current, previous) {
 			    	str = (current.href).lastIndexOf('=') + 1;
@@ -425,11 +430,6 @@ var Game = function () {
 	        			});
 			    	}
 			    },
-				'type'			: 'ajax',
-			    'autoSize'		: false,
-				'width'         : 700,
-				'height'        : 'auto',
-				'wrapCSS'		: 'fancybox-game-popup'
 			});
         },
         
@@ -449,26 +449,47 @@ var Game = function () {
         SaveGame: function() {
     		$('.save-answer').on('focusout', 'input[type=text], textarea, select', function(evt) {
     			var DOM_Element = $(this);
+    			var data 		= $(this).serializeArray();
+    			var challenge 	= $(this).closest('.save-challenge').length;
+
     			if(DOM_Element.attr('data-save') !== undefined) {
+    				if(challenge > 0) {
+    					depen_id = $(this).attr('data-depn');
+    		    		data 	 = $(this).closest('.save-challenge').find(':input').serializeArray();
+    		    		//$(this).parents('.save-challenge').find(':input').serializeArray();
+    				} 
     				$.ajax({
     					type		: 'POST',
-    					data		: $(this).serializeArray(),
+    					data		: data,
     					url			: $(this).attr('data-save'),
-    					success		: function(data){
+    					success		: function(data) {
     	        			var object = $.parseJSON(data);
     	        			if(object.success) {
-    	        				var attr_name 	= DOM_Element.attr('name');
-    	        				attr_name 		= attr_name.replace('[0]', '[' + object.id + ']');
-
-    	        				if(DOM_Element.attr('data-child') == 'true') {
-    	        					DOM_Element.parents('div.form-group').children('div:first-child').children('input').attr('name', attr_name); 
-    	        					DOM_Element.parents('div.form-group').children('div:last-child').children('input').attr('name', attr_name);
-    	        					
+    	        				if(challenge > 0) {
+	    	        				$('input[data=challenge-' + depen_id + ']').attr('value', object.id);
+	    	        				completeby = $('.date-picker-future[data-depn=' + depen_id + ']').attr('value');
+	    	        				description = $('.description[data-depn=' + depen_id + ']').attr('value');
+					            	$('a[data=addto-' + depen_id + ']').children('._start').text(completeby);
+					            	$('a[data=addto-' + depen_id + ']').children('._end').text(completeby);
+					            	$('a[data=addto-' + depen_id + ']').children('._description').text(description);
+					            	$('a[data=addto-' + depen_id + ']').removeClass('hidden');
+						            addthisevent.refresh();
+						            
     	        				} else {
-    	        					DOM_Element.attr('name', attr_name);
+        	        				var attr_name 	= DOM_Element.attr('name');
+        	        				attr_name 		= attr_name.replace('[0]', '[' + object.id + ']');
+
+        	        				if(DOM_Element.attr('data-child') == 'true') {
+        	        					DOM_Element.parents('div.form-group').children('div:first-child').children('input').attr('name', attr_name); 
+        	        					DOM_Element.parents('div.form-group').children('div:last-child').children('input').attr('name', attr_name);
+        	        					
+        	        				} else {
+        	        					DOM_Element.attr('name', attr_name);
+        	        				}
+        	        				
+        	        				$('label[data="' + object.cid + '"]').html(DOM_Element.attr('value'));
+    	        					
     	        				}
-    	        				
-    	        				$('label[data="' + object.cid + '"]').html(DOM_Element.attr('value'));
     	        			}
     					}
     				});
@@ -499,31 +520,6 @@ var Game = function () {
     				});
     			}
 			});
-
-    		$('.save-challenge').on('focusout', 'input, textarea, select', function(evt) {
-				var DOM_Element = $(this);
-				depen_id = $(this).attr('data-depn');
-    			if(DOM_Element.attr('data-save') !== undefined) {
-    				$.ajax({
-    					type		: 'POST',
-    					data		: $(this).parents('.save-challenge').find(':input').serializeArray(),
-    					url			: $(this).attr('data-save'),
-    					success		: function(data) {
-    	        			var object = $.parseJSON(data);
-    	        			if(object.success) {
-    	        				$('input[data=challenge-' + depen_id + ']').attr('value', object.id);
-    	        				completeby = $('.date-picker-future[data-depn=' + depen_id + ']').attr('value');
-    	        				description = $('.description[data-depn=' + depen_id + ']').attr('value');
-				            	$('a[data=addto-' + depen_id + ']').children('._start').text(completeby);
-				            	$('a[data=addto-' + depen_id + ']').children('._end').text(completeby);
-				            	$('a[data=addto-' + depen_id + ']').children('._description').text(description);
-				            	$('a[data=addto-' + depen_id + ']').removeClass('hidden');
-					            addthisevent.refresh();
-    	        			}
-    					}
-    				});
-    			}
-    		});
         },
         
         SaveAndCloseGame: function() {
@@ -626,43 +622,14 @@ var Game = function () {
         	});
         	
         	$('.roadmap-save').click(function(event){
-        		event.preventDefault();
-        		road_map_name = $('input[type=text]').val();
+        		road_map_name = $('.roadmap-input').val();
         		if(road_map_name === '') {
+            		event.preventDefault();
         			$('h5.error-message').html('Please enter the roadmap');
         		} else {
-            		$('.point-road-map').html($('input[type=text]').val());
             		location.reload();
         		}
         	});
-        },
-        
-        DrawSpider: function(spider_data, class_name) {
-        	var options = {
-        			series	: { 
-        		        spider	: {
-        					active			: true,
-        		            spiderSize		: 0.7,
-        		            pointSize		: 5,
-        		            scaleMode		: "all",
-        		            connection		: { width: 0 },
-        		            highlight		: { opacity: 0.5, mode: "area" },
-        		            legs			: {
-        		            	font		: "10px Signika",
-        						data		: [ {label: "RESP"},
-        										{label: "PUR"},
-        										{label: "ENG"},
-        										{label: "COMP"},
-        										{label: "OPT"},
-        										{label: "POSR"},
-        										{label: "CONT"},
-        										{label: "GOOD"}],
-        		                fillStyle: "Black",
-        		            },
-        				}
-        			}
-        		};
-        	$.plot($('.' + class_name), spider_data, options);
         },
         
 	    handleDatePicker: function() {
@@ -988,10 +955,10 @@ var FileUpload = function () {
             $('.page-loading').remove();
         },
 
-		UploadFileImage: function(){
+		UploadFileImage: function() {
 			var upload_DOM, formElement;
 			var ReqHan = new Array();
-			$('.fileupload').change(function(ev){
+			$('.fileupload').change(function(ev) {
 				FileUpload.startFileLoading($(this).closest('.image-box'), 'Uploading');
 				upload_DOM = $(this).find('input[type=file]');
 				upload_URL = $(this).attr('data-save');
@@ -1016,12 +983,12 @@ var FileUpload = function () {
 									$('#' + formElement).closest('.col-md-12').prev('.uploadMultipleDiv').remove();
 								}
 							} else {
-								alert(object.flash);
+								console.log(object.flash);
 							}
 							FileUpload.stopFileLoading();
 							ReqHan[formElement] = false;
 						},
-						error		: function(data){},
+						error		: function(data) {},
 						complete	: function(){
 							ReqHan[formElement] = false;
 						}

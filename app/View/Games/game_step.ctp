@@ -1,4 +1,4 @@
-<?php 
+<?php
 $featured = $this->Session->read('Configuration.featured');
 if($featured == false) {
 	echo '<div class="col-md-6 col-md-offset-3 save-answer">';
@@ -172,5 +172,11 @@ $(document).ready(function(){
 	FileUpload.ImageActions();
 	
 	SortingValues.DragAndDrop();
+
+	if($('.addthisevent').length > 0) {
+		Game.initAddToCalendar();
+		addthisevent.refresh();
+	}
+		
 });
 </script>

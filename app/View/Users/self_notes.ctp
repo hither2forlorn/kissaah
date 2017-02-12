@@ -89,6 +89,8 @@ echo $this->Html->script(array('pages/notes'));
 		Metronic.DateOnlyFuture();
 		NoteToSelf.SaveNote();
 		NoteToSelf.Email();
+
+		Game.initAddToCalendar();
 		addthisevent.refresh();
 	});
 </script>

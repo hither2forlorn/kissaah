@@ -5,11 +5,12 @@ $current_date = date_create(date('Y-m-d H:i:s'));
 $vision_date = $this->Session->read('ActiveGame.vision_date');
 
 if(is_null($vision_date)) {
-	$vision_date = date_create(date('Y-m-d H:i:s', strtotime('+100 Days')));
+	$vision_date = date_create(date('Y-m-d H:i:s', strtotime($selfdata['Configuration']['naration_txt'])));
 } else {
 	$startCounter = $vision_date;
 	$vision_date = date_create(date('Y-m-d H:i:s', strtotime($vision_date)));
 }
+
 $interval = date_diff($vision_date, $current_date);
 
 $default = $this->Html->tag('span', 
@@ -24,7 +25,7 @@ echo $this->Html->div('row no-margin text-center margin-bottom-20', $count_down 
 
 if($startCounter != '') { ?>
 <script>
-	var d = new Date('<?php echo $startCounter; ?>');
+	var d = moment('<?php echo $startCounter; ?>', 'YYYY-MM-DD HH:mm:ss').toDate();
 	$('#defaultCountdown').countdown({until: d});
 </script>
 <?php } ?>

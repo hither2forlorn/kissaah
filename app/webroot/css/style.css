@@ -2262,3 +2262,19 @@ a.back-to-road-map {
 	font-size: 1.2em;
 	color: #ea7328 !important;
 }
+
+.ally-selection {
+	cursor: pointer;
+	
+	
+}
+.ally-selection::selection {
+	border: 1px solid;
+	
+}
+
+
+
+
+
+

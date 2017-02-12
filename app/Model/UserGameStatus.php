@@ -66,19 +66,6 @@ class UserGameStatus extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'SelfNote' => array(
-			'className'  => 'SelfNote',
-			'foreignKey' => 'user_game_status_id',
-			'dependent' => true,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
 		'Game' => array(
 			'className' => 'Game',
 			'foreignKey' => 'user_game_status_id',

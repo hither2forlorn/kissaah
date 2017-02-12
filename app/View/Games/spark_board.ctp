@@ -1,4 +1,4 @@
-<div class="col-md-8 col-md-offset-2 save-answer">
+<div class="col-md-8 col-md-offset-2">
 	<div class="row no-margin padding-bottom-20 padding-top-20">
 		<h3 class="activitytitle">Catalyst Plans</h3>
 		<div class="col-md-12 col-sm-12 col-xs-12 no-padding">
@@ -106,20 +106,6 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-	</div>
-	<div class="row no-margin padding-bottom-20 margin-bottom-20">
-		<div class="col-md-4 col-sm-4 col-xs-12 padding-0">
-			Development <a href="#" class="add-more" data="data[Game][218][0]" data-add="218"><i class="fa fa-lg fa-plus-circle"></i></a>
-			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Development" type="text">
-		</div>
-		<div class="col-md-4 col-sm-4 col-xs-12 padding-right-0">
-			Exposure <a href="#" class="add-more" data="data[Game][218][0]" data-add="218"><i class="fa fa-lg fa-plus-circle"></i></a>
-			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Exposure" type="text">
-		</div>
-		<div class="col-md-4 col-sm-4 col-xs-12 padding-right-0">
-			Connections <a href="#" class="add-more" data="data[Game][218][0]" data-add="218"><i class="fa fa-lg fa-plus-circle"></i></a>
-			<input name="data[Challenge][complete_by]" class="form-control" placeholder="Connections" type="text">
 		</div>
 	</div>
 </div>
