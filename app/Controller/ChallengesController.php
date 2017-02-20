@@ -208,11 +208,11 @@ class ChallengesController extends AppController {
 		if($action == 'delete') {
 			$options = array('ChallengesUser.challenge_id' => $challenge, 'ChallengesUser.user_id' => $user);
 			if($this->Challenge->ChallengesUser->deleteAll($options)) {
-				return Router::url(['action' => 'set_challenge_user', 'add'], true);
+				return Router::url(array('action' => 'set_challenge_user', 'add'), true);
 			}
 		} else {
 			if($this->Challenge->ChallengesUser->save($this->request->data)) {
-				return Router::url(['action' => 'set_challenge_user', 'delete'], true);
+				return Router::url(array('action' => 'set_challenge_user', 'delete'), true);
 			}
 		}
 
