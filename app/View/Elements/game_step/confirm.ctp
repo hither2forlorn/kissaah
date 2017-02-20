@@ -11,29 +11,7 @@ echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 btn-finished margin-bottom-
 
 $optionsch['data-conf'] = $options['data-conf'] = $selfdata['Configuration']['id'];
 
-$users = '';
 $group_users = $this->requestAction(array('controller' => 'company_groups', 'action' => 'company_group_users'));
-foreach($group_users as $key => $value) {
-	
-	if(empty($value['User']['slug']) || $value['User']['slug'] == '' || is_null($value['User']['slug'])) {
-		$img = 'profile.png';
-	} else {
-		$img = '../files/img/medium/' . $value['User']['slug'];
-	}
-	
-	$img = $this->Html->div('col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 
-			$this->Html->image($img, array('data-user' => $value['User']['id'], 'class' => 'img-responsive')));
-	
-	$users .= $img;
-	/*$img = (empty($goal['ChallengeFrom']['slug']) || $goal['ChallengeFrom']['id'] == $this->Session->read('Auth.User.id'))?
-					'profile.png': '../files/img/medium/' . $goal['ChallengeFrom']['slug'];
-	$img = $this->Html->div('col-md-12 no-padding margin-bottom-5',
-			$this->Html->image($img, array('data' => 'medium-' . $dependent['id'], 'class' => 'img-responsive')));
-	
-	$rght_block = $this->Html->div('col-md-2 col-sm-2 col-xs-3 no-padding', $img);
-	*/
-}
-$users = $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5', $users);
 
 if(isset($selfdata['Dependent'])) {
 	
@@ -90,6 +68,50 @@ if(isset($selfdata['Dependent'])) {
 																				'data' 	=> 'addto-' . $dependent['id'],
 																				'escape'=> false));
 
+		$users = '';
+		
+		if(!empty($goal['ChallengesUser'])) {
+			foreach($goal['ChallengesUser'] as $chall_user) {
+					
+				$key = $chall_user['user_id'];
+				$value = $group_users[$key];
+		
+				if(empty($value) || $value == '' || is_null($value)) {
+					$img = 'profile.png';
+				} else {
+					$img = '../files/img/medium/' . $value;
+				}
+					
+				$users .= $this->Html->link($this->Html->image($img, array(
+						'data-user' 	 => $key,
+						'data-challenge' => $optionsch['value'],
+						'class' 		 => 'img-responsive selected')),
+						array('controller' => 'challenges', 'action' => 'set_challenge_user', 'delete'),
+						array('class' => 'col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
+		
+				unset($group_users[$key]);
+			}
+		}
+		
+		foreach($group_users as $key => $value) {
+		
+			if(empty($value) || $value == '' || is_null($value)) {
+				$img = 'profile.png';
+			} else {
+				$img = '../files/img/medium/' . $value;
+			}
+				
+			$users .= $this->Html->link($this->Html->image($img, array(
+					'data-depn'		 => $dependent['id'],
+					'data-user' 	 => $key,
+					'data-challenge' => $optionsch['value'],
+					'class' 		 => 'img-responsive')),
+					array('controller' => 'challenges', 'action' => 'set_challenge_user', 'add'),
+					array('class' => 'col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
+		}
+		
+		$users = $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5' . $cal_class, $users);
+		
 		$left_block = $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $challenge . $complete_by . $calendar .
 																    $challenge_id . $challenge_name . $challenge_from_id . 
 																    $user_id . $created_by . $goal_id . $users);

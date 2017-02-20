@@ -688,19 +688,48 @@ var Game = function () {
 	    	        			var object = $.parseJSON(data);
 	    	        			if(object.success) {
 	    	        				$('input[data=challenge-' + depen_id + ']').attr('value', object.id);
+	    	        				$('img[data-depn=' + depen_id + ']').attr('data-challenge', object.id);
+	    	        				
 	    	        				completeby = $('.date-picker-future[data-depn=' + depen_id + ']').attr('value');
 	    	        				description = $('.description[data-depn=' + depen_id + ']').attr('value');
-					            	$('a[data=addto-' + depen_id + ']').children('._start').text(completeby);
+					            	
+	    	        				$('a[data=addto-' + depen_id + ']').children('._start').text(completeby);
 					            	$('a[data=addto-' + depen_id + ']').children('._end').text(completeby);
 					            	$('a[data=addto-' + depen_id + ']').children('._description').text(description);
 					            	$('a[data=addto-' + depen_id + ']').removeClass('hidden');
-						            addthisevent.refresh();
+
+	    	        				$('img[data-depn=' + depen_id + ']').parents('div').removeClass('hidden');
+
+	    	        				addthisevent.refresh();
 	    	        			}
 	    					}
 	    				});
 	    			}
 				});
 	    	}
+	    },
+	    
+	    ChallengeAlly: function() {
+			$('a.ally-selection').on('click', function(evt) {
+				
+				evt.preventDefault();
+				DOM_Element = $(this);
+	    		var user = $(this).children().attr('data-user');
+	    		var challenge = $(this).children().attr('data-challenge');
+
+	    		if(challenge != '' && user != '') {
+
+	    			$.ajax({
+						url	: $(this).attr('href') + '/' + challenge + '/' + user,
+						success		: function(data) {
+							if(data !== 0) {
+								DOM_Element.children().toggleClass('selected');
+								DOM_Element.attr('href', data);
+							}
+						}
+					});
+	    		}
+	    	});
 	    },
 	    
 	    handleRating: function() {
@@ -712,10 +741,6 @@ var Game = function () {
 	    		    return $(this).attr('data-score');
 	      		},
 	      		click: function(score, evt) {
-	      			console.log(score);
-	      			console.log(evt);
-	      			console.log($(this).attr('data-id'));
-
 	    			if($(this).attr('data-save') !== undefined) {
 	    				$.ajax({
 	    					url	: $(this).attr('data-save') + '/' + score

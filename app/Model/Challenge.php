@@ -104,9 +104,10 @@ class Challenge extends AppModel {
  * hasMany associations
  *
  * @var array
+ */
 	public $hasMany = array(
-		'Message' => array(
-			'className' => 'Message',
+		'ChallengesUser' => array(
+			'className' => 'ChallengesUser',
 			'foreignKey' => 'challenge_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -119,7 +120,6 @@ class Challenge extends AppModel {
 			'counterQuery' => ''
 		)
 	);
- */
 
 /**
  * hasAndBelongsToMany associations

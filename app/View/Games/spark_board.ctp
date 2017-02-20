@@ -23,6 +23,7 @@
 					} else {
 						foreach($development as $key => $value) {
 							if($key == 0) {
+								//debug($this->requestAction(array('controller' => 'challenges', 'action' => 'get_challenge_user', $value['Game']['id'])));
 								$table[] = array(array('Development', array('rowspan' => $count)), $value['Game']['answer'], 'Due', '10%', 'Mark', 'Comment');
 							
 							} else {

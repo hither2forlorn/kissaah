@@ -32,6 +32,13 @@ class Game extends AppModel{
 		'Containable'
 	);
 	
+	public $hasOne = array(
+		'Challenge' => array(
+			'className' => 'Challenge',
+			'foreignKey' => 'goal_id',
+		)
+	);
+	
 	public $belongsTo = array(
 		'Configuration'=> array(
 			'className'		=> 'Configuration',
@@ -44,19 +51,6 @@ class Game extends AppModel{
 	);
 	
 	public $hasMany = array(
-		'Challenge' => array(
-			'className' => 'Challenge',
-			'foreignKey' => 'goal_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
 	);
 
 	public function beforeFind($queryData) {

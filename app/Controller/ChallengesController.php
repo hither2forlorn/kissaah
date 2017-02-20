@@ -200,6 +200,35 @@ class ChallengesController extends AppController {
 		$this->set('road_maps', $road_maps);
 	}
 
+	public function set_challenge_user($action = 'add', $challenge, $user) {
+		$this->autoRender = false;
+		$this->request->data['ChallengesUser']['challenge_id'] = $challenge;
+		$this->request->data['ChallengesUser']['user_id'] = $user;
+		
+		if($action == 'delete') {
+			$options = array('ChallengesUser.challenge_id' => $challenge, 'ChallengesUser.user_id' => $user);
+			if($this->Challenge->ChallengesUser->deleteAll($options)) {
+				return Router::url(['action' => 'set_challenge_user', 'add'], true);
+			}
+		} else {
+			if($this->Challenge->ChallengesUser->save($this->request->data)) {
+				return Router::url(['action' => 'set_challenge_user', 'delete'], true);
+			}
+		}
+
+		return false;
+	}
+	
+	public function get_challenge_user($challenge) {
+		$this->autoRender = false;
+		$this->request->data['ChallengesUser']['challenge_id'] = $challenge;
+		
+		$options['condition'] = array('ChallengesUser.challenge_id' => $challenge);
+		$challenge = $this->Challenge->ChallengesUser->find('all', $options);
+		
+		return $challenge;
+	}
+	
 	public function typeahead_allies() {
 		$this->autoRender = false;
 		$query = $this->request->query['query'];

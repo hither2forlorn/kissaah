@@ -175,13 +175,14 @@ class CompanyGroupsController extends AppController {
 		$company = $this->CompanyGroup->CompanyGroupsUser->field('company_group_id', $options['conditions']);
 		
 		$options['fields'] = array('id', 'user_id');
-		$options['conditions'] = array('company_group_id' => $company);
+		$options['conditions'] = array('company_group_id' => $company, 'user_id !=' => $user_id);
 		$groups = $this->CompanyGroup->CompanyGroupsUser->find('list', $options);
 		
 		$options = array();
-		$options['contain'] = false;
-		$options['conditions'] = array('User.id' => $groups);
-		$users = $this->CompanyGroup->User->find('all', $options);
+		$options['contain'] 	= false;
+		$options['fields'] 		= array('id', 'slug');
+		$options['conditions'] 	= array('User.id' => $groups);
+		$users = $this->CompanyGroup->User->find('list', $options);
 		
 		return $users;
 	}

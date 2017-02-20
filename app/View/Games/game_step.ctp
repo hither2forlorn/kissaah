@@ -177,5 +177,8 @@ $(document).ready(function(){
 		Game.initAddToCalendar();
 		addthisevent.refresh();
 	}
+	if($('.ally-selection').length > 0) {
+		Game.ChallengeAlly();
+	}
 });
 </script>

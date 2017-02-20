@@ -166,20 +166,23 @@ class GamesController extends AppController {
 		$this->Session->write('Game.query_all', 1);
 		
 		$options['contain'] = array('Challenge');
-		$options['conditions'] = array('user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 59);
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 59);
 		$development = $this->Game->find('all', $options);
 		
-		$options['conditions'] = array('user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 118);
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 118);
 		$exposure = $this->Game->find('all', $options);
 		
-		$options['conditions'] = array('user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 185);
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 185);
 		$connection = $this->Game->find('all', $options);
 
-		$options['conditions'] = array('user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 111);
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 111);
 		$next = $this->Game->find('all', $options);
 		
 		$this->set(compact('development', 'exposure', 'connection', 'next'));
 		$this->Session->write('Game.query_all', 0);
+		
+		debug($development);
+		debug($exposure);
 	}
 	
 	public function summary_spark_board() {}
