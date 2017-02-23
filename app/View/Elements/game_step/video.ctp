@@ -51,7 +51,7 @@ if($summary) {
 	
 	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
 		$actions .= $this->Html->link(
-				$this->Html->tag('i', '', array('class' => 'fa fa-remove fa-2x', 'title' => 'Remove Image')),
+				$this->Html->tag('i', '', array('class' => 'fa fa-trash fa-2x', 'title' => 'Remove Image')),
 				array('controller' => 'games', 'action' => 'remove_image', $id),
 				array('escape' => false)) . '&nbsp;';
 	}

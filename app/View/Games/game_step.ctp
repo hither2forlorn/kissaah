@@ -52,10 +52,6 @@ foreach($visions as $vision) {
 						array('class' => $selected . $next_btn)));
 	}
 }
-/*
-debug($selected);
-debug($nxt_txt);
-debug($nxt_lnk); */
 ?>
 </div>
 <?php

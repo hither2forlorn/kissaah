@@ -5,10 +5,9 @@
 				<div class="caption"><i class="fa fa-gift"></i><?php echo __('Change User Information'); ?></div>
 			</div>
 			<div class="portlet-body form">
-				<!-- BEGIN FORM-->
 				<?php echo $this->Form->create('User', array(
-																'class' => 'form-horizontal form-bordered form-row-stripped', 
-																'inputDefaults' => array('div' => false, 'label' => false, 'class' => 'form-control'))); ?>
+						'class' => 'form-horizontal form-bordered form-row-stripped',
+						'inputDefaults' => array('div' => false, 'label' => false, 'class' => 'form-control'))); ?>
 					<div class="form-body">
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?php echo __('Name'); ?></label>
@@ -46,29 +45,11 @@
 							</div>
 						</div>
 						<?php } ?>
-						<div class="form-group">
-							<label class="col-md-3 control-label"><?php echo __('Company'); ?></label>
-							<div class="col-md-5"><?php echo $this->Form->input('company_id', array('options' => $companies, 'hiddenField' => false, 'multiple' => false, 'empty' => '--SELECT--')); ?></div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label"><?php echo __('Company Admin'); ?></label>
-							<div class="col-md-5"><?php echo $this->Form->input('company_admin', array('type' => 'checkbox', 'hiddenField' => false)); ?></div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label"><?php echo __('Group'); ?></label>
-							<div class="col-md-5"><?php echo $this->Form->input('group_id', array('options' => $groups, 'hiddenField' => false, 'multiple' => false, 'empty' => '--SELECT--')); ?></div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label"><?php echo __('Group Admin'); ?></label>
-							<div class="col-md-5"><?php echo $this->Form->input('group_admin', array('type' => 'checkbox', 'hiddenField' => false)); ?></div>
-						</div>
-                                          
 					</div>
 					<div class="form-actions right">
 						<button class="btn green" type="submit"><i class="fa fa-check"></i> Save</button>
 					</div>
 				<?php echo $this->Form->end(); ?>
-				<!-- END FORM-->
 			</div>
 		</div>
 	</div>

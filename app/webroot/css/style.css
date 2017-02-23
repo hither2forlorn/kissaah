@@ -2087,14 +2087,6 @@ canvas.temp {
 .roadmaps input[type=text] {
 	text-align: center;
 }
-.roadmap-block {
-	position: relative;
-}
-.roadmap-block i {
-	color: #FF6A00;
-	position: absolute;
-	right: 12%;
-}
 /* End RoadMaps */
 
 /* End Style for Support Pages*/

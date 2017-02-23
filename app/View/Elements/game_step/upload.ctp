@@ -24,30 +24,31 @@ if($summary || !is_null($vision_date) || $vision_date != '') {
 	$image_class = 'col-md-4 col-sm-4 col-xs-8 padding-0 image-box';
 	
 	$actions  = $this->Form->create('Game' . $id . 'Upload', array(
-			'class' => 'btn-file pull-left fileupload',
+			'class' 	=> 'btn-file pull-left fileupload',
 			'data-save' => $this->Html->url(array('controller' => 'games', 'action' => 'upload', 'image'))));
 	$actions .= $this->Html->tag('i', '', array('class' => 'fa fa-upload fa-2x')) . '&nbsp;';
-	//$actions .= $this->Html->image('Upload.png', array('id' => 'upl' . $id));
 	$actions .= $this->Form->input($id, array('type' => 'file', 'label' => false, 'class' => 'default', 'div' => false));
 	$actions .= $this->Form->end();
+	
 	$actions .= $this->Html->link(
 			$this->Html->tag('i', '', array('class' => 'fa fa-pinterest fa-2x', 'title' => 'Get Images From Pinterest')),
 			array('controller' => 'games', 'action' => 'pinterest_getimages', '?' => array('cid' => $id)),
 			array('escape' => false)) . '&nbsp;';
-			//$actions .= $this->Html->image('pinterest.png', array('title' => 'Get Images From Pinterest', 'data' => $id, 'id' => 'pin'));
+
 	$actions .= $this->Html->link(
 			$this->Html->tag('i', '', array('class' => 'fa fa-instagram fa-2x', 'title' => 'Get Images From Instagram')),
 			array('controller' => 'games', 'action' => 'instagram_getImages', '?' => array('cid' => $id, 'game_step' => $this->request->query['st'])),
 			array('escape' => false)) . '&nbsp;';
-			//$actions .= $this->Html->image('Instagram.png', array('title' => 'Get Images From Instagram', 'data' => $id, 'id' => 'ins'));
 
-	if(!empty($selfdata['Game'][0]['Game']['answer'])) {
-		$actions .= $this->Html->link(
-				$this->Html->tag('i', '', array('class' => 'fa fa-remove fa-2x', 'title' => 'Remove Image')),
-				array('controller' => 'games', 'action' => 'remove_image', $id),
-				array('escape' => false)) . '&nbsp;';
-				//$actions .= $this->Html->image('removeimage.png', array('title' => 'Remove', 'data' => $id, 'id' => 'rem'));
+	$class = '';
+	if(empty($selfdata['Game'][0]['Game']['answer'])) {
+		$class = ' hidden';
 	}
+	$actions .= $this->Html->link(
+			$this->Html->tag('i', '', array('class' => 'fa fa-trash fa-2x', 'title' => 'Remove Image')),
+			array('controller' => 'games', 'action' => 'remove_image', $id),
+			array('escape' => false, 'class' => 'remove-upload' . $class)) . '&nbsp;';
+	
 	$image .= $this->Html->div('image-icon col-md-12 col-xs-12', $actions, array('id' => 'tour-step-04'));
 }
 

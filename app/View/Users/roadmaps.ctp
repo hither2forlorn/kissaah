@@ -1,6 +1,6 @@
 <div class='no-margin row roadmaps'>
 <?php 
-if(isset($roadmaps)){
+if(isset($roadmaps)) {
 	if(count($roadmaps) == 1 && $roadmaps[0]['UserGameStatus']['roadmap'] == '') {
 ?>
 	<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
@@ -20,14 +20,14 @@ if(isset($roadmaps)){
 	    echo $this->Html->tag('h4', 'This is my', 
 	    					  array('class' => 'activitytitle margin-top-10')); 
 							  
-		echo $this->Form->input('roadmap', array(
-									'data-id' 		=> $roadmaps[0]['UserGameStatus']['id'],
-									'label' 		=> false,
-									'div'   		=> false,
+		$row  = $this->Form->input('id', array('value' => $roadmaps[0]['UserGameStatus']['id'], 'type' => 'hidden'));
+	    $row .= $this->Form->input('roadmap', array(
+									'data-save' 	=> $this->Html->url(array('controller' => 'users', 'action' => 'roadmap_save')),
+									'label' 		=> false, 'div' => false, 'type' => 'text',
 								    'class'			=> 'form-control roadmap-input',
-									'type'			=> 'text',
 									'placeholder'	=> 'You only have 20 characters!'));
-		
+	    echo $this->Html->div('row no-margin roadmap-block', $row);
+	     
 		echo $this->Html->tag('h5', '', array('class' => 'activitytitle error-message'));
 
 	    echo $this->Html->tag('h4', 'RoadMap', array('class' => 'activitytitle margin-top-10'));
@@ -43,72 +43,59 @@ if(isset($roadmaps)){
 	</div>
 <?php
 	} else {
-?>
-	<?php
+
 		echo $this->Html->tag('h3', 'RoadMaps', array('class' => 'activitytitle'));
 		echo $this->Html->tag('h5', 'Click icon to switch RoadMaps', array('class' => 'activitytitle'));
-		$key = -1;
+
 		foreach($roadmaps as $key => $roadmap) {
+			$show_delete = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-2x')), 
+				  		array('controller' => 'users', 'action' => 'roadmap_delete', $roadmap['UserGameStatus']['id']),
+						array('escape' => false));
 			if($roadmap['UserGameStatus']['active']) {
-				$active = 'my-roadmap-active.png';
 				$show_delete = '';
-			} else {
-				$active = 'my-roadmap.png';
-				$show_delete = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-times')), 
-					  		array('controller' => 'users', 'action' => 'roadmap_delete', $roadmap['UserGameStatus']['id']),
-							array('escape' => false));
 			}
-			echo $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 roadmap-block', 
-				  //$show_delete .
+
+			$row = $this->Html->div('col-xs-2 col-sm-2 col-md-2 col-lg-2', 
 				$this->Html->link(
-				  		$this->Html->image($active, array('class' => 'img-responsive margin-bottom-10')), 
+				  		$this->Html->tag('i', '', array('class' => 'fa fa-map fa-2x')), 
 				  		array('controller' => 'users', 'action' => 'roadmap_edit_active', $roadmap['UserGameStatus']['id']),
-						array('escape' => false)) . 
-				$this->Form->label('Your') . 
+						array('escape' => false)));
+			$row .= $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding',
+				$this->Form->input('id', array('type' => 'hidden', 'value' => $roadmap['UserGameStatus']['id'])) .
 				$this->Form->input('roadmap', array(
-						'data-id' => $roadmap['UserGameStatus']['id'],
-						'label'   => false,
-						'div'     => false,
-				    	'class'	  => 'form-control roadmap-input margin-bottom-5',
-						'type'	  => 'text',
-						'value'	  => $roadmap['UserGameStatus']['roadmap'])) .
+						'label' => false, 'div' => false, 'class' => 'form-control', 'type'	=> 'text',
+						'data-save' => $this->Html->url(array('controller' => 'users', 'action' => 'roadmap_save')),
+						'value'	  => $roadmap['UserGameStatus']['roadmap'])));
+			$row .= $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4',
 				$this->Form->input('configuration_id', array(
-						'conf-id' => $roadmap['UserGameStatus']['id'],
-						'label'   => false,
-						'div'     => false,
-				    	'class'	  => 'form-control roadmap-input',
-						'empty'	  => '--SELECT--',
-						'value'	  => $roadmap['UserGameStatus']['configuration_id'])) .
-				$this->Form->label('RoadMap'));
+						'label' => false, 'div' => false, 'class' => 'form-control', 'empty' => '--SELECT--',
+						'data-save' => $this->Html->url(array('controller' => 'users', 'action' => 'roadmap_save')),
+						'value'	  => $roadmap['UserGameStatus']['configuration_id'])));
+			$row .= $this->Html->div('col-xs-2 col-sm-2 col-md-2 col-lg-2', $show_delete);
+			
+			echo $this->Html->div('row no-margin margin-bottom-5 roadmap-block', $row);
 		}
-		for($key++; $key < 3; $key++) {
-			echo $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 roadmap-block', 
-				$this->Html->link(
-						  $this->Html->image('my-roadmap-add.png', array('class' => 'img-responsive margin-bottom-10')), 
-						  '#', array('escape' => false)) .
-						  $this->Form->label('Add') . 
-				$this->Form->input('roadmap', array(
-				  		'data-id' => 0,
-						'label'   => false,
-						'div'     => false,
-				    	'class'	  => 'form-control roadmap-input margin-bottom-5',
-						'type'	  => 'text')) .
-				$this->Form->input('configuration_id', array(
-						'conf-id' => 0,
-						'label'   => false,
-						'div'     => false,
-				    	'class'	  => 'form-control roadmap-input',
-						'empty'	  => '--SELECT--')) .
-				$this->Form->label('New RoadMap'));
-		}
-	?>
-<?php
+		
+		$row = $this->Html->div('col-xs-2 col-sm-2 col-md-2 col-lg-2 active-roadmap', $this->Html->tag('i', '', array('class' => 'fa fa-map fa-2x')));
+		$row .= $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding', 
+			$this->Form->input('id', array('type' => 'hidden', 'class' => 'roadmap-id')) .
+			$this->Form->input('roadmap', array(
+					'label'   => false, 'div' => false, 'class'	=> 'form-control', 'type' => 'text',
+					'data-save' => $this->Html->url(array('controller' => 'users', 'action' => 'roadmap_save')))));
+		$row .= $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4', 
+			$this->Form->input('configuration_id', array(
+					'label'   => false, 'div' => false, 'class'	=> 'form-control', 'empty' => '--SELECT--',
+					'data-save' => $this->Html->url(array('controller' => 'users', 'action' => 'roadmap_save')))));
+		$row .= $this->Html->div('col-xs-2 col-sm-2 col-md-2 col-lg-2 delete-roadmap', '');
+			
+		echo $this->Html->div('row no-margin margin-bottom-5 roadmap-block', $row);
+		echo $this->Html->div('row no-margin margin-bottom-5 roadmap-block hidden', $row);
 	}
 }
 ?>
 </div>
 <script>
-	$(document).ready(function(){
-		Game.RoadMap();
-	});
+$(document).ready(function(){
+	Game.RoadMap();
+});
 </script>

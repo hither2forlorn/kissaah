@@ -289,9 +289,6 @@ class UsersController extends AppController {
 		$this->Session->write('ActiveGame', $active_game['UserGameStatus']);
 		$this->Session->write('Configuration', $active_game['Configuration']);
 		$this->Session->write('Game.query_all', 0);
-		$this->Session->write('AdminAccess.company', $this->User->CompanyGroup->find('list', array(
-				'fields' => array('id', 'id'), 
-				'conditions' => array('admin_id' => $this->Auth->user('id'), 'parent_id IS NULL'))));
 		
 		$this->redirect(array('controller' => 'games'));
 	}
@@ -540,28 +537,34 @@ class UsersController extends AppController {
 	}
 	
 	public function roadmap_save(){
-		$data = $this->request->data;
-		$data['user_id'] = $this->Session->read('ActiveGame.user_id');
-		$id = 0;
-		if(isset($data['id']) && $data['id'] > 0) {
-			$id = $data['id'];
-		} else {
-			$data['active']  = 0;
-			$data['level']   = 0;
-		}
-		if(isset($data['roadmap']) || isset($data['configuration_id'])) {
+		$this->autoRender 	= false;
+		$data 				= $this->request->data;
+		$data['user_id'] 	= $this->Session->read('ActiveGame.user_id');
+		$roadmap 			= array();
+		
+		$return['success'] = 0;
+		$return['update'] = 1;
+		if((isset($data['roadmap']) && $data['roadmap'] != '') || (isset($data['configuration_id'])) && $data['configuration_id'] != '') {
+			if($data['id'] == '') {
+				$return['update'] = $data['level'] = $data['active'] = 0;
+			}
 			if($this->User->UserGameStatus->save($data)) {
-				$id = $this->User->UserGameStatus->id;
-				$roadmap = $this->User->UserGameStatus->find('first', array(
-								'contain' 	 => false,
-								'conditions' => array('UserGameStatus.id' => $id)));
+				$return['id'] 			= $id = $this->User->UserGameStatus->id;
+				$options['contain'] 	= false;
+				$options['conditions']  = array('UserGameStatus.id' => $id);
+				$roadmap = $this->User->UserGameStatus->find('first', $options);
+
 				if($roadmap['UserGameStatus']['active']) {
 					$this->Session->write('ActiveGame.roadmap', $roadmap['UserGameStatus']['roadmap']);
+					$return['delete'] = '';
+				} else {
+					$return['delete'] = Router::url(array('controller' => 'users', 'action' => 'roadmap_delete', $id), true);
 				}
-				$configurations = $this->User->UserGameStatus->Configuration->find('list', array('conditions' => array('parent_id' => null, 'status' => 1)));
-				$this->set(compact('roadmap', 'configurations'));
+				$return['active'] = Router::url(array('controller' => 'users', 'action' => 'roadmap_edit_active', $id), true);
+				$return['success'] = 1;
 			}
 		}
+		return(json_encode($return));
 	}
 	
 	public function start_vision() {
@@ -796,91 +799,32 @@ class UsersController extends AppController {
 		
 		}
 		$this->Session->delete('Game.query_all');
-		$this->set('actions', $actions);
-		$this->set('sString', $sString);
-		$this->set('userlist', $userlist);
+		$this->set('actions', 	$actions);
+		$this->set('sString', 	$sString);
+		$this->set('userlist', 	$userlist);
 	}
 
-	function admin_detail($id = null){
-		$companyAdmin = $this->Session->read('AdminAccess.company');
-		$isAdmin = ($this->Auth->user('role_id') == 1) ? true : false;
-		if(empty($companyAdmin) && !$isAdmin) {
-			$this->redirect($this->referer());
-		}
-		$this->set(compact('isAdmin'));
-		if(!empty($this->request->data)){
-			/*
-			 * TODO: Right now set to only one company and one branch
-			 * so force reset of all old records 
-			 */
-			$companyAdmin = $groupAdmin = false;
-			if(!empty($this->request->data['User']['company_id'])) {
-				if(!empty($this->request->data['User']['company_admin'])) {
-					$this->User->CompanyGroup->id = $this->request->data['User']['company_id'];
-					$this->User->CompanyGroup->saveField('admin_id', $this->request->data['User']['id']);
-					$companyAdmin = true;
-				}
-				$this->request->data['CompanyGroup']['CompanyGroup'][] = $this->request->data['User']['company_id'];
-			}
-			if(!empty($this->request->data['User']['group_id'])) {
-				if(!empty($this->request->data['User']['group_admin'])) {
-					$this->User->CompanyGroup->id = $this->request->data['User']['group_id'];
-					$this->User->CompanyGroup->saveField('admin_id', $this->request->data['User']['id']);
-					$groupAdmin = true;
-				}
-				$this->request->data['CompanyGroup']['CompanyGroup'][] = $this->request->data['User']['group_id'];
-			}
-			if($this->User->saveAll($this->request->data)){
-				if(!$companyAdmin) {
-					$this->User->CompanyGroup->updateAll(array('admin_id' => '0'), array('admin_id' => $this->request->data['User']['id'], 'parent_id IS NULL'));
-				}
-				if(!$groupAdmin) {
-					$this->User->CompanyGroup->updateAll(array('admin_id' => '0'), array('admin_id' => $this->request->data['User']['id'], 'parent_id IS NOT NULL'));
-				}
+	public function admin_detail($id = null) {
+		if(!empty($this->request->data)) {
+			if($this->User->save($this->request->data)) {
 				$this->Session->setFlash('User updated Successfully');
 				$this->redirect(array('controller' => 'users', 'action' => 'view'));
 			} else {
 				$this->Session->setFlash('User could not be updated');
 			}
 		}
-		$this->loadModel('CompanyGroupsUser');
-		if(!$isAdmin) {
-			if(empty($companyAdmin)) $companyAdmin = 0;
-			$companyList = $this->User->CompanyGroup->find('list', array('fields' => array('id', 'id'), 'conditions' => array('OR' => array('CompanyGroup.id' => $companyAdmin, 'CompanyGroup.parent_id' => $companyAdmin)), 'contain' => false));
-			$conditions['User.id'] = $this->CompanyGroupsUser->find('list', array('fields' => array('user_id', 'user_id'), 'conditions' => array('company_group_id' => $companyList, 'user_id' => $id), 'contain' => false));
-			$com_conditions = array('id' => $companyList);
-		} else {
-			$conditions = array('User.id' => $id);
-			$com_conditions = array();
-		}
-		
-		$this->request->data = $this->User->find('first', array('conditions' => $conditions, 'contain' => false));
+
+		$this->request->data = $this->User->find('first', array(
+				'conditions' => array('User.id' => $id), 'contain' => false
+		));
+
 		if(empty($this->request->data)){
 			$this->Session->setFlash("Invalid User");
 			$this->redirect($this->referer());
-		} else {
-			$cmpGrp = $this->CompanyGroupsUser->find('all', array('fields' => array('CompanyGroup.id', 'CompanyGroup.parent_id', 'CompanyGroup.admin_id'), 'conditions' => array('CompanyGroupsUser.user_id' => $id)));
-			if(!empty($cmpGrp)) {
-				foreach($cmpGrp as $cg) {
-					if(empty($cg['CompanyGroup']['parent_id'])) {
-						$this->request->data['User']['company_admin'] = ($cg['CompanyGroup']['admin_id'] == $id) ? 1 : 0;
-						$this->request->data['User']['company_id'] = $cg['CompanyGroup']['id'];
-					} else {
-						$this->request->data['User']['group_admin'] = ($cg['CompanyGroup']['admin_id'] == $id) ? 1 : 0;
-						$this->request->data['User']['group_id'] = $cg['CompanyGroup']['id'];
-					}
-				}	
-			}
 		}
-		if(!$isAdmin) $roles = array();
-		else $roles = $this->User->Role->find('list', array('fields' => array('id', 'name')));
+		
+		$roles = $this->User->Role->find('list', array('fields' => array('id', 'name')));
 		$this->set('roles', $roles);
-		$grp_conditions = array($com_conditions, 'parent_id IS NOT NULL');
-		$comp_conditions = array($com_conditions, 'parent_id IS NULL');
-		$companies = $this->User->CompanyGroup->generateTreeList($comp_conditions, null, null, '---');
-		$groups = $this->User->CompanyGroup->generateTreeList($grp_conditions, null, null, '---');
-		$this->set('companies', $companies);
-		$this->set('groups', $groups);
 	}
 	
 	//2014-10-21, Badri, This function allows  admin to login as any user

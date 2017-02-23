@@ -582,43 +582,34 @@ var Game = function () {
         
         RoadMap: function(){
         	$('.roadmaps').on('focusout', 'input[type=text], select', function(evt){
-        		DOM_Element = $(this);
-        		road_map_id = $(this).attr('data-id');
-        		road_cnf_id = $(this).attr('conf-id');
-        		save_value 	= $(this).val();
+				var DOM_Element = $(this);
+    			if(DOM_Element.attr('data-save') !== undefined) {
+    				$.ajax({
+    					type		: 'POST',
+    					data		: $(this).parents('.roadmap-block').find(':input').serializeArray(),
+    					url			: $(this).attr('data-save'),
+    					success		: function(data) {
+    	        			var object = $.parseJSON(data);
+    						
+    	        			if(object.success) {
+    	        				if(object.update == 0) {
+    	        					DOM_Element.parents('.roadmap-block').find('.roadmap-id').attr('value', object.id);
+    	        					DOM_Element.parents('.roadmap-block').find('.active-roadmap').html(
+    	        							'<a href="' + object.active + '"><i class="fa fa-map fa-2x"></i></a>');
 
-        		if(save_value != '') {
-        			if(road_map_id != undefined) {
-                		if(road_map_id != undefined) {
-                			var data = {data:{'id':road_map_id, 'roadmap':save_value}};
-                		} else {
-                			var data = {data:{'roadmap':save_value}};
-                		}
-        			}
-        			if(road_cnf_id != undefined) {
-                		if(road_cnf_id != undefined) {
-                			var data = {data:{'id':road_cnf_id, 'configuration_id':save_value}};
-                		} else {
-                			var data = {data:{'configuration_id':save_value}};
-                		}
-        			}
-            		$.ajax({
-        				cache		: false,
-        				type		: 'POST',
-        				data		: data,
-        				url			: host_url + 'users/roadmap_save',
-        				success		: function(data) {
-        					if(road_map_id == 0) {
-        						DOM_Element.closest('div').html(data);
-        					} else {
-        						active = data.indexOf('ActiveName');
-        						if(active == 1) {
-        							$('.point-road-map').html(data.replace('ActiveName', ''));
-        						}
-        					}
-        				}
-        			});
-        		}
+    	        					if(object.delete != '') {
+        	        					DOM_Element.parents('.roadmap-block').find('.delete-roadmap').html(
+        	        							'<a href="' + object.delete + '"><i class="fa fa-trash fa-2x"></i></a>');
+    	        					}
+
+    	        					var duplicate = $('.roadmaps').find('.roadmap-block.hidden');
+    	        					$('.roadmaps').append(duplicate.clone());
+    	        					duplicate.toggleClass('hidden');
+    	        				}
+    	        			}
+    					}
+    				});
+    			}
         	});
         	
         	$('.roadmap-save').click(function(event){
@@ -973,7 +964,9 @@ var FileUpload = function () {
 	return {
         startFileLoading: function(container, message) {
             $('.page-loading').remove();
-            container.append('<div class="page-loading"><img src="' + host_url + 'img/loading-spinner-blue.gif" />&nbsp;&nbsp;<span>' + (message ? message : 'Loading...') + '</span></div>');
+            container.append('<div class="page-loading"><img src="' + 
+            		host_url + 'img/loading-spinner-blue.gif" />&nbsp;&nbsp;<span>' + 
+            		(message ? message : 'Loading...') + '</span></div>');
         },
 
         stopFileLoading: function() {
@@ -1000,10 +993,10 @@ var FileUpload = function () {
 						success			: function(data) {
 							var object = $.parseJSON(data);
 							var success = object.success;
-							if(success){
+							if(success) {
 								$('img[data="medium-' + object.cid + '"]').attr('src', host_url + 'files/img/medium/' + object.filename);
 								$('img[data="small-' + object.cid + '"]').attr('src', host_url + 'files/img/small/' + object.filename);
-								$('.image-icon').append('<a href="/kissaah/games/remove_image/' + object.cid + '"><i class="fa fa-remove fa-2x" title="Remove Image"></i></a>');
+								$('#' + formElement).siblings('.remove-upload').toggleClass('hidden');
 								if($('#' + formElement).closest('.col-md-12').prev('.uploadMultipleDiv').length){
 									$('#' + formElement).closest('.col-md-12').prev('.uploadMultipleDiv').remove();
 								}
@@ -1042,7 +1035,7 @@ var FileUpload = function () {
 								$('.row-multi-upload').hide();
 								$('img[data="medium-' + val.cid + '"]').attr('src', host_url + 'files/img/medium/' + val.filename);
 								$('img[data="small-' + val.cid + '"]').attr('src', host_url + 'files/img/small/' + val.filename);
-								$('.image-icon').append('<a href="/kissaah/games/remove_image/' + object.cid + '"><i class="fa fa-remove fa-2x" title="Remove Image"></i></a>');
+								$('.image-icon').append('<a href="/kissaah/games/remove_image/' + object.cid + '"><i class="fa fa-trash fa-2x" title="Remove Image"></i></a>');
 							} else {
 								alert(val.flash);
 							}
@@ -1067,7 +1060,7 @@ var FileUpload = function () {
 				url  = $(this).attr('href');
 				icon = $(this).children('i').attr('class');
 				if(url != '') {
-					if(icon == 'fa fa-remove fa-2x') {
+					if(icon == 'fa fa-trash fa-2x') {
 						var r = confirm("Are You Sure You want to remove this image ?\n This will all delete dependent data as well");
 						if(r == true) {
 							$.ajax({
@@ -1082,7 +1075,7 @@ var FileUpload = function () {
 									if(success == 0 ) {
 										alert('Cannot remove image. Please try again later.');
 									} else if(success == 1) {
-										element.remove();
+										element.toggleClass('hidden');
 										$('img[data="medium-' + cid + '"]').attr('src', 'http://placehold.it/198x198&text=X');
 										$('img[data="small-' + cid + '"]').attr('src', 'http://placehold.it/198x198&text=X');
 										$('textarea[data="' + cid + '"]').attr('value', '');

@@ -94,11 +94,6 @@ Class User extends AppModel {
 			'foreignKey' => 'user_id',
 			'dependent' => true,
 		),
-		'SelfNote' => array(
-			'className'  => 'SelfNote',
-			'foreignKey' => 'user_id',
-			'dependent' => true,
-		),
 		'Game' => array(
 			'className' => 'Game',
 			'foreignKey' => 'user_id',
