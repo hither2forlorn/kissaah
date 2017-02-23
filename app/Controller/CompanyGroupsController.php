@@ -6,11 +6,6 @@ class CompanyGroupsController extends AppController {
 	
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->companyAdmin = $admin_company = $this->Session->read('AdminAccess.company');
-		$this->isAdmin = $admin = ($this->Auth->user('role_id') == 1) ? true : false;
-		if(empty($admin_company) && !$admin) {
-			$this->redirect($this->referer());
-		}
 	}
 	
 	public function admin_locTree() {

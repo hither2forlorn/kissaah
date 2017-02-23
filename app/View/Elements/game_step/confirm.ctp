@@ -11,7 +11,11 @@ echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 btn-finished margin-bottom-
 
 $optionsch['data-conf'] = $options['data-conf'] = $selfdata['Configuration']['id'];
 
-$group_users = $this->requestAction(array('controller' => 'company_groups', 'action' => 'company_group_users'));
+$group_users = $this->requestAction(array('controller' => 'allies', 'action' => 'allies'));
+$allies = array();
+foreach($group_users as $value) {
+	$allies[$value['MyAlly']['id']] = $value['MyAlly']['slug'];
+}
 
 if(isset($selfdata['Dependent'])) {
 	
@@ -74,7 +78,7 @@ if(isset($selfdata['Dependent'])) {
 			foreach($goal['ChallengesUser'] as $chall_user) {
 					
 				$key = $chall_user['user_id'];
-				$value = $group_users[$key];
+				$value = $allies[$key];
 		
 				if(empty($value) || $value == '' || is_null($value)) {
 					$img = 'profile.png';
@@ -89,11 +93,11 @@ if(isset($selfdata['Dependent'])) {
 						array('controller' => 'challenges', 'action' => 'set_challenge_user', 'delete'),
 						array('class' => 'col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
 		
-				unset($group_users[$key]);
+				unset($allies[$key]);
 			}
 		}
 		
-		foreach($group_users as $key => $value) {
+		foreach($allies as $key => $value) {
 		
 			if(empty($value) || $value == '' || is_null($value)) {
 				$img = 'profile.png';
