@@ -308,13 +308,16 @@ class UsersController extends AppController {
 					$resetPassword = substr(uniqid(mt_rand(), true), 0, 9);
 					if ($this->User->saveField('password', $resetPassword)) {
 						$resetUser['User']['password'] = $resetPassword;
-						$options = array(
-								'subject' 	=> $this->Session->read('Company.name') . ': Reset Password',
-								'template' 	=> 'resetpassword',
-								'to'		=> $resetUser[$this->modelClass]['email']
-						);
-						$this->_sendEmail($options,$resetUser);
 						
+						$options['subject']  = $this->Session->read('Company.name') . ': Password has been reset';
+						$options['to']  	 = $resetUser[$this->modelClass]['email'];
+						$options['template'] = 'resetpassword_h';
+						
+						if(strpos(Router::url('/', true), 'kissaah') !== false) {
+							$options['template'] = 'resetpassword_k';
+						}
+						
+						$this->_sendEmail($options, $resetUser);
 						$this->Session->setFlash('Your new password has been sent to your email account.', 'default', 
 												 array('class' => 'flashSuccess margin-bottom-20'));
 						$this->redirect(array('action' => 'login'));

@@ -88,9 +88,11 @@ class AppController extends Controller {
 		
 		if(strpos(Router::url('/', true), 'kissaah') !== false) {
 			$this->Session->write('Company.name', 'Kissaah');
+			$this->Session->write('Company.email', 'kissaah@kissaah.com');
 			$this->Session->write('Company.link', 'http://www.kissaah.com');
 		} else {
 			$this->Session->write('Company.name', 'Human Catalyst');
+			$this->Session->write('Company.email', 'admin@humancatalyst.co');
 			$this->Session->write('Company.link', 'http://www.humancatalyst.co');
 		}
 	}
@@ -132,9 +134,10 @@ class AppController extends Controller {
 	
 	protected function _sendEmail($options = array(), $data = array()){
 		if(isset($options['template'])) {
-			$defaults['from'] 		= Configure::read('App.defaultEmail');
-			$defaults['subject'] 	= $this->Session->read('Company.name') . ' Communication';
-			$defaults['layout'] 	= 'default';
+			
+			$defaults['from'] 	 = $this->Session->read('Company.email');
+			$defaults['subject'] = $this->Session->read('Company.name') . ' Communication';
+			$defaults['layout']  = 'default';
 				
 			$options = array_merge($defaults, $options);
 			
@@ -153,7 +156,7 @@ class AppController extends Controller {
 			$email->from($options['from']);
 			$email->template($options['template']);
 			
-			if(isset($options['attachment']) && $options['attachment']){
+			if(isset($options['attachment']) && $options['attachment']) {
 				$email->attachments($data['attachment']);
 			}
 			
