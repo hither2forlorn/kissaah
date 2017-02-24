@@ -14,6 +14,11 @@ if($screen_width > 767 && $featured == true) {
 $visions = $this->Session->read('Vision');
 $nxt_txt = 'next_link';
 $nxt_lnk = '';
+$counts = count($visions);
+$cols = 'col-md-3 col-xm-3 padding-left-0';
+if($counts > 4) {
+	$cols = 'col-md-2 col-xm-4 padding-left-0';
+}
 
 foreach($visions as $vision) {
 	$selected = 'caption-subject font-grey-sharp bold uppercase';
@@ -46,7 +51,7 @@ foreach($visions as $vision) {
 	}
 	
 	if($vision['Configuration']['title'] != '**NP**') {
-		echo $this->Html->div('col-md-3 col-xm-3',
+		echo $this->Html->div($cols,
 				$this->Html->link($vision['Configuration']['title'],
 						array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
 						array('class' => $selected . $next_btn)));
@@ -141,7 +146,7 @@ if($nxt_txt != '' && $nxt_txt != 'next_link') {
 	if($nxt_txt == '**NP**')
 		$nxt_txt = 'Next';
 	
-	echo $this->Html->div('row no-margin text-center margin-bottom-20',
+	echo $this->Html->div('row no-margin text-center margin-bottom-20 pull-right',
 			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
 	
 }

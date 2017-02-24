@@ -1,7 +1,11 @@
 <div class='no-margin row allies'><?php
 	echo $this->Html->div('highlighted margin-bottom-15', $this->Session->flash(), array('id' => 'message'));
 	
-	echo $this->Html->tag('h3', 'Who can give you feedback before moving forward?', array('class' => 'activitytitle'));
+	if(strpos(Router::url('/', true), 'kissaah') !== false) {
+		echo $this->Html->tag('h3', 'Who can give you feedback before moving forward?', array('class' => 'activitytitle'));
+	} else {
+		echo $this->Html->tag('h3', 'Who can keep you accountable on your 90 day Human Catalyst sprint?', array('class' => 'activitytitle'));
+	}
 	
 	echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', 
 				$this->Html->para('margin-bottom-20 margin-top-10', 'You will be sharing your Vision Map and Design section with them.') . 

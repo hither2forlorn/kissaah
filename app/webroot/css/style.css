@@ -1133,18 +1133,16 @@ Pre-Footer and pre-footer elements
 	padding: 0 2px;
 }
 .btn-save {
-    -moz-border-radius: 50px !important;
-    -webkit-border-radius: 50px !important;
+    -moz-border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
 	background-color: #0065A5;
-	border-radius: 50px !important;
+	border-radius: 50% !important;
 	color: #fff;
-	float: right;
+	display: table-cell;
 	height: 100px;
-	line-height: 100px;
-	margin-right: 10px;
-	text-align: center;
 	text-transform: uppercase;
 	width: 100px;
+	vertical-align: middle;
 }
 .btn-collage {
     border-radius: 5px;
@@ -1987,11 +1985,10 @@ canvas.temp {
 .allies {
 	text-align: center;
 }
+
 .ally-box {
   margin: 0 1px;
-/*  width: 32.9%;*/
-}
-.ally-pending {
+  width: 32.9%;
 }
 .feedback-radio input[type="radio"] {
   width: 18%;
@@ -2208,7 +2205,7 @@ a.back-to-road-map {
 	width: 80px;
 }
 .caption-subject {
-	font-size: 1.4em;
+	font-size: 1.1em;
 }
 .font-grey-sharp {
 	color: #726d69 !important;
@@ -2249,23 +2246,19 @@ a.back-to-road-map {
 	z-index: 1;
 	padding: 10px 5px;
 }
-
 .summary-text {
 	font-size: 1.2em;
 	color: #ea7328 !important;
 }
-
 .ally-selection {
 	cursor: pointer;
-	
-	
 }
 .ally-selection::selection {
 	border: 1px solid;
-	
 }
-
-
+.height-2l {
+	height: 45px;
+}
 
 
 

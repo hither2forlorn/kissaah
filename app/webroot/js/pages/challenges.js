@@ -176,7 +176,7 @@ var Challenges = function(){
 			});
 		},
 
-		Calendar: function () {
+		Calendar: function (cal_url) {
             if (!jQuery().fullCalendar) {
                 return;
             }
@@ -191,7 +191,9 @@ var Challenges = function(){
     			editable: false,
     			eventLimit: true, // allow "more" link when too many events
     			events: {
-    				url: 'challenges/calendar',
+    				//url: $(this).attr('data-url'),
+    				url: cal_url,
+    				cache: true,
     				error: function() {
     					$('#script-warning').show();
     				}

@@ -1,39 +1,33 @@
-  <script>
-	$( function() {
-		$( "ul.competencies-list" ).sortable({
-			connectWith: "ul",
-			receive : function( event, ui ) {
-				confid 	= $(this).attr('data-conf');
-				id 		= ui.item.attr('data-id');
+<script>
+$(function() {
+	$('ul.competencies-list').sortable({
+		connectWith: 'ul',
+		receive : function( event, ui ) {
+			confid 	= $(this).attr('data-conf');
+			id 		= ui.item.attr('data-id');
 
-				console.log(ui.item.text());
-				console.log(confid);
-				console.log(id);
-
-				if(confid != undefined) {
-					var data = { };
-					data['data[Game][' + confid + '][' + id + ']'] = ui.item.text();
-					$.ajax({
-						url			: host_url + 'games/save',
-						type		: 'POST',
-						data 		: data,
-						success		: function(data){
-        					var object = $.parseJSON(data);
-        					console.log(object);
-        					if(object.success) {
-    							$('div[data-conf="' + object.cid + '"]').attr('data-id', object.id);
-    							ui.item.attr('data-id', object.id);
-    							$('ul[data-conf="' + object.cid + '"]').append(ui.item);
-        					}
-						}
-					});
-				}
+			if(confid != undefined) {
+				var data = { };
+				data['data[Game][' + confid + '][' + id + ']'] = ui.item.text();
+				$.ajax({
+					url		: host_url + 'games/save',
+					type	: 'POST',
+					data 	: data,
+					success	: function(data){
+        				var object = $.parseJSON(data);
+        				if(object.success) {
+    						$('div[data-conf="' + object.cid + '"]').attr('data-id', object.id);
+    						ui.item.attr('data-id', object.id);
+    						$('ul[data-conf="' + object.cid + '"]').append(ui.item);
+        				}
+					}
+				});
 			}
-		});
+		}
+	});
     $('ul.competencies-list').disableSelection();
 });
 </script>
-
 <?php
 if($summary) {
 	if($selfdata['Configuration']['id'] == 111) {
@@ -71,7 +65,7 @@ if($summary) {
 	$competencies = '';
 
 	foreach($selfdata['children'] as $key => $value) {
-		$heading = $this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10', $value['Configuration']['title']);
+		$heading = $this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10 height-2l', $value['Configuration']['title']);
 		$li = '';
 
 		if(empty($value['Game'])) {
@@ -101,7 +95,7 @@ if($summary) {
 
 	$ul 		= $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 competencies-list', 'data-conf' => 0));
 	$ulxs 		= $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 value-list-xs'));
-	$heading 	= $this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10', 'All Competencies');
+	$heading 	= $this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10 height-2l', 'All Competencies');
 	echo $this->Html->div('col-md-4 col-sm-4 col-xs-4 no-padding padding-left-10 hidden-xs', $heading . $ul);
 	echo $competencies;
 }
