@@ -51,13 +51,15 @@ if(isset($roadmaps)) {
 			$show_delete = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-2x')), 
 				  		array('controller' => 'users', 'action' => 'roadmap_delete', $roadmap['UserGameStatus']['id']),
 						array('escape' => false));
+			$active_color = '';
 			if($roadmap['UserGameStatus']['active']) {
 				$show_delete = '';
+				$active_color = ' color-red';
 			}
 
 			$row = $this->Html->div('col-xs-2 col-sm-2 col-md-2 col-lg-2', 
 				$this->Html->link(
-				  		$this->Html->tag('i', '', array('class' => 'fa fa-map fa-2x')), 
+				  		$this->Html->tag('i', '', array('class' => 'fa fa-map fa-2x' . $active_color)), 
 				  		array('controller' => 'users', 'action' => 'roadmap_edit_active', $roadmap['UserGameStatus']['id']),
 						array('escape' => false)));
 			$row .= $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding',
