@@ -716,8 +716,9 @@ var Game = function () {
 							//DOM_Element.children().toggleClass('selected');
 
 							var object = $.parseJSON(data)
+							console.log(DOM_Element.parents('.row').children('.' + object.class).attr('class'));
 							DOM_Element.attr('href', object.url);
-							DOM_Element.detach().appendTo(DOM_Element.parents('.row').children('.' + object.class));
+							DOM_Element.appendTo(DOM_Element.parents('.row').children('.' + object.class));
 						}
 					}
 				});
