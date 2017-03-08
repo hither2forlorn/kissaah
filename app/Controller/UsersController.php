@@ -939,9 +939,8 @@ class UsersController extends AppController {
 							$this->Auth->login($linkedInUser['User']);
 							$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
 						} else {
-							$this->request->data['User']['password'] = String::uuid();
 							$this->request->data['User']['name'] = $response['firstName'].' '.$response['lastName'];
-							if($this->register(true)) {
+							if($this->register(false)) {
 								$linkedInUser = $this->User->find('first', array('conditions' => array('email' => $this->request->data['User']['email'])));
 								if(!empty($linkedInUser)) {
 									$this->Auth->login($linkedInUser['User']);

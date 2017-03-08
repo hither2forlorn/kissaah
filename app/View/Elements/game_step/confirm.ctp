@@ -61,19 +61,21 @@ if(isset($selfdata['Dependent'])) {
 		$complete_by  = $this->Html->div('btn-in-progress col-md-4', 'Complete by');
 		$complete_by .= $this->Form->input('Challenge.complete_by', $options);
 		
-		$calendar  = $this->Html->tag('span', (empty($goal['Challenge']['complete_by']))? '': date('m/d/Y', strtotime($goal['Challenge']['complete_by'])), array('class' => '_start'));
-		$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['complete_by']))? '': date('m/d/Y', strtotime($goal['Challenge']['complete_by'])), array('class' => '_end'));
-		$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['name']))? $dependent['answer']: $goal['Challenge']['name'], array('class' => '_summary'));
-		$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['description']))? '': $goal['Challenge']['description'], array('class' => '_description'));
-		$calendar .= $this->Html->tag('span', 'true', array('class' => '_all_day_event'));
-
-		$calendar = $this->Html->link('Add to Calendar' . $calendar, '#', array('class' => 'addthisevent' . $cal_class, 
-																				'title' => 'Add to Calendar',
-																				'data' 	=> 'addto-' . $dependent['id'],
-																				'escape'=> false));
+		$calendar = '';
+		if(!$summary) {
+			$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['complete_by']))? '': date('m/d/Y', strtotime($goal['Challenge']['complete_by'])), array('class' => '_start'));
+			$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['complete_by']))? '': date('m/d/Y', strtotime($goal['Challenge']['complete_by'])), array('class' => '_end'));
+			$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['name']))? $dependent['answer']: $goal['Challenge']['name'], array('class' => '_summary'));
+			$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['description']))? '': $goal['Challenge']['description'], array('class' => '_description'));
+			$calendar .= $this->Html->tag('span', 'true', array('class' => '_all_day_event'));
+			
+			$calendar = $this->Html->link('Add to Calendar' . $calendar, '#', array('class' => 'addthisevent' . $cal_class,
+					'title' => 'Add to Calendar',
+					'data' 	=> 'addto-' . $dependent['id'],
+					'escape'=> false));
+		}
 
 		$users = '';
-		
 		if(!empty($goal['ChallengesUser'])) {
 			foreach($goal['ChallengesUser'] as $chall_user) {
 					

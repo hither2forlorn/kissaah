@@ -734,7 +734,11 @@ var Game = function () {
 	      		click: function(score, evt) {
 	    			if($(this).attr('data-save') !== undefined) {
 	    				$.ajax({
-	    					url	: $(this).attr('data-save') + '/' + score
+	    					url	: $(this).attr('data-save') + '/' + score,
+	    					success : function(data) {
+	    						console.log(data);
+	    						window.location.href = data;
+	    					}
 	    				});
 	    			} else {
 		      			//alert('ID: ' + this.data + "\nscore: " + score + "\nevent: " + evt);

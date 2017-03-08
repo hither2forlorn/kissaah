@@ -45,7 +45,6 @@ if($summary) {
 				$offset = '';
 				$rating = $this->Html->div('rating', '', array(
 						'data-score' 	=> $answer['Game']['rating'],
-						'data-id' 		=> $answer['Game']['id'],
 						'data-save'		=> $this->Html->url(array('controller' => 'games', 'action' => 'save_rating', $answer['Game']['id']))));
 				$r_li  .= $this->Html->div('col-md-12 no-padding margin-top-5 margin-bottom-10', $rating);
 			}
