@@ -2246,6 +2246,25 @@ a.back-to-road-map {
 	z-index: 1;
 	padding: 10px 5px;
 }
+.orgchart .node .title {
+	background-color: none;
+	color: #000;
+	font-weight: bold;
+	height: 20px;
+	line-height: 20px;
+	white-space: nowrap;
+}
+.orgchart .node .title .symbol {
+	display: none;
+}
+.orgchart .node {
+	padding: 5px 10px;
+	border: 1px solid;
+	width: auto;
+}
+.orgchart {
+	background-image: none;
+}
 .summary-text {
 	font-size: 1.2em;
 	color: #ea7328 !important;

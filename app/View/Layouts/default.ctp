@@ -38,7 +38,7 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 		'../plugins/typeahead/typeahead',
 		'../plugins/fullcalendar/fullcalendar.min',
 		'../plugins/raty/lib/jquery.raty'));
-								
+    echo $this->fetch('css');
 	echo $this->Html->css(array('components', 'plugins', 'style', 'challenges', 'custom'));
     
 	echo '<!--[if lt IE 9]>';
@@ -77,11 +77,8 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
     		'../plugins/countdown/jquery.countdown.min',
     		'https://addthisevent.com/libs/ate-latest.min.js'
     ));
-	
+    echo $this->fetch('script');
 	echo $this->Html->script(array('metronic', 'pages/game', 'pages/allies', 'pages/challenges', 'pages/profile'));
-
-	echo $this->fetch('css');
-	echo $this->fetch('script');
 ?>
 </head>
 <script type="text/javascript">

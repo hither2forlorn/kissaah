@@ -1,6 +1,6 @@
 <?php 
-echo $this->Html->css(array('../plugins/OrgChart/dist/css/jquery.orgchart'));
-echo $this->Html->script(array('../plugins/OrgChart/dist/js/jquery.orgchart')); 
+echo $this->Html->css(array('../plugins/OrgChart/dist/css/jquery.orgchart'), null, array('inline' => false));
+echo $this->Html->script(array('../plugins/OrgChart/dist/js/jquery.orgchart'), array('inline' => false)); 
 
 $maps = array();
 $org_map = $this->requestAction(array('controller' => 'organizations', 'action' => 'map', 1));

@@ -1,6 +1,6 @@
 <?php 
-echo $this->Html->css(array('../plugins/OrgChart/dist/css/jquery.orgchart'));
-echo $this->Html->script(array('../plugins/OrgChart/dist/js/jquery.orgchart')); 
+echo $this->Html->css(array('../plugins/OrgChart/dist/css/jquery.orgchart'), null, array('inline' => false));
+echo $this->Html->script(array('../plugins/OrgChart/dist/js/jquery.orgchart'), array('inline' => false)); 
 ?>
 <div class="col-md-6 col-md-offset-3">
 <?php 

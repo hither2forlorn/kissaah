@@ -164,8 +164,8 @@ class GamesController extends AppController {
  	
 	public function spark_board() {
 		$this->Session->write('Game.query_all', 1);
-		
-		$options['contain'] = array('Challenge');
+
+		$options['contain'] = array('Challenge' => array('ChallengesUser' => array('User')));
 		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 59);
 		$development = $this->Game->find('all', $options);
 		
@@ -181,8 +181,7 @@ class GamesController extends AppController {
 		$this->set(compact('development', 'exposure', 'connection', 'next'));
 		$this->Session->write('Game.query_all', 0);
 		
-		debug($development);
-		debug($exposure);
+		//debug($development);
 	}
 	
 	public function summary_spark_board() {}
@@ -658,6 +657,14 @@ class GamesController extends AppController {
 						'client_secret' => 'a9015ad4c7d5436fb32824f3675817f3',
 						'grant_type' 	=> 'authorization_code',
 						'redirect_uri' 	=> 'http://game.kissaah.com/games/instagram',
+						'code' 			=> $code
+				);
+			} elseif(strpos(Router::url('/', true), 'hc.humancatalyst.co') !== false || strpos(Router::url('/', true), 'humancatalyst.co') !== false) {
+				$fields = array(
+						'client_id' 	=> 'df23a7d4793e45efb058518380458c2b',
+						'client_secret' => '96144a1af03242ed8c21c56e9c8400c6',
+						'grant_type' 	=> 'authorization_code',
+						'redirect_uri' 	=> 'http://hc.humancatalyst.co/devel/games/instagram',
 						'code' 			=> $code
 				);
 			}
