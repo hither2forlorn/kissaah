@@ -702,7 +702,6 @@ var Game = function () {
 	    
 	    ChallengeAlly: function() {
 			$('a.ally-selection').on('click', function(evt) {
-				
 				evt.preventDefault();
 				DOM_Element = $(this);
 
@@ -710,11 +709,6 @@ var Game = function () {
 					url	: $(this).attr('href'),
 					success		: function(data) {
 						if(data !== 0) {
-							
-							//console.log(data);
-							//console.log(DOM_Element.parents('.row').children('.' + object.class).attr('class'));
-							//DOM_Element.children().toggleClass('selected');
-
 							var object = $.parseJSON(data)
 							console.log(DOM_Element.parents('.row').children('.' + object.class).attr('class'));
 							DOM_Element.attr('href', object.url);
