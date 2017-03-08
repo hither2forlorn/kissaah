@@ -189,7 +189,7 @@ class ChallengesController extends AppController {
 				$return['success'] = 0;
 			}
 			if ($this->request->is('ajax')) {
-				return json_encode($return);		
+				return json_encode($return);
 			} else {
 				$this->redirect($this->referer());
 			}
@@ -208,11 +208,15 @@ class ChallengesController extends AppController {
 		if($action == 'delete') {
 			$options = array('ChallengesUser.challenge_id' => $challenge, 'ChallengesUser.user_id' => $user);
 			if($this->Challenge->ChallengesUser->deleteAll($options)) {
-				return Router::url(array('action' => 'set_challenge_user', 'add'), true);
+				$return['url'] = Router::url(array('action' => 'set_challenge_user', 'add', $challenge, $user), true);
+				$return['class'] = 'ally-list';
+				return json_encode($return);
 			}
 		} else {
 			if($this->Challenge->ChallengesUser->save($this->request->data)) {
-				return Router::url(array('action' => 'set_challenge_user', 'delete'), true);
+				$return['url'] = Router::url(array('action' => 'set_challenge_user', 'delete', $challenge, $user), true);
+				$return['class'] = 'ally-selected';
+				return json_encode($return);
 			}
 		}
 

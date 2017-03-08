@@ -705,21 +705,22 @@ var Game = function () {
 				
 				evt.preventDefault();
 				DOM_Element = $(this);
-	    		var user = $(this).children().attr('data-user');
-	    		var challenge = $(this).children().attr('data-challenge');
 
-	    		if(challenge != '' && user != '') {
+    			$.ajax({
+					url	: $(this).attr('href'),
+					success		: function(data) {
+						if(data !== 0) {
+							
+							//console.log(data);
+							//console.log(DOM_Element.parents('.row').children('.' + object.class).attr('class'));
+							//DOM_Element.children().toggleClass('selected');
 
-	    			$.ajax({
-						url	: $(this).attr('href') + '/' + challenge + '/' + user,
-						success		: function(data) {
-							if(data !== 0) {
-								DOM_Element.children().toggleClass('selected');
-								DOM_Element.attr('href', data);
-							}
+							var object = $.parseJSON(data)
+							DOM_Element.attr('href', object.url);
+							DOM_Element.detach().appendTo(DOM_Element.parents('.row').children('.' + object.class));
 						}
-					});
-	    		}
+					}
+				});
 	    	});
 	    },
 	    

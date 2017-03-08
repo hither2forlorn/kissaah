@@ -7,8 +7,6 @@ if(!is_null($vision_date) || $vision_date != '' || $summary == true) {
 $options['data-save'] = $this->Html->url(array('controller' => 'challenges', 'action' => 'set_challenge'));
 $options['label'] 	  = false;
 
-echo $this->Html->div('col-md-12 col-sm-12 col-xs-12 btn-finished margin-bottom-5', $selfdata['Configuration']['title']);
-
 $optionsch['data-conf'] = $options['data-conf'] = $selfdata['Configuration']['id'];
 
 $group_users = $this->requestAction(array('controller' => 'allies', 'action' => 'allies'));
@@ -47,7 +45,10 @@ if(isset($selfdata['Dependent'])) {
 		$optionsch['data'] 		= 'challenge-' . $dependent['id'];
 		$challenge_id 			= $this->Form->input('Challenge.id', $optionsch);
 
-		$challenge 				= $this->Html->para('', (empty($goal['Challenge']['name']))? $dependent['answer']: $goal['Challenge']['name']);
+		$challenge 				 = $this->Html->div('col-md-4 col-sm-4 col-xs-4 btn-finished', $selfdata['Configuration']['title']);
+		$challenge 				.= $this->Html->div('col-md-8 col-sm-8 col-xs-8', 
+										(empty($goal['Challenge']['name']))? $dependent['answer']: $goal['Challenge']['name']);
+		$challenge				= $this->Html->div('row no-margin margin-bottom-5', $challenge);
 
 		$options['data-depn'] 	= $dependent['id'];
 		$options['class'] 		= 'form-control date-picker-future';
@@ -58,7 +59,7 @@ if(isset($selfdata['Dependent'])) {
 		
 		$cal_class = ($options['value'] == '')? ' hidden' : '';
 		
-		$complete_by  = $this->Html->div('btn-in-progress col-md-4', 'Complete by');
+		$complete_by  = $this->Html->div('btn-in-progress col-md-3', 'Complete by');
 		$complete_by .= $this->Form->input('Challenge.complete_by', $options);
 		
 		$calendar = '';
@@ -75,7 +76,7 @@ if(isset($selfdata['Dependent'])) {
 					'escape'=> false));
 		}
 
-		$users = '';
+		$allies_selected = $allies_list = '';
 		if(!empty($goal['ChallengesUser'])) {
 			foreach($goal['ChallengesUser'] as $chall_user) {
 					
@@ -88,12 +89,10 @@ if(isset($selfdata['Dependent'])) {
 					$img = '../files/img/medium/' . $value;
 				}
 					
-				$users .= $this->Html->link($this->Html->image($img, array(
-						'data-user' 	 => $key,
-						'data-challenge' => $optionsch['value'],
-						'class' 		 => 'img-responsive selected')),
-						array('controller' => 'challenges', 'action' => 'set_challenge_user', 'delete'),
-						array('class' => 'col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
+				$allies_selected .= $this->Html->link($this->Html->image($img, array(
+						'class' 		 => 'img-responsive')),
+						array('controller' => 'challenges', 'action' => 'set_challenge_user', 'delete', $optionsch['value'], $key),
+						array('class' => 'col-md-3 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
 		
 				unset($allies[$key]);
 			}
@@ -107,16 +106,16 @@ if(isset($selfdata['Dependent'])) {
 				$img = '../files/img/medium/' . $value;
 			}
 				
-			$users .= $this->Html->link($this->Html->image($img, array(
+			$allies_list .= $this->Html->link($this->Html->image($img, array(
 					'data-depn'		 => $dependent['id'],
-					'data-user' 	 => $key,
-					'data-challenge' => $optionsch['value'],
 					'class' 		 => 'img-responsive')),
-					array('controller' => 'challenges', 'action' => 'set_challenge_user', 'add'),
-					array('class' => 'col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
+					array('controller' => 'challenges', 'action' => 'set_challenge_user', 'add', $optionsch['value'], $key),
+					array('class' => 'col-md-3 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
 		}
 		
-		$users = $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5' . $cal_class, $users);
+		$users  = $this->Html->div('col-md-6 col-sm-6 no-padding margin-top-5 ally-list' . $cal_class, $allies_list);
+		$users .= $this->Html->div('col-md-6 col-sm-6 no-padding margin-top-5 ally-selected' . $cal_class, $allies_selected);
+		$users  = $this->Html->div('row no-margin', $users);
 		
 		$left_block = $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $challenge . $complete_by . $calendar .
 																    $challenge_id . $challenge_name . $challenge_from_id . 
