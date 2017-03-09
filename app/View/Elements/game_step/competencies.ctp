@@ -94,7 +94,7 @@ if($summary) {
 
 	$ul 		= $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 competencies-list', 'data-conf' => 0));
 	$ulxs 		= $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 value-list-xs'));
-	$heading 	= $this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10 height-2l', 'All Competencies');
+	$heading 	= $this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10 height-2l', 'Organization Priorities');
 	echo $this->Html->div('col-md-4 col-sm-4 col-xs-4 no-padding padding-left-10 hidden-xs', $heading . $ul);
 	echo $competencies;
 }

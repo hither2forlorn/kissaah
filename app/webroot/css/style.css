@@ -2247,23 +2247,54 @@ a.back-to-road-map {
 	padding: 10px 5px;
 }
 .orgchart .node .title {
-	background-color: none;
+	background-color: transparent;
 	color: #000;
-	font-weight: bold;
-	height: 20px;
-	line-height: 20px;
-	white-space: nowrap;
+	overflow: auto;
+	text-overflow: unset;
+	white-space: normal;
+	height: auto;
 }
 .orgchart .node .title .symbol {
 	display: none;
 }
 .orgchart .node {
+	margin-left: 5px;
 	padding: 5px 10px;
 	border: 1px solid;
-	width: auto;
+}
+.orgchart .node:hover {
+  background-color: #0567a5;
+}
+.orgchart .node:hover .title {
+  color: #FFF;
 }
 .orgchart {
 	background-image: none;
+}
+.orgchart .verticalNodes>td::before {
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+.orgchart .verticalNodes ul>li::before,
+.orgchart .verticalNodes ul>li::after {
+  border-color: rgba(0, 0, 0, 1);
+}
+.orgchart tr.lines td.topLine {
+  border-top: 2px solid rgba(0, 0, 0, 1);
+}
+.orgchart tr.lines td.rightLine {
+  border-right: 1px solid rgba(0, 0, 0, 1);
+}
+.orgchart tr.lines td.leftLine {
+  border-left: 1px solid rgba(0, 0, 0, 1);
+}
+.orgchart tr.lines .downLine {
+  background-color: rgba(0, 0, 0, 1);
+}
+.orgchart .node .content {
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+.orgchart .verticalNodes ul > li {
+	margin-bottom: 5px;
 }
 .summary-text {
 	font-size: 1.2em;
@@ -2277,4 +2308,11 @@ a.back-to-road-map {
 }
 .height-2l {
 	height: 45px;
+}
+.save-challenge {
+	border-bottom: 1px solid;
+}
+.addthisevent-drop {
+	z-index: 0;
+	padding: 13px 10px 12px 35px;
 }
