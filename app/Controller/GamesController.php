@@ -180,11 +180,24 @@ class GamesController extends AppController {
 		
 		$this->set(compact('development', 'exposure', 'connection', 'next'));
 		$this->Session->write('Game.query_all', 0);
-		
-		//debug($development);
 	}
 	
-	public function summary_spark_board() {}
+	public function summary_spark_board() {
+		$this->Session->write('Game.query_all', 1);
+		
+		$options['contain'] = array('Challenge', 'User');
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 59);
+		$development = $this->Game->find('all', $options);
+		
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 118);
+		$exposure = $this->Game->find('all', $options);
+		
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 185);
+		$connection = $this->Game->find('all', $options);
+		
+		$this->set(compact('development', 'exposure', 'connection'));
+		$this->Session->write('Game.query_all', 0);
+	}
 	
 	public function __createTree(&$list, $parent){
 		$tree = array();

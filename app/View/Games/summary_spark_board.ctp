@@ -1,3 +1,33 @@
+<?php 
+foreach($development as $key => $value) {
+	$data[$value['User']['id']][$key][0]  = $value['User']['name'];
+	$data[$value['User']['id']][$key][1]  = $value['Challenge']['name'];
+	$data[$value['User']['id']][$key][2]  = $value['Challenge']['complete_by'];
+	$data[$value['User']['id']][$key][3]  = '10%';
+}
+foreach($exposure as $key => $value) {
+	$data[$value['User']['id']][$key][0] = $value['User']['name'];
+	$data[$value['User']['id']][$key][4] = $value['Challenge']['name'];
+	$data[$value['User']['id']][$key][5] = $value['Challenge']['complete_by'];
+	$data[$value['User']['id']][$key][6] = '10%';
+}
+foreach($connection as $key => $value) {
+	$data[$value['User']['id']][$key][0] = $value['User']['name'];
+	$data[$value['User']['id']][$key][7] = $value['Challenge']['name'];
+	$data[$value['User']['id']][$key][8] = $value['Challenge']['complete_by'];
+	$data[$value['User']['id']][$key][9] = '10%';
+}
+
+foreach($data as $key => $value) {
+	foreach($value as $k => $v) {
+		if($k == 0) {
+			$table[] = array(array($v[0], array('rowspan' => count($value))), $v[1], $v[2], $v[3], $v[4], $v[5], $v[6], $v[7], $v[8], $v[9], '', '');
+		} else {
+			$table[] = array($v[1], $v[2], $v[3], $v[4], $v[5], $v[6], $v[7], $v[8], $v[9], '', '');
+		}
+	}
+}
+?>
 <div class="col-md-12">
 	<div class="row no-margin padding-top-20">
 		<div class="col-md-2 col-sm-2">
@@ -30,23 +60,7 @@
 							<th>Comments</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td></td>
-							<td><?php echo $spark_ans['Development']; ?></td>
-							<td></td>
-							<td>10%</td>
-							<td><?php echo $spark_ans['Exposure']; ?></td>
-							<td>2017-08-25</td>
-							<td>10%</td>
-							<td><?php echo $spark_ans['Connections']; ?></td>
-							<td>2017-04-25</td>
-							<td>50%</td>
-							<td>Mark</td>
-							<td>Comments</td>
-						</tr>
-						
-					</tbody>
+					<tbody><?php echo $this->Html->tableCells($table); ?></tbody>
 				</table>
 			</div>
 		</div>
@@ -76,3 +90,4 @@
 		</div>
 	</div>
 </div>
+<?php debug($development); ?>

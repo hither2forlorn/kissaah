@@ -78,7 +78,7 @@ if(isset($selfdata['Dependent'])) {
 					'escape'=> false));
 		}
 		
-		$add_ally = $this->Html->div('btn col-md-3', 'Add Ally');
+		$add_ally = $this->Html->link('Add Ally', array('controller' => 'allies', 'action' => 'allies'), array('class' => 'btn-in-progress col-md-3'));
 
 		$allies_selected = $allies_list = '';
 		if(!empty($goal['ChallengesUser'])) {
@@ -105,7 +105,6 @@ if(isset($selfdata['Dependent'])) {
 		}
 		$users = $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5 ally-selected' . $cal_class, $allies_selected);
 		
-		/*
 		if(!$summary) {
 			foreach($allies as $key => $value) {
 				
@@ -125,7 +124,6 @@ if(isset($selfdata['Dependent'])) {
 			}
 			$users .= $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5 ally-list' . $cal_class, $allies_list);
 		}
-		*/
 		
 		$users = $this->Html->div('row no-margin', $users);
 		

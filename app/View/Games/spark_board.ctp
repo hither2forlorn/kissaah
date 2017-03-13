@@ -16,97 +16,149 @@
 					</thead>
 					<tbody>
 					<?php
-					$sss = array();
-					$count = 0;
-					foreach($development as $key => $value) {
-						$cnt = count($value['Challenge']['ChallengesUser']);
-						
-						if($cnt == 0) {
-							$sss[$key][] = array($value['Game']['answer'], $value['Challenge']['complete_by'], '', '', '');
-							$count++;
-						} else {
-							foreach($value['Challenge']['ChallengesUser'] as $k => $v) {
-								$sss[$key][] = array($value['Game']['answer'], $value['Challenge']['complete_by'], '', $v['User']['name'], 'Comment');
-								$count++;
-							}
-						}
-					}
-					
-					foreach($sss as $key => $value) {
-						foreach($value as $k => $v) {
-							
-						}
-						
-						//$table[] = array(array())
-					}
-					
-					debug($sss);
-					debug($count);
-					
 					$count = count($development);
+					$row = 0;
 					if($count == 0) {
 						$table[] = array('Development', '', '', '', '', '');
 						
 					} else {
 						foreach($development as $key => $value) {
-							$ally_count = count($value['Challenge']['ChallengesUser']);
+							if(isset($value['Challenge']['ChallengesUser'])) {
+								$ally_count = count($value['Challenge']['ChallengesUser']);
+							} else {
+								$ally_count = 1;
+							}
 							
 							if($ally_count == 0) {
-							} elseif($ally_count == 1) {
-								
+								$ally_count = 1;
 							} else {
 								$count += $ally_count;
 							}
 							
 							if($key == 0) {
-								$table[$key] = array(array('Development', array('rowspan' => $count)), 
-												 array($value['Game']['answer'], array('rowspan' => $ally_count)), 
-												 array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)), 
-												 array('10%', array('rowspan' => $ally_count)), '', '');
-							
+								$table[] = array(array('Development', array('rowspan' => 1)),
+										array($value['Game']['answer'], array('rowspan' => $ally_count)),
+										array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)),
+										array('10%', array('rowspan' => $ally_count)), '', '');
+								$row = count($table) - 1;
 							} else {
-								$table[$key] = array(array($value['Game']['answer'], array('rowspan' => $ally_count)), 
-												 array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)), 
-												 array('10%', array('rowspan' => $ally_count)), '', '');
+								$table[$row][0][1]['rowspan'] = $table[$row][0][1]['rowspan'] + 1; 	
+								$table[] = array(array($value['Game']['answer'], array('rowspan' => $ally_count)),
+										array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)),
+										array('10%', array('rowspan' => $ally_count)), '', '');
 							}
-							foreach($value['Challenge']['ChallengesUser'] as $k => $v) {
+								
+							if(isset($value['Challenge']['ChallengesUser'])) {
+								$last_count = count($table) - 1;
+								foreach($value['Challenge']['ChallengesUser'] as $k => $v) {
+									if($k == 0) {
+										$table[$last_count][count($table[$last_count]) - 2] = $v['User']['name'];
+											
+									} else {
+										$table[$row][0][1]['rowspan'] = $table[$row][0][1]['rowspan'] + 1;
+										$table[] = array($v['User']['name'], '');
+											
+									}
+								}
 							}
 						}
 					}
-					
-					/*
+					$row = 0;
 					$count = count($exposure);
 					if($count == 0) {
 						$table[] = array('Exposure', '', '', '', '', '');
 						
 					} else {
 						foreach($exposure as $key => $value) {
-							if($key == 0) {
-								$table[] = array(array('Exposure', array('rowspan' => $count)), $value['Game']['answer'], $value['Challenge']['complete_by'], '10%', 'Mark', 'Comment');
-							
+							if(isset($value['Challenge']['ChallengesUser'])) {
+								$ally_count = count($value['Challenge']['ChallengesUser']);
 							} else {
-								$table[] = array($value['Game']['answer'], '', '', '', '', '');
+								$ally_count = 1;
+							}
+							
+							if($ally_count == 0) {
+								$ally_count = 1;
+							} else {
+								$count += $ally_count;
+							}
+							
+							if($key == 0) {
+								$table[] = array(array('Exposure', array('rowspan' => 1)),
+										array($value['Game']['answer'], array('rowspan' => $ally_count)),
+										array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)),
+										array('10%', array('rowspan' => $ally_count)), '', '');
+								$row = count($table) - 1;
+							} else {
+								$table[$row][0][1]['rowspan'] = $table[$row][0][1]['rowspan'] + 1; 	
+								$table[] = array(array($value['Game']['answer'], array('rowspan' => $ally_count)),
+										array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)),
+										array('10%', array('rowspan' => $ally_count)), '', '');
+							}
+
+							if(isset($value['Challenge']['ChallengesUser'])) {
+								$last_count = count($table) - 1;
+								foreach($value['Challenge']['ChallengesUser'] as $k => $v) {
+									if($k == 0) {
+										$table[$last_count][count($table[$last_count]) - 2] = $v['User']['name'];
+											
+									} else {
+										$table[$row][0][1]['rowspan'] = $table[$row][0][1]['rowspan'] + 1;
+										$table[] = array($v['User']['name'], '');
+											
+									}
+								}
 							}
 						}
 					}
-					
+					$row = 0;
 					$count = count($connection);
 					if($count == 0) {
 						$table[] = array('Connections', '', '', '', '', '');
 						
 					} else {
 						foreach($connection as $key => $value) {
-							if($key == 0) {
-								$table[] = array(array('Connections', array('rowspan' => $count)), $value['Game']['answer'], $value['Challenge']['complete_by'], '10%', 'Mark', 'Comment');
-							
+							if(isset($value['Challenge']['ChallengesUser'])) {
+								$ally_count = count($value['Challenge']['ChallengesUser']);
 							} else {
-								$table[] = array($value['Game']['answer'], '', '', '', '', '');
+								$ally_count = 1;
+							}
+							
+							if($ally_count == 0) {
+								$ally_count = 1;
+							} else {
+								$count += $ally_count;
+							}
+							
+							if($key == 0) {
+								$table[] = array(array('Connections', array('rowspan' => 1)),
+										array($value['Game']['answer'], array('rowspan' => $ally_count)),
+										array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)),
+										array('10%', array('rowspan' => $ally_count)), '', '');
+								$row = count($table) - 1;
+							} else {
+								$table[$row][0][1]['rowspan'] = $table[$row][0][1]['rowspan'] + 1; 	
+								$table[] = array(array($value['Game']['answer'], array('rowspan' => $ally_count)),
+										array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)),
+										array('10%', array('rowspan' => $ally_count)), '', '');
+							}
+								
+							if(isset($value['Challenge']['ChallengesUser'])) {
+								$last_count = count($table) - 1;
+								foreach($value['Challenge']['ChallengesUser'] as $k => $v) {
+									if($k == 0) {
+										$table[$last_count][count($table[$last_count]) - 2] = $v['User']['name'];
+											
+									} else {
+										$table[$row][0][1]['rowspan'] = $table[$row][0][1]['rowspan'] + 1;
+										$table[] = array($v['User']['name'], '');
+											
+									}
+								}
 							}
 						}
 					}
-					*/
+
 					echo $this->Html->tableCells($table);
-					debug($table);
 					?> 
 					</tbody>
 				</table>
