@@ -15,10 +15,7 @@ $visions = $this->Session->read('Vision');
 $nxt_txt = 'next_link';
 $nxt_lnk = '';
 $counts = count($visions);
-$cols = 'col-md-3 col-xm-3 padding-left-0';
-if($counts > 4) {
-	$cols = 'col-md-2 col-xm-4 padding-left-0';
-}
+$cols = 'pull-left margin-right-20';
 
 foreach($visions as $vision) {
 	$selected = 'caption-subject font-grey-sharp bold uppercase';

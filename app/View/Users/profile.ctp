@@ -56,7 +56,7 @@
 				$this->Html->link(
 					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' User Info Settings', 
 								   array('controller' => 'users', 'action' => 'edit/profile'), 
-								   array('escape' => false, 'class' => 'open-fancybox ')) . 
+								   array('escape' => false, 'class' => 'open-fancybox ', 'data-type' => 'ajax')) . 
 				$this->Html->div('margin-left-25 ScreenName', $userdetail['User']['name'] . '') .
 				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.email') . '', array('id' => 'Email')) .
 				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.city') . '') .

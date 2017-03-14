@@ -68,21 +68,43 @@ foreach($data as $key => $value) {
 	<div class="row no-margin padding-bottom-20">
 		<div class="col-md-2 col-sm-2">
 			<h3 class="activitytitle">#Give</h3>
-			<div class="table-bordered"></div>
+			<div class="table-bordered"><?php 
+			foreach($give_strength as $value) {
+				echo $this->Html->para('', $value['Game']['answer']);
+			}
+			?></div>
 		</div>
 		<div class="col-md-5 col-sm-5">
 			<h3 class="activitytitle">Purpose</h3>
-			<div class="table-bordered"></div>
+			<div class="table-bordered pull-left padding-top-10 padding-bottom-10"><?php
+			foreach($purpose as $value) {
+				$answer = '/files/img/medium/' . $value['Game']['answer'];
+				$link = '/files/img/large/' . $value['Game']['answer'];
+				echo $this->Html->link($this->Html->image($answer, array('class' => 'img-responsive')), 
+						$answer, array('escape' => false, 'data-fancybox' => 'images', 'class' => 'col-md-3'));
+			}
+			?></div>
 		</div>
 		<div class="col-md-5 col-sm-5">
 			<h3 class="activitytitle">Aspirations</h3>
-			<div class="table-bordered"></div>
+			<div class="table-bordered pull-left padding-top-10 padding-bottom-10"><?php
+			foreach($aspiration as $value) {
+				$answer = '/files/img/medium/' . $value['Game']['answer'];
+				$link = '/files/img/large/' . $value['Game']['answer'];
+				echo $this->Html->link($this->Html->image($answer, array('class' => 'img-responsive')), 
+						$answer, array('escape' => false, 'data-fancybox' => 'images', 'class' => 'col-md-3'));
+			}
+			?></div>
 		</div>
 	</div>
 	<div class="row no-margin padding-bottom-20 margin-bottom-20">
 		<div class="col-md-2 col-sm-2">
 			<h3 class="activitytitle">#Ask</h3>
-			<div class="table-bordered"></div>
+			<div class="table-bordered"><?php 
+			foreach($ask_strength as $value) {
+				echo $this->Html->para('', $value['Game']['answer']);
+			}
+			?></div>
 		</div>
 		<div class="col-md-10 col-sm-10">
 			<h3 class="activitytitle">Motivation</h3>
@@ -90,4 +112,3 @@ foreach($data as $key => $value) {
 		</div>
 	</div>
 </div>
-<?php debug($development); ?>

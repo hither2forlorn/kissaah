@@ -242,7 +242,9 @@ var Game = function () {
 			});
     		
     		$('a.fbox-challenges').fancybox({
-			    'beforeShow'	: function() {},
+			    'beforeShow'	: function() {
+			    	console.log('beforeShow');
+			    },
 				'href' 			: $(this).attr('href'),
 				'type'			: 'ajax',
 			    'autoSize'		: false,

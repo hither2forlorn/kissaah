@@ -195,7 +195,17 @@ class GamesController extends AppController {
 		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 185);
 		$connection = $this->Game->find('all', $options);
 		
-		$this->set(compact('development', 'exposure', 'connection'));
+		$options['contain'] = false;
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 194);
+		$purpose = $this->Game->find('all', $options);
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 200);
+		$aspiration = $this->Game->find('all', $options);
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 176);
+		$give_strength = $this->Game->find('all', $options);
+		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 179);
+		$ask_strength = $this->Game->find('all', $options);
+		
+		$this->set(compact('development', 'exposure', 'connection', 'give_strength', 'ask_strength', 'purpose', 'aspiration'));
 		$this->Session->write('Game.query_all', 0);
 	}
 	

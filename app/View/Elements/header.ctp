@@ -46,19 +46,19 @@
 				$tool  = $this->Html->div('tool-box-info', 'Allies' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 				$tool .= $this->Html->link( $this->Html->image('my-allies.png', array('class' => 'img-responsive', 'id' => 'tour-step-09')), 
 				    						array('controller' => 'allies', 'action' => 'allies'),
-				    						array('class' => 'fbox-toolbox', 'data-width' => '600', 'escape' => false, 'data' => 'allies'));
+				    						array('class' => 'fbox-toolbox', 'data-width' => '600', 'escape' => false, 'data' => 'allies', 'data-type' => 'ajax'));
 				echo $this->Html->div('pull-left icon-wrapper', $tool);
 				
 				$tool  = $this->Html->div('tool-box-info', 'Calendar' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-calendar-check-o', 'aria-hidden' => 'true')),
 				                            array('controller' => 'challenges', 'action' => 'calendar'), 
-				                            array('class' => 'fbox-challenges', 'data-width' => '600', 'escape' => false));
+				                            array('class' => 'fbox-challenges', 'data-width' => '600', 'escape' => false, 'data-type' => 'ajax'));
 				echo $this->Html->div('pull-left icon-wrapper', $tool);
 
 				$tool  = $this->Html->div('tool-box-info', 'RoadMaps' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 				$tool .= $this->Html->link( $this->Html->image('my-road-map.png', array('class' => 'img-responsive', 'id' => 'tour-step-10')),
 				    						array('controller' => 'users', 'action' => 'roadmaps'), 
-				    						array('class' => 'fbox-toolbox', 'data-width' => '680', 'escape' => false)); 
+				    						array('class' => 'fbox-toolbox', 'data-width' => '680', 'escape' => false, 'data-type' => 'ajax')); 
 				echo $this->Html->div('pull-left icon-wrapper', $tool);
 				
 				$tool  = $this->Html->div('tool-box-info', 'Export Roadmap' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
