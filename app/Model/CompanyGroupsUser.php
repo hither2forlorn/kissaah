@@ -3,6 +3,8 @@ App::uses('AppModel', 'Model');
 
 Class CompanyGroupsUser extends AppModel {
 	
+	public $actsAs = array('Containable');
+	
 	var $belongsTo = array(
 			'User' => array(
 				'className' => 'User',

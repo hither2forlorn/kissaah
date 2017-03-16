@@ -34,9 +34,8 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                                     '../plugins/uniform/css/uniform.default',
                                     '../plugins/bootstrap-switch/css/bootstrap-switch.min'));
 
-		// END GLOBAL MANDATORY STYLES
-		// BEGIN THEME STYLES
         echo $this->Html->css(array('../plugins/select2/select2',
+        							'../plugins/jquery-multi-select/css/multi-select',
         							'../plugins/datatables/plugins/bootstrap/dataTables.bootstrap'));
 		
 		echo $this->fetch('css');
@@ -59,8 +58,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                                         '../plugins/bootstrap-switch/js/bootstrap-switch.min'));
 		/* END CORE PLUGINS */
         echo $this->Html->script(array('../plugins/select2/select2.min',
-                                       '../plugins/datatables/media/js/jquery.dataTables.min',
-                                       '../plugins/datatables/plugins/bootstrap/dataTables.bootstrap'));
+        		'../plugins/jquery-multi-select/js/jquery.multi-select',
+                '../plugins/datatables/media/js/jquery.dataTables.min',
+                '../plugins/datatables/plugins/bootstrap/dataTables.bootstrap'));
 				
 		echo $this->Html->script(array('metronic', 'layout', 'demo', 'pages/admin'));
 		echo $this->fetch('script');

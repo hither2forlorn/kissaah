@@ -2319,3 +2319,6 @@ a.back-to-road-map {
 	z-index: 0;
 	padding: 13px 10px 12px 35px;
 }
+.ms-container {
+	width: 100%;
+}

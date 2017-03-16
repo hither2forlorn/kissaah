@@ -164,7 +164,7 @@ class AppController extends Controller {
 
 			if($email->send()) {
 				if(isset($options['setFlash']) && $options['setFlash']) {
-					$this->Session->setFlash(__("Email Sent", true), 'default', array('class' => 'flashError'));
+					$this->Session->setFlash(__("Email Sent", true), 'default', array('class' => 'flashSuccess'));
 				}
 				return true;
 				

@@ -63,21 +63,24 @@ if(!$this->request->isAjax) {
 			<div class="portlet-body">
 				<table class="table table-striped table-bordered table-hover" id="CompanyGroupes_view">
 					<tbody>
-                                            
 						<tr>
-                                                    <td><b><?php echo __('Company ID'); ?></b></td>
+                            <td><b><?php echo __('ID'); ?></b></td>
 							<td><?php echo h($company_group['CompanyGroup']['id']); ?>&nbsp;</td>
 						</tr>
 						<tr>
-                                                    <td><b><?php echo __('Company Name'); ?></b></td>
+                            <td><b><?php echo __('Name'); ?></b></td>
 							<td><?php echo h($company_group['CompanyGroup']['title']); ?>&nbsp;</td>
 						</tr>
 						<tr>
-                                                    <td><b><?php echo __('Admin'); ?></b></td>
-							<td><?php echo h($company_group['Admin']['name']); ?>&nbsp;</td>
+                            <td><b><?php echo __('Code'); ?></b></td>
+							<td><?php echo h($company_group['CompanyGroup']['code']); ?>&nbsp;</td>
 						</tr>
 						<tr>
-                                                    <td><b><?php echo __('Parent'); ?></b></td>
+                            <td><b><?php echo __('Admin'); ?></b></td>
+							<td><?php echo h($company_group['User']['name']); ?>&nbsp;</td>
+						</tr>
+						<tr>
+                            <td><b><?php echo __('Parent'); ?></b></td>
 							<td><?php echo h($company_group['CompanyGroup']['parent']); ?>&nbsp;</td>
 						</tr>
 					</tbody>
@@ -85,82 +88,44 @@ if(!$this->request->isAjax) {
 			</div>
 			<?php endif; ?>
 		</div>
-           <div class="portlet box green">
+		<div class="portlet box yellow">
 			<div class="portlet-title">
-				<div class="caption"><i class="fa fa-user"></i><?php echo empty($company_group['CompanyGroup']['parent']) ? __('Company') : __('Users List'); ?></div>
+				<div class="caption"><i class="fa fa-user"></i>Groups User</div>
 				<div class="actions"><?php 
-				if(isset($company_group) && !empty($company_group['CompanyGroup'])) {
-					
-					if($actions['move_up']) {
-					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-up')) . ' ' . __('Move Up'), 
-											array('action' => 'moveup', $company_group['CompanyGroup']['id'], 1), 
-											array('class' => 'btn btn-default btn-sm', 'escape' => false));
-					echo '&nbsp;';
-					}
-					if($actions['move_down']) {
-					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-down')) . ' ' . __('Move Down'), 
-											array('action' => 'movedown', $company_group['CompanyGroup']['id'], 1), 
-											array('class' => 'btn btn-default btn-sm', 'escape' => false));
-					echo '&nbsp;';
-					}
-					
-				}
-				
-
+				echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus')) . ' ' . __('Add New'), 
+										array('action' => 'company_user', $parent), 
+										array('class' => 'btn btn-default btn-sm', 'escape' => false));
 				?></div>
 			</div>
-			</div>
-			<?php //debug ($company_group_users); ?>
-                        <?php if(isset($company_group_users) && !empty($company_group_users)): ?>
-			<div class="portlet-body user-list">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="users_index">
-				
-					<thead>
-						<tr>
-                                                    <th><b><?php echo __('User Id'); ?></b></th>
-                                                     <th><b><?php echo __('User Name'); ?></b></th>
-                                                     <th><b><?php echo __('User Email'); ?></b></th>
-                                                     <th><b><?php echo __('Company Name'); ?></b></th>
-                                                    <th><b><?php echo __('Line Manage'); ?></b></th>
-                                                    <th class="actions"><?php echo __('Actions'); ?></th>
-						</tr>
-                                        </thead>
-                                                 <?php //debug ($company_group_users); ?>
-                                        <tbody>
-                                                <?php  foreach($company_group_users as $company_group_user) { ?>
-						<tr>
-							<td><?php echo h($company_group_user['User']['id']); ?>&nbsp;</td>
-							<td><?php echo h($company_group_user['User']['name']); ?>&nbsp;</td>
-							<td><?php echo h($company_group_user['User']['email']); ?>&nbsp;</td>
-							<td><?php echo h($company_group['CompanyGroup']['title']); ?>&nbsp;</td>
-                                                        <td><?php echo h($company_group['Admin']['name']); ?>&nbsp;</td>
-                                                        
-                                                     <td class="actions">
-                                                          
-	                            <?php if($actions['edit']) {
-	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-pencil')) . ' ' . __('Edit'), 
-	                                                             array('controller'=>'users', 'action' => 'detail',  $company_group_user['User']['id'], 'admin' => true), 
-	                                                             array('class' => 'btn default btn-xs blue', 'escape' => false, 'target' => '_blank')); 
-								} ?>
-                                                       
-	                            <?php if($actions['delete']) {
-	                            	echo $this -> Html -> link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o')), 
-	                                                             array('controller'=>'users','action' => 'delete', $company_group_user['User']['id'], 'admin' => true), 
-	                                                             array('class' => 'btn default btn-xs grey user-delete', 'escape' => false));
-								} ?>
-	                            
-								</td>
-                                                                <?php } ?>
+			<div class="portlet-body">
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered table-hover" id="users_index">
+						<thead>
+							<tr>
+								<th> Name </th>
+								<th> Email </th>
+								<th class="actions"><?php echo __('Action'); ?></th>
 							</tr>
-                                                
-					</tbody>
-				</table>
-                            </div>
+						</thead>
+						<tbody>
+						<?php foreach ($company_group['CompanyGroupsUser'] as $user): ?>
+							<tr>
+								<td><?php echo h($user['User']['name']); ?></td>
+								<td><?php echo h($user['User']['email']); ?></td>
+								<td class="actions">
+	                            <?php if($actions['delete']) {
+	                            	echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o')),
+	                            			array('action' => 'company_user_delete', $user['id'], 'admin' => true),
+	                            			array('class' => 'btn default btn-xs grey user-delete', 'escape' => false));
+								} ?>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
 			</div>
-			<?php endif; ?>
 		</div>
-            
 <?php if(!$this->request->isAjax) { ?>
 	</div>
 </div>

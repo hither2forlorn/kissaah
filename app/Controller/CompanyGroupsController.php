@@ -1,9 +1,6 @@
 <?php
 class CompanyGroupsController extends AppController {
 	
-	protected $isAdmin = false;
-	protected $companyAdmin = array();
-	
 	public function beforeFilter() {
 		parent::beforeFilter();
 	}
@@ -19,8 +16,8 @@ class CompanyGroupsController extends AppController {
 				$parent = null;
 			}
 			$options['conditions'] = array('CompanyGroup.parent_id' => $parent);
+			$options['contain'] = false;
 			$options['order'] = array('CompanyGroup.lft ASC');
-			if(!$this->isAdmin) $options['conditions']['OR'] = array('CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin);
 			$company_groups = $this->CompanyGroup->find('all', $options);
 			
 			foreach($company_groups as $key => $company_group) {
@@ -33,59 +30,43 @@ class CompanyGroupsController extends AppController {
 		return json_encode($tree_list);
 	}
 	
-	function admin_index($id = null){
-		$actions = array('new' => false, 'edit' => false, 'move_up' => false, 'move_down' => false, 'delete' => false);
-		if($this->isAdmin) $actions = array('new' => true, 'edit' => false, 'move_up' => false, 'move_down' => false, 'delete' => false);
+	public function admin_index($id = null) {
+		$actions = array('new' => true, 'edit' => true, 'move_up' => true, 'move_down' => true, 'delete' => true);
 		if($this->request->is('ajax')) {
-			$options['contain'] = array('Admin');
-                        //$options['conditions'] = array('User.id' => $id);
-			$options['conditions'] = array('CompanyGroup.id' => $id);
-			if(!$this->isAdmin) $options['conditions']['OR'] = array( 'CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin);
-			$company_group = $this->CompanyGroup->find('first', $options);
-                        //$company_group_users = $this->User->find('all', array('recursive'=>-1, 'conditions'=>array('User.company'=>$company_group['CompanyGroup']['code'])));
-			$company_group_users = $this->CompanyGroup->User->find('all', array('recursive'=>-1, 'conditions'=>array('User.company'=>$company_group['CompanyGroup']['code'])));
 			
-                       
-                        if(!empty($company_group['CompanyGroup'])) {
-				if($this->isAdmin) {
-					$actions = array('new' => true, 'edit' => true, 'move_up' => true, 'move_down' => true, 'delete' => true);
-				} else {
-					$com_grp = $this->CompanyGroup->find('list', array('fields' => array('id', 'id'), 'conditions' => array('id' => $this->companyAdmin, 'parent_id IS NULL')));
-					if(!empty($com_grp)) {
-						$actions = array('new' => true, 'edit' => true, 'move_up' => true, 'move_down' => true, 'delete' => true);
-					}
-				}
+			$options['contain'] = array('User', 'CompanyGroupsUser' => array('User' => array('fields' => array('name', 'email'))));
+			$options['conditions'] = array('CompanyGroup.id' => $id);
+			$company_group = $this->CompanyGroup->find('first', $options);
+			
+			if(!empty($company_group)) {
+
 				if(!empty($company_group['CompanyGroup']['parent_id'])) {
 					$options['conditions'] = array('CompanyGroup.id' => $company_group['CompanyGroup']['parent_id']);
 					$company_group['CompanyGroup']['parent'] = $this->CompanyGroup->field('CompanyGroup.title', $options['conditions']);
 				} else {
 					$company_group['CompanyGroup']['parent'] = '';
-					$actions['delete'] = false;
-					$actions['move_up'] = false;
-					$actions['move_down'] = false;
 				}
-				
-				$this->set(compact('company_group', 'company_group_users'));
-				
 			}
+			
+			$this->set(compact('company_group', 'company_group_users'));
 		}
 		$this->set(compact('actions'));
 	}
 	
-	public function admin_add(){
+	public function admin_add() {
 		if ($this->request->is(array('post', 'put'))) {
+			debug($this->request->data);
 			if ($this->CompanyGroup->save($this->request->data)) {
 				$this->Session->setFlash(__('The CompanyGroup has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The CompanyGroup could not be saved. Please, try again.'));
 			}
-			
 		}
-		if(!$this->isAdmin) $conditions['OR'] = array('CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin);
-		$parent_id = $this->CompanyGroup->generateTreeList($conditions, null, null, '---');
-		$admins = $this->CompanyGroup->Admin->find('list');
-		$this->set(compact('parent_id', 'admins'));
+		
+		$parents = $this->CompanyGroup->generateTreeList(null, null, null, '---');
+ 		$users = $this->CompanyGroup->User->find('list');
+		$this->set(compact('parents', 'users'));
 	}
      
 	public function admin_edit($id = null) {
@@ -102,27 +83,37 @@ class CompanyGroupsController extends AppController {
 		} else {
 			$options = array('conditions' => array('CompanyGroup.' . $this->CompanyGroup->primaryKey => $id));
 			$this->request->data = $this->CompanyGroup->find('first', $options);
-			
 		}
-		$conditions = array('CompanyGroup.id != ' => $id);
-		if(!$this->isAdmin) {
-			$conditions['OR'] = array('CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin);
-			if(empty($this->companyAdmin) || empty($this->request->data['CompanyGroup']['parent_id'])) {
-				$conditions[] = 'CompanyGroup.id = 0';
-			}
-		}
-		$parent_id = $this->CompanyGroup->generateTreeList($conditions, null, null, '---');
-		$admin_conditions = array();
-		if(!$this->isAdmin) {
-			$this->loadModel('CompanyGroupsUser');
-			if(empty($companyAdmin)) $companyAdmin = 0;
-			$companyList = $this->CompanyGroup->find('list', array('fields' => array('id', 'id'), 'conditions' => array('OR' => array('CompanyGroup.id' => $this->companyAdmin, 'CompanyGroup.parent_id' => $this->companyAdmin)), 'contain' => false));
-			$admin_conditions['Admin.id'] = $this->CompanyGroupsUser->find('list', array('fields' => array('user_id', 'user_id'), 'conditions' => array('company_group_id' => $companyList), 'contain' => false));
-		}
-		$admins = $this->CompanyGroup->Admin->find('list', array('conditions' => $admin_conditions));
-		$this->set(compact('parent_id', 'admins'));
+
+		$parents = $this->CompanyGroup->generateTreeList(null, null, null, '---');
+ 		$users = $this->CompanyGroup->User->find('list');
+		$this->set(compact('parents', 'users'));
 	}
 	
+	public function admin_company_user() {
+		if ($this->request->is(array('post', 'put'))) {
+			foreach($this->request->data['CompanyGroupsUser']['user_id'] as $user_id) {
+				$this->CompanyGroup->CompanyGroupsUser->create();
+				$data['CompanyGroupsUser']['company_group_id'] = $this->request->data['CompanyGroupsUser']['company_group_id'];
+				$data['CompanyGroupsUser']['user_id'] = $user_id;
+				
+				
+				if ($this->CompanyGroup->CompanyGroupsUser->save($data)) {
+					$this->Session->setFlash(__('The Company Group has been saved.'));
+				} else {
+					$this->Session->setFlash(__('The Company Group could not be saved. Please, try again.'));
+					break;
+				}
+			}
+			
+			return $this->redirect(array('action' => 'index'));
+		}
+		
+		$companyGroups = $this->CompanyGroup->generateTreeList(null, null, null, '---');
+ 		$users = $this->CompanyGroup->User->find('list');
+		$this->set(compact('companyGroups', 'users'));
+	}
+     
 	public function admin_moveup($id = null, $delta = null) {
 		$this->CompanyGroup->id = $id;
 		if (!$this->CompanyGroup->exists()) {
@@ -159,6 +150,21 @@ class CompanyGroupsController extends AppController {
 			$this->Session->setFlash(__('The CompanyGroup has been deleted.'));
 		} else {
 			$this->Session->setFlash(__('The CompanyGroup could not be deleted. Please, try again.'));
+		}
+		
+		return $this->redirect(array('action' => 'index'));
+	}
+	
+	public function admin_company_user_delete($id = null){
+		$this->CompanyGroup->CompanyGroupsUser->id = $id;
+		if (!$this->CompanyGroup->CompanyGroupsUser->exists()) {
+			throw new NotFoundException(__('The user is not associated to this group'));
+		}
+		
+		if ($this->CompanyGroup->CompanyGroupsUser->delete($this->CompanyGroup->id, true)) {
+			$this->Session->setFlash(__('The user id deleted from the group.'), 'default', array('class' => 'flashSuccess'));
+		} else {
+			$this->Session->setFlash(__('The user cannot be deleted from the group.'), 'default', array('class' => 'flashError'));
 		}
 		
 		return $this->redirect(array('action' => 'index'));

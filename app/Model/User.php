@@ -122,22 +122,17 @@ Class User extends AppModel {
 			'foreignKey'	=> 'role_id'
 		)
 	);
-	
+
 	var $hasAndBelongsToMany = array(
 		'CompanyGroup' => array(
 			'className' => 'CompanyGroup',
 			'joinTable' => 'company_groups_users',
-			'foreignKey' => 'user_id',
-			'associationForeignKey' => 'company_group_id',
-			/*
-			 * TODO: Its set currently for one company and one group so force reset of old records
-			 * else set 'unique' => 'keepExisting'
-			 */
+			//'foreignKey' => 'user_id',
+			//'associationForeignKey' => 'company_group_id',
 			'unique' => true,
-			'order' => array('parent_id', 'title')
 		)
 	);
-	
+
 	function beforeValidate($options = Array()){
 		return true;
 	}
