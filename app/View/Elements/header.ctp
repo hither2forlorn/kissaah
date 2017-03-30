@@ -42,63 +42,44 @@
 	<div class="container">
 		<div class="row">
 	  		<div class="col-md-9 col-xs-8"><?php 
-				
-				$tool  = $this->Html->div('tool-box-info', 'Allies' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->image('my-allies.png', array('class' => 'img-responsive', 'id' => 'tour-step-09')), 
-				    						array('controller' => 'allies', 'action' => 'allies'),
-				    						array('class' => 'fbox-toolbox', 'data-width' => '600', 'escape' => false, 'data' => 'allies', 'data-type' => 'ajax'));
-				echo $this->Html->div('pull-left icon-wrapper', $tool);
-				
-				$tool  = $this->Html->div('tool-box-info', 'Calendar' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-calendar-check-o', 'aria-hidden' => 'true')),
-				                            array('controller' => 'challenges', 'action' => 'calendar'), 
-				                            array('class' => 'fbox-challenges', 'data-width' => '600', 'escape' => false, 'data-type' => 'ajax'));
-				echo $this->Html->div('pull-left icon-wrapper', $tool);
+			$tool  = $this->Html->div('tool-box-info', 'Allies' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+			$tool .= $this->Html->link( $this->Html->image('my-allies.png', array('class' => 'img-responsive', 'id' => 'tour-step-09')), 
+			    						array('controller' => 'allies', 'action' => 'allies'),
+			    						array('class' => 'fbox-toolbox', 'data-width' => '600', 'escape' => false, 'data' => 'allies', 
+			    								'data-type' => 'ajax', 'data-fancybox' => null));
+			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			
+			$tool  = $this->Html->div('tool-box-info', 'Calendar' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-calendar-check-o', 'aria-hidden' => 'true')),
+			                            array('controller' => 'challenges', 'action' => 'calendar'), 
+			                            array('class' => 'fbox-challenges', 'data-width' => '600', 'escape' => false, 'data-type' => 'ajax'));
+			echo $this->Html->div('pull-left icon-wrapper', $tool);
 
-				$tool  = $this->Html->div('tool-box-info', 'RoadMaps' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->image('my-road-map.png', array('class' => 'img-responsive', 'id' => 'tour-step-10')),
-				    						array('controller' => 'users', 'action' => 'roadmaps'), 
-				    						array('class' => 'fbox-toolbox', 'data-width' => '680', 'escape' => false, 'data-type' => 'ajax')); 
-				echo $this->Html->div('pull-left icon-wrapper', $tool);
-				
-				$tool  = $this->Html->div('tool-box-info', 'Export Roadmap' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-file-word-o', 'aria-hidden' => 'true', 'id' => 'tour-step-08')),
-				    						array('controller' => 'games', 'action' => 'summary', 'export'), 
-				    						array('escape' => false));
-				echo $this->Html->div('pull-left icon-wrapper', $tool);
-				
-				$tool  = $this->Html->div('tool-box-info', 'Organization Map' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-sitemap', 'aria-hidden' => 'true')),
-				    						array('controller' => 'organizations', 'action' => 'index'), array('escape' => false));
-				echo $this->Html->div('pull-left icon-wrapper', $tool);
-				
-				$tool  = $this->Html->div('tool-box-info', 'Spark Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-table', 'aria-hidden' => 'true')),
-				    						array('controller' => 'games', 'action' => 'spark_board'), array('escape' => false));
-				echo $this->Html->div('pull-left icon-wrapper', $tool);
-				/*
-				$tool  = $this->Html->div('tool-box-info', 'Allies Feedback' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->image('my-feedback.png', array('class' => 'img-responsive')), 
-				    						array('controller' => 'feedbacks', 'action' => 'feedback_list'),
-				    						array('class' => 'fbox-toolbox', 'data-width' => '600', 'escape' => false));
-				
-				$tool  = $this->Html->div('tool-box-info', 'Quick Tasks' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->image('my-notes.png', array('class' => 'img-responsive')),
-				    						array('controller' => 'users', 'action' => 'self_notes'), 
-				    						array('class' => 'fbox-toolbox', 'data-width' => '680', 'escape' => false));
-								
-				$tool  = $this->Html->div('tool-box-info', 'Challenges' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-				$tool .= $this->Html->link( $this->Html->image('my-challenges.png', array('class' => 'img-responsive')),
-				                            array('controller' => 'challenges', 'action' => 'menu'), 
-				                            array('class' => 'fbox-challenges', 'data-width' => '600', 'escape' => false));
-				
-				*/						
+			$tool  = $this->Html->div('tool-box-info', 'RoadMaps' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+			$tool .= $this->Html->link( $this->Html->image('my-road-map.png', array('class' => 'img-responsive', 'id' => 'tour-step-10')),
+			    						array('controller' => 'users', 'action' => 'roadmaps'), 
+			    						array('class' => 'fbox-toolbox', 'data-width' => '680', 'escape' => false, 'data-type' => 'ajax')); 
+			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			
+			$tool  = $this->Html->div('tool-box-info', 'Export Roadmap' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-file-word-o', 'aria-hidden' => 'true', 'id' => 'tour-step-08')),
+			    						array('controller' => 'games', 'action' => 'summary', 'export'), 
+			    						array('escape' => false));
+			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			
+			$tool  = $this->Html->div('tool-box-info', 'Organization Map' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-sitemap', 'aria-hidden' => 'true')),
+			    						array('controller' => 'organizations', 'action' => 'index'), array('escape' => false));
+			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			
+			$tool  = $this->Html->div('tool-box-info', 'Spark Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-table', 'aria-hidden' => 'true')),
+			    						array('controller' => 'games', 'action' => 'spark_board'), array('escape' => false));
+			echo $this->Html->div('pull-left icon-wrapper', $tool);
 			?></div>
 	  		<div class="col-md-3 col-xs-4">
 				<ul class="nav navbar-nav pull-right">
-					<!-- BEGIN NOTIFICATION DROPDOWN -->
-					<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-					<?php 
+				<?php 
 					$allies_notification 	= $this->Session->read('allies_notification');
 					$feedback_notification 	= $this->Session->read('feedback_notification');
 
@@ -161,9 +142,7 @@
 							</li>
 						</ul>
 					</li>
-					<!-- END NOTIFICATION DROPDOWN -->
 
-					<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 					<li class="dropdown">
 						<a id="tour-step-11" class="dropdown-toggle" href="#" 
 							data-hover="dropdown" data-toggle="dropdown" data-close-others="true"> 
@@ -204,16 +183,8 @@
 									array('escape' => false, 'target' => '_blank'));
 						}
 						
-						$isFacebook = $this->Session->read('Facebook');
-						if($isFacebook) {
-							$list[] = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-sign-out')) . ' Logout', 
-														array('controller' => 'users', 'action' => 'logout'), array('escape' => false));
-							/*$list[] = $this->Facebook->logout(array('redirect' => array('controller' => 'users', 'action' => 'logout'),
-																	'img' => 'facebook_logout.jpg'));*/ 
-						} else {
-							$list[] = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-sign-out')) . ' Logout', 
-														array('controller' => 'users', 'action' => 'logout'), array('escape' => false));
-						}
+						$list[] = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-sign-out')) . ' Logout',
+								array('controller' => 'users', 'action' => 'logout'), array('escape' => false));
 						
 						if($this->Session->read('Auth.User')) {
 							echo $this->Html->nestedList($list, array('class' => 'dropdown-menu dropdown-menu-default'));

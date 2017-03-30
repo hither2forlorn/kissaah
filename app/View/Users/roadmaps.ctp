@@ -72,7 +72,7 @@ if(isset($roadmaps)) {
 			$row = $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4', 
 				$this->Html->link(
 				  		$active_text, array('controller' => 'users', 'action' => 'roadmap_edit_active', $roadmap['UserGameStatus']['id']),
-						array('escape' => false, 'class' => 'btn red')));
+						array('escape' => false, 'class' => 'btn red col-sm-12')));
 			$row .= $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding',
 				$this->Form->input('id', array('type' => 'hidden', 'value' => $roadmap['UserGameStatus']['id'])) .
 				$this->Form->input('roadmap', array(
@@ -90,7 +90,7 @@ if(isset($roadmaps)) {
 		}
 		
 		$row = $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 active-roadmap', 
-				$this->Html->link('Add New', '#', array('escape' => false, 'class' => 'btn blue')));
+				$this->Html->link('Add New', '#', array('escape' => false, 'class' => 'btn blue col-sm-12')));
 		$row .= $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding', 
 			$this->Form->input('id', array('type' => 'hidden', 'class' => 'roadmap-id')) .
 			$this->Form->input('roadmap', array(

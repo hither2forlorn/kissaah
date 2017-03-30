@@ -66,3 +66,6 @@
   font-size: 36px !important;
   padding: 10px !important;
   font-weight: 300; }
+
+.ms-container {
+	width: 100%; }

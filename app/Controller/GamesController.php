@@ -185,24 +185,39 @@ class GamesController extends AppController {
 	public function summary_spark_board() {
 		$this->Session->write('Game.query_all', 1);
 		
+		$this->loadModel('CompanyGroupsUser');
+		$options['contain'] = false;
+		$options['conditions'] = array('CompanyGroupsUser.user_id' => $this->Session->read('ActiveGame.user_id'));
+		$options['fields'] = array('id', 'company_group_id');
+		$group = $this->CompanyGroupsUser->find('first', $options);
+		
+		if(empty($group)) {
+			$users = $this->Session->read('ActiveGame.user_id');
+		} else {
+			$options['conditions'] = array('company_group_id' => $group['CompanyGroupsUser']['company_group_id']);
+			$options['fields'] = array('id', 'user_id');
+			$users = $this->CompanyGroupsUser->find('list', $options);
+		}
+
+		$options = array();
 		$options['contain'] = array('Challenge', 'User');
-		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 59);
+		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 59);
 		$development = $this->Game->find('all', $options);
 		
-		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 118);
+		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 118);
 		$exposure = $this->Game->find('all', $options);
 		
-		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 185);
+		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 185);
 		$connection = $this->Game->find('all', $options);
 		
 		$options['contain'] = false;
-		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 194);
+		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 194);
 		$purpose = $this->Game->find('all', $options);
-		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 200);
+		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 200);
 		$aspiration = $this->Game->find('all', $options);
-		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 176);
+		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 176);
 		$give_strength = $this->Game->find('all', $options);
-		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 179);
+		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 179);
 		$ask_strength = $this->Game->find('all', $options);
 		
 		$this->set(compact('development', 'exposure', 'connection', 'give_strength', 'ask_strength', 'purpose', 'aspiration'));

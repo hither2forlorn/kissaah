@@ -1,73 +1,83 @@
 <?php
-$featured = $this->Session->read('Configuration.featured');
-if($featured == false) {
+$featured = $this->Session->read ('Configuration.featured');
+if ($featured == false) {
 	echo '<div class="col-md-6 col-md-offset-3 save-answer">';
 }
-$next_btn = '';
-$screen_width = $this->Session->read('Screen.width');
-if($screen_width > 767 && $featured == true) {
-	$next_btn = ' btn-step';
-}
 ?>
-<div class="row no-margin margin-bottom-20">
+<div class="row bs-wizard no-margin margin-bottom-20">
 <?php
-$visions = $this->Session->read('Vision');
 $nxt_txt = 'next_link';
 $nxt_lnk = '';
-$counts = count($visions);
-$cols = 'pull-left margin-right-20';
 
-foreach($visions as $vision) {
+$screen_width = $this->Session->read('Screen.width');
+$next_btn = ($screen_width > 767 && $featured == true)? ' btn-step' : '';
+
+$visions = $this->Session->read('Vision');
+$active = 0;
+foreach ($visions as $key => $vision) {
+	$wizard = 'complete';
+	
+	if($vision['Configuration']['id'] == $this->request->query['st']) {
+		$wizard = 'active';
+		$active = $key;
+	}
+	
+	$progress[$key] = $this->Html->div('col-xs-4 bs-wizard-step ' . $wizard,
+			$this->Html->div('text-center bs-wizard-stepnum', '&nbsp;') .
+			$this->Html->div('progress', $this->Html->div('progress-bar', '')) .
+			$this->Html->link('', array('controller' => 'games', 'action' => 'game_step',
+					'?' => array('st' => $vision['Configuration']['id'])), array('class' => 'bs-wizard-dot' . $next_btn)) .
+			$this->Html->div('bs-wizard-info text-center', $vision['Configuration']['title']));
+}
+if($active < 1) {
+	$progress = array($progress[0], $progress[1], $progress[2]);
+
+} elseif($active > 0 && $active < (count($progress) - 1)) {
+	$progress = array($progress[$active - 1], $progress[$active], $progress[$active + 1]);
+
+} else {
+	$progress = array($progress[$active - 2], $progress[$active - 1], $progress[$active]);
+	
+}
+echo implode('', $progress);
+
+foreach ($visions as $vision) {
 	$selected = 'caption-subject font-grey-sharp bold uppercase';
 	
-	if($nxt_txt == '') {
-
+	if ($nxt_txt == '') {
+		
 		$nxt_txt = $vision['Configuration']['title'];
-		$nxt_lnk = array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id']));
-
-		if($this->request->query['st'] == 292) {
-			$vision_date = $this->Session->read('ActiveGame.vision_date');
-			if(!is_null($vision_date) || $vision_date != '') {
+		$nxt_lnk = array (
+				'controller' => 'games', 'action' => 'game_step',
+				'?' => array ('st' => $vision['Configuration']['id']));
+		
+		if ($this->request->query['st'] == 292) {
+			$vision_date = $this->Session->read ( 'ActiveGame.vision_date' );
+			if (! is_null ( $vision_date ) || $vision_date != '') {
 				$nxt_txt = 'Capture';
-				
 			} else {
 				$nxt_txt = 'Start';
-				$nxt_lnk = array('controller' => 'users', 'action' => 'start_vision', '?' => array('st' => $vision['Configuration']['id']));
-				
+				$nxt_lnk = array (
+						'controller' => 'users', 'action' => 'start_vision',
+						'?' => array ('st' => $vision['Configuration']['id']));
 			}
 		}
-	}
-	
-	if(in_array($vision['Configuration']['id'], array($step_information['Configuration']['id'], $step_information['Configuration']['dependent_id']))) {
-	   	$selected = 'caption-subject font-orange-sharp bold uppercase';
-	   	if($vision['Configuration']['id'] == $step_information['Configuration']['dependent_id']) {
-	   		$nxt_txt = 'Next';
-	   	} else {
-	   		$nxt_txt = '';
-	   	}
-	}
-	
-	if($vision['Configuration']['title'] != '**NP**') {
-		echo $this->Html->div($cols,
-				$this->Html->link($vision['Configuration']['title'],
-						array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $vision['Configuration']['id'])),
-						array('class' => $selected . $next_btn)));
 	}
 }
 ?>
 </div>
 <?php
-foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
+foreach ( $games[$step_information['Configuration']['id']]['children'] as $game ) {
 	
-	if($game['Configuration']['status'] && $game['Configuration']['type'] != 16) {
+	if ($game['Configuration']['status'] && $game['Configuration']['type'] != 16) {
 		$display_game = $summary = '';
-
+		
 		$title = $subtx = '';
-		if($game['Configuration']['title'] != '**NH**' && $game['Configuration']['title'] != '') {
-			$title = $this->Html->tag('h3', $game['Configuration']['title'], array('class' => 'activitytitle'));
+		if ($game['Configuration']['title'] != '**NH**' && $game['Configuration']['title'] != '') {
+			$title = $this->Html->tag ( 'h3', $game['Configuration']['title'], array ('class' => 'activitytitle'));
 		}
-		if($game['Configuration']['sub_txt'] != '') {
-			$subtx = $this->Html->tag('h5', nl2br($game['Configuration']['sub_txt']), array('class' => 'activitytitle'));
+		if ($game['Configuration']['sub_txt'] != '') {
+			$subtx = $this->Html->tag ( 'h5', nl2br ( $game['Configuration']['sub_txt'] ), array ('class' => 'activitytitle'));
 		}
 		
 		$count = (isset($game['children']))? count($game['children']): 1;
@@ -90,15 +100,16 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 				if($item['Configuration']['status']) {
 					/* This is summary only */
 					if($item['Configuration']['type'] == 12) {
-						$summary 		= ' game-summary padding-top-20';
-						$depen_id 		= $item['Configuration']['dependent_id'];
-						$summary_items 	= $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', $depen_id));
-						$count 			= count($summary_items[$depen_id]['children']);
+						$summary 	   = ' game-summary padding-top-20';
+						$depen_id 	   = $item['Configuration']['dependent_id'];
+						$summary_items = $this->requestAction(array('controller' => 'games', 'action' => 'summary', 'summary', $depen_id));
+						$count 		   = count($summary_items[$depen_id]['children']);
 						
 						foreach($summary_items[$depen_id]['children'] as $item => $summary_item) {
 							/* Dirty fix to not show values and strength you continue to embrace */
 							if($item != 102 && $item != 243) {
-								$display_game .= $this->Render->display($summary_item['Configuration']['type'], $summary_item, $count, true);
+								$display_game .= $this->Render->display($summary_item['Configuration']['type'], 
+																		$summary_item, $count, true);
 							}
 						}
 						
@@ -120,19 +131,7 @@ foreach($games[$step_information['Configuration']['id']]['children'] as $game) {
 	}
 }
 
-if($step_information['Configuration']['id'] == 191) {
-	$changed = array();
-	$changed[0]['Steps'] = array();
-	foreach($games as $step_id => $game) {
-		$changed[0]['Configuration'] = $game['Configuration'];
-		$changed[0]['dependent_id'][$game['Configuration']['id']] = $game['Configuration']['dependent_id'];
-		$changed[0]['Steps'] = array_merge($changed[0]['Steps'], $game['Steps']);
-	}
-	$games = $changed;
-}
-
 if($step_information['Configuration']['id'] == 189) {
-	
 	echo $this->Html->div('row no-margin text-center margin-bottom-20',
 			$this->Html->link('Allies and feedback',
 					array('controller' => 'allies', 'action' => 'allies'),

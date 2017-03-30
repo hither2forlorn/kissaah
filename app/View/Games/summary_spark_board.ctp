@@ -1,29 +1,46 @@
 <?php 
 foreach($development as $key => $value) {
-	$data[$value['User']['id']][$key][0]  = $value['User']['name'];
-	$data[$value['User']['id']][$key][1]  = $value['Challenge']['name'];
-	$data[$value['User']['id']][$key][2]  = $value['Challenge']['complete_by'];
-	$data[$value['User']['id']][$key][3]  = '10%';
+	if(!is_null($value['Challenge']['name'])) {
+		$test[$value['User']['id']]['name'] = $value['User']['name'];
+		$test[$value['User']['id']]['d'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by'], '10%');
+	}
 }
 foreach($exposure as $key => $value) {
-	$data[$value['User']['id']][$key][0] = $value['User']['name'];
-	$data[$value['User']['id']][$key][4] = $value['Challenge']['name'];
-	$data[$value['User']['id']][$key][5] = $value['Challenge']['complete_by'];
-	$data[$value['User']['id']][$key][6] = '10%';
+	if(!is_null($value['Challenge']['name'])) {
+		$test[$value['User']['id']]['name'] = $value['User']['name'];
+		$test[$value['User']['id']]['e'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by'], '10%');
+	}
 }
 foreach($connection as $key => $value) {
-	$data[$value['User']['id']][$key][0] = $value['User']['name'];
-	$data[$value['User']['id']][$key][7] = $value['Challenge']['name'];
-	$data[$value['User']['id']][$key][8] = $value['Challenge']['complete_by'];
-	$data[$value['User']['id']][$key][9] = '10%';
+	if(!is_null($value['Challenge']['name'])) {
+		$test[$value['User']['id']]['name'] = $value['User']['name'];
+		$test[$value['User']['id']]['c'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by'], '10%');
+	}
 }
 
-foreach($data as $key => $value) {
-	foreach($value as $k => $v) {
-		if($k == 0) {
-			$table[] = array(array($v[0], array('rowspan' => count($value))), $v[1], $v[2], $v[3], $v[4], $v[5], $v[6], $v[7], $v[8], $v[9], '', '');
+foreach($test as $key => $value) {
+	$row_count = max(count($value['d']), count($value['e']), count($value['c']));
+	for($i = 0; $i < $row_count; $i++) {
+		$row = array();
+		if(isset($value['d'][$i])) {
+			$row = array_merge($row, $value['d'][$i]);
 		} else {
-			$table[] = array($v[1], $v[2], $v[3], $v[4], $v[5], $v[6], $v[7], $v[8], $v[9], '', '');
+			$row = array_merge($row, array('', '', ''));
+		}
+		if(isset($value['e'][$i])) {
+			$row = array_merge($row, $value['e'][$i]);
+		} else {
+			$row = array_merge($row, array('', '', ''));
+		}
+		if(isset($value['c'][$i])) {
+			$row = array_merge($row, $value['c'][$i]);
+		} else {
+			$row = array_merge($row, array('', '', ''));
+		}
+		if($i == 0) {
+			$table[] = array_merge(array(array($value['name'], array('rowspan' => $row_count))), $row, array('', ''));
+		} else {
+			$table[] = array_merge($row, array('', ''));
 		}
 	}
 }
