@@ -2559,16 +2559,13 @@ a.back-to-road-map {
 }
 
 /* Organization Chart */
-.org-desc {
-	
-}
-
+.org-desc {}
 .orgchart .org-desc {
 	transition: opacity .5s;
 	right: -5px;
 	top: -5px;
 	z-index: 2;
-	color: rgba(184, 0, 100, 0.8);
+	color: #f68e20;
 	font-size: 20px;
 	position: absolute;
 }
@@ -2576,11 +2573,7 @@ a.back-to-road-map {
 .orgchart .org-desc:hover {
 	color: #b80064;
 }
-
-.orgchart .node:hover .org-desc {
-	
-}
-
+.orgchart .node:hover .org-desc {}
 .orgchart .node .description {
 	display: none;
 	position: absolute;
@@ -2591,7 +2584,6 @@ a.back-to-road-map {
 	z-index: 1;
 	padding: 10px 5px;
 }
-
 .orgchart .node .title {
 	background-color: transparent;
 	color: #000;
@@ -2600,29 +2592,23 @@ a.back-to-road-map {
 	white-space: normal;
 	height: auto;
 }
-
 .orgchart .node .title .symbol {
 	display: none;
 }
-
 .orgchart .node {
 	margin-left: 5px;
 	padding: 5px 10px;
 	border: 1px solid;
 }
-
-.orgchart .node:hover {
+.orgchart .node:hover, .orgchart .node.focused {
 	background-color: #0567a5;
 }
-
 .orgchart .node:hover .title {
 	color: #FFF;
 }
-
 .orgchart {
 	background-image: none;
 }
-
 .orgchart .verticalNodes>td::before {
 	border: 1px solid rgba(0, 0, 0, 1);
 }
@@ -2705,7 +2691,7 @@ a.back-to-road-map {
 	width: 30px;
 	height: 30px;
 	display: block;
-	background: #fbe8aa;
+	background: #17B3E8;
 	top: 45px;
 	left: 50%;
 	margin-top: -15px;
@@ -2716,7 +2702,7 @@ a.back-to-road-map {
 	content: ' ';
 	width: 14px;
 	height: 14px;
-	background: #fbbd19;
+	background: #0567a5;
 	border-radius: 50px;
 	position: absolute;
 	top: 8px;
@@ -2732,7 +2718,7 @@ a.back-to-road-map {
 .bs-wizard>.bs-wizard-step>.progress>.progress-bar {
 	width: 0px;
 	box-shadow: none;
-	background: #fbe8aa;
+	background: #f68e20;
 }
 .bs-wizard>.bs-wizard-step.complete>.progress>.progress-bar {
 	width: 100%;
