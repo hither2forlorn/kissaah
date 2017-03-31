@@ -1,4 +1,4 @@
-<div class="header margin-bottom-10">
+<div class="header">
 	<div class="container">
 		<div class="row">
 	  		<div class="col-md-4 col-sm-4 col-xs-4 site-logo"><?php 
@@ -14,7 +14,6 @@
 	  			echo $this->Html->link($image, $this->Session->read('Company.link'), array('escape' => false));
 			}
 	  		?></div>
-	  		
 	  		<div class="col-md-1 col-md-offset-0 col-md-push-7 col-sm-2 col-sm-offset-0 col-sm-push-6 col-xs-4 col-xs-offset-4 no-padding" id="tour-step-2"><?php 
 			if($this->Session->check('Auth.User')) {
 				$image = $this->Session->read('Auth.User.slug');
@@ -25,7 +24,6 @@
 		        									  'class' => 'img-responsive'));
 				
 			}
-			//echo $this->Session->read('Screen.width');echo ' x ';echo $this->Session->read('Screen.height');
 			?></div>
 			<div class="col-md-7 col-md-pull-1 col-sm-6 col-sm-pull-2 col-xs-12"><?php
 			if($this->Session->check('Auth.User')) {
@@ -43,38 +41,42 @@
 		<div class="row">
 	  		<div class="col-md-9 col-xs-8"><?php 
 			$tool  = $this->Html->div('tool-box-info', 'Allies' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-			$tool .= $this->Html->link( $this->Html->image('my-allies.png', array('class' => 'img-responsive', 'id' => 'tour-step-09')), 
-			    						array('controller' => 'allies', 'action' => 'allies'),
-			    						array('class' => 'fbox-toolbox', 'data-width' => '600', 'escape' => false, 'data' => 'allies', 
-			    								'data-type' => 'ajax', 'data-fancybox' => null));
+			$tool .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-shield fa-2x')),
+			    					array('controller' => 'allies', 'action' => 'allies'),
+			    					array('class' => 'fbox-toolbox', 'escape' => false, 'data-type' => 'ajax'));
 			echo $this->Html->div('pull-left icon-wrapper', $tool);
 			
 			$tool  = $this->Html->div('tool-box-info', 'Calendar' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-calendar-check-o', 'aria-hidden' => 'true')),
-			                            array('controller' => 'challenges', 'action' => 'calendar'), 
-			                            array('class' => 'fbox-challenges', 'data-width' => '600', 'escape' => false, 'data-type' => 'ajax'));
+			$tool .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-calendar-check-o fa-2x')),
+			                        array('controller' => 'challenges', 'action' => 'calendar'), 
+			                        array('class' => 'fbox-challenges', 'escape' => false, 'data-type' => 'ajax'));
 			echo $this->Html->div('pull-left icon-wrapper', $tool);
 
 			$tool  = $this->Html->div('tool-box-info', 'RoadMaps' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-			$tool .= $this->Html->link( $this->Html->image('my-road-map.png', array('class' => 'img-responsive', 'id' => 'tour-step-10')),
-			    						array('controller' => 'users', 'action' => 'roadmaps'), 
-			    						array('class' => 'fbox-toolbox', 'data-width' => '680', 'escape' => false, 'data-type' => 'ajax')); 
+			$tool .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-map-signs fa-2x')),
+			    					array('controller' => 'users', 'action' => 'roadmaps'), 
+			    					array('class' => 'fbox-toolbox', 'data-width' => '680', 'escape' => false, 'data-type' => 'ajax')); 
 			echo $this->Html->div('pull-left icon-wrapper', $tool);
 			
 			$tool  = $this->Html->div('tool-box-info', 'Export Roadmap' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-file-word-o', 'aria-hidden' => 'true', 'id' => 'tour-step-08')),
-			    						array('controller' => 'games', 'action' => 'summary', 'export'), 
-			    						array('escape' => false));
+			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-file-word-o fa-2x', 'id' => 'tour-step-08')),
+			    					array('controller' => 'games', 'action' => 'summary', 'export'), 
+			    					array('escape' => false));
 			echo $this->Html->div('pull-left icon-wrapper', $tool);
 			
 			$tool  = $this->Html->div('tool-box-info', 'Organization Map' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-sitemap', 'aria-hidden' => 'true')),
+			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-sitemap fa-2x', 'aria-hidden' => 'true')),
 			    						array('controller' => 'organizations', 'action' => 'index'), array('escape' => false));
 			echo $this->Html->div('pull-left icon-wrapper', $tool);
 			
 			$tool  = $this->Html->div('tool-box-info', 'Spark Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-table', 'aria-hidden' => 'true')),
+			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-table fa-2x')),
 			    						array('controller' => 'games', 'action' => 'spark_board'), array('escape' => false));
+			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			
+			$tool  = $this->Html->div('tool-box-info', 'Spark Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-table fa-2x')),
+					array('controller' => 'games', 'action' => 'summary_spark_board'), array('escape' => false));
 			echo $this->Html->div('pull-left icon-wrapper', $tool);
 			?></div>
 	  		<div class="col-md-3 col-xs-4">
@@ -99,8 +101,8 @@
 							if($text != '') {
 								$number++;
 								$list[] = $this->Html->link($this->Html->tag('span', $text, array('class' => 'details')), 
-															array('controller' => 'allies', 'action' => 'notification', 'ally_notification', $noti['Ally']['id']), 
-															array('class' => 'noti', 'escape' => false));
+											array('controller' => 'allies', 'action' => 'notification', 'ally_notification', $noti['Ally']['id']), 
+											array('class' => 'noti', 'escape' => false));
 							}
 						}
 					}
@@ -114,8 +116,8 @@
 							if($text != '') {
 								$number++;
 								$list[] = $this->Html->link($this->Html->tag('span', $text, array('class' => 'details')), 
-															array('controller' => 'allies', 'action' => 'notification', 'feedback_notification', $noti['Ally']['id']), 
-															array('class' => 'noti', 'escape' => false));
+											array('controller' => 'allies', 'action' => 'notification', 'feedback_notification', $noti['Ally']['id']), 
+											array('class' => 'noti', 'escape' => false));
 							}
 						}
 					}

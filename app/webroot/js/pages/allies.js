@@ -5,15 +5,7 @@ var Allies = function(){
 	
 	return {
 		OpenPopup : function(){
-    		$('a.fbox-ally').fancybox({
-			    'afterLoad'		: function() {
-			    	this.width = $(this.element).data('width');
-			    },
-				'href' 			: $(this).attr('href'),
-				'type'			: 'ajax',
-			    'autoSize'		: false,
-				'height'        : 'auto',
-			});
+    		$('a.fbox-ally').fancybox({});
 		},
 		
 		Search : function(){

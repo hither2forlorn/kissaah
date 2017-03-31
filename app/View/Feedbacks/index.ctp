@@ -1,4 +1,4 @@
-<?php
+<div class="no-margin row data-width-600"><?php
 $options = array('1' => 'Strongly disagree', '2' => '2', '3' => '3', '4' => '4', '5' => 'Strongly disagree');
 echo $this->Form->hidden('Feedback.user_game_status_id', array('value' => $feedback_for_user['UserGameStatus']['id']));
 
@@ -160,6 +160,7 @@ foreach($feedbackblock as $key => $block) {
 echo $this->Html->div('row no-margin text-center margin-bottom-20', 
 						$this->Html->link('Save and Close', '#', array('class' => 'btn btn-save orange', 'id' => 'tour-step-05')));
 ?></div>
+</div>
 <script>
 $(document).ready(function(){
 	Allies.SaveFeedback();

@@ -24,7 +24,7 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 	echo $this->Html->meta($favicon, '/' . $favicon, array('type' => 'icon'));
 	//echo $this->Html->css('http://fonts.googleapis.com/css?family=Signika:400,300,600,700&subset=all');
 	//echo $this->Html->css('http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all');
-	echo $this->Html->css('http://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,700,700i');
+	echo $this->Html->css('http://fonts.googleapis.com/css?family=Josefin+Sans:400,400i&subset=all');
 	
     echo $this->Html->css(array('../plugins/font-awesome/css/font-awesome.min',
     	'../plugins/simple-line-icons/simple-line-icons.min',

@@ -59,12 +59,12 @@ if(isset($selfdata['Dependent'])) {
 		$options['placeholder'] = 'Complete by';
 		$options['value'] 		= (empty($goal['Challenge']['complete_by']))? '': date('m/d/Y', strtotime($goal['Challenge']['complete_by']));
 		
-		$cal_class = ($options['value'] == '')? ' hidden' : '';
+		$hidden = ($options['value'] == '')? ' hidden' : '';
 		
 		$complete_by  = $this->Html->div('btn-in-progress col-md-3 text-left', 'Complete by');
 		$complete_by .= $this->Form->input('Challenge.complete_by', $options);
 		
-		$calendar = '';
+		$calendar = $add_ally = '';
 		if(!$summary) {
 			$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['complete_by']))? '': date('m/d/Y', strtotime($goal['Challenge']['complete_by'])), array('class' => '_start'));
 			$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['complete_by']))? '': date('m/d/Y', strtotime($goal['Challenge']['complete_by'])), array('class' => '_end'));
@@ -72,13 +72,12 @@ if(isset($selfdata['Dependent'])) {
 			$calendar .= $this->Html->tag('span', (empty($goal['Challenge']['description']))? '': $goal['Challenge']['description'], array('class' => '_description'));
 			$calendar .= $this->Html->tag('span', 'true', array('class' => '_all_day_event'));
 			
-			$calendar = $this->Html->link('Calendar' . $calendar, '#', array('class' => 'addthisevent pull-left' . $cal_class,
+			$calendar = $this->Html->link('Calendar' . $calendar, '#', array('class' => 'addthisevent pull-left' . $hidden,
 					'title' => 'Add to Calendar',
 					'data' 	=> 'addto-' . $dependent['id'],
 					'escape'=> false));
+			$add_ally = $this->Html->link('Add Ally', array('controller' => 'allies', 'action' => 'allies'), array('class' => 'btn-in-progress col-md-3' . $hidden));
 		}
-		
-		$add_ally = $this->Html->link('Add Ally', array('controller' => 'allies', 'action' => 'allies'), array('class' => 'btn-in-progress col-md-3'));
 
 		$allies_selected = $allies_list = '';
 		if(!empty($goal['ChallengesUser'])) {
@@ -103,28 +102,7 @@ if(isset($selfdata['Dependent'])) {
 				unset($allies[$key]);
 			}
 		}
-		$users = $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5 ally-selected' . $cal_class, $allies_selected);
-		
-		if(!$summary) {
-			foreach($allies as $key => $value) {
-				
-				if(empty($value['slug']) || $value['slug'] == '' || is_null($value['slug'])) {
-					$img = 'profile.png';
-				} else {
-					$img = '../files/img/medium/' . $value['slug'];
-				}
-					
-				$allies_list .= $this->Html->link($this->Html->image($img, array(
-						'data-depn'		 => $dependent['id'],
-						'class' 		 => 'img-responsive')),
-						array('controller' => 'challenges', 'action' => 'set_challenge_user', 'add', $optionsch['value'], $key),
-						array('class' => 'col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
-				
-				$allies_list .= $this->Html->div('float-left', $value['name'] . '<br />' . $value['email']);
-			}
-			$users .= $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5 ally-list' . $cal_class, $allies_list);
-		}
-		
+		$users = $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5 ally-selected' . $hidden, $allies_selected);
 		$users = $this->Html->div('row no-margin', $users);
 		
 		$left_block = $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $challenge . $complete_by . $calendar .

@@ -1,4 +1,4 @@
-<div class='no-margin row allies'><?php
+<div class="no-margin row allies text-center data-width-600"><?php
 	echo $this->Html->div('highlighted margin-bottom-15', $this->Session->flash(), array('id' => 'message'));
 	
 	if(strpos(Router::url('/', true), 'kissaah') !== false) {
@@ -49,8 +49,8 @@
 					$ally_field_class = 'color-finished';
 					
 					$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')), 
-			  								   array('controller' => 'feedbacks', 'action' => 'index', 'myself', $ally['Ally']['id']),
-			  								   array('class' => 'fbox-ally btn-ally', 'escape' => false, 'data-width' => '650')); 
+			  				array('controller' => 'feedbacks', 'action' => 'index', 'myself', $ally['Ally']['id']),
+							array('class' => 'fbox-ally btn-ally', 'escape' => false, 'data-type' => 'ajax')); 
 				}
 				$ally_name = ((empty($ally['MyAlly']['name']))? $ally['Ally']['ally_email']: $ally['MyAlly']['name']);
 				
@@ -93,8 +93,8 @@
 				}
 
 				$btndr .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')), 
-		  								   array('controller' => 'feedbacks', 'action' => 'index', 'ally', $ally['Ally']['id']), 
-		  								   array('class' => 'fbox-ally btn-ally' . $hidden, 'escape' => false, 'data-width' => '650'));
+		  							array('controller' => 'feedbacks', 'action' => 'index', 'ally', $ally['Ally']['id']), 
+									array('class' => 'fbox-ally btn-ally' . $hidden, 'escape' => false, 'data-type' => 'ajax'));
 										   
 				$btndr .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o fa-2x')), 
 		  								   array('controller' => 'allies', 'action' => 'request_action', 'delete', $ally['Ally']['id']), 

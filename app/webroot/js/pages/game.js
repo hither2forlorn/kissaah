@@ -19,7 +19,7 @@ var Game = function () {
 				'width'         : 600,
 				'height'        : 'auto',
 				'wrapCSS'		: 'fancybox-popup',
-				'afterClose'	: function(){
+				afterClose	: function(){
 					user_info_box(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
 			    }
 			});
@@ -43,7 +43,7 @@ var Game = function () {
     			'width'         : 400,
     			'height'        : 'auto',
     			'wrapCSS'		: 'fancybox-popup',
-    			'afterClose'	: function() {
+    			afterClose	: function() {
     				facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
     				//first_time_survey(facebook_warning, consent_for_collage, road_map, thriving_scale);
     			}
@@ -63,7 +63,7 @@ var Game = function () {
 			'closeBtn'		: true,
 			'href'			: 'https://docs.google.com/forms/d/1XDZyawtEEudu9Etx3ntXDauDiZXHoW0aucxBPiTTYE0/viewform?embedded=true',
 			'type'			: 'iframe',
-			'afterClose'	: function(){
+			afterClose	: function(){
 				facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
 			}
 		});            				
@@ -84,7 +84,7 @@ var Game = function () {
     			'width'         : 400,
     			'height'        : 'auto',
     			'wrapCSS'		: 'fancybox-popup',
-    			'afterClose'	: function() {
+    			afterClose	: function() {
     				consent_for_collage_box(consent_for_collage, road_map, thriving_scale);
     			}
     		});            				
@@ -108,7 +108,7 @@ var Game = function () {
 			    'width'			: 600,
 				'height'        : 'auto',
 				'wrapCSS'		: 'collage-box text-center',
-    			'afterClose'	: function(){
+    			afterClose	: function(){
     				road_map_box(road_map, thriving_scale);
     			}
     		});            				
@@ -132,7 +132,7 @@ var Game = function () {
 			    'width'			: 500,
 				'height'        : 'auto',
 				'wrapCSS'		: 'fancybox-popup text-center',
-    			'afterClose'	: function() {
+    			afterClose	: function() {
     				thriving_scale_box(thriving_scale);
     			}
     		});            				
@@ -149,7 +149,7 @@ var Game = function () {
 						'closeClick' : false
 					}
 				},
-				'afterClose'	: function() {},
+				afterClose	: function() {},
 				'href'			: host_url + 'games/game_step?st=192',
 				'type'			: 'ajax',
 			    'autoSize'		: false,
@@ -226,33 +226,12 @@ var Game = function () {
 			});
 
     		$('a.fbox-toolbox').fancybox({
-			    'beforeShow'	: function() {
+    			beforeLoad	: function() {
 			    	$('.tool-box-click').prev($('.notification-allies')).remove();
 			    },
-			    'afterLoad'		: function() {
-			    	this.width = $(this.element).data('width');
-			    },
-				'afterClose'	: function() {},
-				'href' 			: $(this).attr('href'),
-				'type'			: 'ajax',
-			    'autoSize'		: false,
-				//'width'         : 500,
-				'height'        : 'auto',
-				'wrapCSS'		: 'fancybox-popup'
 			});
     		
-    		$('a.fbox-challenges').fancybox({
-			    'beforeShow'	: function() {
-			    	console.log('beforeShow');
-			    },
-				'href' 			: $(this).attr('href'),
-				'type'			: 'ajax',
-			    'autoSize'		: false,
-				'width'         : 600,
-				'height'        : 'auto',
-				'padding'		: [0, 0, 15, 0],
-				'wrapCSS'		: 'fancybox-challenges'
-			});
+    		$('a.fbox-challenges').fancybox({});
         },
         
         TourGame: function() {
@@ -305,7 +284,7 @@ var Game = function () {
 						'closeClick' : false
 					}
 				},
-			    'beforeShow'	: function() {},
+			    beforeLoad	: function() {},
 				'padding'		: [10, 0, 10, 0],
 				'href'			: $(this).attr('href'),
 				'type'			: 'ajax',
@@ -367,7 +346,7 @@ var Game = function () {
 						'closeClick' : false
 					}
 				},
-				'afterClose'	: function() {
+				afterClose	: function() {
 					$('a[data=btn-' + game_step + ']').trigger('click');
 				},
         	});
@@ -385,12 +364,12 @@ var Game = function () {
 				'width'         : 700,
 				'height'        : 'auto',
 				'wrapCSS'		: 'fancybox-game-popup save-answer',
-			    'beforeShow'	: function() {},
-			    'afterLoad'		: function(current, previous) {
+			    beforeLoad	: function() {},
+			    afterLoad		: function(current, previous) {
 			    	str = (current.href).lastIndexOf('=') + 1;
 			    	game_step = (current.href).substr(str);
 			    },
-			    'afterClose'	: function() {
+			    afterClose	: function() {
 			    	if($.isNumeric(game_step)) {
 	        			$.ajax({
 	    					cache		: false,
@@ -535,7 +514,7 @@ var Game = function () {
     							'closeClick' : false
     						}
     					},
-    					'afterClose'	: function() {},
+    					afterClose	: function() {},
     					'href'			: host_url + 'games/collage_roadmap_completed/completed',
     					'type'			: 'ajax',
     				    'autoSize'		: false,
@@ -1096,7 +1075,7 @@ var FileUpload = function () {
 		        				'helpers' 		: {
 		        					'overlay'	: {'closeClick' : false}
 		        				},
-		        				'afterClose'	: function() {
+		        				afterClose	: function() {
 		        					$('a[data=btn-' + game_step + ']').trigger('click');
 		        				},
 		        				'href'			: url,

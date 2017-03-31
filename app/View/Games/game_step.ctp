@@ -6,8 +6,7 @@ if ($featured == false) {
 ?>
 <div class="row bs-wizard no-margin margin-bottom-20">
 <?php
-$nxt_txt = 'next_link';
-$nxt_lnk = '';
+$nxt_lnk = $nxt_txt = '';
 
 $screen_width = $this->Session->read('Screen.width');
 $next_btn = ($screen_width > 767 && $featured == true)? ' btn-step' : '';
@@ -17,9 +16,16 @@ $active = 0;
 foreach ($visions as $key => $vision) {
 	$wizard = 'complete';
 	
+	if($nxt_txt == '' && $this->request->query['st'] != 292) {
+		$nxt_txt = $vision['Configuration']['title'];
+		$nxt_lnk = array ('controller' => 'games', 'action' => 'game_step', '?' => array ('st' => $vision['Configuration']['id']));
+		if($nxt_txt == '**NP**') $nxt_txt = 'Next';
+	}
+
 	if($vision['Configuration']['id'] == $this->request->query['st']) {
-		$wizard = 'active';
-		$active = $key;
+		$wizard  = 'active';
+		$active  = $key;
+		$nxt_lnk = $nxt_txt = '';
 	}
 	
 	$progress[$key] = $this->Html->div('col-xs-4 bs-wizard-step ' . $wizard,
@@ -37,33 +43,10 @@ if($active < 1) {
 
 } else {
 	$progress = array($progress[$active - 2], $progress[$active - 1], $progress[$active]);
-	
 }
 echo implode('', $progress);
 
-foreach ($visions as $vision) {
-	$selected = 'caption-subject font-grey-sharp bold uppercase';
-	
-	if ($nxt_txt == '') {
-		
-		$nxt_txt = $vision['Configuration']['title'];
-		$nxt_lnk = array (
-				'controller' => 'games', 'action' => 'game_step',
-				'?' => array ('st' => $vision['Configuration']['id']));
-		
-		if ($this->request->query['st'] == 292) {
-			$vision_date = $this->Session->read ( 'ActiveGame.vision_date' );
-			if (! is_null ( $vision_date ) || $vision_date != '') {
-				$nxt_txt = 'Capture';
-			} else {
-				$nxt_txt = 'Start';
-				$nxt_lnk = array (
-						'controller' => 'users', 'action' => 'start_vision',
-						'?' => array ('st' => $vision['Configuration']['id']));
-			}
-		}
-	}
-}
+//$selected = 'caption-subject font-grey-sharp bold uppercase';
 ?>
 </div>
 <?php
@@ -138,13 +121,9 @@ if($step_information['Configuration']['id'] == 189) {
 					array('class' => 'btn btn-save fbox-toolbox', 'id' => 'tour-step-05', 'data-width' => 600)));
 }
 
-if($nxt_txt != '' && $nxt_txt != 'next_link') {
-	if($nxt_txt == '**NP**')
-		$nxt_txt = 'Next';
-	
+if($nxt_txt != '') {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20 pull-right',
 			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
-	
 }
 
 if($featured == false) {
