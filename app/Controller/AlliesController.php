@@ -133,9 +133,6 @@ class AlliesController extends AppController{
 	
 	public function request($user_id = null) {
 		if($this->request->is('post')) {
-			debug($this->request->data);
-			debug($this->request->query);
-			exit;
 			$this->request->data['Ally']['status'] 				= 0;
 			$this->request->data['Ally']['ally_notification'] 	= 'Requested';
 			$this->request->data['Ally']['user_id']				= $this->Session->read('ActiveGame.user_id');
@@ -157,6 +154,14 @@ class AlliesController extends AppController{
 					$data['roadmap'] = $this->Session->read('ActiveGame.roadmap');
 					
 					$this->_sendEmail($options, $data);
+					
+					if(isset($this->request->query)) {
+						$this->redirect(array(
+								'controller' => 'challenges', 'action' => 'set_challenge_user', 
+								'add', $this->request->query['challenge'], $this->request->data['Ally']['ally'],
+								'?' => array('st' => $this->request->query['st'])
+						));
+					}
 				}
 				
 			} else {

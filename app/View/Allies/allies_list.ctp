@@ -32,7 +32,6 @@ if($message != ''){
 			if(isset($this->request->query['st']) && isset($this->request->query['challenge'])) {
 				$link = $this->request->query;
 			}
-			debug($link);
 			
 			$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus-square')), 
 	  								   array('controller' => 'allies', 'action' => 'request', $ally['User']['id'], '?' => $link), 
