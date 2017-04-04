@@ -437,7 +437,6 @@ var Game = function () {
     				if(challenge > 0) {
     					depen_id = $(this).attr('data-depn');
     		    		data 	 = $(this).closest('.save-challenge').find(':input').serializeArray();
-    		    		//$(this).parents('.save-challenge').find(':input').serializeArray();
     				} 
     				$.ajax({
     					type		: 'POST',
@@ -455,6 +454,11 @@ var Game = function () {
 					            	$('a[data=addto-' + depen_id + ']').children('._description').text(description);
 					            	$('a[data=addto-' + depen_id + ']').removeClass('hidden');
 						            addthisevent.refresh();
+					            	
+					            	$('a[data=ally-' + depen_id + ']').removeClass('hidden');
+					            	var href = $('a[data=ally-' + depen_id + ']').attr('href');
+					            	href = href + object.id;
+					            	$('a[data=ally-' + depen_id + ']').attr('href', href);
 						            
     	        				} else {
         	        				var attr_name 	= DOM_Element.attr('name');
@@ -669,10 +673,14 @@ var Game = function () {
 					            	$('a[data=addto-' + depen_id + ']').children('._end').text(completeby);
 					            	$('a[data=addto-' + depen_id + ']').children('._description').text(description);
 					            	$('a[data=addto-' + depen_id + ']').removeClass('hidden');
+	    	        				addthisevent.refresh();
 
 	    	        				$('img[data-depn=' + depen_id + ']').parents('div').removeClass('hidden');
 
-	    	        				addthisevent.refresh();
+	    	        				$('a[data=ally-' + depen_id + ']').removeClass('hidden');
+					            	var href = $('a[data=ally-' + depen_id + ']').attr('href');
+					            	href = href + object.id;
+					            	$('a[data=ally-' + depen_id + ']').attr('href', href);
 	    	        			}
 	    					}
 	    				});

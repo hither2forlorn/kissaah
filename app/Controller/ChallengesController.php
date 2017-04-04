@@ -213,17 +213,23 @@ class ChallengesController extends AppController {
 				return json_encode($return);
 			}
 		} else {
-			if($this->Challenge->ChallengesUser->save($this->request->data)) {
-				if($this->request->is('ajax')) {
-					$return['url'] = Router::url(array('action' => 'set_challenge_user', 'delete', $challenge, $user), true);
-					$return['class'] = 'ally-selected';
-					return json_encode($return);
-					
-				} else {
-					$this->redirect(array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $this->request->query['st'])));
-					
+
+			$options['contain'] = false;
+			$options['conditions'] = array(array('challenge_id' => $challenge, 'user_id' => $user));
+			$exists = $this->Challenge->ChallengesUser->find('first', $options);
+			
+			if(empty($exists)) {
+				if($this->Challenge->ChallengesUser->save($this->request->data)) {
+					if($this->request->is('ajax')) {
+						$return['url'] = Router::url(array('action' => 'set_challenge_user', 'delete', $challenge, $user), true);
+						$return['class'] = 'ally-selected';
+						return json_encode($return);
+						
+					}
 				}
 			}
+			$this->redirect(array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $this->request->query['st'])));
+		
 		}
 
 		return false;

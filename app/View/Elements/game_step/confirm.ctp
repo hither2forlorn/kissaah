@@ -73,14 +73,12 @@ if(isset($selfdata['Dependent'])) {
 			$calendar .= $this->Html->tag('span', 'true', array('class' => '_all_day_event'));
 			
 			$calendar = $this->Html->link('Calendar' . $calendar, '#', array('class' => 'addthisevent pull-left' . $hidden,
-					'title' => 'Add to Calendar',
-					'data' 	=> 'addto-' . $dependent['id'],
-					'escape'=> false));
+					'title' => 'Add to Calendar', 'data' => 'addto-' . $dependent['id'], 'escape'=> false));
+			
 			$add_ally = $this->Html->link('Add Ally', 
 					array('controller' => 'allies', 'action' => 'allies', '?' => array(
-							'st' => $this->request->query['st'],
-							'challenge' => $optionsch['value'])), 
-					array('class' => 'btn-in-progress col-md-3' . $hidden));
+							'st' => $this->request->query['st'], 'challenge' => $optionsch['value'])), 
+					array('class' => 'btn-in-progress col-md-3' . $hidden, 'data' => 'ally-' . $dependent['id'], 'escape'=> false));
 		}
 
 		$allies_selected = $allies_list = '';
