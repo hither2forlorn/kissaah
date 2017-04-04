@@ -360,7 +360,7 @@ class UsersController extends AppController {
 	#Start 3562
 	public function createcollage(){
 		$this->autoRender = false;
-		if($this->request->isAjax()){
+		if($this->request->is('ajax')){
 			if(($this->request->data['is_collage']==1) ||($this->request->data['is_collage']==0)){
 				$this->User->id = $this->Session->read('ActiveGame.user_id');
 				$this->request->data['User']['collage_status'] = $this->request->data['is_collage'];

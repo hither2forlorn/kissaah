@@ -132,13 +132,15 @@ class AlliesController extends AppController{
 	 */
 	
 	public function request($user_id = null) {
-		if($this->request->is('post') && $this->request->is('ajax')) {
+		if($this->request->is('post')) {
+			debug($this->request->data);
+			debug($this->request->query);
+			exit;
 			$this->request->data['Ally']['status'] 				= 0;
 			$this->request->data['Ally']['ally_notification'] 	= 'Requested';
 			$this->request->data['Ally']['user_id']				= $this->Session->read('ActiveGame.user_id');
 			
 			$data = $this->request->data;
-			debug($this->request);
 			$exists = $this->Ally->find('first', array('conditions' => array('Ally.user_id' => $this->request->data['Ally']['user_id'],
 																 	 		 'Ally.ally_email' => $this->request->data['Ally']['ally_email'])));
 			if(empty($exists)) {
@@ -165,7 +167,6 @@ class AlliesController extends AppController{
 			$this->Session->setFlash('Congratulations! Allies Request Sent');
 			$this->redirect(array('controller' => 'allies', 'action' => 'allies'));
 		}
-		
 		if(!empty($user_id)) {
 			$options['contain'] 	= false;
 			$options['conditions']	= array('User.id' => $user_id);

@@ -76,7 +76,11 @@ if(isset($selfdata['Dependent'])) {
 					'title' => 'Add to Calendar',
 					'data' 	=> 'addto-' . $dependent['id'],
 					'escape'=> false));
-			$add_ally = $this->Html->link('Add Ally', array('controller' => 'allies', 'action' => 'allies'), array('class' => 'btn-in-progress col-md-3' . $hidden));
+			$add_ally = $this->Html->link('Add Ally', 
+					array('controller' => 'allies', 'action' => 'allies', '?' => array(
+							'st' => $this->request->query['st'],
+							'challenge' => $optionsch['value'])), 
+					array('class' => 'btn-in-progress col-md-3' . $hidden));
 		}
 
 		$allies_selected = $allies_list = '';
@@ -92,17 +96,17 @@ if(isset($selfdata['Dependent'])) {
 					$img = '../files/img/medium/' . $value['slug'];
 				}
 					
-				$allies_selected .= $this->Html->link($this->Html->image($img, array(
-						'class' 		 => 'img-responsive')),
+				$allies_selected = $this->Html->link($this->Html->image($img, array('class' => 'img-responsive')),
 						array('controller' => 'challenges', 'action' => 'set_challenge_user', 'delete', $optionsch['value'], $key),
 						array('class' => 'col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
 				
-				$allies_selected .= $this->Html->div('float-left', $value['name'] . '<br />' . $value['email']);
+				$allies_selected .= $this->Html->div('col-md-10 col-sm-8 col-xs-6 padding-left-0', $value['name'] . '<br />' . $value['email']);
+				$allies_list .= $this->Html->div('row no-margin margin-bottom-5', $allies_selected);
 		
 				unset($allies[$key]);
 			}
 		}
-		$users = $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5 ally-selected' . $hidden, $allies_selected);
+		$users = $this->Html->div('col-md-12 col-sm-12 no-padding margin-top-5 ally-selected' . $hidden, $allies_list);
 		$users = $this->Html->div('row no-margin', $users);
 		
 		$left_block = $this->Html->div('col-md-12 col-sm-12 col-xs-12 no-padding', $challenge . $complete_by . $calendar .

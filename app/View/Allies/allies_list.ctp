@@ -2,15 +2,13 @@
 if($message != ''){
 	echo $this->Html->tag('h4', $message);
 } else {
-	echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', $this->Html->tag('h4', count($answers) . ' Users Found'));
+	echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', $this->Html->tag('h4', count($answers) . ' users found'));
 	
 	if(count($answers) == 0) {
-			
 		$message = $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12',
 						$this->Html->para(null, 'Enter your friends email to invite them to join ' . $this->Session->read('Company.name') . ' as your ally.'));
 		
 		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', $message);
-
 		echo $this->Html->div('input-group',
 					  $this->Form->input('Email', array('label' => false, 'div' => false, 'class' => 'form-control', 'type' => 'text')) .
 					  $this->Html->tag('span', 
@@ -30,8 +28,14 @@ if($message != ''){
 			$image = (empty($ally['User']['slug']))? 'profile.png': '../files/img/medium/' . $ally['User']['slug'];
 			$image = $this->Html->image($image, array('class' => 'img-responsive margin-top-10 margin-bottom-10'));
 			
+			$link = '';
+			if(isset($this->request->query['st']) && isset($this->request->query['challenge'])) {
+				$link = $this->request->query;
+			}
+			debug($link);
+			
 			$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus-square')), 
-	  								   array('controller' => 'allies', 'action' => 'request', $ally['User']['id']), 
+	  								   array('controller' => 'allies', 'action' => 'request', $ally['User']['id'], '?' => $link), 
 	  								   array('class' => 'fbox-ally btn-ally', 'escape' => false, 'data' => $ally['User']['id'], 'data-width' => '500'));
 			
 			$span  = $this->Html->tag('span', $ally_name . '<br />' . $btndr, array('id' => $ally['User']['id']));

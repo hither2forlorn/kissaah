@@ -1852,8 +1852,10 @@ div.flashError, div.flashSuccess {
  * Start Toolbox CSS
  */
 .icon-wrapper {
-	margin: 15px 10px 0;
+	margin-top: 15px;
 	position: relative;
+	width: 32px;
+	text-align: center;
 }
 span.down-arrow {
 	border-bottom: 10px solid #57c5ff;
@@ -1869,11 +1871,11 @@ span.down-arrow {
 	background-color: #57c5ff;
 	color: #ffffff;
 	display: none;
-	left: -170%;
+	left: -194%;
 	padding: 10px;
 	position: absolute;
 	text-align: center;
-	top: 145%;
+	top: 164%;
 	width: 150px;
 	z-index: 1;
 }
@@ -2018,11 +2020,10 @@ h3.activitytitle {
 	color: #0567a5;
 	font-size: 1.4em;
 }
-
 .activitytitle {
 	font-size: 1.1em;
-	line-height: 20px;
-	margin: 10px 20% 20px;
+	line-height: 1.3em;
+	margin: 10px 5% 20px;
 	text-align: center;
 }
 
@@ -2280,6 +2281,10 @@ canvas.temp {
 .ally-box {
 	margin: 0 1px;
 	width: 32.9%;
+	overflow: hidden;
+	text-overflow: clip;
+	white-space: nowrap;
+	color: #fff;
 }
 
 .feedback-radio input[type="radio"] {

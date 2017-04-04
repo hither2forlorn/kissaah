@@ -1,10 +1,9 @@
 <?php 
-if($this->request->isAjax()) {
-	$div = '<div class="row no-margin allies text-center data-width-600">';
+if($this->request->is('ajax')) {
+	echo '<div class="row no-margin allies text-center data-width-600">';
 } else {
-	$div = '<div class="allies col-md-6 col-md-offset-3">';
+	echo '<div class="allies col-md-6 col-md-offset-3">';
 }
-echo $div;
 	echo $this->Html->div('highlighted margin-bottom-15', $this->Session->flash(), array('id' => 'message'));
 	
 	if(strpos(Router::url('/', true), 'kissaah') !== false) {
@@ -13,7 +12,7 @@ echo $div;
 		echo $this->Html->tag('h3', 'Who can keep you accountable on your 90 day Human Catalyst sprint?', array('class' => 'activitytitle'));
 	}
 	
-	if($this->request->isAjax()) {
+	if($this->request->is('ajax')) {
 		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12',
 				$this->Html->para('margin-bottom-20 margin-top-10', 'You will be sharing your Vision Map and Design section with them.') .
 				$this->Html->para('margin-bottom-20',
@@ -24,6 +23,12 @@ echo $div;
 		$list = array('View your Catalyst Plan', 'Nudge you', 'Add comment', 'Arrange a catch up', 'Share stories');
 		echo $this->Html->nestedList($list, array(), array(), 'ul');
 	}
+	
+	if($this->request->is('ajax') || (!isset($this->request->query['st']) && !isset($this->request->query['challenge']))) {
+		$link = array('controller' => 'allies', 'action' => 'allies_list', 'allies');
+	} else {
+		$link = array('controller' => 'allies', 'action' => 'allies_list', 'allies', '?' => $this->request->query);
+	}
 								
 	echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20', 
 				$this->Html->div('input-group',
@@ -32,15 +37,13 @@ echo $div;
 													   'class'			=> 'form-control',
 													   'type' 			=> 'text', 
 													   'placeholder'	=> 'Search for an ally')) .
-							  $this->Html->tag( 'span', 
-							  					$this->Html->link('Search', 
-							  									  array('controller' => 'allies', 'action' => 'allies_list', 'allies'), 
-							  									  array('class' => 'btn btn-primary', 'id' => 'search-allies')), 
-							  					array('class' => 'input-group-btn'))));
+							  $this->Html->tag('span', 
+							  		$this->Html->link('Search', $link, array('class' => 'btn btn-primary', 'id' => 'search-allies')), 
+							  		array('class' => 'input-group-btn'))));
 ?>
 	<div class='no-margin row allies-list'>
 	<?php
-	if($this->request->isAjax()) {
+	if($this->request->is('ajax')) {
 		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', 
 				$this->Html->para('margin-bottom-20', 
 								  'Once you\'ve typed in their name, you\'ll be able to see if your 
@@ -49,8 +52,13 @@ echo $div;
 	}
 	
 	if(count($current_allies) > 0) {
-		$my_allies = $this->Html->tag('h3', 'To see feedback from allies - click on ' . 
+		if($this->request->is('ajax')) {
+			$my_allies = $this->Html->tag('h3', 'To see feedback from allies - click on ' . 
 											$this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right')), array('class' => 'activitytitle'));
+		} else {
+			$my_allies = $this->Html->tag('h3', 'To select allies please click on ' .
+					$this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right')), array('class' => 'activitytitle'));
+		}
 		$my_allies .= '<div class="row">';
 		foreach($current_allies as $ky => $ally) {
 			if($ky%3 == 0) $my_allies .= '</div><div class="row">';
@@ -62,30 +70,42 @@ echo $div;
 			} else {
 				$ally_field_class = 'color-finished';
 				
-				$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')), 
-		  				array('controller' => 'feedbacks', 'action' => 'index', 'myself', $ally['Ally']['id']),
-						array('class' => 'fbox-ally btn-ally', 'escape' => false, 'data-type' => 'ajax')); 
+				if($this->request->is('ajax') || (!isset($this->request->query['st']) && !isset($this->request->query['challenge']))) {
+					$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')),
+							array('controller' => 'feedbacks', 'action' => 'index', 'myself', $ally['Ally']['id']),
+							array('class' => 'fbox-ally btn-ally', 'escape' => false, 'data-type' => 'ajax'));
+					
+				} else {
+					$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')),
+							array('controller' => 'challenges', 'action' => 'set_challenge_user', 'add', 
+									$this->request->query['challenge'], $ally['Ally']['ally'], '?' => array('st' => $this->request->query['st'])),
+							array('class' => 'btn-ally', 'escape' => false, 'data-type' => 'ajax'));
+					
+				}
 			}
 			$ally_name = ((empty($ally['MyAlly']['name']))? $ally['Ally']['ally_email']: $ally['MyAlly']['name']);
 			
 			$image = (empty($ally['MyAlly']['slug']))? 'profile.png': '../files/img/medium/' . $ally['MyAlly']['slug'];
 			$image = $this->Html->image($image, array('class' => 'img-responsive margin-top-10 margin-bottom-10'));
 			
-			$btndr .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o fa-2x')), 
-	  								   array('controller' => 'allies', 'action' => 'request_action', 'delete', $ally['Ally']['id']), 
-	  								   array('class' => 'btn-ally-status', 'escape' => false));
+			if($this->request->is('ajax')) {
+				$btndr .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o fa-2x')), 
+		  								   array('controller' => 'allies', 'action' => 'request_action', 'delete', $ally['Ally']['id']), 
+		  								   array('class' => 'btn-ally-status', 'escape' => false));
+			}
 			
 			$span  = $this->Html->div('margin-bottom-5', $ally_name . '<br />' . $ally['UserGameStatus']['roadmap'] . '<br />' . 
 														 $btndr, array('id' => $ally['Ally']['id']));
 			
-			$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-12 text-013 margin-bottom-10 ally-box ' . $ally_field_class, $image . $span, array('data' => $ally['Ally']['id']));
+			$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-12 text-013 margin-bottom-10 ally-box ' . 
+								$ally_field_class, $image . $span, array('data' => $ally['Ally']['id']));
 								
 		}
 		$my_allies .= '</div>';
 		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20', $my_allies);
 	}
 	
-	if(count($allies_of) > 0) {
+	if(count($allies_of) > 0 && $this->request->is('ajax')) {
 		$my_allies = $this->Html->tag('h3', 'To give feedback to allies - click on ' .
 											$this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right')), array('class' => 'activitytitle'));
 		$my_allies .= '<div class="row">';

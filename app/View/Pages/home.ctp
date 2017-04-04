@@ -8,7 +8,7 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 	$text = 'Envision';
 }
 ?>
-<div class="row margin-bottom-20">
+<div class="row margin-top-10 margin-bottom-10">
 	<div class="col-md-6 col-sm-6 col-xs-12 login">
 		<div class="content">
 			<?php 
@@ -58,7 +58,7 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
 					echo $this->Html->image('Sign-in-Small---Default.png', array('url' => 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='.$linkedInConfig['clientID'].'&redirect_uri='.Router::url(array('controller' => 'users', 'action' => 'oauth', 'linkedin'), true), 'class' => 'btn btn-primary pull-right collapsed')); ?>
 				</div>
 				<div class="create-account">
-					<p>Not a user yet?&nbsp;&nbsp;&nbsp;<a class="uppercase" id="register-btn" href="javascript:;">Request an account now!</a></p>
+					<p class="no-margin">Not a user yet?&nbsp;&nbsp;&nbsp;<a class="uppercase" id="register-btn" href="javascript:;">Request an account now!</a></p>
 				</div>
 			<?php echo $this->Form->end(); ?>
 			<!-- END LOGIN FORM -->

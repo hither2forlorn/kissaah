@@ -214,9 +214,15 @@ class ChallengesController extends AppController {
 			}
 		} else {
 			if($this->Challenge->ChallengesUser->save($this->request->data)) {
-				$return['url'] = Router::url(array('action' => 'set_challenge_user', 'delete', $challenge, $user), true);
-				$return['class'] = 'ally-selected';
-				return json_encode($return);
+				if($this->request->is('ajax')) {
+					$return['url'] = Router::url(array('action' => 'set_challenge_user', 'delete', $challenge, $user), true);
+					$return['class'] = 'ally-selected';
+					return json_encode($return);
+					
+				} else {
+					$this->redirect(array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $this->request->query['st'])));
+					
+				}
 			}
 		}
 

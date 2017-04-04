@@ -40,44 +40,44 @@
 	<div class="container">
 		<div class="row">
 	  		<div class="col-md-9 col-xs-8"><?php 
-			$tool  = $this->Html->div('tool-box-info', 'Allies' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+	  		$tool  = $this->Html->div('tool-box-info', 'RoadMaps' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+	  		$tool .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-map-signs fa-2x')),
+	  				array('controller' => 'users', 'action' => 'roadmaps'),
+	  				array('class' => 'fbox-toolbox', 'data-width' => '680', 'escape' => false, 'data-type' => 'ajax'));
+	  		echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
+	  		
+	  		$tool  = $this->Html->div('tool-box-info', 'Allies' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 			$tool .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-shield fa-2x')),
 			    					array('controller' => 'allies', 'action' => 'allies'),
 			    					array('class' => 'fbox-toolbox', 'escape' => false, 'data-type' => 'ajax'));
-			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
 			
 			$tool  = $this->Html->div('tool-box-info', 'Calendar' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 			$tool .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-calendar-check-o fa-2x')),
 			                        array('controller' => 'challenges', 'action' => 'calendar'), 
 			                        array('class' => 'fbox-challenges', 'escape' => false, 'data-type' => 'ajax'));
-			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
 
-			$tool  = $this->Html->div('tool-box-info', 'RoadMaps' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-			$tool .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-map-signs fa-2x')),
-			    					array('controller' => 'users', 'action' => 'roadmaps'), 
-			    					array('class' => 'fbox-toolbox', 'data-width' => '680', 'escape' => false, 'data-type' => 'ajax')); 
-			echo $this->Html->div('pull-left icon-wrapper', $tool);
-			
 			$tool  = $this->Html->div('tool-box-info', 'Export Roadmap' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-file-word-o fa-2x', 'id' => 'tour-step-08')),
 			    					array('controller' => 'games', 'action' => 'summary', 'export'), 
 			    					array('escape' => false));
-			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
 			
 			$tool  = $this->Html->div('tool-box-info', 'Organization Map' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-sitemap fa-2x', 'aria-hidden' => 'true')),
 			    						array('controller' => 'organizations', 'action' => 'index'), array('escape' => false));
-			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
 			
 			$tool  = $this->Html->div('tool-box-info', 'Spark Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-table fa-2x')),
 			    						array('controller' => 'games', 'action' => 'spark_board'), array('escape' => false));
-			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
 			
-			$tool  = $this->Html->div('tool-box-info', 'Spark Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-table fa-2x')),
+			$tool  = $this->Html->div('tool-box-info', 'Summary Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-barcode fa-2x')),
 					array('controller' => 'games', 'action' => 'summary_spark_board'), array('escape' => false));
-			echo $this->Html->div('pull-left icon-wrapper', $tool);
+			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
 			?></div>
 	  		<div class="col-md-3 col-xs-4">
 				<ul class="nav navbar-nav pull-right">
