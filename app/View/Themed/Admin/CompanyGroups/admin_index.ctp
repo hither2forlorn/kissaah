@@ -104,14 +104,20 @@ if(!$this->request->isAjax) {
 							<tr>
 								<th> Name </th>
 								<th> Email </th>
+								<th> Role </th>
 								<th class="actions"><?php echo __('Action'); ?></th>
 							</tr>
 						</thead>
 						<tbody>
-						<?php foreach ($company_group['CompanyGroupsUser'] as $user): ?>
+						<?php
+						if(isset($company_group['CompanyGroupsUser'])) {
+							foreach ($company_group['CompanyGroupsUser'] as $user): ?>
 							<tr>
 								<td><?php echo h($user['User']['name']); ?></td>
 								<td><?php echo h($user['User']['email']); ?></td>
+								<td><?php echo $this->Form->input('role_id', array(
+										'div' => false, 'label' => false, 'class' => 'form-control', 'value' => $user['role_id'], 'empty' => '--SELECT ROLE--',
+										'data-save' => $this->Html->url(array('controller' => 'company_groups', 'action' => 'save', $user['id'])))); ?></td>
 								<td class="actions">
 	                            <?php if($actions['delete']) {
 	                            	echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o')),
@@ -120,12 +126,18 @@ if(!$this->request->isAjax) {
 								} ?>
 								</td>
 							</tr>
-						<?php endforeach; ?>
+						<?php endforeach;
+						} ?>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
+<script>
+jQuery(document).ready(function() {
+	Admin.SaveGroupUserRole();
+}); 
+</script>
 <?php if(!$this->request->isAjax) { ?>
 	</div>
 </div>

@@ -32,6 +32,7 @@ class CompanyGroupsController extends AppController {
 	
 	public function admin_index($id = null) {
 		$actions = array('new' => true, 'edit' => true, 'move_up' => true, 'move_down' => true, 'delete' => true);
+
 		if($this->request->is('ajax')) {
 			
 			$options['contain'] = array('User', 'CompanyGroupsUser' => array('User' => array('fields' => array('name', 'email'))));
@@ -48,7 +49,8 @@ class CompanyGroupsController extends AppController {
 				}
 			}
 			
-			$this->set(compact('company_group', 'company_group_users'));
+			$roles = $this->CompanyGroup->CompanyGroupsUser->Role->find('list', array('fields' => array('id', 'name')));
+			$this->set(compact('company_group', 'company_group_users', 'roles'));
 		}
 		$this->set(compact('actions'));
 	}
@@ -90,13 +92,24 @@ class CompanyGroupsController extends AppController {
 		$this->set(compact('parents', 'users'));
 	}
 	
+	public function admin_save($id = null) {
+		$this->autoRender = false;
+		if (!$this->CompanyGroup->exists($id)) {
+			throw new NotFoundException(__('Invalid CompanyGroup'));
+		}
+		if ($this->request->is('ajax')) {
+			$this->CompanyGroup->CompanyGroupsUser->id = $id;
+			$this->CompanyGroup->CompanyGroupsUser->saveField('role_id', $data['role_id']);
+		}
+	}
+	
 	public function admin_company_user() {
 		if ($this->request->is(array('post', 'put'))) {
 			foreach($this->request->data['CompanyGroupsUser']['user_id'] as $user_id) {
+				
 				$this->CompanyGroup->CompanyGroupsUser->create();
 				$data['CompanyGroupsUser']['company_group_id'] = $this->request->data['CompanyGroupsUser']['company_group_id'];
 				$data['CompanyGroupsUser']['user_id'] = $user_id;
-				
 				
 				if ($this->CompanyGroup->CompanyGroupsUser->save($data)) {
 					$this->Session->setFlash(__('The Company Group has been saved.'));
