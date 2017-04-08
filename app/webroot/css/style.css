@@ -194,36 +194,34 @@ Misc tools
 .padding-left-0 {
 	padding-left: 0 !important;
 }
-
 .padding-left-10 {
 	padding-left: 10px !important;
+}
+.padding-left-15 {
+	padding-left: 15px !important;
 }
 
 .padding-right-0 {
 	padding-right: 0 !important;
 }
-
 .padding-right-5 {
 	padding-right: 5px !important;
 }
-
 .padding-right-30 {
 	padding-right: 30px !important;
-}
-
-.padding-20 {
-	padding-left: 20px !important;
-	padding-right: 20px !important;
-}
-
-.padding-10 {
-	padding-left: 10px !important;
-	padding-right: 10px !important;
 }
 
 .padding-0 {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
+}
+.padding-10 {
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+.padding-20 {
+	padding-left: 20px !important;
+	padding-right: 20px !important;
 }
 
 .margin-bottom-0 {
@@ -1825,19 +1823,6 @@ Styler Panel
 	width: 90%;
 }
 
-.profile-general-settings {
-	border-right: 1px solid;
-}
-
-.profile-notification {
-	border-left: 1px solid;
-	border-right: 1px solid;
-}
-
-.profile-accounts {
-	text-align: center;
-}
-
 div.flashError, div.flashSuccess {
 	text-align: center;
 }
@@ -2703,6 +2688,9 @@ a.back-to-road-map {
 	margin-left: -15px;
 	border-radius: 50% !important;
 }
+.bs-wizard>.bs-wizard-step.active>.bs-wizard-dot {
+	background: #f68e20;
+}
 .bs-wizard>.bs-wizard-step>.bs-wizard-dot:after {
 	content: ' ';
 	width: 14px;
@@ -2729,10 +2717,10 @@ a.back-to-road-map {
 	width: 100%;
 }
 .bs-wizard>.bs-wizard-step.active>.progress>.progress-bar {
-	width: 50%;
+	width: 100%;
 }
 .bs-wizard>.bs-wizard-step:first-child.active>.progress>.progress-bar {
-	width: 0%;
+	width: 100%;
 }
 .bs-wizard>.bs-wizard-step:last-child.active>.progress>.progress-bar {
 	width: 100%;

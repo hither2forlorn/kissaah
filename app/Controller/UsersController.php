@@ -355,6 +355,14 @@ class UsersController extends AppController {
 				'contain' => array('CompanyGroup')
 		));
 		$this->set('userdetail', $userdetail);
+
+		$options['contain'] = false;
+		$options['conditions'] = array('User.id' => $this->Session->read('ActiveGame.user_id'));
+		$options['fields'] = array('id', 'name', 'email', 'collage_status', 'city', 'country', 'gender', 'dob');
+		$this->request->data = $this->User->find('first', $options);
+		if(!empty($this->request->data['User']['dob'])) {
+			$this->request->data['User']['dob'] = DateTime::createFromFormat('Y-m-d', $this->request->data['User']['dob'])->format('d/m/Y');
+		}
 	}
 
 	#Start 3562
@@ -395,63 +403,38 @@ class UsersController extends AppController {
 	}
 
 	public function edit($action = ''){
-		$this->layout = null;
+		$this->autoRender = false;
 		if(($this->request->is('put') || $this->request->is('post')) && $this->request->is('ajax')) {
-			$is_save = true;
 			if(!empty($this->request->data['User']['dob'])) {
 				$this->request->data['User']['dob'] = DateTime::createFromFormat('d/m/Y', $this->request->data['User']['dob'])->format('Y-m-d');
 			}
 			$this->request->data['User']['id'] = $this->Session->read('ActiveGame.user_id');
-			if(isset($this->request->data['User']['current_password'])) {
-				$current_password = $this->Auth->password($this->request->data['User']['current_password']);
-				$password = $this->User->field('password', array('User.id' => $this->Session->read('ActiveGame.user_id')));
+			if($this->request->data['User']['newpassword'] != '' && $this->request->data['User']['confirmpassword'] != '') {
+				$n_password = $this->Auth->password($this->request->data['User']['newpassword']);
+				$c_password = $this->Auth->password($this->request->data['User']['confirmpassword']);
 				
-				if($current_password != $password) {
-					$this->User->validationErrors['current_password'] = 'Current Password did not match';
-					$is_save = false;
-					$action = 'password';
+				if($n_password == $c_password) {
+					$this->request->data['User']['password'] = $this->request->data['User']['newpassword'];
 				}
+			} else {
+				unset($this->request->data['User']['newpassword']);
+				unset($this->request->data['User']['confirmpassword']);
 			}
-			if($is_save && !empty($this->request->data['User']['company'])) {
-				$companyId = $this->User->CompanyGroup->field('id', array('code' => $this->request->data['User']['company']));
-				if(!empty($companyId)) $this->request->data['CompanyGroup']['CompanyGroup'] = array($companyId);
-				else $this->request->data['User']['company'] = '';
-			}
-			if($is_save && $this->User->saveAll($this->request->data)) {
-				
+			if($this->User->save($this->request->data)) {
 				$this->autoRender = false;
-				$user = $this->User->find('first', array(
-										'contain' 	 => false,
-										'conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id'))));
+				$options['contain'] = false;
+				$options['conditions'] = array('User.id' => $this->Session->read('ActiveGame.user_id'));
+				$user = $this->User->find('first', $options);
 				$this->Session->write('Auth.User.name', $user['User']['name']);
 				$this->Session->write('Auth.User.gender', $user['User']['gender']);
 				$this->Session->write('Auth.User.collage_status', $user['User']['collage_status']);
 				
-				$return['Success'] = 1;
-				$return['ScreenName'] = isset($user['User']['name']) ? $user['User']['name'] : '';
-				$return['Email'] = isset($user['User']['email']) ? $user['User']['email'] : '';
+				$return['Success'] 		= 1;
+				$return['ScreenName'] 	= $user['User']['name'];
+				$return['Email'] 		= $user['User']['email'];
 				return json_encode($return);
 			}
-		} else {
-                    
-			$this->request->data = $this->User->find('first', array(
-										'contain' 	 => false,
-										'conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id'))));
-			$this->request->data['User']['password'] = '';
-			if(!empty($this->request->data['User']['dob'])) {
-				$this->request->data['User']['dob'] = DateTime::createFromFormat('Y-m-d', $this->request->data['User']['dob'])->format('d/m/Y');
-			}
 		}
-		$this->set('action', $action);
-		
-		/* $server_http = explode('.',$_SERVER['HTTP_HOST']);
-		$server = array_shift($server_http)  ;
-		if ($this->request->isMobile() || $server  == 'm') {
-			$this->layout = 'other';
-			if((isset($data['gender']))&&(isset($data['city']))&&(isset($data['dob']))){
-				$this->redirect(array('controller' => 'games', 'action' => 'index'));
-			}
-		} */
 	}
 	
 	public function self_notes($action = null, $type = null) {

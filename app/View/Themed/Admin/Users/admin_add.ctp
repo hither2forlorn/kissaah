@@ -5,7 +5,6 @@
 				<div class="caption"><i class="fa fa-gift"></i><?php echo __('Add User'); ?></div>
 			</div>
 			<div class="portlet-body form">
-				<!-- BEGIN FORM-->
 				<?php echo $this->Form->create('User', array('class' => 'form-horizontal form-bordered form-row-stripped', 
 															 'inputDefaults' => array('div' => false, 'label' => false, 'class' => 'form-control'))); ?>
 					<div class="form-body">
@@ -40,7 +39,6 @@
 						<button class="btn green" type="submit"><i class="fa fa-check"></i> Submit</button>
 					</div>
 				<?php echo $this->Form->end(); ?>
-				<!-- END FORM-->
 			</div>
 		</div>
 	</div>

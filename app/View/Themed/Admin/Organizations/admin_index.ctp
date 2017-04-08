@@ -69,7 +69,10 @@ $options = array('1' => 'Org Map');
 						</tr>
 						<tr>
 							<td><?php echo __('Type'); ?></td>
-							<td><?php echo h($options[$organization['Organization']['type']]); ?>&nbsp;</td>
+							<td><?php
+							if(isset($options[$organization['Organization']['type']])) {
+								echo h($options[$organization['Organization']['type']]);
+							} ?>&nbsp;</td>
 						</tr>
 						<tr>
 							<td><?php echo __('Status'); ?></td>

@@ -1,5 +1,6 @@
-<div class="row margin-bottom-40 padding-top-30">
-	<div class="col-md-2 col-sm-3 col-xs-4"><?php
+<div class="row">
+	<?php echo $this->Html->tag('h3', 'General Settings', array('class' => 'activitytitle')); ?>
+	<div class="col-md-offset-3 col-md-2 col-sm-3 col-xs-4 padding-left-0"><?php
 		$image = $this->Session->read('Auth.User.slug');
 		if(empty($image)) {
 			$image = 'http://placehold.it/220x220&text=Profile';
@@ -11,107 +12,86 @@
 											  'class' => 'img-responsive',
 											  'data' => 'medium-' . $this->Session->read('Auth.User.id')));
 
-		if(empty($userdetail['User']['company'])) {
-			echo $this->Html->div('margin-bottom-10',
-				$this->Html->link(
-					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Add Code', 
-								   array('controller' => 'users', 'action' => 'edit/profile'), 
-								   array('escape' => false, 'class' => 'open-fancybox ')));
-		} else {
-			$grpLabel = $this->Html->tag('span',
-									$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')).' Groups',
-									array('class' => ''));
-			foreach($userdetail['CompanyGroup'] as $group) {
-				if(empty($group['parent_id'])) {
-					echo $this->Html->div('margin-top-10',
-							$this->Html->tag('span',
-									$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')).' Company',
-									array('class' => '')) .
-							$this->Html->div('margin-left-20', $group['title']));
-				}
-				else {
-					echo $this->Html->div('margin-top-10',
-							 $grpLabel .
-							$this->Html->div('margin-left-20', $group['title']));
-					$grpLabel = '';
-				}
-			}
-		}
-	?></div>
-	<div class="col-md-4 col-sm-5 col-xs-8 profile-general-settings">
-		<h2>General Settings</h2>
-		<?php 
-		echo $this->Form->create('User', array('class' => 'btn-file fileupload', 
+		echo $this->Form->create('User', array('class' => 'btn-file fileupload margin-top-10',
 				'data-save' => $this->Html->url(array('controller' => 'games', 'action' => 'upload', 'image'))));
 		echo $this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o', 'id' => 'upl' . $this->Session->read('Auth.User.id')));
 		echo $this->Html->tag('span', ' Profile Picture', array('class' => ''));
 		echo $this->Form->input($this->Session->read('Auth.User.id'), array(
-											'type' 		=> 'file', 
-											'label' 	=> false, 
-											'class'		=> 'default', 
-											'div' 		=> false));
+				'type' 		=> 'file',
+				'label' 	=> false,
+				'class'		=> 'default',
+				'div' 		=> false));
 		echo $this->Form->end();
-
-		echo $this->Html->div('margin-bottom-10',
-				$this->Html->link(
-					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' User Info Settings', 
-								   array('controller' => 'users', 'action' => 'edit/profile'), 
-								   array('escape' => false, 'class' => 'open-fancybox ', 'data-type' => 'ajax')) . 
-				$this->Html->div('margin-left-25 ScreenName', $userdetail['User']['name'] . '') .
-				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.email') . '', array('id' => 'Email')) .
-				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.city') . '') .
-				$this->Html->div('margin-left-25', $this->Session->read('Auth.User.country') . ''));
-
-		echo $this->Html->div('margin-bottom-10',
-			$this->Html->link(
-				$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Log In Password', 
-								   array('controller' => 'users', 'action' => 'edit/password'), 
-								   array('escape' => false, 'class' => 'open-fancybox ')));
-
-		echo $this->Html->div('margin-bottom-10',
-				$this->Html->link(
-					$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . 
-						' Give consent to make a collage of my RoadMap for public use', 
-								   array('controller' => 'games', 'action' => 'collage_signup'), 
-								   array('escape' => false, 'class' => 'collage-fancybox ')) .
-				$this->Html->div('margin-left-25', 'Consent Given&nbsp;&nbsp;' .
-						$this->Html->tag('i', '', array('class' => 'fa fa-question-circle '))));
-		
-		echo $this->Html->div('margin-bottom-10',
-			$this->Html->link(
-				$this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o')) . ' Terms of Service', 
-								   $this->Session->read('Company.link') . '/terms-of-service/', 
-								   array('escape' => false, 'target' => '_blank', 'class' => '')));
+	?></div>
+	<div class="col-md-4 col-sm-5 col-xs-8 no-padding">
+		<?php echo $this->Form->create('User', array(
+				'url' => array('action' => 'edit'), 'class' => 'form-horizontal form-bordered form-row-stripped',
+				'inputDefaults' => array('label' => false, 'div' => false, 'class' => 'form-control'))); ?>
+		<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+		<div class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding"><?php echo __('Screen Name'); ?></label>
+			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('name', array('placeholder' => 'Name'));?></div>
+		</div>
+		<div class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding">Email</label>
+			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('email', array('placeholder' => 'Email')); ?></div>
+		</div>
+		<div class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding">New Password</label>
+			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('newpassword', array('type' => 'password',
+					'placeholder' => 'New Password')); ?></div>
+		</div>
+		<div class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding">Confirm Password</label>
+			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('confirmpassword', array('type' => 'password',
+					'placeholder' => 'Confirm Password')); ?></div>
+		</div>
+		<div class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding">Date for birth</label>
+			<?php echo $this->Form->input('dob', array( 'type' => 'text', 'class' => 'form-control date-mask', 
+					'placeholder' => 'Date Of Birth', 'div' => 'col-md-8 padding-right-0 padding-left-15')); ?>
+		</div>
+		<div class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding">Gender</label>
+			<div class="col-md-8 padding-right-0 radio-list"><?php 
+				echo $this->Form->radio('gender', array('M' => 'Male', 'F' => 'Female'), 
+						array('label'	=> false, 'legend' => false, 'separator' => '&nbsp;&nbsp;&nbsp;')); ?></div>
+		</div>
+		<div class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding">Current City</label>
+			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('city', array('placeholder' => 'Current City')); ?></div>
+		</div>
+		<div class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding">Current Country</label>
+			<div class="col-md-8 padding-left-15 input-group">
+				<span class="input-group-addon"><i class="fa fa-search"></i></span>
+				<?php echo $this->Form->input('country', array('placeholder' => 'Current Country')); ?>
+			</div>
+		</div>
+		<div class="form-group no-margin margin-bottom-5">
+			<label class="check">
+				<span><?php echo $this->Form->input('collage_status', array('type' => 'checkbox', 'class' => false, 'div' => false)); ?></span> 
+				Contribute to Image Bank
+			</label>
+		</div>
+		<?php echo $this->Form->end(); 
+		echo $this->Html->div('col-md-12 margin-top-10 text-center', $this->Html->link('Deactivate Account',
+				array('controller' =>'users', 'action' => 'deactivate_account'),
+				array('class' => 'btn btn-primary', 'id' =>'deactivate-account')));
 		?>
 	</div>
-	<div class="col-md-3 col-sm-4 col-xs-12 profile-accounts">
-	<?php
-		echo $this->Html->div('col-md-12', $this->Html->para(null, 'Got an idea about ' . $this->Session->read('Company.name') . ' you\'d like to share, or 
-																	some feedback about your experience? Fill out this survey'));
-																	
-		echo $this->Html->div('col-md-12 margin-bottom-10', $this->Html->link('Start Survey', 
-					'https://docs.google.com/forms/d/1ECrPJKbh1j2d-nZeHznomnRmgxCSWgW10jpc9bhN840/viewform?embedded=true',
-					array('class' => 'btn btn-primary collapsed take-survey fancybox.iframe')));
-		
-		echo $this->Html->div('col-md-12 margin-bottom-10', $this->Html->link('Reset Current Roadmap', 
-									array('controller' => 'games', 'action' => 'reset', true), 
-									array('class' => 'btn btn-primary open-fancybox')));
-									
-		echo $this->Html->div('col-md-12 margin-bottom-10', $this->Html->link('Deactivate Account', 
-									array('controller' =>'users', 'action' => 'deactivate_account'), 
-									array('class' => 'btn btn-primary', 'id' =>'deactivate-account')));
-	?>
-	</div>
 </div>
+<div id="test-content"></div>
 <script type="text/javascript">
-	$(document).ready(function() {
-		//Game.TakeSurvey();
-		
-		FileUpload.UploadFileImage();
+$(document).ready(function() {
+	FileUpload.UploadFileImage();
 
-		Profile.SettingsFancyBox();
-		Profile.ProfileImageHover();
-		Profile.NotificationPreferences();
-		Profile.DeactivateAccount();
+	Profile.DeactivateAccount();
+
+	$('.date-mask').inputmask('dd/mm/yyyy', {
+		'placeholder' : 'dd/mm/yyyy'
 	});
+	ProfileCountries.init();
+	Profile.Save();
+});
 </script>

@@ -127,7 +127,7 @@ if(!$this->request->isAjax) {
 								</td>
 							</tr>
 						<?php endforeach;
-						} ?>
+					} ?>
 						</tbody>
 					</table>
 				</div>

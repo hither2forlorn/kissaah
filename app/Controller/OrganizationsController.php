@@ -1,10 +1,13 @@
 <?php
 class OrganizationsController extends AppController {
 	
-	public function index() {
+	public function index($id = null) {
+		if(is_null($id)) {
+			$id = $this->Organization->field('id', array('title' => 'Template', 'parent_id' => null));
+		}
 		$organizations = $this->Organization->find('all', array(
 				'contain' => false,
-				'conditions' => array('parent_id' => null)));
+				'conditions' => array('parent_id' => $id)));
 
 		$levels = array();
 		foreach($organizations as $org) {

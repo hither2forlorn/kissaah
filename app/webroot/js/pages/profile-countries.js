@@ -7,7 +7,7 @@ var ProfileCountries = function () {
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           limit: 10,
           prefetch: {
-            url: 'js/pages/typeahead_countries.json',
+            url: '/kissaah/js/pages/typeahead_countries.json',
             filter: function(list) {
               return $.map(list, function(country) { return { name: country }; });
             }

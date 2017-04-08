@@ -75,8 +75,8 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
     		'../plugins/countdown/jquery.countdown.min',
     		'https://addthisevent.com/libs/ate-latest.min.js'
     ));
-    echo $this->fetch('script');
-	echo $this->Html->script(array('metronic', 'pages/game', 'pages/allies', 'pages/challenges', 'pages/profile'));
+	echo $this->Html->script(array('metronic', 'pages/game', 'pages/allies', 'pages/challenges', 'pages/profile', 'pages/profile-countries'));
+	echo $this->fetch('script');
 ?>
 </head>
 <script type="text/javascript">

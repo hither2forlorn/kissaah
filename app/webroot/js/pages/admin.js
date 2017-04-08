@@ -35,11 +35,9 @@ var Admin = function() {
 					}
 				},
 				'plugins' : [ 'changed', 'state' ]
-
 			});
 
-			$('#tree-setup').on(
-					'changed.jstree',
+			$('#tree-setup').on('changed.jstree',
 					function(e, data) {
 						$.ajax({
 							url : link + '/index/'
