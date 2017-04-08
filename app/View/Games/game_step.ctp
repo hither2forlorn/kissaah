@@ -15,6 +15,7 @@ $visions = $this->Session->read('Vision');
 $active = 0;
 foreach ($visions as $key => $vision) {
 	$wizard = 'complete';
+	$selected = '';
 	
 	if($nxt_txt == '' && $this->request->query['st'] != 292) {
 		$nxt_txt = $vision['Configuration']['title'];
@@ -26,14 +27,15 @@ foreach ($visions as $key => $vision) {
 		$wizard  = 'active';
 		$active  = $key;
 		$nxt_lnk = $nxt_txt = '';
+		$selected = ' btn-finished';
 	}
 	
-	$progress[$key] = $this->Html->div('col-xs-4 bs-wizard-step ' . $wizard,
+	$progress[$key] = $this->Html->div('col-xs-4 bs-wizard-step text-center ' . $wizard,
 			$this->Html->div('text-center bs-wizard-stepnum', '&nbsp;') .
 			$this->Html->div('progress', $this->Html->div('progress-bar', '')) .
 			$this->Html->link('', array('controller' => 'games', 'action' => 'game_step',
 					'?' => array('st' => $vision['Configuration']['id'])), array('class' => 'bs-wizard-dot' . $next_btn)) .
-			$this->Html->div('bs-wizard-info text-center', $vision['Configuration']['title']));
+			$this->Html->div('bs-wizard-info text-center' . $selected, $vision['Configuration']['title']));
 }
 if($active < 1) {
 	$progress = array($progress[0], $progress[1], $progress[2]);
@@ -45,7 +47,6 @@ if($active < 1) {
 	$progress = array($progress[$active - 2], $progress[$active - 1], $progress[$active]);
 }
 echo implode('', $progress);
-
 //$selected = 'caption-subject font-grey-sharp bold uppercase';
 ?>
 </div>
