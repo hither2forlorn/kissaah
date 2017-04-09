@@ -2,7 +2,7 @@
 echo $this->Html->css(array('login'));
 echo $this->Html->script(array('../plugins/jquery-validation/js/jquery.validate.min', 'pages/login'));
 
-if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+if(strpos(Router::url('/', true), 'humancatalyst') !== false || strpos(Router::url('/', true), 'localhost') !== false) {
 	$text = 'Embark';
 } else {
 	$text = 'Envision';

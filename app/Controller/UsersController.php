@@ -80,7 +80,7 @@ class UsersController extends AppController {
 				$this->request->data['UserGameStatus'][0]['points'] = 0;
 				$this->request->data['UserGameStatus'][0]['active'] = 1;
 				$this->request->data['UserGameStatus'][0]['roadmap'] = '';
-				if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+				if(strpos(Router::url('/', true), 'humancatalyst') !== false || strpos(Router::url('/', true), 'localhost') !== false) {
 					$this->request->data['UserGameStatus'][0]['configuration_id'] = 192;
 				} else {
 					$this->request->data['UserGameStatus'][0]['configuration_id'] = 81;
@@ -277,7 +277,7 @@ class UsersController extends AppController {
 			$active_game['UserGameStatus']['game'] 	  = 0;
 			$active_game['UserGameStatus']['points']  = 0;
 			$active_game['UserGameStatus']['active']  = 1;
-			if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+			if(strpos(Router::url('/', true), 'humancatalyst') !== false || strpos(Router::url('/', true), 'localhost') !== false) {
 				$active_game['UserGameStatus']['configuration_id'] = 192;
 			} else {
 				$active_game['UserGameStatus']['configuration_id'] = 81;

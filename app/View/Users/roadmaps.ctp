@@ -1,4 +1,4 @@
-<div class='no-margin row roadmaps'>
+<div class="no-margin row roadmaps data-width-600">
 <?php 
 if(isset($roadmaps)) {
 	if(count($roadmaps) == 1 && $roadmaps[0]['UserGameStatus']['roadmap'] == '') {

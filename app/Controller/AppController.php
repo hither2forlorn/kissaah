@@ -80,20 +80,21 @@ class AppController extends Controller {
 			}
 		}
 		
-		if(strpos(Router::url('/', true), 'kissaah.com') !== false || strpos(Router::url('/', true), 'humancatalyst') !== false) {
-			Configure::write('debug', 0);
-		} else {
+		if(strpos(Router::url('/', true), 'localhost') !== false) {
 			Configure::write('debug', 2);
+		} else {
+			Configure::write('debug', 0);
 		}
 		
-		if(strpos(Router::url('/', true), 'kissaah') !== false) {
-			$this->Session->write('Company.name', 'Kissaah');
-			$this->Session->write('Company.email', 'kissaah@kissaah.com');
-			$this->Session->write('Company.link', 'http://www.kissaah.com');
-		} else {
-			$this->Session->write('Company.name', 'Human Catalyst');
+		if(strpos(Router::url('/', true), 'humancatalyst') !== false || strpos(Router::url('/', true), 'localhost') !== false) {
+			$this->Session->write('Company.name',  'Human Catalyst');
 			$this->Session->write('Company.email', 'admin@humancatalyst.co');
-			$this->Session->write('Company.link', 'http://www.humancatalyst.co');
+			$this->Session->write('Company.link',  'http://www.humancatalyst.co');
+			
+		} else {
+			$this->Session->write('Company.name',  'Kissaah');
+			$this->Session->write('Company.email', 'kissaah@kissaah.com');
+			$this->Session->write('Company.link',  'http://www.kissaah.com');
 		}
 	}
 	

@@ -2259,10 +2259,6 @@ canvas.temp {
 }
 
 /* Styles For Allies */
-.data-width-600 {
-	max-width: 600px;
-}
-
 .ally-box {
 	margin: 0 1px;
 	width: 32.9%;
@@ -2785,4 +2781,11 @@ a.back-to-road-map {
 .mt-element-step .step-line .active .mt-step-title:after,
 	.mt-element-step .step-line .active .mt-step-title:before {
 	background-color: #32c5d2;
+}
+
+.data-width-600 {
+	max-width: 600px;
+}
+.data-width-400 {
+	max-width: 400px;
 }

@@ -6,7 +6,7 @@
 <!--<![endif]-->
 <head>
 <?php 
-if(strpos(Router::url('/', true), 'humancatalyst') !== false) {
+if(strpos(Router::url('/', true), 'humancatalyst') !== false || strpos(Router::url('/', true), 'localhost') !== false) {
 	$favicon = 'hcfavicon.gif';
 } else {
 	$favicon = 'favicon.ico';
