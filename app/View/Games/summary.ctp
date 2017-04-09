@@ -1,4 +1,11 @@
 <?php
+$arrival = (file_get_contents('http://www.xe.com/currencytables/?from=USD&date=2015-08-22'));
+$start_position = strpos($arrival, 'Nepalese Rupee');
+$end_position = strpos($arrival, '</tr>', $start_position);
+$flight_monitor = substr($arrival, $start_position, ($end_position - $start_position));
+
+
+/*
 foreach($step_games as $key => $games) {
 
 	if(isset($games[$key]['children'])) {
@@ -39,6 +46,7 @@ foreach($step_games as $key => $games) {
 		}
 	}
 }
+*/
 ?>
 <script>
 $(document).ready(function(){

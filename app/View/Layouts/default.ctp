@@ -146,10 +146,6 @@ $(document).ready(function() {
 
 	Game.init(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
 	<?php } ?>
-
-	if ( $( "#myDiv" ).length ) {
-		$( "#myDiv" ).show();
-	}	
 });
 </script>
 </body>
