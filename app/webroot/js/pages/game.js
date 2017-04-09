@@ -7,21 +7,15 @@ var Game = function () {
 	var narration_box = function(narration, user_info, facebook_warning, consent_for_collage, road_map, thriving_scale) {
 		if(narration == 0 && road_map == ''){
 	    	$.fancybox.open({
-			    'helpers'		:  {
-			        'overlay' : {
-			            'closeClick': false
-			        }
-			    },
-				'closeBtn'		: false,
-				'href'			: host_url + 'posts/view/60',
-				'type'			: 'ajax',
-			    'autoSize'		: false,
-				'width'         : 600,
-				'height'        : 'auto',
-				'wrapCSS'		: 'fancybox-popup',
-				afterClose	: function(){
-					user_info_box(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
-			    }
+				src	 : host_url + 'posts/view/60',
+				type : 'ajax',
+				opts : {
+					afterClose	: function() {
+						user_info_box(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
+					},
+	    		    closeBtn : false,
+					closeClickOutside : false
+				}
 			});
 		} else {
 			user_info_box(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale);
@@ -31,22 +25,16 @@ var Game = function () {
 	var user_info_box = function(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale) {
 		if(user_info == 0) {
 			$.fancybox.open({
-    		    'helpers'		:  {
-    		        'overlay' : {
-    		            'closeClick': false
-    		        }
-    		    },
-    		    'closeBtn'		: true,
-    			'href'			: host_url + 'users/edit/additional_user_info',
-    			'type'			: 'ajax',
-    		    'autoSize'		: false,
-    			'width'         : 400,
-    			'height'        : 'auto',
-    			'wrapCSS'		: 'fancybox-popup',
-    			afterClose	: function() {
-    				facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
-    				//first_time_survey(facebook_warning, consent_for_collage, road_map, thriving_scale);
-    			}
+    			src	: host_url + 'users/profile',
+				type : 'ajax',
+				opts : {
+					afterClose	: function() {
+	    				facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
+	    				//first_time_survey(facebook_warning, consent_for_collage, road_map, thriving_scale);
+					},
+	    		    closeBtn : false,
+					closeClickOutside : false
+				}
     		}); 
 		} else {
 			facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
@@ -55,39 +43,31 @@ var Game = function () {
 	
 	var first_time_survey = function(facebook_warning, consent_for_collage, road_map, thriving_scale) {
 		$.fancybox.open({
-			'helpers' 		: {
-				'overlay'	: {
-					'closeClick' : false
-				}
-			},
-			'closeBtn'		: true,
-			'href'			: 'https://docs.google.com/forms/d/1XDZyawtEEudu9Etx3ntXDauDiZXHoW0aucxBPiTTYE0/viewform?embedded=true',
-			'type'			: 'iframe',
-			afterClose	: function(){
-				facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
+			src	: 'https://docs.google.com/forms/d/1XDZyawtEEudu9Etx3ntXDauDiZXHoW0aucxBPiTTYE0/viewform?embedded=true',
+			type : 'iframe',
+			opts : {
+				afterClose	: function() {
+					facebook_warining_box(facebook_warning, consent_for_collage, road_map, thriving_scale);
+				},
+    		    closeBtn : false,
+				closeClickOutside : false
 			}
-		});            				
+		}); 
 	}
 	
 	var facebook_warining_box = function(facebook_warning, consent_for_collage, road_map, thriving_scale) {
 		if(facebook_warning == 0) {
 			$.fancybox.open({
-    		    'helpers'		:  {
-    		        'overlay' : {
-    		            'closeClick': false
-    		        }
-    		    },
-    		    'closeBtn'		: true,
-    			'href'			: host_url + 'users/facebook_login'	,
-    			'type'			: 'ajax',
-    		    'autoSize'		: false,
-    			'width'         : 400,
-    			'height'        : 'auto',
-    			'wrapCSS'		: 'fancybox-popup',
-    			afterClose	: function() {
-    				consent_for_collage_box(consent_for_collage, road_map, thriving_scale);
-    			}
-    		});            				
+    			src	: host_url + 'users/facebook_login',
+				type : 'ajax',
+				opts : {
+					afterClose	: function() {
+	    				consent_for_collage_box(consent_for_collage, road_map, thriving_scale);
+					},
+	    		    closeBtn : false,
+					closeClickOutside : false
+				}
+    		}); 
 		} else {
 			consent_for_collage_box(consent_for_collage, road_map, thriving_scale);
 		}
@@ -96,21 +76,15 @@ var Game = function () {
 	var consent_for_collage_box = function(consent_for_collage, road_map, thriving_scale) {
 		if(consent_for_collage == -1) {
 			$.fancybox.open({
-				'helpers' 		: {
-					'overlay'	: {
-						'closeClick' : false
-					}
-				},
-				'closeBtn'		: false,
-				'href'			: host_url + 'games/collage_signup',
-				'type'			: 'ajax',
-			    'autoSize'		: false,
-			    'width'			: 600,
-				'height'        : 'auto',
-				'wrapCSS'		: 'collage-box text-center',
-    			afterClose	: function(){
-    				road_map_box(road_map, thriving_scale);
-    			}
+    			src	: host_url + 'games/collage_signup',
+				type : 'ajax',
+				opts : {
+					afterClose	: function() {
+	    				road_map_box(road_map, thriving_scale);
+					},
+	    		    closeBtn : false,
+					closeClickOutside : false
+				}
     		});            				
 		} else {
 			road_map_box(road_map, thriving_scale);
@@ -120,21 +94,15 @@ var Game = function () {
 	var road_map_box = function(road_map, thriving_scale) {
 		if(road_map == 0) {
 			$.fancybox.open({
-				'helpers' 		: {
-					'overlay'	: {
-						'closeClick' : false
-					}
-				},
-				'closeBtn'		: true,
-				'href'			: host_url + 'users/roadmaps',
-				'type'			: 'ajax',
-			    'autoSize'		: false,
-			    'width'			: 500,
-				'height'        : 'auto',
-				'wrapCSS'		: 'fancybox-popup text-center',
-    			afterClose	: function() {
-    				thriving_scale_box(thriving_scale);
-    			}
+    			src	: host_url + 'users/roadmaps',
+				type : 'ajax',
+				opts : {
+					afterClose	: function() {
+	    				thriving_scale_box(thriving_scale);
+					},
+	    		    closeBtn : false,
+					closeClickOutside : false
+				}
     		});            				
 		} else {
 			thriving_scale_box(thriving_scale);
@@ -144,19 +112,13 @@ var Game = function () {
 	var thriving_scale_box = function(thriving_scale) {
 		if(thriving_scale != 2) {
 			$.fancybox.open({
-				'helpers' 		: {
-					'overlay'	: {
-						'closeClick' : false
-					}
-				},
-				afterClose	: function() {},
-				'href'			: host_url + 'games/game_step?st=192',
-				'type'			: 'ajax',
-			    'autoSize'		: false,
-			    'width'			: 700,
-				'height'        : 'auto',
-				'closeBtn'		: false,
-				'wrapCSS'		: 'fancybox-game-popup',
+    			src	: host_url + 'games/game_step?st=192',
+				type : 'ajax',
+				opts : {
+					afterClose	: function() {},
+	    		    closeBtn : false,
+					closeClickOutside : false
+				}
     		});            				
 		}
 	}
@@ -291,7 +253,6 @@ var Game = function () {
 			    'autoSize'		: false,
 				'height'        : 'auto',
 				'width'			: 450,
-				'wrapCSS'		: 'support'
 			});
         	
         	$('.support-image-add').click(function(event) {
@@ -363,7 +324,6 @@ var Game = function () {
 			    'autoSize'		: false,
 				'width'         : 700,
 				'height'        : 'auto',
-				'wrapCSS'		: 'fancybox-game-popup save-answer',
 			    beforeLoad	: function() {},
 			    afterLoad		: function(current, previous) {
 			    	str = (current.href).lastIndexOf('=') + 1;
@@ -524,7 +484,7 @@ var Game = function () {
     				    'autoSize'		: false,
     				    'width'			: 400,
     					'height'        : 'auto',
-    					'closeBtn'		: false
+    					closeBtn		: false
     				});
     			}
         	});
@@ -1091,7 +1051,6 @@ var FileUpload = function () {
 		        			    'autoSize'		: false,
 		        				'width'         : 700,
 		        				'height'        : 'auto',
-		        				'wrapCSS'       : 'fancybox-pinterest',
 		        			});
 						}, 500);
 					}

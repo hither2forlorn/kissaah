@@ -53,6 +53,7 @@ Class User extends AppModel {
 				'rule' => array('isUnique'),
 				'message' => 'This email is already registered.'),
 		),
+		/*
 		'city' => array(
 				'notBlank' => array(
 						'rule' => 'notBlank',
@@ -73,6 +74,7 @@ Class User extends AppModel {
 						'rule' => 'notBlank',
 						'message' => 'Please provide your date of birth.')
 		),
+		*/
 	);
 	
 	public $hasMany = array(
