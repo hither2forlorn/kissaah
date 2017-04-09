@@ -315,27 +315,18 @@ var Game = function () {
         
         StartGame: function() {
 			$('.btn-step').fancybox({
-			    'helpers'		:  {
-			        'overlay' 	: {
-			            'closeClick' : false
-			        }
+			    beforeLoad : function() {},
+			    afterLoad  : function(current, previous) {
+			    	str = (current.current.src).lastIndexOf('=') + 1;
+			    	game_step = (current.current.src).substr(str);
 			    },
-				'type'			: 'ajax',
-			    'autoSize'		: false,
-				'width'         : 700,
-				'height'        : 'auto',
-			    beforeLoad	: function() {},
-			    afterLoad		: function(current, previous) {
-			    	str = (current.href).lastIndexOf('=') + 1;
-			    	game_step = (current.href).substr(str);
-			    },
-			    afterClose	: function() {
+			    afterClose : function() {
 			    	if($.isNumeric(game_step)) {
 	        			$.ajax({
 	    					cache		: false,
 	        				type		: 'POST',
 	        				data		: {data: game_step},
-	        				url			: host_url +'games/step_complete',
+	        				url			: host_url + 'games/step_complete',
 	        				success		: function(data){
 	        					if(data == 2) {
 	        						btnclass = 'col-md-12 col-sm-12 col-xs-12 btn btn-step btn-finished';
@@ -1046,11 +1037,8 @@ var FileUpload = function () {
 		        				afterClose	: function() {
 		        					$('a[data=btn-' + game_step + ']').trigger('click');
 		        				},
-		        				'href'			: url,
-		        				'type'			: 'ajax',
-		        			    'autoSize'		: false,
-		        				'width'         : 700,
-		        				'height'        : 'auto',
+		        				src			: url,
+		        				type		: 'ajax',
 		        			});
 						}, 500);
 					}

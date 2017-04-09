@@ -1,8 +1,7 @@
+<div class="data-width-650">
 <?php
 foreach($step_games as $key => $games) {
-
 	if(isset($games[$key]['children'])) {
-
 		foreach($games[$key]['children'] as $game) {
 			$summary = true;
 			$each_step = $all_games_each_step = '';
@@ -40,6 +39,7 @@ foreach($step_games as $key => $games) {
 	}
 }
 ?>
+</div>
 <script>
 $(document).ready(function(){
 	Game.handleRating();

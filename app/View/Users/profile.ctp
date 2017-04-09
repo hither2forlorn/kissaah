@@ -1,6 +1,12 @@
-<div class="row">
+<?php 
+$offset = ' col-md-6 col-md-offset-3';
+if ($this->request->is('ajax')) {
+	$offset = ' data-width-600';
+}
+?>
+<div class="<?php echo $offset; ?>">
 	<?php echo $this->Html->tag('h3', 'General Settings', array('class' => 'activitytitle')); ?>
-	<div class="col-md-offset-3 col-md-2 col-sm-3 col-xs-4 padding-left-0"><?php
+	<div class="col-md-3 col-sm-5 col-xs-4 padding-left-0"><?php
 		$image = $this->Session->read('Auth.User.slug');
 		if(empty($image)) {
 			$image = 'http://placehold.it/220x220&text=Profile';
@@ -23,7 +29,7 @@
 				'div' 		=> false));
 		echo $this->Form->end();
 	?></div>
-	<div class="col-md-4 col-sm-5 col-xs-8 no-padding">
+	<div class="col-md-9 col-sm-7 col-xs-8 no-padding">
 		<?php echo $this->Form->create('User', array(
 				'url' => array('action' => 'edit'), 'class' => 'form-horizontal form-bordered form-row-stripped',
 				'inputDefaults' => array('label' => false, 'div' => false, 'class' => 'form-control'))); ?>

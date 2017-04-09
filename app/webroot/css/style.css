@@ -2783,6 +2783,9 @@ a.back-to-road-map {
 	background-color: #32c5d2;
 }
 
+.data-width-650 {
+	max-width: 650px;
+}
 .data-width-600 {
 	max-width: 600px;
 }

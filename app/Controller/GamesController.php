@@ -127,7 +127,8 @@ class GamesController extends AppController {
 	
  	public function summary($display = 'summary', $id = null, $road_map = 'current') {
  		if(is_null($id)) {
- 			$tree_list = $this->Game->Configuration->generateTreeList(array('Configuration.status' => '1', 'Configuration.type' => 0));
+ 			$conditions = array('parent_id' => $this->Session->read('ActiveGame.configuration_id'), 'status' => '1', 'type' => 0);
+ 			$tree_list = $this->Game->Configuration->generateTreeList($conditions);
  		} else {
  			$tree_list[$id] = '';
  		}

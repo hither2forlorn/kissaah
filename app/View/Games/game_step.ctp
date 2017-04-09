@@ -1,10 +1,11 @@
 <?php
 $featured = $this->Session->read ('Configuration.featured');
-if ($featured == false) {
-	echo '<div class="col-md-6 col-md-offset-3 save-answer">';
+$offset = ' col-md-6 col-md-offset-3';
+if ($featured) {
+	$offset = ' data-width-600';
 }
 ?>
-<div class="row bs-wizard no-margin margin-bottom-20">
+<div class="save-answer<?php echo $offset; ?>">
 <?php
 $nxt_lnk = $nxt_txt = '';
 
@@ -46,11 +47,9 @@ if($active < 1) {
 } else {
 	$progress = array($progress[$active - 2], $progress[$active - 1], $progress[$active]);
 }
-echo implode('', $progress);
+echo $this->Html->div('row bs-wizard no-margin margin-bottom-20', implode('', $progress));
 //$selected = 'caption-subject font-grey-sharp bold uppercase';
-?>
-</div>
-<?php
+
 foreach ( $games[$step_information['Configuration']['id']]['children'] as $game ) {
 	
 	if ($game['Configuration']['status'] && $game['Configuration']['type'] != 16) {
@@ -126,11 +125,8 @@ if($nxt_txt != '') {
 	echo $this->Html->div('row no-margin text-center margin-bottom-20 pull-right',
 			$this->Html->link($nxt_txt, $nxt_lnk, array('class' => 'btn-save ' . $next_btn, 'id' => 'tour-step-05')));
 }
-
-if($featured == false) {
-	echo '</div>';
-}
 ?>
+</div>
 <script>
 $(document).ready(function(){
 	Game.SaveGame();

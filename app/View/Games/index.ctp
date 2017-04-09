@@ -21,12 +21,14 @@ foreach ($vision as $key => $list) {
 	//$smry = array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => 276));
 	$smry = array('controller' => 'games', 'action' => 'summary', 'summary', $list['Configuration']['id']);
     $points[$key] = array(
-    				'link'  => $this->Html->link($list['Configuration']['sub_txt'], $url, array('class' => $btnclass, 'data' => 'btn-' . $list['Configuration']['id'])),
+    				'link'  => $this->Html->link($list['Configuration']['sub_txt'], $url, 
+    						array('class' => $btnclass, 'data' => 'btn-' . $list['Configuration']['id'], 'data-type' => 'ajax')),
     				'title' => $list['Configuration']['title'] .
     						   $this->Html->tag('span', $list['Configuration']['naration_txt'], array('class' => 'sub-title')),
-    				'smry'	=> $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-th-list fa-lg')), $smry, array('class' => 'btn-step', 'escape' => false)),
+    				'smry'	=> $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-th-list fa-lg')), $smry, 
+    						array('class' => 'btn-step', 'escape' => false, 'data-type' => 'ajax')),
 					'level' => $brdclass);
-					
+
 	$strgs = '';
 	if(isset($list['Steps'])) {
 		foreach($list['Steps'] as $data) {
@@ -73,7 +75,7 @@ foreach ($vision as $key => $list) {
 			$images = $this->Html->div('row no-margin level-display margin-bottom-20', $images);
 			$btn	= $this->Html->div('row no-margin level-display', $this->Html->div('col-md-12', $points[$id]['link']));
 			$smmary = $this->Html->link('Review', array('controller' => 'games', 'action' => 'summary'), 
-												  array('class' => 'btn-step btn-summary hidden-xs', 'id' => 'tour-step-04'));
+					array('class' => 'btn-step btn-summary hidden-xs', 'id' => 'tour-step-04', 'data-type' => 'ajax'));
 			$circle	= $this->Html->div('row no-margin', 
 							$this->Html->div('col-md-2 col-sm-2 col-md-offset-5 col-sm-offset-5 margin-top-20 text-center margin-bottom-20', $points[$id]['smry']) .
 							$this->Html->div('col-md-5 col-sm-5 pull-right no-padding hidden-xs', $points[$id]['level']) . $smmary);
