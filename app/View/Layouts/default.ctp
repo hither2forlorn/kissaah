@@ -115,13 +115,6 @@ if(is_null($screen_width)) {
 		echo $this->element('footer');
 	}
     echo $this->element('sql_dump');
-    echo $this->Html->div('', debug($this->Session->read('Auth')));
-    echo $this->Html->div('', debug($this->Session->read('ActiveGame')));
-    echo $this->Html->div('', debug($this->Session->read('Company')));
-    echo $this->Html->div('', debug($this->Session->read('Game')));
-    echo $this->Html->div('', debug($this->Session->read('Current')));
-    echo $this->Html->div('', debug($this->Session->read('Vision')));
-    echo $this->Html->div('', debug($this->Session->read('Profile')));
     ?>
 <script type="text/javascript">
 $(window).bind('load', function() {
