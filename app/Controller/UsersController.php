@@ -815,8 +815,8 @@ class UsersController extends AppController {
 	
 	//2014-10-21, Badri, This function allows  admin to login as any user
 	public function admin_login($id = null) {
-		$this->Session->write('Profile_admin',$this->Session->read('Profile'));
-		$this->Session->write('ActiveGame_admin',$this->Session->read('ActiveGame'));
+		$this->Session->write('Profile_admin', $this->Session->read('Profile'));
+		$this->Session->write('ActiveGame_admin', $this->Session->read('ActiveGame'));
 		$user_activeGame = $this->User->UserGameStatus->find('first', array(
 				'contain'		=> array('Configuration'),
 				'conditions'	=> array('UserGameStatus.user_id' => $id,
@@ -828,7 +828,7 @@ class UsersController extends AppController {
 		
 		$this->Session->write('ActiveGame', $user_activeGame['UserGameStatus']);
 		$this->Session->write('Configuration', $user_activeGame['Configuration']);
-		$this->Session->write('Profile',$user_profile);
+		$this->Session->write('Profile', $user_profile);
 		$this->redirect('/');
 	}
 	

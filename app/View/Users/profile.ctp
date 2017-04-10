@@ -89,7 +89,6 @@ if ($this->request->is('ajax')) {
 		?>
 	</div>
 </div>
-<div id="test-content"></div>
 <script type="text/javascript">
 $(document).ready(function() {
 	FileUpload.UploadFileImage();

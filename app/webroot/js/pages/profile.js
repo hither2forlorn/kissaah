@@ -9,7 +9,6 @@ var Profile = function() {
 					data 		: $('form#UserEditForm :input').serializeArray(),
 				});
             	request.done(function( msg ) {
-            		$('#test-content').html(msg);
             		var object = $.parseJSON(msg)
 					var success = object.Success;
             		if(success == 1) {
@@ -19,6 +18,8 @@ var Profile = function() {
             	});
             	request.fail(function( jqXHR, textStatus ) {
             		alert( 'Request failed');
+            		
+            		//{"Success":1,"ScreenName":"Eric Alana Cooper","Email":"liebcpt@himalayantechies.com"}
             	});
 			});
 		},
