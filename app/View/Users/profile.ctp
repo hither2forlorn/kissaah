@@ -42,6 +42,7 @@ if ($this->request->is('ajax')) {
 			<label class="col-md-4 no-padding">Email</label>
 			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('email', array('placeholder' => 'Email')); ?></div>
 		</div>
+		<?php if(!$this->request->is('ajax')) { ?>
 		<div class="form-group no-margin margin-bottom-5">
 			<label class="col-md-4 no-padding">New Password</label>
 			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('newpassword', array('type' => 'password',
@@ -52,6 +53,7 @@ if ($this->request->is('ajax')) {
 			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('confirmpassword', array('type' => 'password',
 					'placeholder' => 'Confirm Password')); ?></div>
 		</div>
+		<?php } ?>
 		<div class="form-group no-margin margin-bottom-5">
 			<label class="col-md-4 no-padding">Date for birth</label>
 			<?php echo $this->Form->input('dob', array( 'type' => 'text', 'class' => 'form-control date-mask', 
