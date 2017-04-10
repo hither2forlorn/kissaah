@@ -28,7 +28,7 @@ foreach ($visions as $key => $vision) {
 		$wizard  = 'active';
 		$active  = $key;
 		$nxt_lnk = $nxt_txt = '';
-		$selected = ' btn-finished';
+		$selected = ' btn btn-finished';
 	}
 	
 	$progress[$key] = $this->Html->div('col-xs-4 bs-wizard-step text-center ' . $wizard,

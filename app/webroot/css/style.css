@@ -1341,11 +1341,9 @@ Pre-Footer and pre-footer elements
 	opacity: 1;
 }
 
-.btn-ally, .btn-ally-success, .btn-ally-invite, .btn-ally-email,
-	.btn-ally-status {
-	padding: 0 2px;
+.btn-ally, .btn-ally-success, .btn-ally-invite, .btn-ally-email, .btn-ally-status {
+	/*padding: 0 2px;*/
 }
-
 .btn-save {
 	-moz-border-radius: 50% !important;
 	-webkit-border-radius: 50% !important;
@@ -1359,56 +1357,27 @@ Pre-Footer and pre-footer elements
 	vertical-align: middle;
 	line-height: 16px;
 }
-
 .btn-collage {
 	border-radius: 5px;
 	padding: 5px;
 	width: 100%;
 	white-space: normal;
 }
-
 .btn-collage-small {
 	display: inline-block;
 	font-size: 0.8em;
 }
-
 .btn-start {
 	background-color: #CCCCCC;
 	color: #FFFFFF;
-	border: 1px solid transparent;
-	display: inline-block;
-	line-height: 1.42857;
-	margin-bottom: 0;
-	padding: 6px 12px;
-	text-align: center;
-	vertical-align: middle;
-	white-space: nowrap;
 }
-
 .btn-in-progress {
 	background-color: #17b3e8;
 	color: #FFFFFF;
-	border: 1px solid transparent;
-	display: inline-block;
-	line-height: 1.42857;
-	margin-bottom: 0;
-	padding: 6px 12px;
-	text-align: center;
-	vertical-align: middle;
-	white-space: nowrap;
 }
-
 .btn-finished {
 	background-color: #f68e20;
 	color: #FFFFFF;
-	border: 1px solid transparent;
-	display: inline-block;
-	line-height: 1.42857;
-	margin-bottom: 0;
-	padding: 6px 12px;
-	text-align: center;
-	vertical-align: middle;
-	white-space: nowrap;
 }
 
 .btn-featured {
@@ -2535,13 +2504,9 @@ a.back-to-road-map {
 .font-orange-sharp {
 	color: #ea7328 !important;
 }
-
-.save-challenge .btn-in-progress {
-	height: 42px;
-}
-
-.save-challenge input[type=text] {
-	height: 42px;
+.addthisevent-drop {
+	z-index: 100 !important;
+	padding: 9px 12px 8px 43px !important;
 }
 
 /* Organization Chart */
@@ -2640,18 +2605,11 @@ a.back-to-road-map {
 .ally-selection::selection {
 	border: 1px solid;
 }
-
 .height-2l {
 	height: 45px;
 }
-
 .save-challenge {
 	border-bottom: 1px solid;
-}
-
-.addthisevent-drop {
-	z-index: 0;
-	padding: 13px 10px 12px 35px;
 }
 
 /*Form Wizard*/

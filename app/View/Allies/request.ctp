@@ -50,7 +50,7 @@ if($this->request->is('ajax')) {
 			echo $this->Html->div('input-group margin-top-10',
 					$this->Html->link('Send Request',
 							array('controller' => 'allies', 'action' => 'request', $ally['User']['id']),
-							array('class' => 'btn btn-in-progress btn-ally-invite', 'escape' => false)),
+							array('class' => 'btn btn-in-progress ally-invite', 'escape' => false, 'data-type' => 'ajax')),
 					array('class' => 'input-group-btn'));
 			
 		} else {

@@ -47,7 +47,7 @@ if(isset($selfdata['Dependent'])) {
 		$optionsch['data'] 		= 'challenge-' . $dependent['id'];
 		$challenge_id 			= $this->Form->input('Challenge.id', $optionsch);
 
-		$challenge 				 = $this->Html->div('col-md-3 col-sm-3 col-xs-3 btn-finished text-left', $selfdata['Configuration']['title']);
+		$challenge 				 = $this->Html->div('col-md-3 col-sm-3 col-xs-3 btn btn-finished text-left', $selfdata['Configuration']['title']);
 		$challenge 				.= $this->Html->div('col-md-8 col-sm-8 col-xs-8', 
 										(empty($goal['Challenge']['name']))? $dependent['answer']: $goal['Challenge']['name']);
 		$challenge				= $this->Html->div('row no-margin margin-bottom-5', $challenge);
@@ -61,7 +61,7 @@ if(isset($selfdata['Dependent'])) {
 		
 		$hidden = ($options['value'] == '')? ' hidden' : '';
 		
-		$complete_by  = $this->Html->div('btn-in-progress col-md-3 text-left', 'Complete by');
+		$complete_by  = $this->Html->div('btn btn-in-progress col-md-3 text-left', 'Complete by');
 		$complete_by .= $this->Form->input('Challenge.complete_by', $options);
 		
 		$calendar = $add_ally = '';
@@ -78,7 +78,7 @@ if(isset($selfdata['Dependent'])) {
 			$add_ally = $this->Html->link('Add Ally', 
 					array('controller' => 'allies', 'action' => 'allies', '?' => array(
 							'st' => $this->request->query['st'], 'challenge' => $optionsch['value'])), 
-					array('class' => 'btn-in-progress col-md-3' . $hidden, 'data' => 'ally-' . $dependent['id'], 'escape'=> false));
+					array('class' => 'btn btn-in-progress col-md-3' . $hidden, 'data' => 'ally-' . $dependent['id'], 'escape'=> false));
 		}
 
 		$allies_selected = $allies_list = '';

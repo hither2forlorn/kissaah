@@ -73,7 +73,7 @@ if($this->request->is('ajax')) {
 				if($this->request->is('ajax') || (!isset($this->request->query['st']) && !isset($this->request->query['challenge']))) {
 					$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')),
 							array('controller' => 'feedbacks', 'action' => 'index', 'myself', $ally['Ally']['id']),
-							array('class' => 'fbox-ally btn-ally', 'escape' => false, 'data-type' => 'ajax'));
+							array('class' => 'btn-ally', 'escape' => false, 'data-type' => 'ajax'));
 					
 				} else {
 					$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')),
@@ -127,7 +127,7 @@ if($this->request->is('ajax')) {
 
 			$btndr .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')), 
 	  							array('controller' => 'feedbacks', 'action' => 'index', 'ally', $ally['Ally']['id']), 
-								array('class' => 'fbox-ally btn-ally' . $hidden, 'escape' => false, 'data-type' => 'ajax'));
+								array('class' => 'btn-ally' . $hidden, 'escape' => false, 'data-type' => 'ajax'));
 									   
 			$btndr .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o fa-2x')), 
 	  								   array('controller' => 'allies', 'action' => 'request_action', 'delete', $ally['Ally']['id']), 

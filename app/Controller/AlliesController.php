@@ -132,6 +132,9 @@ class AlliesController extends AppController{
 	 */
 	
 	public function request($user_id = null) {
+		
+		$return['success'] = 0;
+		
 		if($this->request->is('post')) {
 			$this->request->data['Ally']['status'] 				= 0;
 			$this->request->data['Ally']['ally_notification'] 	= 'Requested';
@@ -143,7 +146,6 @@ class AlliesController extends AppController{
 			if(empty($exists)) {
 				$this->Ally->create();
 				if($this->Ally->save($this->request->data['Ally'])){
-					$this->autoRender = false;
 					$options = array(
 							'subject' 	=> $this->Session->read('Company.name') . ' : ' . $this->Auth->User('name') . ' wants to add you as an ally',
 							'template' 	=> 'ally_request',
@@ -154,24 +156,23 @@ class AlliesController extends AppController{
 					$data['roadmap'] = $this->Session->read('ActiveGame.roadmap');
 					
 					$this->_sendEmail($options, $data);
-					
-					if(isset($this->request->query)) {
-						$this->redirect(array(
-								'controller' => 'challenges', 'action' => 'set_challenge_user', 
-								'add', $this->request->query['challenge'], $this->request->data['Ally']['ally'],
-								'?' => array('st' => $this->request->query['st'])
-						));
-					}
+					$this->Session->setFlash('Congratulations! Ally request sent.');
+					$return['success'] = 1;
 				}
+			}
+			
+			if(isset($this->request->query['challenge']) && isset($this->request->query['st'])) {
+				$this->redirect(array(
+						'controller' => 'challenges', 'action' => 'set_challenge_user',
+						'add', $this->request->query['challenge'], $this->request->data['Ally']['ally'],
+						'?' => array('st' => $this->request->query['st'])));
 				
 			} else {
 				$this->autoRender = false;
-				if($exists['Ally']['status'] == 0) {}
-				
+				return json_encode($return);
 			}
-			$this->Session->setFlash('Congratulations! Allies Request Sent');
-			$this->redirect(array('controller' => 'allies', 'action' => 'allies'));
 		}
+		
 		if(!empty($user_id)) {
 			$options['contain'] 	= false;
 			$options['conditions']	= array('User.id' => $user_id);
@@ -182,9 +183,8 @@ class AlliesController extends AppController{
 			$user_game_status_id = $this->Ally->UserGameStatus->find('list', $options);
 			
 			$this->set('user_game_status_id', $user_game_status_id);
+			$this->set('ally', $ally);
 		}
-		
-		$this->set('ally', $ally);
 	}
 
 	public function invite() {

@@ -4,8 +4,11 @@ var Allies = function(){
 	});
 	
 	return {
-		OpenPopup : function(){
-    		$('a.fbox-ally').fancybox({});
+		OpenPopup : function() {
+			$('a.btn-ally').on('click', function(){
+				$.fancybox.close();
+			});
+    		$('a.btn-ally').fancybox({});
 		},
 		
 		Search : function(){
@@ -86,7 +89,7 @@ var Allies = function(){
         		});
 			});
         	
-			$('.allies').on('click', '.btn-ally-invite', function(event) {
+			$('.allies').on('click', '.ally-invite', function(event) {
 				event.preventDefault();
 				var valid_request = true;
 				/*
@@ -105,11 +108,11 @@ var Allies = function(){
 						url 	: $(this).attr('href'),
 						data 	: $('form#AllyRequestForm :input').serializeArray(),
 					});
-	            	request.done(function( msg ) {
-	            		if(msg == 'Success') {
+	            	request.done(function(data) {
+        				var object = $.parseJSON(data);
+        				var success = object.success;
+        				if(success == 1) {
 	            			$.fancybox.close();
-	            		} else {
-	            			$('a[data=allies]').trigger('click');
 	            		}
 	            	});
 	            	request.fail(function( jqXHR, textStatus ) {

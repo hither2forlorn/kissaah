@@ -29,13 +29,15 @@ if($message != ''){
 			$image = $this->Html->image($image, array('class' => 'img-responsive margin-top-10 margin-bottom-10'));
 			
 			$link = '';
+			$ajax = ' btn-ally';
 			if(isset($this->request->query['st']) && isset($this->request->query['challenge'])) {
 				$link = $this->request->query;
+				$ajax = '';
 			}
 			
-			$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus-square')), 
-	  								   array('controller' => 'allies', 'action' => 'request', $ally['User']['id'], '?' => $link), 
-	  								   array('class' => 'fbox-ally btn-ally', 'escape' => false, 'data' => $ally['User']['id'], 'data-width' => '500'));
+			$btndr = $this->Html->link('Invite Ally ' . $this->Html->tag('i', '', array('class' => 'fa fa-plus-square')), 
+	  				array('controller' => 'allies', 'action' => 'request', $ally['User']['id'], '?' => $link),
+					array('class' => 'btn btn-default margin-bottom-5' . $ajax, 'escape' => false, 'data-type' => 'ajax'));
 			
 			$span  = $this->Html->tag('span', $ally_name . '<br />' . $btndr, array('id' => $ally['User']['id']));
 			
@@ -47,3 +49,8 @@ if($message != ''){
 	}
 }
 ?>
+<script>
+$(document).ready(function(){
+	Allies.OpenPopup();
+});
+</script>
