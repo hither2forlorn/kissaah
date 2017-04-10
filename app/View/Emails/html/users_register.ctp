@@ -6,9 +6,9 @@ $link = $this->Html->link('click here',
 
 echo $this->Html->para(null, 'Thank you for signing up to ' . $this->Session->read('Company.name') . '!');
 //echo $this->Html->para(null, 'Please ' . $link . ' to confirm your email.');
-echo $this->Html->para(null, 'We have received your request for an account with Kissaah. 
-		Our team is working to verify the request and provide you with an account.');
-echo $this->Html->para(null, 'We hope you enjoy changing your story with Kissaah.');
+echo $this->Html->para(null, 'We have received your request for an account with ' . $this->Session->read('Company.name') . 
+		'. Our team is working to verify the request and provide you with an account.');
+echo $this->Html->para(null, 'We hope you enjoy changing your story with ' . $this->Session->read('Company.name') . '.');
 
 echo $this->Html->para(null, 'The ' . $this->Session->read('Company.name') . ' Team');
 echo $this->Html->para(null, 'Join the ' . $this->Session->read('Company.name') . ' Community, find us on:');
