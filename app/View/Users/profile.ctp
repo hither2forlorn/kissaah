@@ -81,9 +81,11 @@ if ($this->request->is('ajax')) {
 			</label>
 		</div>
 		<?php echo $this->Form->end(); 
-		echo $this->Html->div('col-md-12 margin-top-10 text-center', $this->Html->link('Deactivate Account',
-				array('controller' =>'users', 'action' => 'deactivate_account'),
-				array('class' => 'btn btn-primary', 'id' =>'deactivate-account')));
+		if ($this->request->is('ajax') == false) {
+			echo $this->Html->div('col-md-12 margin-top-10 text-center', $this->Html->link('Deactivate Account',
+					array('controller' =>'users', 'action' => 'deactivate_account'),
+					array('class' => 'btn btn-primary', 'id' =>'deactivate-account')));
+		}
 		?>
 	</div>
 </div>
