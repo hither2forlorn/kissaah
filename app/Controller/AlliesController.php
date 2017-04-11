@@ -146,6 +146,7 @@ class AlliesController extends AppController{
 			if(empty($exists)) {
 				$this->Ally->create();
 				$this->request->data['Ally']['span'] = $data['Ally']['user_id'] . $data['Ally']['user_game_status_id'] . $data['Ally']['ally_email'];
+				$this->request->data['Ally']['span'] = Security::hash($this->request->data['Ally']['span']);
 				if($this->Ally->save($this->request->data['Ally'])) {
 					$id = $this->Ally->id;
 					$options = array(
@@ -154,9 +155,9 @@ class AlliesController extends AppController{
 							'to'		=>  $this->request->data['Ally']['ally_email']
 					);
 					
-					$data['name'] = $this->Auth->User('name');
-					$data['roadmap'] = $this->Session->read('ActiveGame.roadmap');
-					$data['span'] = $this->Auth->password($this->request->data['Ally']['span']);
+					$data['name'] 		= $this->Auth->User('name');
+					$data['roadmap'] 	= $this->Session->read('ActiveGame.roadmap');
+					$data['span'] 		= $this->request->data['Ally']['span'];
 					
 					$this->_sendEmail($options, $data);
 					$this->Session->setFlash('Congratulations! Ally request sent.');
