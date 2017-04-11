@@ -11,12 +11,12 @@
 	echo $this->Html->para('', $data['name'] . ' appreciates your help! You can also ask for help back by making ' . $data['name'] . ' your Ally too!');
 	
 	echo $this->Html->link('Accept Request',
-			array('controller' => 'allies', 'action' => 'request_action', 'accept', $data['span'], 'full_base' => true),
+			array('controller' => 'allies', 'action' => 'accept_ally', $data['span'], 'full_base' => true),
 			array('style' => 'display:inline-block;padding:6px 12px;margin-bottom:0;text-align:center;vertical-align:middle;touch-action:manipulation;
 							cursor:pointer;background-color:#17b3e8;border:1px solid transparent;color:#FFF;'));
 
 	/* echo $this->Html->para('', 'If you\'re not a ' . $this->Session->read('Company.name') . ' user, no worries at all! ' . 
-			$this->Html->link('Click here', array('controller' => 'users', 'action' => 'register', 'full_base' => true), array('fullBase' => true)) . 
+			$this->Html->link('Click here', array('controller' => 'users', 'action' => 'register', 'full_base' => true)) . 
 			' to follow the brief steps, and start being a recognized ' . $this->Session->read('Company.name') . ' Ally!'); */
 
 	echo $this->Html->para('', 'Thank you for your contribution to ' . $data['name'] . '\'s journey on ' . $this->Session->read('Company.name') . '.');

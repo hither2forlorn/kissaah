@@ -6,6 +6,11 @@ class AlliesController extends AppController{
 		'contain'	=> false
 	);
 	
+	function beforeFilter(){
+		parent::beforeFilter();
+		$this->Auth->allowedActions = array('accept_ally');
+	}
+	
 	/*
 	 * Ally Status
 	 *  0 : Sent Ally request, but not approved
@@ -124,6 +129,20 @@ class AlliesController extends AppController{
 		return(json_encode($return));
 	}
 
+	public function accept_ally($span) {
+		
+		$update = array('status' => 1, 'ally_notification' => "'Accepted'", 'span' => null);
+		$conditions = array('span' => $span);
+		
+		if($this->Ally->updateAll($update, $conditions)) {
+			$this->Session->setFlash('Ally request accepted');
+		} else {
+			$this->Session->setFlash('Ally request could not be accepted');
+		}
+		
+		$this->redirect(array('controller' => 'pages'));
+	}
+	
 	/*2014-10-29, Badri
 	 * Allies Notification
 	 * 'ally_notification' : 0 => no notification

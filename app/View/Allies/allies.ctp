@@ -117,9 +117,9 @@ if($this->request->is('ajax')) {
 				$ally_field_class = 'color-grey';
 				$hidden = ' hidden';
 				
-				$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-check-square fa-2x')), 
+				$btndr = $this->Html->link('Accept ' . $this->Html->tag('i', '', array('class' => 'fa fa-check-square')), 
 		  								   array('controller' => 'allies', 'action' => 'request_action', 'accept', $ally['Ally']['id']), 
-		  								   array('class' => 'btn-ally-status', 'escape' => false));
+		  								   array('class' => 'btn btn-default btn-ally-status', 'escape' => false));
 			} else {
 				$ally_field_class = 'color-finished';
 				$btndr = $hidden = '';
