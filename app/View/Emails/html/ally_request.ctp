@@ -3,24 +3,21 @@
 	echo $this->Html->para('', $data['name'] . ' has invited you to be an Ally as part of the ' . $data['Ally']['roadmap'] . ' RoadMap.');
 	echo $this->Html->para('', $data['name'] . ' is calling upon your expertise and has asked if you can:');
 	
-	if(isset($data['Ally']['need_ally_to'])) {
-		$calling[] = $data['Ally']['need_ally_to'];
-	}
-	if(isset($data['Ally']['help_with'])) {
-		$calling[] = $data['Ally']['help_with'];
-	}
-	if(isset($data['Ally']['from_there'])) {
-		$calling[] = $data['Ally']['from_there'];
-	}
+	if(isset($data['Ally']['need_ally_to'])) 	$calling[] = $data['Ally']['need_ally_to'];
+	if(isset($data['Ally']['help_with'])) 		$calling[] = $data['Ally']['help_with'];
+	if(isset($data['Ally']['from_there'])) 		$calling[] = $data['Ally']['from_there'];
 	echo $this->Html->nestedList($calling);
 	
-	echo $this->Html->para('', $data['name'] . ' appreciates your help! 
-								You can also ask for help back by making ' . $data['name'] . ' your Ally too!');
-								
-	echo $this->Html->para('', 'If you\'re not a ' . $this->Session->read('Company.name') . ' user, no worries at all! ' . 
-								$this->Html->link('Click here', array('controller' => 'users', 'action' => 'register', 'full_base' => true), 
-												   array('fullBase' => true)) . 
-								' to follow the brief steps, and start being a recognized ' . $this->Session->read('Company.name') . ' Ally!');
+	echo $this->Html->para('', $data['name'] . ' appreciates your help! You can also ask for help back by making ' . $data['name'] . ' your Ally too!');
+	
+	echo $this->Html->link('Accept Request',
+			array('controller' => 'allies', 'action' => 'request_action', 'accept', $data['span']),
+			array('style' => 'display:inline-block;padding:6px 12px;margin-bottom:0;text-align:center;vertical-align:middle;touch-action:manipulation;
+							cursor:pointer;background-color:#17b3e8;border:1px solid transparent;color:#FFF;', 'fullBase' => true));
+
+	/* echo $this->Html->para('', 'If you\'re not a ' . $this->Session->read('Company.name') . ' user, no worries at all! ' . 
+			$this->Html->link('Click here', array('controller' => 'users', 'action' => 'register', 'full_base' => true), array('fullBase' => true)) . 
+			' to follow the brief steps, and start being a recognized ' . $this->Session->read('Company.name') . ' Ally!'); */
 
 	echo $this->Html->para('', 'Thank you for your contribution to ' . $data['name'] . '\'s journey on ' . $this->Session->read('Company.name') . '.');
 

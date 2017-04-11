@@ -6,8 +6,17 @@ if($ally_name == '') {
 
 if($this->request->is('ajax')) {
 	echo '<div class="row no-margin allies">';
+	$need_ally_to = $help_with = '';
 } else {
 	echo '<div class="col-md-6 col-md-offset-3 allies">';
+
+	$dev = $this->requestAction(array('controller' => 'games', 'action' => 'answer', 59));
+	$exp = $this->requestAction(array('controller' => 'games', 'action' => 'answer', 118));
+	$con = $this->requestAction(array('controller' => 'games', 'action' => 'answer', 185));
+	$spt = $this->requestAction(array('controller' => 'games', 'action' => 'answer', 111));
+	
+	$need_ally_to 	= $dev[0]['Game']['answer'] . '; ' . $exp[0]['Game']['answer'] . '; ' . $con[0]['Game']['answer'];
+	$help_with 		= isset($spt[0]['Game']['answer'])? $spt[0]['Game']['answer']: '';
 }
 
 	echo $this->Html->tag('h3', 'How do you think ' . $ally_name . ' can help you?', array('class' => 'activitytitle'));
@@ -30,8 +39,8 @@ if($this->request->is('ajax')) {
 			echo $this->Form->input('user_game_status_id', array('options' => $user_game_status_id, 'label' => 'Select roadmap'));
 		}
 
-		echo $this->Form->input('need_ally_to', array('placeholder'	=> 'i need the ally to...'));
-		echo $this->Form->input('help_with', array('placeholder' => 'this will help with...'));
+		echo $this->Form->input('need_ally_to', array('placeholder'	=> 'i need the ally to...', 'value' => $need_ally_to));
+		echo $this->Form->input('help_with', array('placeholder' => 'this will help with...', 'value' => $help_with));
 		echo $this->Form->input('from_there', array('placeholder' => 'from there I can......'));
 		
 		if(empty($ally['User']['id'])) {

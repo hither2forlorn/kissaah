@@ -163,6 +163,13 @@ class GamesController extends AppController {
  		}
  	}
  	
+ 	public function answer($cid, $user = 'current') {
+ 		$options['contain'] = false;
+ 		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => $cid);
+ 		return $this->Game->find('all', $options);
+ 		
+ 	}
+ 	
 	public function spark_board() {
 		$this->Session->write('Game.query_all', 1);
 
