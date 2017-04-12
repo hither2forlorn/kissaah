@@ -175,18 +175,18 @@ class GamesController extends AppController {
 
 		$options['contain'] = array('Challenge' => array('ChallengesUser' => array('User')));
 		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 59);
-		$development = $this->Game->find('all', $options);
+		$spark['Development'] = $this->Game->find('all', $options);
 		
 		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 118);
-		$exposure = $this->Game->find('all', $options);
+		$spark['Exposure'] = $this->Game->find('all', $options);
 		
 		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 185);
-		$connection = $this->Game->find('all', $options);
+		$spark['Connections'] = $this->Game->find('all', $options);
 
 		$options['conditions'] = array('Game.user_id' => $this->Session->read('ActiveGame.user_id'), 'configuration_id' => 111);
 		$next = $this->Game->find('all', $options);
 		
-		$this->set(compact('development', 'exposure', 'connection', 'next'));
+		$this->set(compact('spark', 'next'));
 		$this->Session->write('Game.query_all', 0);
 	}
 	
