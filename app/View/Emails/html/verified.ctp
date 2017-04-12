@@ -4,14 +4,14 @@
 					array('controller' => 'users', 'action' => 'manualLogin', 
 						  '?' => array('e' => $data['User']['email'], 'p' => $data['User']['password']), 'full_base' => true));
 	
-	echo $this->Html->para(null, 'Thank you for signing up to Kissaah!');
+	echo $this->Html->para(null, 'Thank you for signing up to ' . $this->Session->read('Company.name') . '.');
 	//echo $this->Html->para(null, 'Please ' . $link . ' to confirm your email.');
 	echo $this->Html->para(null, 'Your request has been approved. Please ' . $link . ' to login and get started.');
-	echo $this->Html->para(null, 'We hope you enjoy changing your story with Kissaah.');
+	echo $this->Html->para(null, 'We hope you enjoy changing your story with ' . $this->Session->read('Company.name') . '.');
 ?>
 
-<p>The Kissaah Team</p>
-<p>Join the Kissaah Community, find us on:</p>
+<p>The <?php echo $this->Session->read('Company.name');?> Team</p>
+<p>Join the <?php echo $this->Session->read('Company.name');?> Community, find us on:</p>
 <div><?php 
 	echo $this->Html->image('social/FB-f-Logo__blue_29.png', 
 							array('fullBase' => true, 'url' => 'https://www.facebook.com/kissaah'));

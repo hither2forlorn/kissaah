@@ -5,23 +5,27 @@ $(function() {
 		receive : function( event, ui ) {
 			confid 	= $(this).attr('data-conf');
 			id 		= ui.item.attr('data-id');
-
+			//console.log($(this).children().length);console.log(confid);
 			if(confid != undefined) {
-				var data = { };
-				data['data[Game][' + confid + '][' + id + ']'] = ui.item.text();
-				$.ajax({
-					url		: host_url + 'games/save',
-					type	: 'POST',
-					data 	: data,
-					success	: function(data){
-        				var object = $.parseJSON(data);
-        				if(object.success) {
-    						$('div[data-conf="' + object.cid + '"]').attr('data-id', object.id);
-    						ui.item.attr('data-id', object.id);
-    						$('ul[data-conf="' + object.cid + '"]').append(ui.item);
-        				}
-					}
-				});
+				if((confid == 111 && $(this).children().length < 2) || confid != 111) {
+					var data = { };
+					data['data[Game][' + confid + '][' + id + ']'] = ui.item.text();
+					$.ajax({
+						url		: host_url + 'games/save',
+						type	: 'POST',
+						data 	: data,
+						success	: function(data){
+	        				var object = $.parseJSON(data);
+	        				if(object.success) {
+	    						$('div[data-conf="' + object.cid + '"]').attr('data-id', object.id);
+	    						ui.item.attr('data-id', object.id);
+	    						$('ul[data-conf="' + object.cid + '"]').append(ui.item);
+	        				}
+						}
+					});
+				} else {
+					$(ui.sender).sortable('cancel');
+				}
 			}
 		}
 	});
