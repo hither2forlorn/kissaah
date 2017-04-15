@@ -106,6 +106,7 @@ $config['Uploader']['mimeTypes'] = array(
 	),
 	'application' => array(
 		'js'	=> 'application/x-javascript',
+		'csv' 	=> 'application/vnd.ms-excel',
 		'xlc' 	=> 'application/vnd.ms-excel',
 		'xll' 	=> 'application/vnd.ms-excel',
 		'xlm' 	=> 'application/vnd.ms-excel',

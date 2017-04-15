@@ -59,15 +59,14 @@ class UsersController extends AppController {
 
 	public function register($admin = false){
 		
-		if ($this->Auth->user() && !$admin) {
+		if ($this->Auth->user() && $admin === false) {
 			$this->redirect(array('controller' => 'users', 'action' => 'profile'));
 			
 		} else {
 			if(!empty($this->request->data)){
-				$this->request->data['User']['role_id'] = 2;
-				if(!isset($this->request->data['User']['verified'])) {
-					$this->request->data['User']['verified'] = 0;
-				}
+				if(!isset($this->request->data['User']['role_id']))  $this->request->data['User']['role_id']  = 2;
+				if(!isset($this->request->data['User']['verified'])) $this->request->data['User']['verified'] = 0;
+
 				$this->request->data['User']['login_ip'] = $this->_getRealIpAddr();
 				if($admin) {
 					$tmp_password = $this->request->data['User']['confirmpassword'] = $this->request->data['User']['password'];
@@ -133,6 +132,7 @@ class UsersController extends AppController {
 		$this->autoRender = false;
 		if($this->Auth->login() && $admin == 0) {
 			$this->redirect(array('controller' => 'users', 'action' => 'afterLogin'));
+			
 		} else {
 				
 			if(Security::hash($email) == $hash) {
@@ -603,13 +603,13 @@ class UsersController extends AppController {
 	}
 	
 	//For Support Pages
-	public function support(){
+	public function support() {
 		$user_email = $this->Auth->User('email');
 		$this->set(compact('user_email'));
 	}
 	
 	//To send Support Mails
-	public function send_to_support(){
+	public function send_to_support() {
 		$this->autoRender =false;
 		$ticket_no = mt_rand(10000000, 99999999);
 		$support_data = $this->request->data['User'];
@@ -619,7 +619,7 @@ class UsersController extends AppController {
 		$data['subject']	= $support_data['subject'];
 		$data['issue']		= $support_data['issue'];
 		$data['ticket_no']  = $ticket_no;
-		$images=array();
+		$images = array();
 		
 		if(isset($support_data['image1']) && $support_data['image1'] != ''){
 			$images[]		= $support_data['image1'];
@@ -877,6 +877,57 @@ class UsersController extends AppController {
 		$this->set('roles', $roles);
 	} 
 	
+	public function admin_bulk_upload($filename = null) {
+		if($this->request->is('post') || $this->request->is('put')) {
+			$file = $this->request->data['User']['bulk_file'];
+			
+			$this->Uploader->addMimeType('text', 'csv', 'text/csv');
+			$this->Uploader->addMimeType('application', 'csv', 'application/vnd.ms-excel');
+			
+			if(Uploader::checkMimeType(strtolower(Uploader::ext($file['name'])), $file['type']) != 'application'){
+				$allowedExts = Configure::read('Uploader.mimeTypes');
+				$allowedImageExts = $allowedExts['image'];
+				$allowed = '';
+				foreach($allowedImageExts as $a) {
+					if(is_array($a)) {
+						$a = implode(', ', $a);
+					}
+					$allowed = $allowed . ',' . $a;
+				}
+				debug('Files of type :' . $file['type'] . ', can not be uploaded ' . ' Allowed Image Types :' . $allowed);
+			} else {
+				$this->Uploader->uploadDir = '/files/users';
+				$filename = md5(date('Ymdhis') . rand());
+				$uploadimage = $this->Uploader->upload($file, array(
+						'overwrite' => false,
+						'name' 		=> $filename,
+						'multiple' 	=> false));
+				
+				if(!($uploadimage)){
+					$this->Session->setFlash('Error');
+				} else {
+					$filename = $filename . '.' . Uploader::ext($file['name']);
+					$this->set(compact('filename'));
+				}
+			}
+		} elseif($filename != null) {
+			$filename = WWW_ROOT . DS . 'files/users/' . $filename;
+			if (file_exists($filename) && ($handle = fopen($filename, 'r')) !== FALSE) {
+				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+					if(isset($data[0]) && isset($data[1]) && isset($data[2])) {
+						$this->request->data['User']['name'] = $data[0];
+						$this->request->data['User']['email'] = $data[1];
+						$this->request->data['User']['password'] = $data[2];
+						
+						debug($this->request->data);
+						debug($this->register(true));
+					}
+				}
+				fclose($handle);
+			}
+		}
+	}
+	
 	public function oauth($source = null) {
 		$this->autoRender = false;
 		if($source == 'linkedin') {
@@ -936,5 +987,4 @@ class UsersController extends AppController {
 			}
 		}
 	}
-	
 }

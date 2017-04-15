@@ -44,7 +44,11 @@
 				$menus[] = array('name' => ' Value/Strength', 'icon' => 'icon-bar-chart', 'url' => 'admin/value_strength_categories');
 			}
 				$menus[] = array('name' => ' Organizations', 'icon' => 'icon-user', 'url' => 'admin/organizations');
-				$menus[] = array('name' => ' Users', 'icon' => 'icon-user', 'url' => 'admin/users/view/');
+				$menus[] = array('name' => ' Users', 'icon' => 'icon-user',
+					'child' => array(
+						array('name' => ' List Users', 'url' => 'admin/users/view', 'icon' => 'icon-user'),
+						array('name' => ' User Bulk Upload', 'url' => 'admin/users/bulk_upload', 'icon' => 'fa-bullhorn'),
+				));
 				$menus[] = array('name' => ' Company/Group', 'icon' => 'icon-bar-chart', 'url' => 'admin/company_groups');
 				$menus[] = array('name' => ' Collage', 'icon' => 'icon-graph',
 								 'child' => array(
