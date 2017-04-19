@@ -919,8 +919,12 @@ class UsersController extends AppController {
 						$this->request->data['User']['email'] = $data[1];
 						$this->request->data['User']['password'] = $data[2];
 						
-						debug($this->request->data);
-						debug($this->register(true));
+						$return = $this->register(true);
+						
+						if($return === 0) {
+							$fail[] = $data;
+							$this->set(compact('fail'));
+						}
 					}
 				}
 				fclose($handle);
