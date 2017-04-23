@@ -554,7 +554,9 @@ var Game = function () {
             		event.preventDefault();
         			$('h5.error-message').html('Please enter the roadmap');
         		} else {
-            		location.reload();
+        			setTimeout(function() {
+                		location.reload();
+        			}, 3000);
         		}
         	});
         },
