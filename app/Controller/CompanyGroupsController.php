@@ -94,12 +94,9 @@ class CompanyGroupsController extends AppController {
 	
 	public function admin_save($id = null) {
 		$this->autoRender = false;
-		if (!$this->CompanyGroup->exists($id)) {
-			throw new NotFoundException(__('Invalid CompanyGroup'));
-		}
 		if ($this->request->is('ajax')) {
 			$this->CompanyGroup->CompanyGroupsUser->id = $id;
-			$this->CompanyGroup->CompanyGroupsUser->saveField('role_id', $data['role_id']);
+			$this->CompanyGroup->CompanyGroupsUser->saveField('role_id', $this->request->data['role_id']);
 		}
 	}
 	

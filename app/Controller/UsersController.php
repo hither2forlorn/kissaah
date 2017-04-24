@@ -66,7 +66,8 @@ class UsersController extends AppController {
 			if(!empty($this->request->data)){
 				if(!isset($this->request->data['User']['role_id']))  $this->request->data['User']['role_id']  = 2;
 				if(!isset($this->request->data['User']['verified'])) $this->request->data['User']['verified'] = 0;
-
+				if(!isset($this->request->data['User']['collage_status'])) $this->request->data['User']['collage_status'] = 1;
+				
 				$this->request->data['User']['login_ip'] = $this->_getRealIpAddr();
 				if($admin) {
 					$tmp_password = $this->request->data['User']['confirmpassword'] = $this->request->data['User']['password'];

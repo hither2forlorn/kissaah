@@ -16,8 +16,8 @@ $interval = date_diff($vision_date, $current_date);
 $default = $this->Html->tag('span', 
 	$this->Html->tag('span', $this->Html->tag('span', $interval->days, array('class' => 'countdown_amount')) . '<br />Days', array('class' => 'countdown_section')) .
 	$this->Html->tag('span', $this->Html->tag('span', $interval->h, array('class' => 'countdown_amount')) . '<br />Hours',   array('class' => 'countdown_section')) .
-	$this->Html->tag('span', $this->Html->tag('span', $interval->i, array('class' => 'countdown_amount')) . '<br />Minutes', array('class' => 'countdown_section')) .
-	$this->Html->tag('span', $this->Html->tag('span', $interval->s, array('class' => 'countdown_amount')) . '<br />Seconds', array('class' => 'countdown_section')), 
+	$this->Html->tag('span', $this->Html->tag('span', $interval->i, array('class' => 'countdown_amount')) . '<br />Minutes', array('class' => 'countdown_section')),
+	//$this->Html->tag('span', $this->Html->tag('span', $interval->s, array('class' => 'countdown_amount')) . '<br />Seconds', array('class' => 'countdown_section')), 
 	array('class' => 'countdown_row countdown_show4'));
 
 $count_down = $this->Html->div('col-md-8 padding-0 col-md-offset-2', $default, array('id' => 'defaultCountdown'));

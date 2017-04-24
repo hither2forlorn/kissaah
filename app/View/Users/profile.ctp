@@ -28,6 +28,10 @@ if ($this->request->is('ajax')) {
 				'class'		=> 'default',
 				'div' 		=> false));
 		echo $this->Form->end();
+
+		echo $this->Html->div('col-md-12 margin-top-10 small no-padding', $this->Html->link('Deactivate Account',
+				array('controller' => 'users', 'action' => 'deactivate_account'),
+				array('id' =>'deactivate-account')));
 	?></div>
 	<div class="col-md-9 col-sm-7 col-xs-8 no-padding">
 		<?php echo $this->Form->create('User', array(
@@ -84,8 +88,8 @@ if ($this->request->is('ajax')) {
 		</div>
 		<?php echo $this->Form->end(); 
 		if ($this->request->is('ajax') == false) {
-			echo $this->Html->div('col-md-12 margin-top-10 text-center', $this->Html->link('Deactivate Account',
-					array('controller' =>'users', 'action' => 'deactivate_account'),
+			echo $this->Html->div('col-md-12 margin-top-10 text-center', $this->Html->link('Back to Game',
+					array('controller' => 'games', 'action' => 'index'),
 					array('class' => 'btn btn-primary', 'id' =>'deactivate-account')));
 		}
 		?>
