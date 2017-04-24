@@ -140,7 +140,7 @@ class AlliesController extends AppController{
 			$this->Session->setFlash('Ally request could not be accepted');
 		}
 		
-		$this->redirect(array('controller' => 'pages'));
+		$this->redirect(array('controller' => 'users', 'action' => 'profile'));
 	}
 	
 	/*2014-10-29, Badri

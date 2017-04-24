@@ -196,15 +196,33 @@ class GamesController extends AppController {
 		$this->loadModel('CompanyGroupsUser');
 		$options['contain'] = false;
 		$options['conditions'] = array('CompanyGroupsUser.user_id' => $this->Session->read('ActiveGame.user_id'));
-		$options['fields'] = array('id', 'company_group_id');
-		$group = $this->CompanyGroupsUser->find('first', $options);
+		$options['fields'] = array('id', 'company_group_id', 'role_id');
+		$group = $this->CompanyGroupsUser->find('all', $options);
+		
+		debug($group);
 		
 		if(empty($group)) {
 			$users = $this->Session->read('ActiveGame.user_id');
 		} else {
-			$options['conditions'] = array('company_group_id' => $group['CompanyGroupsUser']['company_group_id']);
-			$options['fields'] = array('id', 'user_id');
-			$users = $this->CompanyGroupsUser->find('list', $options);
+			$users = array();
+			foreach($group as $permission) {
+				if($permission['CompanyGroupsUser']['role_id'] == 1 || $permission['CompanyGroupsUser']['role_id'] == 4) {
+					$options['conditions'] = array('company_group_id' => $permission['CompanyGroupsUser']['company_group_id']);
+					$options['fields'] = array('id', 'user_id');
+					$users = array_merge($users, $this->CompanyGroupsUser->find('list', $options));
+					
+				} elseif($permission['CompanyGroupsUser']['role_id'] == 3) {
+					$options['conditions'] = array('company_group_id' => $permission['CompanyGroupsUser']['company_group_id'], 'role_id IN (2, 3)');
+					$options['fields'] = array('id', 'user_id');
+					$users = array_merge($users, $this->CompanyGroupsUser->find('list', $options));
+					
+				} elseif($permission['CompanyGroupsUser']['role_id'] == 2 || $permission['CompanyGroupsUser']['role_id'] == null) {
+					$users = array_merge($users, array($this->Session->read('ActiveGame.user_id')));
+					
+				}
+			}
+			
+			debug($users);
 		}
 
 		$options = array();

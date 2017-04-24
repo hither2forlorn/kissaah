@@ -57,7 +57,7 @@ foreach($feedback_list as $key => $value) {
 											 $this->Html->div('border-input margin-bottom-5', $answer), array('data' => 'medium-' . $id));
 		
 	} else {
-		debug($feedbacks[$key]);
+		//debug($feedbacks[$key]);
 		
 	}
 }

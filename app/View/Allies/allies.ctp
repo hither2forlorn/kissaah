@@ -64,22 +64,23 @@ if($this->request->is('ajax')) {
 			if($ky%3 == 0) $my_allies .= '</div><div class="row">';
 			$status = isset($ally['Ally']['status'])? $ally['Ally']['status']: 0;
 			
-			if($status == 0) {
+			$btndr = '';
+			if($status == 0 && $this->request->is('ajax')) {
 				$ally_field_class = 'color-grey';
-				$btndr = '';
 			} else {
 				$ally_field_class = 'color-finished';
 				
 				if($this->request->is('ajax') || (!isset($this->request->query['st']) && !isset($this->request->query['challenge']))) {
+					/*
 					$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')),
 							array('controller' => 'feedbacks', 'action' => 'index', 'myself', $ally['Ally']['id']),
 							array('class' => 'btn-ally', 'escape' => false, 'data-type' => 'ajax'));
-					
+					*/
 				} else {
-					$btndr = $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')),
+					$btndr = $this->Html->link('Select Ally ' . $this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')),
 							array('controller' => 'challenges', 'action' => 'set_challenge_user', 'add', 
 									$this->request->query['challenge'], $ally['Ally']['ally'], '?' => array('st' => $this->request->query['st'])),
-							array('class' => 'btn-ally', 'escape' => false, 'data-type' => 'ajax'));
+							array('class' => 'btn btn-finished margin-top-5', 'escape' => false, 'data-type' => 'ajax'));
 					
 				}
 			}

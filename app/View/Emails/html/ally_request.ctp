@@ -3,9 +3,9 @@
 	echo $this->Html->para('', $data['name'] . ' has invited you to be an Ally as part of the ' . $data['Ally']['roadmap'] . ' RoadMap.');
 	echo $this->Html->para('', $data['name'] . ' is calling upon your expertise and has asked if you can:');
 	
-	if(isset($data['Ally']['need_ally_to'])) 	$calling[] = $data['Ally']['need_ally_to'];
-	if(isset($data['Ally']['help_with'])) 		$calling[] = $data['Ally']['help_with'];
-	if(isset($data['Ally']['from_there'])) 		$calling[] = $data['Ally']['from_there'];
+	if(isset($data['Ally']['need_ally_to']) && $data['Ally']['need_ally_to'] != '') $calling[] = $data['Ally']['need_ally_to'];
+	if(isset($data['Ally']['help_with']) && $data['Ally']['help_with'] != '') 		$calling[] = $data['Ally']['help_with'];
+	if(isset($data['Ally']['from_there']) && $data['Ally']['from_there'] != '')		$calling[] = $data['Ally']['from_there'];
 	echo $this->Html->nestedList($calling);
 	
 	echo $this->Html->para('', $data['name'] . ' appreciates your help! You can also ask for help back by making ' . $data['name'] . ' your Ally too!');
