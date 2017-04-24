@@ -30,6 +30,7 @@ if($summary || !is_null($vision_date) || $vision_date != '') {
 	$actions .= $this->Form->input($id, array('type' => 'file', 'label' => false, 'class' => 'default', 'div' => false));
 	$actions .= $this->Form->end();
 	
+	/*
 	$actions .= $this->Html->link(
 			$this->Html->tag('i', '', array('class' => 'fa fa-pinterest fa-2x', 'title' => 'Get Images From Pinterest')),
 			array('controller' => 'games', 'action' => 'pinterest_getimages', '?' => array('cid' => $id)),
@@ -39,7 +40,8 @@ if($summary || !is_null($vision_date) || $vision_date != '') {
 			$this->Html->tag('i', '', array('class' => 'fa fa-instagram fa-2x', 'title' => 'Get Images From Instagram')),
 			array('controller' => 'games', 'action' => 'instagram_getImages', '?' => array('cid' => $id, 'game_step' => $this->request->query['st'])),
 			array('escape' => false)) . '&nbsp;';
-
+	*/
+	
 	$class = '';
 	if(empty($selfdata['Game'][0]['Game']['answer'])) {
 		$class = ' hidden';
