@@ -37,11 +37,11 @@ if($message != ''){
 			
 			$btndr = $this->Html->link('Invite Ally ' . $this->Html->tag('i', '', array('class' => 'fa fa-plus-square')), 
 	  				array('controller' => 'allies', 'action' => 'request', $ally['User']['id'], '?' => $link),
-					array('class' => 'btn btn-default margin-bottom-5' . $ajax, 'escape' => false, 'data-type' => 'ajax'));
+					array('class' => 'btn btn-finished margin-bottom-5' . $ajax, 'escape' => false, 'data-type' => 'ajax'));
 			
 			$span  = $this->Html->tag('span', $ally_name . '<br />' . $btndr, array('id' => $ally['User']['id']));
 			
-			$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-6 text-015 margin-bottom-10 ally-box color-grey', 
+			$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-6 text-015 margin-bottom-10 ally-box color-grey text-center', 
 											$image . $span, array('data' => $ally['User']['id']));
 		}
 

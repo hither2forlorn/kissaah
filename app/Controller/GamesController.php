@@ -711,7 +711,7 @@ class GamesController extends AppController {
 						'client_id' 	=> 'df23a7d4793e45efb058518380458c2b',
 						'client_secret' => '96144a1af03242ed8c21c56e9c8400c6',
 						'grant_type' 	=> 'authorization_code',
-						'redirect_uri' 	=> 'http://hc.humancatalyst.co/devel/games/instagram',
+						'redirect_uri' 	=> 'http://hc.humancatalyst.co/games/instagram',
 						'code' 			=> $code
 				);
 			}
