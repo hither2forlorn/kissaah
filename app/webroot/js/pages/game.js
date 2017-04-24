@@ -944,6 +944,7 @@ var FileUpload = function () {
 								}
 							} else {
 								console.log(object.flash);
+								alert(object.flash);
 							}
 							FileUpload.stopFileLoading();
 							ReqHan[formElement] = false;

@@ -2505,7 +2505,7 @@ a.back-to-road-map {
 	color: #ea7328 !important;
 }
 .addthisevent-drop {
-	z-index: 100 !important;
+	z-index: auto !important;
 	padding: 9px 12px 8px 43px !important;
 }
 
