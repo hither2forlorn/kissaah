@@ -20,8 +20,7 @@
 						$count = count($type);
 						$row = 0;
 						if($count == 0) {
-							//$table[] = array($name, '', '', '', '', '');
-							$table[] = array($name, '', '', '');
+							$table[] = array($name, '', '', ''); //array($name, '', '', '', '', '');
 							
 						} else {
 							foreach($type as $key => $value) {
@@ -35,17 +34,23 @@
 								else 					$count += $ally_count;
 								
 								if($key == 0) {
-									$table[] = array(array($name, array('rowspan' => 1)),
+									$table[] = array(
+											array($name, array('rowspan' => 1)),
 											array($value['Game']['answer'], array('rowspan' => $ally_count)),
-											array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)), '');
-											//array('10%', array('rowspan' => $ally_count)), '', '');
+											array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)),
+											//array('10%', array('rowspan' => $ally_count)), 
+											//'', 
+											'');
 									$row = count($table) - 1;
 		
 								} else {
 									$table[$row][0][1]['rowspan'] = $table[$row][0][1]['rowspan'] + 1;
-									$table[] = array(array($value['Game']['answer'], array('rowspan' => $ally_count)),
-											array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)), '');
-											//array('10%', array('rowspan' => $ally_count)), '', '');
+									$table[] = array(
+											array($value['Game']['answer'], array('rowspan' => $ally_count)),
+											array($value['Challenge']['complete_by'], array('rowspan' => $ally_count)),
+											//array('10%', array('rowspan' => $ally_count)), 
+											//'', 
+											'');
 								}
 								
 								if(isset($value['Challenge']['ChallengesUser'])) {
@@ -53,10 +58,11 @@
 									foreach($value['Challenge']['ChallengesUser'] as $k => $v) {
 										if($k == 0) {
 											$table[$last_count][count($table[$last_count]) - 1] = $v['User']['name'];
+											//$table[$last_count][count($table[$last_count]) - 2] = $v['User']['name'];
 											
 										} else {
 											$table[$row][0][1]['rowspan'] = $table[$row][0][1]['rowspan'] + 1;
-											$table[] = array($v['User']['name'], '');
+											$table[] = array($v['User']['name']); //array($v['User']['name'], '');
 											
 										}
 									}

@@ -944,7 +944,7 @@ var FileUpload = function () {
 								}
 							} else {
 								console.log(object.flash);
-								alert(object.flash);
+								alert('Allowed file types are: JPEG, PNG and GIF. All other types will fail. Thank you');
 							}
 							FileUpload.stopFileLoading();
 							ReqHan[formElement] = false;

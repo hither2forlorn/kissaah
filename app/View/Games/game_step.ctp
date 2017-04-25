@@ -14,7 +14,9 @@ $next_btn = ($screen_width > 767 && $featured == true)? ' btn-step' : '';
 
 $visions = $this->Session->read('Vision');
 $active = 0;
+
 foreach ($visions as $key => $vision) {
+	
 	$wizard = 'complete';
 	$selected = '';
 	
@@ -32,7 +34,7 @@ foreach ($visions as $key => $vision) {
 	}
 	
 	$progress[$key] = $this->Html->div('col-xs-4 bs-wizard-step text-center ' . $wizard,
-			$this->Html->div('text-center bs-wizard-stepnum', '&nbsp;') .
+			$this->Html->div('text-center bs-wizard-stepnum', $vision['Configuration']['total_points']. '%') .
 			$this->Html->div('progress', $this->Html->div('progress-bar', '')) .
 			$this->Html->link('', array('controller' => 'games', 'action' => 'game_step',
 					'?' => array('st' => $vision['Configuration']['id'])), array('class' => 'bs-wizard-dot' . $next_btn)) .
