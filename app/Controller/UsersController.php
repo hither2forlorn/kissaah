@@ -558,7 +558,7 @@ class UsersController extends AppController {
 		$this->autoRender = false;
 		$vision_date = date('Y-m-d H:i:s', strtotime('+90 Days'));
 		$this->User->UserGameStatus->id = $this->Session->read('ActiveGame.id');
-		//$this->User->UserGameStatus->saveField('vision_date', $vision_date);
+		$this->User->UserGameStatus->saveField('vision_date', $vision_date);
 		$this->Session->write('ActiveGame.vision_date', $vision_date);
 		
 		$this->redirect(array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $this->request->query['st'])));
