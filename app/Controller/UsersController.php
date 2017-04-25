@@ -895,7 +895,7 @@ class UsersController extends AppController {
 					}
 					$allowed = $allowed . ',' . $a;
 				}
-				debug('Files of type :' . $file['type'] . ', can not be uploaded ' . ' Allowed Image Types :' . $allowed);
+				$this->Session->setFlash('Files of type :' . $file['type'] . ', can not be uploaded ' . ' Allowed Types :' . $allowed);
 			} else {
 				$this->Uploader->uploadDir = '/files/users';
 				$filename = md5(date('Ymdhis') . rand());
