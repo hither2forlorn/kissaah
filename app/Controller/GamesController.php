@@ -199,8 +199,6 @@ class GamesController extends AppController {
 		$options['fields'] = array('id', 'company_group_id', 'role_id');
 		$group = $this->CompanyGroupsUser->find('all', $options);
 		
-		debug($group);
-		
 		if(empty($group)) {
 			$users = $this->Session->read('ActiveGame.user_id');
 		} else {
@@ -221,8 +219,6 @@ class GamesController extends AppController {
 					
 				}
 			}
-			
-			debug($users);
 		}
 
 		$options = array();

@@ -2,19 +2,22 @@
 foreach($development as $key => $value) {
 	if(!is_null($value['Challenge']['name'])) {
 		$test[$value['User']['id']]['name'] = $value['User']['name'];
-		$test[$value['User']['id']]['d'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by'], '10%');
+		//$test[$value['User']['id']]['d'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by'], '10%');
+		$test[$value['User']['id']]['d'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by']);
 	}
 }
 foreach($exposure as $key => $value) {
 	if(!is_null($value['Challenge']['name'])) {
 		$test[$value['User']['id']]['name'] = $value['User']['name'];
-		$test[$value['User']['id']]['e'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by'], '10%');
+		//$test[$value['User']['id']]['e'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by'], '10%');
+		$test[$value['User']['id']]['e'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by']);
 	}
 }
 foreach($connection as $key => $value) {
 	if(!is_null($value['Challenge']['name'])) {
 		$test[$value['User']['id']]['name'] = $value['User']['name'];
-		$test[$value['User']['id']]['c'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by'], '10%');
+		//$test[$value['User']['id']]['c'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by'], '10%');
+		$test[$value['User']['id']]['c'][] = array($value['Challenge']['name'], $value['Challenge']['complete_by']);
 	}
 }
 
@@ -57,22 +60,22 @@ foreach($test as $key => $value) {
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th colspan="3">Development</th>
-							<th colspan="3">Exposure</th>
-							<th colspan="3">Connections</th>
+							<th colspan="2">Development</th>
+							<th colspan="2">Exposure</th>
+							<th colspan="2">Connections</th>
 							<th colspan="2">Ally Feedback</th>
 						</tr>
 						<tr>
 							<th></th>
 							<th>Development</th>
 							<th>Due</th>
-							<th>%</th>
+							<!-- <th>%</th> -->
 							<th>Exposure</th>
 							<th>Due</th>
-							<th>%</th>
+							<!-- <th>%</th> -->
 							<th>Connections</th>
 							<th>Due</th>
-							<th>%</th>
+							<!-- <th>%</th> -->
 							<th>Rating</th>
 							<th>Comments</th>
 						</tr>
@@ -84,7 +87,7 @@ foreach($test as $key => $value) {
 	</div>
 	<div class="row no-margin padding-bottom-20">
 		<div class="col-md-2 col-sm-2">
-			<h3 class="activitytitle">#Give</h3>
+			<h3 class="activitytitle">Signature Strengths</h3>
 			<div class="table-bordered"><?php 
 			foreach($give_strength as $value) {
 				echo $this->Html->para('', $value['Game']['answer']);
@@ -92,7 +95,7 @@ foreach($test as $key => $value) {
 			?></div>
 		</div>
 		<div class="col-md-5 col-sm-5">
-			<h3 class="activitytitle">Purpose</h3>
+			<h3 class="activitytitle">Work Joy</h3>
 			<div class="table-bordered pull-left padding-top-10 padding-bottom-10"><?php
 			foreach($purpose as $value) {
 				$answer = '/files/img/medium/' . $value['Game']['answer'];
@@ -103,7 +106,7 @@ foreach($test as $key => $value) {
 			?></div>
 		</div>
 		<div class="col-md-5 col-sm-5">
-			<h3 class="activitytitle">Aspirations</h3>
+			<h3 class="activitytitle">Superhero/Role model</h3>
 			<div class="table-bordered pull-left padding-top-10 padding-bottom-10"><?php
 			foreach($aspiration as $value) {
 				$answer = '/files/img/medium/' . $value['Game']['answer'];
@@ -116,7 +119,7 @@ foreach($test as $key => $value) {
 	</div>
 	<div class="row no-margin padding-bottom-20 margin-bottom-20">
 		<div class="col-md-2 col-sm-2">
-			<h3 class="activitytitle">#Ask</h3>
+			<h3 class="activitytitle">Aspirational Strengths</h3>
 			<div class="table-bordered"><?php 
 			foreach($ask_strength as $value) {
 				echo $this->Html->para('', $value['Game']['answer']);

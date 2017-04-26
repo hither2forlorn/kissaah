@@ -79,7 +79,7 @@
 		</div>
 	</div>
 	<div class="row no-margin padding-bottom-20">
-		<h3 class="activitytitle">My Next 3-12 months</h3>
+		<h3 class="activitytitle">My Learning Log</h3>
 		<div class="col-md-12 col-sm-12 col-xs-12 no-padding">
 			<div class="table-scrollable">
 				<table class="table table-bordered table-hover">

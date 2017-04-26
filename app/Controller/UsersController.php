@@ -350,7 +350,8 @@ class UsersController extends AppController {
 		}
 	}
 	
-	public function profile(){
+	public function profile($render = 'profile') {
+		$this->render($render);
 		$userdetail = $this->User->find('first', array(
 				'conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id')),
 				'contain' => array('CompanyGroup')

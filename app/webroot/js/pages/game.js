@@ -25,7 +25,7 @@ var Game = function () {
 	var user_info_box = function(user_info, facebook_warning, consent_for_collage, road_map, thriving_scale) {
 		if(user_info == 0) {
 			$.fancybox.open({
-    			src	: host_url + 'users/profile',
+    			src	: host_url + 'users/profile/invitation',
 				type : 'ajax',
 				opts : {
 					afterClose	: function() {
@@ -526,7 +526,6 @@ var Game = function () {
     					url			: $(this).attr('data-save'),
     					success		: function(data) {
     	        			var object = $.parseJSON(data);
-    						
     	        			if(object.success) {
     	        				if(object.update == 0) {
     	        					DOM_Element.parents('.roadmap-block').find('.roadmap-id').attr('value', object.id);
@@ -674,7 +673,6 @@ var Game = function () {
 	    				$.ajax({
 	    					url	: $(this).attr('data-save') + '/' + score,
 	    					success : function(data) {
-	    						console.log(data);
 	    						window.location.href = data;
 	    					}
 	    				});
@@ -738,7 +736,7 @@ var Game = function () {
 				        	//var t = object.flash.split(/[- :]/);
 				        	//var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 	    		            var d = new Date(object.flash);
-	    		            $('#defaultCountdown').countdown({until: d});
+	    		            $('#defaultCountdown').countdown({until: d, format: 'dHM'});
 						}
     				}
 				});
@@ -938,7 +936,7 @@ var FileUpload = function () {
 							if(success) {
 								$('img[data="medium-' + object.cid + '"]').attr('src', host_url + 'files/img/medium/' + object.filename);
 								$('img[data="small-' + object.cid + '"]').attr('src', host_url + 'files/img/small/' + object.filename);
-								$('#' + formElement).siblings('.remove-upload').toggleClass('hidden');
+								$('#' + formElement).siblings('.remove-upload').removeClass('hidden');
 								if($('#' + formElement).closest('.col-md-12').prev('.uploadMultipleDiv').length){
 									$('#' + formElement).closest('.col-md-12').prev('.uploadMultipleDiv').remove();
 								}
@@ -1018,7 +1016,7 @@ var FileUpload = function () {
 									if(success == 0 ) {
 										alert('Cannot remove image. Please try again later.');
 									} else if(success == 1) {
-										element.toggleClass('hidden');
+										element.addClass('hidden');
 										$('img[data="medium-' + cid + '"]').attr('src', 'http://placehold.it/198x198&text=X');
 										$('img[data="small-' + cid + '"]').attr('src', 'http://placehold.it/198x198&text=X');
 										$('textarea[data="' + cid + '"]').attr('value', '');

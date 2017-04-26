@@ -37,7 +37,8 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false || strpos(Router::u
 		'../plugins/jquery-tourbus/dist/jquery-tourbus.min',
 		'../plugins/typeahead/typeahead',
 		'../plugins/fullcalendar/fullcalendar.min',
-		'../plugins/raty/lib/jquery.raty'));
+    	'../plugins/countdown/css/jquery.countdown',
+    	'../plugins/raty/lib/jquery.raty'));
     echo $this->fetch('css');
 	echo $this->Html->css(array('components', 'plugins', 'style', 'challenges', 'custom'));
     
@@ -72,7 +73,7 @@ if(strpos(Router::url('/', true), 'humancatalyst') !== false || strpos(Router::u
 			'../plugins/typeahead/typeahead.bundle.min',
 			'../plugins/fullcalendar/fullcalendar.min',
 			'../plugins/raty/lib/jquery.raty',
-    		'../plugins/countdown/jquery.countdown.min',
+    		'../plugins/countdown/js/jquery.countdown.min',
     		'https://addthisevent.com/libs/ate-latest.min.js'
     ));
 	echo $this->Html->script(array('metronic', 'pages/game', 'pages/allies', 'pages/challenges', 'pages/profile', 'pages/profile-countries'));

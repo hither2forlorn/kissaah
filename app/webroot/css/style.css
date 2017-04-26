@@ -2609,7 +2609,7 @@ a.back-to-road-map {
 	height: 45px;
 }
 .save-challenge {
-	border-bottom: 1px solid;
+	/* border-bottom: 1px solid; */
 }
 
 /*Form Wizard*/
