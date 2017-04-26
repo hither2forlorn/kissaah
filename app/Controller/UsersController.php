@@ -351,20 +351,20 @@ class UsersController extends AppController {
 	}
 	
 	public function profile($render = 'profile') {
-		$this->render($render);
 		$userdetail = $this->User->find('first', array(
 				'conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id')),
 				'contain' => array('CompanyGroup')
 		));
 		$this->set('userdetail', $userdetail);
 
-		$options['contain'] = false;
-		$options['conditions'] = array('User.id' => $this->Session->read('ActiveGame.user_id'));
-		$options['fields'] = array('id', 'name', 'email', 'collage_status', 'city', 'country', 'gender', 'dob');
-		$this->request->data = $this->User->find('first', $options);
+		$options['contain'] 	= false;
+		$options['conditions']  = array('User.id' => $this->Session->read('ActiveGame.user_id'));
+		$options['fields'] 		= array('id', 'name', 'email', 'collage_status', 'city', 'country', 'gender', 'dob');
+		$this->request->data 	= $this->User->find('first', $options);
 		if(!empty($this->request->data['User']['dob'])) {
 			$this->request->data['User']['dob'] = DateTime::createFromFormat('Y-m-d', $this->request->data['User']['dob'])->format('d/m/Y');
 		}
+		$this->render($render);
 	}
 
 	#Start 3562

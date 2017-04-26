@@ -29,10 +29,9 @@ if ($this->request->is('ajax')) {
 				'div' 		=> false));
 		echo $this->Form->end();
 
-		if ($this->request->is('ajax')) {
+		if ($this->request->is('ajax') === false) {
 			echo $this->Html->div('col-md-12 margin-top-10 small no-padding', $this->Html->link('Deactivate Account',
-				array('controller' => 'users', 'action' => 'deactivate_account'),
-				array('id' =>'deactivate-account')));
+				array('controller' => 'users', 'action' => 'deactivate_account'), array('id' =>'deactivate-account')));
 		}
 	?></div>
 	<div class="col-md-9 col-sm-7 col-xs-8 no-padding">
@@ -86,25 +85,26 @@ if ($this->request->is('ajax')) {
 				Contribute to Image Bank
 			</label>
 		</div>
-		<?php echo $this->Form->end(); 
-		if ($this->request->is('ajax') == false) {
-			echo $this->Html->div('col-md-12 margin-top-10 text-center', $this->Html->link('Back to Game',
-					array('controller' => 'games', 'action' => 'index'),
-					array('class' => 'btn btn-primary')));
-		}
-		?>
+		<div class="form-actions right">
+			<button class="btn green" type="submit"><i class="fa fa-check"></i> Submit</button>
+			<?php 
+			if ($this->request->is('ajax') === false) {
+				echo $this->Html->div('col-md-12 margin-top-10 text-center', $this->Html->link('Back to Game',
+						array('controller' => 'games', 'action' => 'index'),
+						array('class' => 'btn btn-primary')));
+			}
+			?>
+		</div>
+		<?php echo $this->Form->end(); ?>
 	</div>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
 	FileUpload.UploadFileImage();
-
 	Profile.DeactivateAccount();
-
 	$('.date-mask').inputmask('dd/mm/yyyy', {
 		'placeholder' : 'dd/mm/yyyy'
 	});
 	ProfileCountries.init();
-	Profile.Save();
 });
 </script>

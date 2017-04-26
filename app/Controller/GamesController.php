@@ -44,7 +44,10 @@ class GamesController extends AppController {
 		$this->Session->write('Vision', $vision);
 		
 		$featured = $this->Session->read('Configuration.featured');
-		if($featured == false) {
+		$vision_date = $this->Session->read('ActiveGame.vision_date');
+		if($featured == false && !is_null($vision_date) || $vision_date != '') {
+			$this->redirect(array('action' => 'catalyst_plan'));
+		} elseif($featured == false) {
 			$this->redirect(array('action' => 'game_step', '?' => array('st' => $vision[0]['Configuration']['id'])));
 		}
 
@@ -91,40 +94,31 @@ class GamesController extends AppController {
 			$this->Session->delete('Current.game_step');
 		}
 		
+		$step_information = $this->Game->Configuration->findById($id);
+		
+		$childrens = $this->Game->Configuration->children($id);
+		$game_step = array();
+		foreach ($childrens as $a){
+			$game_step[$a['Configuration']['parent_id']][] = $a;
+		}
+		
+		$parent['Configuration']['id'] 		= $id;
+		$parent['Configuration']['type'] 	= 0;
+		$games = $this->__createTree($game_step, array($parent));
+		
+		$this->set(compact('games', 'step_information'));
+		
 		if($this->request->is('ajax')) {
-			$step_information = $this->Game->Configuration->findById($id);
-			
-			$childrens = $this->Game->Configuration->children($id);
-			$game_step = array();
-			foreach ($childrens as $a){
-				$game_step[$a['Configuration']['parent_id']][] = $a;
-			}
-			
-			$parent['Configuration']['id'] 		= $id;
-			$parent['Configuration']['type'] 	= 0;
-			$games = $this->__createTree($game_step, array($parent));
-			
-			$this->set(compact('games', 'step_information'));
-			
-		} else {
 			$this->Session->write('Current.game_step', $id);
-			
-			$step_information = $this->Game->Configuration->findById($id);
-				
-			$childrens = $this->Game->Configuration->children($id);
-			$game_step = array();
-			foreach ($childrens as $a){
-				$game_step[$a['Configuration']['parent_id']][] = $a;
-			}
 
-			$parent['Configuration']['id'] 		= $id;
-			$parent['Configuration']['type'] 	= 0;
-			$games = $this->__createTree($game_step, array($parent));
-
-			$this->set(compact('games', 'step_information'));
 		}
 	}
 	
+	public function catalyst_plan() {
+		$this->request->query['st'] = 292;
+		$this->game_step();
+	}
+ 	
  	public function summary($display = 'summary', $id = null, $road_map = 'current') {
  		if(is_null($id)) {
  			$conditions = array('parent_id' => $this->Session->read('ActiveGame.configuration_id'), 'status' => '1', 'type' => 0);
@@ -241,8 +235,12 @@ class GamesController extends AppController {
 		$give_strength = $this->Game->find('all', $options);
 		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 179);
 		$ask_strength = $this->Game->find('all', $options);
+		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 211);
+		$motivation[] = $this->Game->find('all', $options);
+		$options['conditions'] = array('Game.user_id' => $users, 'configuration_id' => 112);
+		$motivation[] = $this->Game->find('all', $options);
 		
-		$this->set(compact('development', 'exposure', 'connection', 'give_strength', 'ask_strength', 'purpose', 'aspiration'));
+		$this->set(compact('development', 'exposure', 'connection', 'give_strength', 'ask_strength', 'purpose', 'aspiration', 'motivation'));
 		$this->Session->write('Game.query_all', 0);
 	}
 	

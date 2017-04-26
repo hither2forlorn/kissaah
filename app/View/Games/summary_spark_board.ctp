@@ -50,11 +50,11 @@ foreach($test as $key => $value) {
 ?>
 <div class="col-md-12">
 	<div class="row no-margin padding-top-20">
-		<div class="col-md-2 col-sm-2">
+		<div class="col-md-2 col-sm-2 no-padding">
 			<h3 class="activitytitle">Sort by:</h3>
 		</div>
-		<div class="col-md-10 col-sm-10">
-			<h3 class="activitytitle">Summary of individual Catalyst Plans</h3>
+		<div class="col-md-10 col-sm-10 padding-right-0">
+			<h3 class="activitytitle">Summary of Individual Catalyst Plans</h3>
 			<div class="table-scrollable">
 				<table class="table table-bordered table-hover">
 					<thead>
@@ -86,7 +86,7 @@ foreach($test as $key => $value) {
 		</div>
 	</div>
 	<div class="row no-margin padding-bottom-20">
-		<div class="col-md-2 col-sm-2">
+		<div class="col-md-4 col-sm-4 no-padding">
 			<h3 class="activitytitle">Signature Strengths</h3>
 			<div class="table-bordered"><?php 
 			foreach($give_strength as $value) {
@@ -94,7 +94,7 @@ foreach($test as $key => $value) {
 			}
 			?></div>
 		</div>
-		<div class="col-md-5 col-sm-5">
+		<div class="col-md-4 col-sm-4 padding-right-0">
 			<h3 class="activitytitle">Work Joy</h3>
 			<div class="table-bordered pull-left padding-top-10 padding-bottom-10"><?php
 			foreach($purpose as $value) {
@@ -105,7 +105,7 @@ foreach($test as $key => $value) {
 			}
 			?></div>
 		</div>
-		<div class="col-md-5 col-sm-5">
+		<div class="col-md-4 col-sm-4 padding-right-0">
 			<h3 class="activitytitle">Superhero/Role model</h3>
 			<div class="table-bordered pull-left padding-top-10 padding-bottom-10"><?php
 			foreach($aspiration as $value) {
@@ -118,7 +118,7 @@ foreach($test as $key => $value) {
 		</div>
 	</div>
 	<div class="row no-margin padding-bottom-20 margin-bottom-20">
-		<div class="col-md-2 col-sm-2">
+		<div class="col-md-4 col-sm-6 no-padding">
 			<h3 class="activitytitle">Aspirational Strengths</h3>
 			<div class="table-bordered"><?php 
 			foreach($ask_strength as $value) {
@@ -126,9 +126,16 @@ foreach($test as $key => $value) {
 			}
 			?></div>
 		</div>
-		<div class="col-md-10 col-sm-10">
-			<h3 class="activitytitle">Motivation</h3>
-			<div class="table-bordered"></div>
+		<div class="col-md-8 col-sm-6 padding-right-0">
+			<h3 class="activitytitle">Future Map 3-12 Months</h3>
+			<div class="table-bordered"><?php 
+			foreach($motivation[0] as $value) {
+				echo $this->Html->para('', $value['Game']['answer']);
+			}
+			foreach($motivation[1] as $value) {
+				echo $this->Html->para('', $value['Game']['answer']);
+			}
+			?></div>
 		</div>
 	</div>
 </div>
