@@ -38,6 +38,14 @@
 								echo '</tr>';
 							}
 							fclose($handle);
+						} elseif(isset($faild)) {
+							foreach($faild as $fail) {
+								echo '<tr>';
+								foreach($fail as $d) {
+									echo '<td>' . $d . '</td>';
+								}
+								echo '</tr>';
+							}
 						}
 						?></tbody>
 					</table>

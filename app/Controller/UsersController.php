@@ -913,6 +913,7 @@ class UsersController extends AppController {
 				}
 			}
 		} elseif($filename != null) {
+			//$this->set(compact('filename'));
 			$filename = WWW_ROOT . DS . 'files/users/' . $filename;
 			if (file_exists($filename) && ($handle = fopen($filename, 'r')) !== FALSE) {
 				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -924,8 +925,9 @@ class UsersController extends AppController {
 						$return = $this->register(true);
 						
 						if($return === 0) {
-							$fail[] = $data;
-							$this->set(compact('fail'));
+							$data[2] = $this->User->validationErrors;
+							$faild[] = $data;
+							$this->set(compact('faild'));
 						}
 					}
 				}

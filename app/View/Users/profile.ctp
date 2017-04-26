@@ -90,7 +90,7 @@ if ($this->request->is('ajax')) {
 		if ($this->request->is('ajax') == false) {
 			echo $this->Html->div('col-md-12 margin-top-10 text-center', $this->Html->link('Back to Game',
 					array('controller' => 'games', 'action' => 'index'),
-					array('class' => 'btn btn-primary', 'id' =>'deactivate-account')));
+					array('class' => 'btn btn-primary')));
 		}
 		?>
 	</div>

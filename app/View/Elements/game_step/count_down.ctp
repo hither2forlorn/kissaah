@@ -30,6 +30,6 @@ if($startCounter != '') { ?>
 <script>
 	var d = moment('<?php echo $startCounter; ?>', 'YYYY-MM-DD HH:mm:ss').toDate();
 	console.log(d);
-	$('#defaultCountdown').countdown({until: d, format: 'dHM'});
+	$('#defaultCountdown').countdown({until: d});
 </script>
-<?php } ?>
+<?php } //, format: 'dHM' ?>
