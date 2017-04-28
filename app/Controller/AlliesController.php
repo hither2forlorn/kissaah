@@ -169,7 +169,8 @@ class AlliesController extends AppController{
 				if($this->Ally->save($this->request->data['Ally'])) {
 					$id = $this->Ally->id;
 					$options = array(
-							'subject' 	=> $this->Session->read('Company.name') . ' : ' . $this->Auth->User('name') . ' wants to add you as an ally',
+							//'subject' => $this->Session->read('Company.name') . ' : ' . $this->Auth->User('name') . ' wants to add you as an ally',
+							'subject' 	=> 'You\'re a Human Catalyst Ally!',
 							'template' 	=> 'ally_request',
 							'to'		=>  $this->request->data['Ally']['ally_email']
 					);
@@ -227,7 +228,7 @@ class AlliesController extends AppController{
 				}
 				$this->set('ally', $ally);
 				$this->render('request');
-			}else{
+			} else {
 				$this->Session->setFlash('This User has already registered with ' . $this->Session->read('Company.name') . '. Please Search again.');
 				$this->redirect(array('controller' => 'allies', 'action' => 'allies'));
 			}

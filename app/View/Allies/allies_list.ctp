@@ -5,30 +5,34 @@ if($message != ''){
 	echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', $this->Html->tag('h4', count($answers) . ' users found'));
 	
 	if(count($answers) == 0) {
-		$message = $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12',
-						$this->Html->para(null, 'Enter your friends email to invite them to join ' . $this->Session->read('Company.name') . ' as your ally.'));
+		$link = '';
+		$ajax = ' btn-ally';
+		if(isset($this->request->query['st']) && isset($this->request->query['challenge'])) {
+			$link = $this->request->query;
+			$ajax = '';
+		}
 		
-		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', $message);
-		echo $this->Html->div('input-group',
-					  $this->Form->input('Email', array('label' => false, 'div' => false, 'class' => 'form-control', 'type' => 'text')) .
-					  $this->Html->tag('span', 
-					  					$this->Html->link('<i class="fa fa-plus-square"></i>', 
-					  									  array('controller' => 'allies', 'action' => 'invite'), 
-					  									  array('class' => 'btn btn-ally-email', 'escape' => false)), 
-					  					array('class' => 'input-group-btn')));
+		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', 
+				$this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12',
+						$this->Html->para(null, 'Enter your friends email to invite them to join ' . $this->Session->read('Company.name') . ' as your ally.')));
+		
+		echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12', $this->Html->div('input-group',
+				$this->Form->input('Email', array('label' => false, 'div' => false, 'class' => 'form-control', 'type' => 'text')) .
+				$this->Html->tag('span', $this->Html->link('Invite Ally ' . $this->Html->tag('i', '', array('class' => 'fa fa-plus-square')),
+						array('controller' => 'allies', 'action' => 'request', 'slug', '?' => $link),
+						array('class' => 'btn btn-finished btn-invite' . $ajax, 'escape' => false, 'data-type' => 'ajax')), 
+						array('class' => 'input-group-btn'))));
 	} else {
 		$my_allies = '';
 		foreach($answers as $ally) {
 			$icon = ' fa-plus-circle';
-			$link = array('controller' => 'allies', 'action' => 'request', $ally['User']['id']);
-			$class = '';
+			$link = $class = '';
 
 			$ally_name = ((empty($ally['User']['name']))? $ally['User']['email']: $ally['User']['name']);
 			
 			$image = (empty($ally['User']['slug']))? 'profile.png': '../files/img/medium/' . $ally['User']['slug'];
 			$image = $this->Html->image($image, array('class' => 'img-responsive margin-top-10 margin-bottom-10'));
 			
-			$link = '';
 			$ajax = ' btn-ally';
 			if(isset($this->request->query['st']) && isset($this->request->query['challenge'])) {
 				$link = $this->request->query;

@@ -404,7 +404,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	public function edit($action = ''){
+	public function edit($id){
 		$this->autoRender = false;
 		if(($this->request->is('put') || $this->request->is('post')) && $this->request->is('ajax')) {
 			if(!empty($this->request->data['User']['dob'])) {

@@ -24,12 +24,7 @@ if($this->request->is('ajax')) {
 		echo $this->Html->nestedList($list, array(), array(), 'ul');
 	}
 	
-	if($this->request->is('ajax') || (!isset($this->request->query['st']) && !isset($this->request->query['challenge']))) {
-		$link = array('controller' => 'allies', 'action' => 'allies_list', 'allies');
-	} else {
-		$link = array('controller' => 'allies', 'action' => 'allies_list', 'allies', '?' => $this->request->query);
-	}
-								
+	$link = array('controller' => 'allies', 'action' => 'allies_list', 'allies', '?' => $this->request->query);
 	echo $this->Html->div('col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20', 
 				$this->Html->div('input-group',
 							  $this->Form->input('SearchText',

@@ -27,16 +27,6 @@
 								'class'		=> 'default',
 								'div' 		=> false));
 			$image_form .= $this->Form->end();
-			/*
-			$image_form = $this->Form->create('Game' .$id. 'Upload', array('class' => 'btn-file pull-left fileupload'));
-			$image_form .= $this->Html->image('upload-lightblue.png', array('id' => 'upl'.'36'));
-			$image_form .= $this->Form->input($configure, array(
-											'type' 		=> 'file', 
-											'label' 	=> false, 
-											'class'		=> 'default', 
-											'div' 		=> false));
-			$image_form .= $this->Form->end();
-			*/
 			echo $this->Html->div('image-icon', $image_form );
 		echo '</div>';
 	}

@@ -5,10 +5,19 @@ var Allies = function(){
 	
 	return {
 		OpenPopup : function() {
-			$('a.btn-ally').on('click', function(){
+			$('a.btn-ally').on('click', function(event) {
+				event.preventDefault();
+				var link = $(this).attr('href');
+				var email = $('input[id="Email"]').val();
+				console.log(link);
+				console.log(email);
+			});
+			
+			$('a.btn-ally').on('click', function() {
 				$.fancybox.close();
 			});
-    		$('a.btn-ally').fancybox({});
+    		
+			$('a.btn-ally').fancybox({});
 		},
 		
 		Search : function(){
@@ -119,23 +128,6 @@ var Allies = function(){
 	            		alert( 'Request failed');
 	            	});
 		        }
-			});
-
-			$('.allies').on('click', '.btn-ally-email', function(event) {
-				var ally_id	= $(this).attr('data');
-				event.preventDefault();
-				$.ajax({
-					cache		: false,
-					beforeSend 	: function() {},
-					type 		: 'POST',
-					url 		: $(this).attr('href'),
-					data 		: { data: { email: $('input[id="Email"]').val()} },
-					success 	: function(data) {
-						$('.fancybox-inner').html(data);
-					},
-					error 		: function() {},
-					complete 	: function() {}
-				});
 			});
         },
         
