@@ -5,12 +5,12 @@ var Allies = function(){
 	
 	return {
 		OpenPopup : function() {
-			$('a.btn-ally').on('click', function(event) {
-				event.preventDefault();
+			$('a.btn-invite').on('click', function(event) {
+				var email = $('input[id="Email"]').val() + '/email';
 				var link = $(this).attr('href');
-				var email = $('input[id="Email"]').val();
-				console.log(link);
-				console.log(email);
+				link = link.replace('slug', email);
+				
+				$(this).attr('href', link);
 			});
 			
 			$('a.btn-ally').on('click', function() {

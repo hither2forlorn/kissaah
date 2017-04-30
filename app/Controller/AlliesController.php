@@ -150,34 +150,35 @@ class AlliesController extends AppController{
 	 * 					   : 2 => notification for ally	
 	 */
 	
-	public function request($user_id = null) {
-		
-		$return['success'] = 0;
+	public function request($term = null, $search = 'id') {
 		
 		if($this->request->is('post')) {
-			$this->request->data['Ally']['status'] 				= 0;
-			$this->request->data['Ally']['ally_notification'] 	= 'Requested';
-			$this->request->data['Ally']['user_id']				= $this->Session->read('ActiveGame.user_id');
-			
 			$data = $this->request->data;
-			$exists = $this->Ally->find('first', array('conditions' => array('Ally.user_id' => $this->request->data['Ally']['user_id'],
-																 	 		 'Ally.ally_email' => $this->request->data['Ally']['ally_email'])));
+			$data['Ally']['user_id']			= $this->Session->read('ActiveGame.user_id');
+			$data['Ally']['status'] 			= 0;
+			$data['Ally']['ally_notification'] 	= 'Requested';
+			$return['success'] = 0;
+			
+			$options['contain'] = false;
+			$options['conditions'] = array('user_id' => $data['Ally']['user_id'], 'ally_email' => $data['Ally']['ally_email']);
+			$exists = $this->Ally->find('first', $options);
+			
 			if(empty($exists)) {
 				$this->Ally->create();
-				$this->request->data['Ally']['span'] = $data['Ally']['user_id'] . $data['Ally']['user_game_status_id'] . $data['Ally']['ally_email'];
-				$this->request->data['Ally']['span'] = Security::hash($this->request->data['Ally']['span']);
-				if($this->Ally->save($this->request->data['Ally'])) {
-					$id = $this->Ally->id;
+				$data['Ally']['span'] = $data['Ally']['user_id'] . $data['Ally']['user_game_status_id'] . $data['Ally']['ally_email'];
+				$data['Ally']['span'] = Security::hash($data['Ally']['span']);
+				
+				if($this->Ally->save($data['Ally'])) {
+
+					$template = ($data['Ally']['ally'] != '')? 'ally_request': 'ally_new_request';
 					$options = array(
-							//'subject' => $this->Session->read('Company.name') . ' : ' . $this->Auth->User('name') . ' wants to add you as an ally',
-							'subject' 	=> 'You\'re a Human Catalyst Ally!',
-							'template' 	=> 'ally_request',
-							'to'		=>  $this->request->data['Ally']['ally_email']
-					);
-					
-					$data['name'] 		= $this->Auth->User('name');
-					$data['roadmap'] 	= $this->Session->read('ActiveGame.roadmap');
-					$data['span'] 		= $this->request->data['Ally']['span'];
+						'subject' 	=> 'You\'re a Human Catalyst Ally!',
+						'template' 	=> $template,
+						'to'		=>  $data['Ally']['ally_email']);
+				
+					$data['name'] 	 = $this->Auth->User('name');
+					$data['roadmap'] = $this->Session->read('ActiveGame.roadmap');
+					$data['span'] 	 = $data['Ally']['span'];
 					
 					$this->_sendEmail($options, $data);
 					$this->Session->setFlash('Congratulations! Ally request sent.');
@@ -197,17 +198,22 @@ class AlliesController extends AppController{
 			}
 		}
 		
-		if(!empty($user_id)) {
+		if(!empty($term)) {
 			$options['contain'] 	= false;
-			$options['conditions']	= array('User.id' => $user_id);
-			$ally = $this->Ally->User->find('first', $options);
+			$options['conditions']	= array($search => $term);
+			$this->request->data = $this->Ally->User->find('first', $options);
+			if(empty($this->request->data)) {
+				$this->request->data['Ally']['ally_email'] = $this->request->data['Ally']['ally_name'] = $term;
+			} else {
+				$this->request->data['Ally']['ally'] 		= $this->request->data['User']['id'];
+				$this->request->data['Ally']['ally_email'] 	= $this->request->data['User']['email'];
+				$this->request->data['Ally']['ally_name'] 	= $this->request->data['User']['name'];
+			}
 
-			$options['fields'] 		= array('UserGameStatus.id', 'UserGameStatus.roadmap');
-			$options['conditions'] 	= array('UserGameStatus.user_id' => $this->Session->read('ActiveGame.user_id'));
-			$user_game_status_id = $this->Ally->UserGameStatus->find('list', $options);
-			
-			$this->set('user_game_status_id', $user_game_status_id);
-			$this->set('ally', $ally);
+			$options['fields'] 		= array('id', 'roadmap');
+			$options['conditions'] 	= array('user_id' => $this->Session->read('ActiveGame.user_id'));
+			$user_game_statuses = $this->Ally->UserGameStatus->find('list', $options);
+			$this->set('user_game_status', $user_game_statuses);
 		}
 	}
 
