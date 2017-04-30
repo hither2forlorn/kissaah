@@ -1,4 +1,10 @@
-<div class="data-width-650">
+<?php
+$offset = 'col-md-6 col-md-offset-3';
+if($this->request->is('ajax')) {
+	$offset = 'data-width-600';
+}
+?>
+<div class="<?php echo $offset; ?>">
 <?php
 foreach($step_games as $key => $games) {
 	if(isset($games[$key]['children'])) {
@@ -8,8 +14,13 @@ foreach($step_games as $key => $games) {
 			
 			if($game['Configuration']['type'] != 12 && $game['Configuration']['id'] != 224) {
 
-				$all_games_each_step .= $this->Html->tag('h3', $game['Configuration']['title'], array('class' => 'activitytitle'));
-
+				if($game['Configuration']['title'] != '' && $game['Configuration']['title'] != '**NH**') {
+					$all_games_each_step .= $this->Html->tag('h3', $game['Configuration']['title'], array('class' => 'activitytitle'));
+				}
+				if ($game['Configuration']['sub_txt'] != '') {
+					$all_games_each_step .= $this->Html->tag('h5', nl2br($game['Configuration']['sub_txt']), array('class' => 'activitytitle'));
+				}
+					
 				if($game['Configuration']['type'] == 16) {
 					$summary = false;
 					$all_games_each_step .= $this->Html->tag('h5', $game['Configuration']['sub_txt'], array('class' => 'activitytitle'));

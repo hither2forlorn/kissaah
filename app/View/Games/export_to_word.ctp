@@ -12,7 +12,6 @@ $styleCell 	= array('align' => 'center', 'valign' => 'center');
 $PHPWord->addTableStyle('tableStyle', $styleTable);
 
 $firstTitle = true;
-
 foreach($step_games as $key => $games) {
 	if(isset($games[$key]['children'])) {
 		foreach($games[$key]['children'] as $game) {
@@ -32,7 +31,7 @@ foreach($step_games as $key => $games) {
 
 				if(isset($game['children'])) {
 
-					if(in_array($game['Configuration']['id'], array(71, 76, 83, 84))) {
+					if(in_array($game['Configuration']['id'], array(71, 76, 83, 84, 193, 199, 203))) {
 						$inspirationi = $section->addTable('tableStyle');
 						$inspirationi->addRow(0);
 
@@ -271,6 +270,7 @@ foreach($step_games as $key => $games) {
 		}
 	}
 }
+
 $file = 'exported-images-and-texts.docx';
 header("Content-Type: application/vnd.ms-word");
 //header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');

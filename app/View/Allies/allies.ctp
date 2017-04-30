@@ -1,9 +1,12 @@
 <?php 
 if($this->request->is('ajax')) {
-	echo '<div class="row no-margin allies text-center data-width-600">';
+	$offset = 'allies row no-margin data-width-600';
 } else {
-	echo '<div class="allies col-md-6 col-md-offset-3">';
+	$offset = 'allies col-md-6 col-md-offset-3';
 }
+?>
+<div class="<?php echo $offset; ?>">
+<?php
 	echo $this->Html->div('highlighted margin-bottom-15', $this->Session->flash(), array('id' => 'message'));
 	
 	if(strpos(Router::url('/', true), 'kissaah') !== false) {
