@@ -9,11 +9,15 @@ var Allies = function(){
 				var email = $('input[id="Email"]').val() + '/email';
 				var link = $(this).attr('href');
 				link = link.replace('slug', email);
-				
 				$(this).attr('href', link);
 			});
 			
 			$('a.btn-ally').on('click', function() {
+				var email = $('input[id="Email"]').val() + '/email';
+				var link = $(this).attr('href');
+				link = link.replace('slug', email);
+				$(this).attr('href', link);
+
 				$.fancybox.close();
 			});
     		
