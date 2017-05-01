@@ -1386,6 +1386,7 @@ Pre-Footer and pre-footer elements
 	padding: 5px;
 	white-space: normal;
 	width: 33%;
+	float: left;
 }
 
 .btn-summary {

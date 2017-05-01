@@ -169,7 +169,7 @@ class AlliesController extends AppController{
 				$data['Ally']['span'] = Security::hash($data['Ally']['span']);
 				
 				if($this->Ally->save($data['Ally'])) {
-
+					$this->request->data['Ally']['id']= $this->Ally->id;
 					$template = ($data['Ally']['ally'] != '')? 'ally_request': 'ally_new_request';
 					$options = array(
 						'subject' 	=> 'You\'re a Human Catalyst Ally!',
@@ -189,32 +189,32 @@ class AlliesController extends AppController{
 			if(isset($this->request->query['challenge']) && isset($this->request->query['st'])) {
 				$this->redirect(array(
 						'controller' => 'challenges', 'action' => 'set_challenge_user',
-						'add', $this->request->query['challenge'], $this->request->data['Ally']['ally'],
+						'add', $this->request->query['challenge'], $this->request->data['Ally']['id'], $this->request->data['Ally']['ally'],
 						'?' => array('st' => $this->request->query['st'])));
 				
 			} else {
 				$this->autoRender = false;
 				return json_encode($return);
 			}
+		} else {
+			if(!empty($term)) {
+				$options['contain'] 	= false;
+				$options['conditions']	= array($search => $term);
+				$this->request->data = $this->Ally->User->find('first', $options);
+				if(empty($this->request->data)) {
+					$this->request->data['Ally']['ally_email'] = $this->request->data['Ally']['ally_name'] = $term;
+				} else {
+					$this->request->data['Ally']['ally'] 		= $this->request->data['User']['id'];
+					$this->request->data['Ally']['ally_email'] 	= $this->request->data['User']['email'];
+					$this->request->data['Ally']['ally_name'] 	= $this->request->data['User']['name'];
+				}
+			}
 		}
 		
-		if(!empty($term)) {
-			$options['contain'] 	= false;
-			$options['conditions']	= array($search => $term);
-			$this->request->data = $this->Ally->User->find('first', $options);
-			if(empty($this->request->data)) {
-				$this->request->data['Ally']['ally_email'] = $this->request->data['Ally']['ally_name'] = $term;
-			} else {
-				$this->request->data['Ally']['ally'] 		= $this->request->data['User']['id'];
-				$this->request->data['Ally']['ally_email'] 	= $this->request->data['User']['email'];
-				$this->request->data['Ally']['ally_name'] 	= $this->request->data['User']['name'];
-			}
-
-			$options['fields'] 		= array('id', 'roadmap');
-			$options['conditions'] 	= array('user_id' => $this->Session->read('ActiveGame.user_id'));
-			$user_game_statuses = $this->Ally->UserGameStatus->find('list', $options);
-			$this->set('user_game_status', $user_game_statuses);
-		}
+		$options['fields'] 		= array('id', 'roadmap');
+		$options['conditions'] 	= array('user_id' => $this->Session->read('ActiveGame.user_id'));
+		$user_game_statuses = $this->Ally->UserGameStatus->find('list', $options);
+		$this->set('user_game_status', $user_game_statuses);
 	}
 
 	public function invite() {

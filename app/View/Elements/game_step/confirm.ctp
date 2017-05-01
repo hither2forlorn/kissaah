@@ -14,7 +14,7 @@ $allies = array();
 foreach($group_users as $value) {
 	$allies[$value['MyAlly']['id']]['slug']  = $value['MyAlly']['slug'];
 	$allies[$value['MyAlly']['id']]['name']  = $value['MyAlly']['name'];
-	$allies[$value['MyAlly']['id']]['email'] = $value['MyAlly']['email'];
+	$allies[$value['MyAlly']['id']]['email'] = $value['Ally']['ally_email'];
 }
 
 if(isset($selfdata['Dependent'])) {
@@ -22,7 +22,7 @@ if(isset($selfdata['Dependent'])) {
 	foreach($selfdata['Dependent'] as $dependent) {
 		
 		$goal = $this->requestAction(array('controller' => 'challenges', 'action' => 'goal', $dependent['id']));
-		
+
 		$optionsch 				= array();
 		$optionsch['type'] 		= 'hidden';
 		$optionsch['data-depn'] = $dependent['id'];
@@ -95,7 +95,8 @@ if(isset($selfdata['Dependent'])) {
 				}
 					
 				$allies_selected = $this->Html->link($this->Html->image($img, array('class' => 'img-responsive')),
-						array('controller' => 'challenges', 'action' => 'set_challenge_user', 'delete', $optionsch['value'], $key),
+						array('controller' => 'challenges', 
+								'action' => 'set_challenge_user', 'delete', $optionsch['value'], $chall_user['ally_id'], $key),
 						array('class' => 'col-md-2 col-sm-4 col-xs-6 padding-left-0 ally-selection', 'escape' => false));
 				
 				$allies_selected .= $this->Html->div('col-md-10 col-sm-8 col-xs-6 padding-left-0', $value['name'] . '<br />' . $value['email']);

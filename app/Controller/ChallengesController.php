@@ -200,28 +200,29 @@ class ChallengesController extends AppController {
 		$this->set('road_maps', $road_maps);
 	}
 
-	public function set_challenge_user($action = 'add', $challenge, $user) {
+	public function set_challenge_user($action = 'add', $challenge, $ally, $user = null) {
 		$this->autoRender = false;
 		$this->request->data['ChallengesUser']['challenge_id'] = $challenge;
+		$this->request->data['ChallengesUser']['ally_id'] = $ally;
 		$this->request->data['ChallengesUser']['user_id'] = $user;
 		
 		if($action == 'delete') {
-			$options = array('ChallengesUser.challenge_id' => $challenge, 'ChallengesUser.user_id' => $user);
+			$options = array('ChallengesUser.challenge_id' => $challenge, 'ChallengesUser.ally_id' => $ally);
 			if($this->Challenge->ChallengesUser->deleteAll($options)) {
-				$return['url'] = Router::url(array('action' => 'set_challenge_user', 'add', $challenge, $user), true);
+				$return['url'] = Router::url(array('action' => 'set_challenge_user', 'add', $challenge, $ally, $user), true);
 				$return['class'] = 'ally-list';
 				return json_encode($return);
 			}
 		} else {
 
 			$options['contain'] = false;
-			$options['conditions'] = array(array('challenge_id' => $challenge, 'user_id' => $user));
+			$options['conditions'] = array(array('challenge_id' => $challenge, 'ally_id' => $ally));
 			$exists = $this->Challenge->ChallengesUser->find('first', $options);
 			
 			if(empty($exists)) {
 				if($this->Challenge->ChallengesUser->save($this->request->data)) {
 					if($this->request->is('ajax')) {
-						$return['url'] = Router::url(array('action' => 'set_challenge_user', 'delete', $challenge, $user), true);
+						$return['url'] = Router::url(array('action' => 'set_challenge_user', 'delete', $challenge, $ally), true);
 						$return['class'] = 'ally-selected';
 						return json_encode($return);
 						
@@ -229,7 +230,6 @@ class ChallengesController extends AppController {
 				}
 			}
 			$this->redirect(array('controller' => 'games', 'action' => 'game_step', '?' => array('st' => $this->request->query['st'])));
-		
 		}
 
 		return false;

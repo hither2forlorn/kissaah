@@ -1,9 +1,9 @@
 <?php
 if($this->request->is('ajax')) {
-	echo '<div class="row no-margin allies">';
+	$offset = 'row no-margin allies data-width-650';
 	$need_ally_to = $help_with = '';
 } else {
-	echo '<div class="col-md-6 col-md-offset-3 allies">';
+	$offset = 'col-md-6 col-md-offset-3 allies';
 
 	$dev = $this->requestAction(array('controller' => 'games', 'action' => 'answer', 59));
 	$exp = $this->requestAction(array('controller' => 'games', 'action' => 'answer', 118));
@@ -13,7 +13,8 @@ if($this->request->is('ajax')) {
 	$need_ally_to 	= $dev[0]['Game']['answer'] . '; ' . $exp[0]['Game']['answer'] . '; ' . $con[0]['Game']['answer'];
 	$help_with 		= isset($spt[0]['Game']['answer'])? $spt[0]['Game']['answer']: '';
 }
-
+?>
+<div class="<?php echo $offset; ?>"><?php 
 	echo $this->Html->tag('h3', 'How do you think ' . $this->request->data['Ally']['ally_name'] . ' can help you?', 
 			array('class' => 'activitytitle'));
 	echo $this->Html->para('margin-bottom-20', 
@@ -21,9 +22,9 @@ if($this->request->is('ajax')) {
 
 	$image = (empty($this->request->data['User']['slug']))? 'profile.png': '/files/img/medium/' . $this->request->data['User']['slug'];
 	echo $this->Html->div('col-xs-12 col-sm-12 col-md-4 col-lg-4 padding-left-0', 
-			$this->Html->image($image, array('class' => 'img-responsive')));
+			$this->Html->image($image, array('class' => 'img-responsive'))); ?>
 	
-	echo '<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 no-padding">';
+	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 no-padding"><?php 
 		echo $this->Form->create('Ally', array('id' => 'AllyRequestForm', 'class' => 'text-left', 
 				'inputDefaults' => array('div' => false, 'class' => 'form-control')));
 														
@@ -44,8 +45,7 @@ if($this->request->is('ajax')) {
 		
 		if($this->request->is('ajax')) {
 			echo $this->Html->div('input-group margin-top-10',
-					$this->Html->link('Send Request',
-							array('controller' => 'allies', 'action' => 'request', $ally['User']['id']),
+					$this->Html->link('Send Request', array('controller' => 'allies', 'action' => 'request'),
 							array('class' => 'btn btn-in-progress ally-invite', 'escape' => false, 'data-type' => 'ajax')),
 					array('class' => 'input-group-btn'));
 			
@@ -54,9 +54,7 @@ if($this->request->is('ajax')) {
 			
 		}
 		echo $this->Form->end();
-	echo '</div>';
-	?>
-	</div>
+	?></div>
 </div>
 <script>
 $(document).ready(function(){

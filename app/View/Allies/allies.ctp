@@ -77,7 +77,7 @@ if($this->request->is('ajax')) {
 				} else {
 					$btndr = $this->Html->link('Select Ally ' . $this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right fa-2x')),
 							array('controller' => 'challenges', 'action' => 'set_challenge_user', 'add', 
-									$this->request->query['challenge'], $ally['Ally']['ally'], '?' => array('st' => $this->request->query['st'])),
+									$this->request->query['challenge'], $ally['Ally']['id'], $ally['Ally']['ally'], '?' => array('st' => $this->request->query['st'])),
 							array('class' => 'btn btn-finished margin-top-5', 'escape' => false, 'data-type' => 'ajax'));
 					
 				}
