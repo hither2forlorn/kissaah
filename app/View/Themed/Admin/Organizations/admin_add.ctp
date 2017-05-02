@@ -11,10 +11,9 @@ $options = array('1' => 'Org Map');
 			<div class="portlet-body form">
 				<!-- BEGIN FORM-->
 				<?php echo $this->Form->create('Organization', array(
-																'class' => 'form-horizontal form-bordered form-row-stripped', 
-																'inputDefaults' => array(
-																		'div' => false, 'label' => false, 'class' => 'form-control', 'empty' => '--SELECT--'
-																))); ?>
+							'class' => 'form-horizontal form-bordered form-row-stripped', 
+							'inputDefaults' => array(
+									'div' => false, 'label' => false, 'class' => 'form-control', 'empty' => '--SELECT--'))); ?>
 					<div class="form-body">
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?php echo __('Title'); ?></label>

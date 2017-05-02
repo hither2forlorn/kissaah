@@ -2,13 +2,10 @@
 class OrganizationsController extends AppController {
 	
 	public function index($id = null) {
-		if(is_null($id)) {
-			$id = $this->Organization->field('id', array('title' => 'Template', 'parent_id' => null));
-		}
 		$organizations = $this->Organization->find('all', array(
 				'contain' => false,
-				'conditions' => array('parent_id' => $id)));
-
+				'conditions' => array('company_group_id' => $id, 'parent_id' => null)));
+		
 		$levels = array();
 		foreach($organizations as $org) {
 			$levels[$org['Organization']['id']] = $this->Organization->children($org['Organization']['id']);
@@ -58,15 +55,20 @@ class OrganizationsController extends AppController {
 	public function admin_locTree() {
 		$this->autoRender = false;
 		$tree_list = array();
-	
+		
 		if($this->request->is('ajax')) {
 			$this->Organization->recursive = 0;
 			$parent = $this->request->query['parent'];
 			if($parent == '#') {
 				$parent = null;
 			}
-			$options['conditions'] = array('Organization.parent_id' => $parent);
+			$options['conditions']['Organization.parent_id'] = $parent;
+			$options['conditions']['Organization.company_group_id'] = null;
+			if(isset($this->request->query['company_group_id']) && !empty($this->request->query['company_group_id'])) {
+				$options['conditions']['Organization.company_group_id'] = $this->request->query['company_group_id'];
+			}
 			$options['order'] = array('Organization.lft ASC');
+			$options['contian'] = false;
 			$organizations = $this->Organization->find('all', $options);
 			
 			foreach($organizations as $key => $organization) {
@@ -79,67 +81,89 @@ class OrganizationsController extends AppController {
 		return json_encode($tree_list);
 	}
 	
-	function admin_index($id = null){
+	public function admin_index($id = null) {
+		
 		if($this->request->is('ajax')) {
 			$options['contain'] = false;
-			$options['conditions'] = array('Organization.id' => $id);
+			$options['conditions'] = array('id' => $id);
 			$organization = $this->Organization->find('first', $options);
 			
 			if(!empty($organization['Organization'])) {
 				
+				$organization['Organization']['parent'] = '';
 				if(!empty($organization['Organization']['parent_id'])) {
-					$options['conditions'] = array('Organization.id' => $organization['Organization']['parent_id']);
+					$options['conditions'] = array('id' => $organization['Organization']['parent_id']);
 					$organization['Organization']['parent'] = $this->Organization->field('Organization.title', $options['conditions']);
-				} else {
-					$organization['Organization']['parent'] = '';
 				}
-					
-				if(!empty($organization['Organization']['company_group_id'])) {
-					$options['conditions'] = array('Organization.id' => $organization['Organization']['company_group_id']);
-					$organization['Organization']['dependent'] = $this->Organization->field('Organization.title', $options['conditions']);
-				} else {
-					$organization['Organization']['dependent'] = '';
-				}
-					
 				$this->set(compact('organization', $organization));
-				
 			}
+			
+		} else {
+			$company = $this->Organization->find('count', array(
+					'contain' => false, 'conditions' => array('company_group_id' => $id)));
+			
+			if($company === 0) {
+				$options['conditions'] 	= array('company_group_id' => null);
+				$options['contain'] 	= false;
+				$options['order'] 		= array('lft ASC');
+				$options['fields'] 		= array('id', 'title', 'type', 'status', 'parent_id', 'featured', 'description');
+				$organization = $this->Organization->find('all', $options);
+				
+				foreach($organization as $org) {
+					$oid = $org['Organization']['id'];
+					unset($org['Organization']['id']);
+					$org['Organization']['company_group_id'] = $id;
+					
+					if($org['Organization']['parent_id'] != null) {
+						$org['Organization']['parent_id'] = $name[$org['Organization']['parent_id']];
+					}
+					
+					$this->Organization->create();
+					if($this->Organization->save($org)) {
+						$name[$oid] = $this->Organization->id;
+					}
+				}
+			}
+			$this->set('company_group_id', $id);
 		}
 	}
 	
-	public function admin_add(){
+	public function admin_add($parent_id = null, $company_group_id = null){
 		if ($this->request->is(array('post', 'put'))) {
+			$this->request->data['Organization']['company_group_id'] = $company_group_id;
 			if ($this->Organization->save($this->request->data)) {
 				$this->Session->setFlash(__('The Organization has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'index', $company_group_id));
 			} else {
 				$this->Session->setFlash(__('The Organization could not be saved. Please, try again.'));
 			}
-			
 		}
 		
-		$parent_id = $this->Organization->generateTreeList(null, null, null, '---');
+		$options = array('company_group_id' => $company_group_id);
+		$parent_id = $this->Organization->generateTreeList($options, null, null, '---');
 		$this->set(compact('parent_id'));
 	}
 	
-	public function admin_edit($id = null) {
+	public function admin_edit($id, $company_group_id = null) {
 		if (!$this->Organization->exists($id)) {
 			throw new NotFoundException(__('Invalid Organization'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Organization->save($this->request->data)) {
 				$this->Session->setFlash(__('The Organization has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'index', $company_group_id));
 			} else {
 				$this->Session->setFlash(__('The Organization could not be saved. Please, try again.'));
 			}
-		} else {
-			$options = array('conditions' => array('Organization.' . $this->Organization->primaryKey => $id), 'contain' => false);
-			$this->request->data = $this->Organization->find('first', $options);
 			
+		} else {
+			$options['contain'] = false;
+			$options['conditions'] = array('Organization.' . $this->Organization->primaryKey => $id);
+			$this->request->data = $this->Organization->find('first', $options);
 		}
 		
-		$parent_id = $this->Organization->generateTreeList(null, null, null, '---');
+		$options = array('company_group_id' => $company_group_id);
+		$parent_id = $this->Organization->generateTreeList($options, null, null, '---');
 		$this->set(compact('parent_id'));
 	}
 	
@@ -181,7 +205,7 @@ class OrganizationsController extends AppController {
 			$this->Session->setFlash(__('The Configuration could not be deleted. Please, try again.'));
 		}
 		
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect($this->referer());
 	}
 }
 ?>

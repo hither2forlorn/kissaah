@@ -1,10 +1,11 @@
 <?php
-$parent = (!empty($this->request->pass))? $this->request->pass[0]: '';
+if(!isset($company_group_id)) {
+	$company_group_id = null;
+}
+$parent_id = (!empty($this->request->pass[0]))? $this->request->pass[0]: '';
 if(!$this->request->isAjax) {
-	/* BEGIN PAGE LEVEL PLUGINS */
 	echo $this->Html->css(array('../plugins/jstree/dist/themes/default/style.min'), null, array('inline' => false));
 	echo $this->Html->script(array('../plugins/jstree/dist/jstree.min'), array('inline' => false));
-	/* END PAGE LEVEL PLUGINS */
 }
 $options = array('1' => 'Org Map');
 ?>
@@ -25,30 +26,31 @@ $options = array('1' => 'Org Map');
 				<div class="caption"><i class="fa fa-user"></i><?php echo __('Organizations'); ?></div>
 				<div class="actions"><?php 
 				if(isset($organization) && !empty($organization['Organization'])) {
+					$company_group_id = $organization['Organization']['company_group_id'];
 					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil')) . ' ' . __('Edit'), 
-											array('action' => 'edit', $organization['Organization']['id']), 
-											array('class' => 'btn btn-default btn-sm', 'escape' => false));
+							array('action' => 'edit', $organization['Organization']['id'], $company_group_id), 
+							array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
 					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-up')) . ' ' . __('Move Up'), 
-											array('action' => 'moveup', $organization['Organization']['id'], 1), 
-											array('class' => 'btn btn-default btn-sm', 'escape' => false));
+							array('action' => 'moveup', $organization['Organization']['id'], 1), 
+							array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
 					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-down')) . ' ' . __('Move Down'), 
-											array('action' => 'movedown', $organization['Organization']['id'], 1), 
-											array('class' => 'btn btn-default btn-sm', 'escape' => false));
+							array('action' => 'movedown', $organization['Organization']['id'], 1), 
+							array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
 					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash')) . ' ' . __('Delete'), 
-											array('action' => 'delete', $organization['Organization']['id']), 
-											array('class' => 'btn btn-default btn-sm', 'escape' => false));
+							array('action' => 'delete', $organization['Organization']['id']), 
+							array('class' => 'btn btn-default btn-sm', 'escape' => false));
+					echo '&nbsp;';
+					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-sitemap')) . ' ' . __('Organization Map'),
+							array('action' => 'index', $company_group_id, 'admin' => false),
+							array('class' => 'btn btn-default btn-sm', 'target' => '_blank', 'escape' => false));
 					echo '&nbsp;';
 				}
 				echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus')) . ' ' . __('Add New'), 
-										array('action' => 'add', $parent), 
-										array('class' => 'btn btn-default btn-sm', 'escape' => false));
-
-				echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus')) . ' ' . __('View Organization Map'), 
-										array('action' => 'index', 'admin' => false), 
-										array('class' => 'btn btn-default btn-sm', 'target' => '_blank', 'escape' => false));
+						array('action' => 'add', $parent_id, $company_group_id), 
+						array('class' => 'btn btn-default btn-sm', 'escape' => false));
 				?></div>
 			</div>
 			<?php if(isset($organization) && !empty($organization['Organization'])): ?>
@@ -83,10 +85,6 @@ $options = array('1' => 'Org Map');
 							<td><?php echo h($organization['Organization']['parent']); ?>&nbsp;</td>
 						</tr>
 						<tr>
-							<td><?php echo __('Dependent to'); ?></td>
-							<td><?php echo h($organization['Organization']['dependent']); ?>&nbsp;</td>
-						</tr>
-						<tr>
 							<td><?php echo __('Featured'); ?></td>
 							<td><?php echo ($organization['Organization']['featured'])? 'Yes': 'No'; ?>&nbsp;</td>
 						</tr>
@@ -101,7 +99,7 @@ $options = array('1' => 'Org Map');
 <?php echo $this->Html->scriptBlock('var link = "' . $this->Html->url(array('controller' => 'organizations'), true) . '";'); ?>
 <script>
 jQuery(document).ready(function() {
-	Admin.contextualMenu(link);
+	Admin.contextualMenu(link, <?php echo $parent_id; ?>);
 }); 
 </script>
 <?php } ?>

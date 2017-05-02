@@ -8,7 +8,7 @@ var Admin = function() {
 			$('#Loading').hide();
 		},
 
-		contextualMenu : function(link) {
+		contextualMenu : function(link, companyid) {
 			$('#tree-setup').jstree({
 				'core' : {
 					'themes' : {
@@ -21,7 +21,8 @@ var Admin = function() {
 						},
 						'data' : function(node) {
 							return {
-								'parent' : node.id
+								'parent' : node.id,
+								'company_group_id' : companyid
 							};
 						}
 					}
@@ -40,9 +41,8 @@ var Admin = function() {
 			$('#tree-setup').on('changed.jstree',
 					function(e, data) {
 						$.ajax({
-							url : link + '/index/'
-									+ data.instance.get_node(data.selected).id,
-							type : 'POST',
+							url  	: link + '/index/' + data.instance.get_node(data.selected).id,
+							type 	: 'POST',
 							success : function(data) {
 								$('#tree-list').html(data);
 							}

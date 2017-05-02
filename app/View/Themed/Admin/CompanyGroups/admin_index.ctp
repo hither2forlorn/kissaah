@@ -1,10 +1,8 @@
 <?php
 $parent = (!empty($this->request->pass))? $this->request->pass[0]: '';
 if(!$this->request->isAjax) {
-	/* BEGIN PAGE LEVEL PLUGINS */
 	echo $this->Html->css(array('../plugins/jstree/dist/themes/default/style.min'), null, array('inline' => false));
 	echo $this->Html->script(array('../plugins/jstree/dist/jstree.min'), array('inline' => false));
-	/* END PAGE LEVEL PLUGINS */
 }
 ?>
 <?php if(!$this->request->isAjax) { ?>
@@ -26,36 +24,32 @@ if(!$this->request->isAjax) {
 				<div class="caption"><i class="fa fa-user"></i><?php echo empty($company_group['CompanyGroup']['parent']) ? __('Company') : __('Sub Company'); ?></div>
 				<div class="actions"><?php 
 				if(isset($company_group) && !empty($company_group['CompanyGroup'])) {
-					if($actions['edit']) {
 					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil')) . ' ' . __('Edit'), 
 											array('action' => 'edit', $company_group['CompanyGroup']['id']), 
 											array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
-					}
-					if($actions['move_up']) {
 					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-up')) . ' ' . __('Move Up'), 
 											array('action' => 'moveup', $company_group['CompanyGroup']['id'], 1), 
 											array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
-					}
-					if($actions['move_down']) {
 					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-down')) . ' ' . __('Move Down'), 
 											array('action' => 'movedown', $company_group['CompanyGroup']['id'], 1), 
 											array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
-					}
-					if($actions['delete']) {
 					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash')) . ' ' . __('Delete'), 
 											array('action' => 'delete', $company_group['CompanyGroup']['id']), 
 											array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
+					if($company_group['CompanyGroup']['parent'] == '') {
+						echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash')) . ' ' . __('Organization'),
+								array('controller' => 'organizations', 'action' => 'index', $company_group['CompanyGroup']['id']),
+								array('class' => 'btn btn-default btn-sm', 'escape' => false));
+						echo '&nbsp;';
 					}
 				}
-				if($actions['new']) {
 				echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus')) . ' ' . __('Add New'), 
-										array('action' => 'add', $parent), 
-										array('class' => 'btn btn-default btn-sm', 'escape' => false));
-				}
+									array('action' => 'add', $parent), 
+									array('class' => 'btn btn-default btn-sm', 'escape' => false));
 
 				?></div>
 			</div>

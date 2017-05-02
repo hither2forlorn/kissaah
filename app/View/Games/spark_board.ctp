@@ -52,12 +52,12 @@
 											//'', 
 											'');
 								}
-								
 								if(isset($value['Challenge']['ChallengesUser'])) {
 									$last_count = count($table) - 1;
 									foreach($value['Challenge']['ChallengesUser'] as $k => $v) {
 										if($k == 0) {
-											$table[$last_count][count($table[$last_count]) - 1] = $v['User']['name'];
+											$table[$last_count][count($table[$last_count]) - 1] = 
+												(isset($v['User']['name']))? $v['User']['name']: '';
 											//$table[$last_count][count($table[$last_count]) - 2] = $v['User']['name'];
 											
 										} else {

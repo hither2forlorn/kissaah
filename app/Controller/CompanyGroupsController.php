@@ -31,8 +31,6 @@ class CompanyGroupsController extends AppController {
 	}
 	
 	public function admin_index($id = null) {
-		$actions = array('new' => true, 'edit' => true, 'move_up' => true, 'move_down' => true, 'delete' => true);
-
 		if($this->request->is('ajax')) {
 			
 			$options['contain'] = array('User', 'CompanyGroupsUser' => array('User' => array('fields' => array('name', 'email'))));
@@ -52,7 +50,6 @@ class CompanyGroupsController extends AppController {
 			$roles = $this->CompanyGroup->CompanyGroupsUser->Role->find('list', array('fields' => array('id', 'name')));
 			$this->set(compact('company_group', 'company_group_users', 'roles'));
 		}
-		$this->set(compact('actions'));
 	}
 	
 	public function admin_add() {
