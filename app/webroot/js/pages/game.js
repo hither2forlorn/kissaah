@@ -530,7 +530,7 @@ var Game = function () {
     	        				if(object.update == 0) {
     	        					DOM_Element.parents('.roadmap-block').find('.roadmap-id').attr('value', object.id);
     	        					DOM_Element.parents('.roadmap-block').find('.active-roadmap').html(
-    	        							'<a href="' + object.active + '"><i class="fa fa-map fa-2x"></i></a>');
+    	        							'<a href="' + object.active + '" class="btn col-sm-12 blue-hoki">Created</a>');
 
     	        					if(object.delete != '') {
         	        					DOM_Element.parents('.roadmap-block').find('.delete-roadmap').html(

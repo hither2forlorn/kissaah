@@ -48,8 +48,7 @@
 
 #defaultCountdown span.countdown_row span {
   font-size: 16px;
-  font-weight: 300;
-  line-height: 20px; }
+  font-weight: 300; }
 
 #defaultCountdown span.countdown_row > span {
   float: left; }

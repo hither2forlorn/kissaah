@@ -59,20 +59,24 @@ if(isset($roadmaps)) {
 			
 			$vision_interval = date_diff($vision_date, $current_date);
 			$create_interval = date_diff($create_date, $current_date);
-				
+			
 			$active_text = 'In Progress';
+			$class = ' green';
 			if($roadmap['UserGameStatus']['active']) {
 				$active_text = 'Active';
+				$class = ' blue';
 			} elseif($create_interval->days > 365) {
 				$active_text = 'Archived';
-			} elseif($vision_interval->days > 90) {
+				$class = ' grey';
+			} elseif(!is_null($roadmap['UserGameStatus']['vision_date']) && $vision_interval->days > 90) {
 				$active_text = 'Completed';
+				$class = ' purple';
 			}
 
 			$row = $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4', 
 				$this->Html->link(
 				  		$active_text, array('controller' => 'users', 'action' => 'roadmap_edit_active', $roadmap['UserGameStatus']['id']),
-						array('escape' => false, 'class' => 'btn red col-sm-12')));
+						array('escape' => false, 'class' => 'btn col-sm-12' . $class)));
 			$row .= $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding',
 				$this->Form->input('id', array('type' => 'hidden', 'value' => $roadmap['UserGameStatus']['id'])) .
 				$this->Form->input('roadmap', array(
@@ -90,7 +94,7 @@ if(isset($roadmaps)) {
 		}
 		
 		$row = $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 active-roadmap', 
-				$this->Html->link('Add New', '#', array('escape' => false, 'class' => 'btn blue col-sm-12')));
+				$this->Html->link('Add New', '#', array('escape' => false, 'class' => 'btn yellow-crusta col-sm-12')));
 		$row .= $this->Html->div('col-xs-4 col-sm-4 col-md-4 col-lg-4 no-padding', 
 			$this->Form->input('id', array('type' => 'hidden', 'class' => 'roadmap-id')) .
 			$this->Form->input('roadmap', array(

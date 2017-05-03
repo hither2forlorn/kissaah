@@ -2751,3 +2751,8 @@ a.back-to-road-map {
 .data-width-400 {
 	max-width: 400px;
 }
+.checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], 
+.radio input[type="radio"], .radio-inline input[type="radio"] {
+	position: relative;
+	margin-left: 0;
+}

@@ -66,7 +66,7 @@ if ($this->request->is('ajax')) {
 			<label class="col-md-4 no-padding">Gender</label>
 			<div class="col-md-8 padding-right-0 radio-list"><?php 
 				echo $this->Form->radio('gender', array('M' => 'Male', 'F' => 'Female'), 
-						array('label'	=> false, 'legend' => false, 'separator' => '&nbsp;&nbsp;&nbsp;')); ?></div>
+						array('label'	=> false, 'legend' => false, 'div' => false, 'separator' => '&nbsp;&nbsp;&nbsp;')); ?></div>
 		</div>
 		<div class="form-group no-margin margin-bottom-5">
 			<label class="col-md-4 no-padding">Current City</label>

@@ -36,7 +36,7 @@ foreach ( $games[$step_information['Configuration']['id']]['children'] as $game 
 }
 
 echo $this->Html->div('row no-margin text-center margin-bottom-20 pull-right',
-		$this->Html->link('Goto<br />Game', array('action' => 'game_step', '?' => array('st' => 287)), array('class' => 'btn-save ' . $next_btn)));
+		$this->Html->link('Goto Game', array('action' => 'game_step', '?' => array('st' => 287)), array('class' => 'btn-save ' . $next_btn)));
 ?></div>
 <script>
 $(document).ready(function(){

@@ -13,19 +13,19 @@ if(isset($selfdata['Dependent'])) {
 	$hidden .= $this->Form->input('Challenge.created_by', array('type' => 'hidden', 'value' => 'capture'));
 
 	$challenge_name = $this->Html->div('row no-margin margin-bottom-5', 
-			$this->Html->div('btn-in-progress col-md-4', 'Learning') . 
+			$this->Html->div('btn btn-in-progress col-md-4', 'Learning') . 
 			$this->Form->input('Challenge.name', array(
 					'div' => 'col-md-8 padding-right-0', 'class' => 'form-control', 'label' => false,
 					'placeholder' => 'Jot down what you learned today')));
 	
 	$complete_by = $this->Html->div('row no-margin margin-bottom-5',
-			$this->Html->div('btn-in-progress col-md-4', 'Add date') . 
+			$this->Html->div('btn btn-in-progress col-md-4', 'Add date') . 
 			$this->Form->input('Challenge.complete_by', array(
 					'div' => 'col-md-4 padding-right-0', 'class' => 'form-control date-picker-future', 'label' => false,
 					'type' => 'text', 'placeholder' => 'Add date')));
 				
 	$challenge_desc = $this->Html->div('row no-margin margin-bottom-5',
-			$this->Html->div('btn-in-progress col-md-4', 'Add Context') .
+			$this->Html->div('btn btn-in-progress col-md-4', 'Add Context') .
 			$this->Form->input('Challenge.description', array(
 					'div' => 'col-md-8 padding-right-0', 'class' => 'form-control', 'label' => false, 'placeholder' => '')));
 			
