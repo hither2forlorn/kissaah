@@ -50,14 +50,9 @@ if($this->request->is('ajax')) {
 	}
 	
 	if(count($current_allies) > 0) {
-		if($this->request->is('ajax')) {
-			$my_allies = $this->Html->tag('h3', 'To see feedback from allies - click on ' . 
-											$this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right')), array('class' => 'activitytitle'));
-		} else {
-			$my_allies = $this->Html->tag('h3', 'To select allies please click on ' .
-					$this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right')), array('class' => 'activitytitle'));
-		}
-		$my_allies .= '<div class="row">';
+		echo $this->Html->tag('h3', 'Your allies', array('class' => 'activitytitle'));
+		
+		$my_allies = '<div class="row">';
 
 		foreach($current_allies as $ky => $ally) {
 			if($ky%3 == 0) $my_allies .= '</div><div class="row">';
@@ -108,9 +103,9 @@ if($this->request->is('ajax')) {
 	}
 	
 	if(count($allies_of) > 0 && $this->request->is('ajax')) {
-		$my_allies = $this->Html->tag('h3', 'To give feedback to allies - click on ' .
-											$this->Html->tag('i', '', array('class' => 'fa fa-arrow-circle-right')), array('class' => 'activitytitle'));
-		$my_allies .= '<div class="row">';
+		echo $this->Html->tag('h3', 'People you are helping', array('class' => 'activitytitle'));
+		
+		$my_allies = '<div class="row">';
 
 		foreach($allies_of as $ky => $ally) {
 			if($ky%3 == 0) $my_allies .= '</div><div class="row">';
