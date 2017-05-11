@@ -13,20 +13,25 @@ $PHPWord->addTableStyle('tableStyle', $styleTable);
 
 $firstTitle = true;
 foreach($step_games as $key => $games) {
+	
 	if(isset($games[$key]['children'])) {
 		foreach($games[$key]['children'] as $game) {
 			if($game['Configuration']['type'] != 12 && $game['Configuration']['id'] != 224 && $game['Configuration']['id'] != 275) {
 				
 				if($firstTitle) {
-					$section->addText($game['Configuration']['title'], 
-									  array('color' => '0080ff', 'bold' => true, 'size' => 16, 'name' => 'Calibri'), 
-									  array('align' => 'center'));
+					if($game['Configuration']['title'] != '**NH**') {
+						$section->addText($game['Configuration']['title'],
+								array('color' => '0080ff', 'bold' => true, 'size' => 16, 'name' => 'Calibri'),
+								array('align' => 'center'));
+					}
 					$firstTitle = false;
 					
 				} else {
-					$section->addText($game['Configuration']['title'], 
-									  array('color' => '0080ff', 'bold' => true, 'size' => 16, 'name' => 'Calibri'), 
-									  array('align' => 'center', 'spaceBefore' => 500));
+					if($game['Configuration']['title'] != '**NH**') {
+						$section->addText($game['Configuration']['title'],
+								array('color' => '0080ff', 'bold' => true, 'size' => 16, 'name' => 'Calibri'),
+								array('align' => 'center', 'spaceBefore' => 500));
+					}
 				}
 
 				if(isset($game['children'])) {
@@ -45,6 +50,10 @@ foreach($step_games as $key => $games) {
 
 						foreach($game['children'] as $key => $item) {
 							if($item['Configuration']['status'] && $item['Configuration']['type'] == 1) {
+								if($game['Configuration']['title'] == '**NH**') {
+									$section->addText($item['Configuration']['sub_txt'],
+											array('color' => '0080ff', 'size' => 14, 'name' => 'Calibri'));
+								}
 								$answer = '../webroot/img/export.jpg';
 								if(!empty($item['Game'][0]['Game']['answer'])) {
 									$answer = '../webroot/files/img/medium/' . $item['Game'][0]['Game']['answer'];
@@ -56,7 +65,7 @@ foreach($step_games as $key => $games) {
 										$answer = '';
 										$styleCell['bgColor'] = '17B3E8';
 										if(!empty($child['Game'])) {
-											$answer = $child['Game'][0]['Game']['answer'];
+											$answer = '4' . $child['Game'][0]['Game']['answer'];
 										}
 										$inspirationt->addCell(3000, $styleCell)
 													 ->addText($answer, $styleFont, $styleParagraph);
@@ -65,7 +74,7 @@ foreach($step_games as $key => $games) {
 							}
 						}
 
-					} elseif($game['Configuration']['id'] == 75) {
+					} elseif(in_array($game['Configuration']['id'], array(75))) {
 						foreach($game['children'] as $key => $item) {
 							if($item['Configuration']['status'] && $item['Configuration']['type'] == 5) {
 								$label = '';
@@ -82,7 +91,7 @@ foreach($step_games as $key => $games) {
 							}
 						}
 						
-					} elseif($game['Configuration']['id'] == 74 || $game['Configuration']['id'] == 77) {
+					} elseif(in_array($game['Configuration']['id'], array(74, 77))) {
 						foreach($game['children'] as $key => $item) {
 							$valuesi = $section->addTable('tableStyle');
 							$valuesi->addRow(0);
@@ -110,7 +119,7 @@ foreach($step_games as $key => $games) {
 							}
 						}
 					/* My Vision - Picturing a Future */
-					} elseif($game['Configuration']['id'] == 209) {
+					} elseif(in_array($game['Configuration']['id'], array(209))) {
 						foreach($game['children'] as $key => $item) {
 							if($item['Configuration']['status'] && $item['Configuration']['type'] == 2) {
 								$answer = '';
@@ -121,9 +130,14 @@ foreach($step_games as $key => $games) {
 							}
 						}
 					/* The Why of Your Future */
-					} elseif(in_array($game['Configuration']['id'], array(78, 279))) {
+					} elseif(in_array($game['Configuration']['id'], array(78, 279, 175))) {
 						foreach($game['children'] as $key => $item) {
 							if($item['Configuration']['status'] && $item['Configuration']['type'] == 5) {
+								if($game['Configuration']['title'] == '**NH**') {
+									$section->addText($item['Configuration']['sub_txt'],
+											array('color' => '0080ff', 'size' => 14, 'name' => 'Calibri'));
+								}
+								
 								$answer = '';
 								if(!empty($item['Game'])) {
 									$answer	= $item['Game'][0]['Game']['answer'];
@@ -264,13 +278,46 @@ foreach($step_games as $key => $games) {
 								}
 							}
 						}
+					} elseif (in_array($game['Configuration']['id'], array(177, 174))) {
+						foreach($game['children'] as $key => $item) {
+							if($item['Configuration']['status'] && $item['Configuration']['type'] == 7) {
+								if($game['Configuration']['title'] == '**NH**') {
+									$section->addText($item['Configuration']['sub_txt'], 
+											array('color' => '0080ff', 'size' => 14, 'name' => 'Calibri'));
+								}
+								$answer = '';
+								if(!empty($item['Game'])) {
+									$answer	= $item['Game'][0]['Game']['answer'];
+								}
+								$section->addText($answer, $styleFont, $styleParagraph);
+							}
+						}
+					} elseif (in_array($game['Configuration']['id'], array(169))) {
+						foreach($game['children'] as $key => $item) {
+							if($item['Configuration']['status'] && $item['Configuration']['type'] == 20) {
+								if($game['Configuration']['title'] == '**NH**') {
+									$section->addText($item['Configuration']['sub_txt'],
+											array('color' => '0080ff', 'size' => 14, 'name' => 'Calibri'));
+								}
+								$valuesi = $section->addTable('tableStyle');
+								foreach($item['children'] as $child) {
+									$valuesi->addRow();
+									$valuesi->addCell(1000)->addText($child['Configuration']['title'], $styleFont, $styleParagraph);
+									$answer = '';
+									if(!empty($child['Game'])) {
+										$answer	= $child['Game'][0]['Game']['answer'];
+									}
+									$valuesi->addCell(1000, array('align' => 'center', 'valign' => 'center', 'bgColor' => 'F68E20'))
+									->addText($answer, $styleFont, $styleParagraph);
+								}
+							}
+						}
 					}
 				}
 			}
 		}
 	}
 }
-
 $file = 'exported-images-and-texts.docx';
 header("Content-Type: application/vnd.ms-word");
 //header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
