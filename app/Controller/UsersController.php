@@ -350,19 +350,57 @@ class UsersController extends AppController {
 		}
 	}
 	
+	/*
+	 * $render = profile or invitation
+	 */
 	public function profile($render = 'profile') {
-		$userdetail = $this->User->find('first', array(
-				'conditions' => array('User.id' => $this->Session->read('ActiveGame.user_id')),
-				'contain' => array('CompanyGroup')
-		));
-		$this->set('userdetail', $userdetail);
-
-		$options['contain'] 	= false;
-		$options['conditions']  = array('User.id' => $this->Session->read('ActiveGame.user_id'));
-		$options['fields'] 		= array('id', 'name', 'email', 'collage_status', 'city', 'country', 'gender', 'dob');
-		$this->request->data 	= $this->User->find('first', $options);
-		if(!empty($this->request->data['User']['dob'])) {
-			$this->request->data['User']['dob'] = DateTime::createFromFormat('Y-m-d', $this->request->data['User']['dob'])->format('d/m/Y');
+		if($this->request->is('put') || $this->request->is('post')) {
+			if(!empty($this->request->data['User']['dob'])) {
+				$this->request->data['User']['dob'] = DateTime::createFromFormat('m/d/Y', $this->request->data['User']['dob'])->format('Y-m-d');
+			}
+			
+			$this->request->data['User']['id'] = $this->Session->read('ActiveGame.user_id');
+			if($this->request->data['User']['newpassword'] != '' && $this->request->data['User']['confirmpassword'] != '') {
+				$n_password = $this->Auth->password($this->request->data['User']['newpassword']);
+				$c_password = $this->Auth->password($this->request->data['User']['confirmpassword']);
+				
+				if($n_password == $c_password) {
+					$this->request->data['User']['password'] = $this->request->data['User']['newpassword'];
+				}
+			} else {
+				unset($this->request->data['User']['newpassword']);
+				unset($this->request->data['User']['confirmpassword']);
+			}
+			
+			if($this->User->save($this->request->data)) {
+				$this->Session->read('ActiveGame');
+				$options['contain'] = false;
+				$options['conditions'] = array('User.id' => $this->Session->read('ActiveGame.user_id'));
+				$user = $this->User->find('first', $options);
+				$this->Session->write('Auth.User.name', $user['User']['name']);
+				$this->Session->write('Auth.User.gender', $user['User']['gender']);
+				$this->Session->write('Auth.User.collage_status', $user['User']['collage_status']);
+				
+				if($this->request->is('ajax')) {
+					$return['Success'] 		= 1;
+					$return['ScreenName'] 	= $user['User']['name'];
+					$return['Email'] 		= $user['User']['email'];
+					return json_encode($return);
+					
+				} else {
+					$this->Session->setFlash('User Profile has been updated.');
+				}
+			} else {
+				$this->Session->setFlash('User Profile could not be updated.');
+			}
+		} else {
+			$options['contain'] 	= false;
+			$options['conditions']  = array('User.id' => $this->Session->read('ActiveGame.user_id'));
+			$options['fields'] 		= array('id', 'name', 'email', 'collage_status', 'city', 'country', 'gender', 'dob');
+			$this->request->data 	= $this->User->find('first', $options);
+			if(!empty($this->request->data['User']['dob'])) {
+				$this->request->data['User']['dob'] = DateTime::createFromFormat('Y-m-d', $this->request->data['User']['dob'])->format('m/d/Y');
+			}
 		}
 		$this->render($render);
 	}
@@ -404,39 +442,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	public function edit($id){
-		$this->autoRender = false;
-		if(($this->request->is('put') || $this->request->is('post')) && $this->request->is('ajax')) {
-			if(!empty($this->request->data['User']['dob'])) {
-				$this->request->data['User']['dob'] = DateTime::createFromFormat('d/m/Y', $this->request->data['User']['dob'])->format('Y-m-d');
-			}
-			$this->request->data['User']['id'] = $this->Session->read('ActiveGame.user_id');
-			if($this->request->data['User']['newpassword'] != '' && $this->request->data['User']['confirmpassword'] != '') {
-				$n_password = $this->Auth->password($this->request->data['User']['newpassword']);
-				$c_password = $this->Auth->password($this->request->data['User']['confirmpassword']);
-				
-				if($n_password == $c_password) {
-					$this->request->data['User']['password'] = $this->request->data['User']['newpassword'];
-				}
-			} else {
-				unset($this->request->data['User']['newpassword']);
-				unset($this->request->data['User']['confirmpassword']);
-			}
-			if($this->User->save($this->request->data)) {
-				$this->autoRender = false;
-				$options['contain'] = false;
-				$options['conditions'] = array('User.id' => $this->Session->read('ActiveGame.user_id'));
-				$user = $this->User->find('first', $options);
-				$this->Session->write('Auth.User.name', $user['User']['name']);
-				$this->Session->write('Auth.User.gender', $user['User']['gender']);
-				$this->Session->write('Auth.User.collage_status', $user['User']['collage_status']);
-				
-				$return['Success'] 		= 1;
-				$return['ScreenName'] 	= $user['User']['name'];
-				$return['Email'] 		= $user['User']['email'];
-				return json_encode($return);
-			}
-		}
+	public function edit($id) {
 	}
 	
 	public function self_notes($action = null, $type = null) {

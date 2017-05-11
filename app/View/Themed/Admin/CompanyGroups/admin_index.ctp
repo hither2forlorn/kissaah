@@ -1,11 +1,11 @@
 <?php
 $parent = (!empty($this->request->pass))? $this->request->pass[0]: '';
-if(!$this->request->isAjax) {
+if(!$this->request->is('ajax')) {
 	echo $this->Html->css(array('../plugins/jstree/dist/themes/default/style.min'), null, array('inline' => false));
 	echo $this->Html->script(array('../plugins/jstree/dist/jstree.min'), array('inline' => false));
 }
 ?>
-<?php if(!$this->request->isAjax) { ?>
+<?php if(!$this->request->is('ajax')) { ?>
 <div class="row categories index">
 	<div class="col-md-4 col-sm-4">
 		<div class="portlet box blue">
@@ -132,7 +132,7 @@ jQuery(document).ready(function() {
 	Admin.SaveGroupUserRole();
 }); 
 </script>
-<?php if(!$this->request->isAjax) { ?>
+<?php if(!$this->request->is('ajax')) { ?>
 	</div>
 </div>
 <?php echo $this->Html->scriptBlock('var link = "' . $this->Html->url(array('controller' => 'company_groups'), true) . '";'); ?>

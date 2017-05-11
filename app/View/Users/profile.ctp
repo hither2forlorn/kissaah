@@ -1,8 +1,6 @@
 <?php 
 $offset = ' col-md-6 col-md-offset-3';
-if ($this->request->is('ajax')) {
-	$offset = ' data-width-600';
-}
+if ($this->request->is('ajax')) $offset = ' data-width-600';
 ?>
 <div class="<?php echo $offset; ?>">
 	<?php echo $this->Html->tag('h3', 'General Settings', array('class' => 'activitytitle')); ?>
@@ -15,18 +13,14 @@ if ($this->request->is('ajax')) {
 		}
 		
 		echo $this->Html->image($image, array('alt' => $this->Session->read('Auth.User.name'), 
-											  'class' => 'img-responsive',
-											  'data' => 'medium-' . $this->Session->read('Auth.User.id')));
+							'class' => 'img-responsive', 'data' => 'medium-' . $this->Session->read('Auth.User.id')));
 
 		echo $this->Form->create('User', array('class' => 'btn-file fileupload margin-top-10',
 				'data-save' => $this->Html->url(array('controller' => 'games', 'action' => 'upload', 'image'))));
 		echo $this->Html->tag('i', '', array('class' => 'fa fa-lg fa-pencil-square-o', 'id' => 'upl' . $this->Session->read('Auth.User.id')));
 		echo $this->Html->tag('span', ' Profile Picture', array('class' => ''));
 		echo $this->Form->input($this->Session->read('Auth.User.id'), array(
-				'type' 		=> 'file',
-				'label' 	=> false,
-				'class'		=> 'default',
-				'div' 		=> false));
+				'type' => 'file', 'label' => false,	'class' => 'default', 'div' => false));
 		echo $this->Form->end();
 
 		if ($this->request->is('ajax') === false) {
@@ -36,7 +30,7 @@ if ($this->request->is('ajax')) {
 	?></div>
 	<div class="col-md-9 col-sm-7 col-xs-8 no-padding">
 		<?php echo $this->Form->create('User', array(
-				'url' => array('action' => 'edit'), 'class' => 'form-horizontal form-bordered form-row-stripped',
+				'class' => 'form-horizontal form-bordered form-row-stripped',
 				'inputDefaults' => array('label' => false, 'div' => false, 'class' => 'form-control'))); ?>
 		<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 		<div class="form-group no-margin margin-bottom-5">
@@ -102,8 +96,8 @@ if ($this->request->is('ajax')) {
 $(document).ready(function() {
 	FileUpload.UploadFileImage();
 	Profile.DeactivateAccount();
-	$('.date-mask').inputmask('dd/mm/yyyy', {
-		'placeholder' : 'dd/mm/yyyy'
+	$('.date-mask').inputmask('mm/dd/yyyy', {
+		'placeholder' : 'mm/dd/yyyy'
 	});
 	ProfileCountries.init();
 });

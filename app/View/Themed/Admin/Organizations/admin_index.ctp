@@ -3,13 +3,13 @@ if(!isset($company_group_id)) {
 	$company_group_id = null;
 }
 $parent_id = (!empty($this->request->pass[0]))? $this->request->pass[0]: '';
-if(!$this->request->isAjax) {
+if(!$this->request->is('ajax')) {
 	echo $this->Html->css(array('../plugins/jstree/dist/themes/default/style.min'), null, array('inline' => false));
 	echo $this->Html->script(array('../plugins/jstree/dist/jstree.min'), array('inline' => false));
 }
 $options = array('1' => 'Org Map');
 ?>
-<?php if(!$this->request->isAjax) { ?>
+<?php if(!$this->request->is('ajax')) { ?>
 <div class="row categories index">
 	<div class="col-md-4 col-sm-4">
 		<div class="portlet box blue">
@@ -93,7 +93,7 @@ $options = array('1' => 'Org Map');
 			</div>
 			<?php endif; ?>
 		</div>
-<?php if(!$this->request->isAjax) { ?>
+<?php if(!$this->request->is('ajax')) { ?>
 	</div>
 </div>
 <?php echo $this->Html->scriptBlock('var link = "' . $this->Html->url(array('controller' => 'organizations'), true) . '";'); ?>

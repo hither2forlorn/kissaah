@@ -4,7 +4,7 @@
 //echo $this->Html->script(array(''), array('inline' => false));
 /* END PAGE LEVEL PLUGINS */
 ?>
-<?php if(!$this->request->params['isAjax']) { ?>
+<?php if(!$this->request->is('ajax')) { ?>
 <div class="row">
 	<div class="col-md-12 col-sm-12">
 		<label>My search: 
@@ -111,7 +111,7 @@
 						</div>
 					</div>
 				</div>
-<?php if(!$this->request->params['isAjax']) { ?>
+<?php if(!$this->request->is('ajax')) { ?>
 			</div>
 		</div>
 	</div>

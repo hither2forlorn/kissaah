@@ -35,6 +35,24 @@ class AlliesController extends AppController{
 							   array('Ally.ally_notification' => 'Accepted',
 									 'Ally.ally' => $this->Session->read('ActiveGame.user_id')));
 		*/
+		$this->Session->write('Game.query_all', 1);
+		foreach($allies_of as $key => $ally) {
+			$options = array(
+					'Game.user_id' 				=> $ally['UserGameStatus']['user_id'], 
+					'Game.user_game_status_id' 	=> $ally['UserGameStatus']['id'],
+					'Game.configuration_id'		=> 59
+			);
+			$development = $this->Ally->User->Game->field('id', $options);
+			if($development != '') {
+				$options['contain'] = false;
+				$options['fields'] = array('name', 'complete_by');
+				$options['conditions'] = array('Challenge.goal_id' => $development);
+				$allies_of[$key]['Challenge'] = $this->Ally->User->Game->Challenge->find('first', $options);
+			} else {
+				$allies_of[$key]['Challenge']['Challenge'] = array('name' => '', 'complete_by' => '');
+			}
+		}
+		$this->Session->write('Game.query_all', 0);
 		
 		$this->set('current_allies', $current_allies);
 		$this->set('allies_of', $allies_of);
