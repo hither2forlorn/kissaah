@@ -442,85 +442,12 @@ class UsersController extends AppController {
 		}
 	}
 
-	public function edit($id) {
+	public function get_user_info($id) {
+		$options['contain'] = false;
+		$options['conditions'] = array('User.id' => $id);
+		return $this->User->find('first', $options);
 	}
 	
-	public function self_notes($action = null, $type = null) {
-		$this->loadModel('SelfNote');
-		
-		if($this->request->is('put') || $this->request->is('post')) {
-			$this->autoRender = false;
-			
-			$this->request->data['SelfNote']['user_game_status_id'] = $this->Session->read('ActiveGame.id') ;
-			if($this->SelfNote->save($this->request->data['SelfNote'])) {
-				$result['success'] = 1;
-			} else {
-				$result['success'] = 0;
-			}
-			return json_encode($result);
-			
-		} elseif($action == 'new') {
-			$this->request->data['SelfNote']['text'] = '';
-			$this->request->data['SelfNote']['complete_by'] = '';
-			
-			$this->request->data['SelfNote']['type'] = $type;
-			$this->request->data['SelfNote']['user_game_status_id'] = $this->Session->read('ActiveGame.id');
-			$this->request->data['SelfNote']['user_id'] = $this->Session->read('ActiveGame.user_id');
-			$self_note = $this->SelfNote->save($this->request->data['SelfNote']);
-			
-			$this->set('self_note', $self_note);
-				
-			$this->render('self_notes_new');
-			
-		} elseif($action == 'delete') {
-			
-		} else {
-			$options['contain'] = false;
-			$options['order'] 	= array('type ASC', 'id ASC');
-			$this->request->data = $this->SelfNote->find('all', $options);
-			$self_notes = $this->SelfNote->find('all', $options);
-			$this->set('self_notes', $self_notes);
-		}
-	}
-	
-	//This Function mails selfNotes and Reminder to the User
-	public function self_note_email_me(){
-		$this->autoRender = false;
-		$this->loadModel('SelfNote');
-		$my_note = $this->request->data = $this->SelfNote->find('all', array('order' => array('SelfNote.id ASC')));
-		$i = 0;
-		foreach($my_note as $note){
-			$data[$note['SelfNote']['type']][$i]['text'] = $note['SelfNote']['text'];
-			$data[$note['SelfNote']['type']][$i++]['complete_by'] = $note['SelfNote']['complete_by'];
-		}
-		
-		$options = array(
-				'subject' 	=> $this->Session->read('Company.name') . ': Self Notes',
-				'template' 	=> 'self_note',
-				'to'		=> $this->Auth->User('email'),
-				'setFlash'	=> false
-		);
-		if($this->_sendEmail($options, $data)) {
-			$return['success'] = 1;
-		} else {
-			$return['success'] = 0;
-		}
-		return(json_encode($return));
-	}
-	
-	//This is to export SelfNotes to word
-	public function export_to_word(){
-		$this->autorender = false;
-		$this->loadModel('SelfNote');
-		$my_note = $this->request->data = $this->SelfNote->find('all', array('order' => array('SelfNote.id ASC')));
-		$i = 0;
-		foreach($my_note as $note){
-			$data[$note['SelfNote']['type']][$i]['text'] = $note['SelfNote']['text'];
-			$data[$note['SelfNote']['type']][$i++]['complete_by'] = $note['SelfNote']['complete_by'];
-		}
-		$this->set(compact('data'));
-	}
-
 	//For RoadMaps
 	public function roadmaps() {
 		$roadmaps = $this->User->UserGameStatus->find('all', array(
@@ -689,7 +616,7 @@ class UsersController extends AppController {
 		return(json_encode($return));
 	}
 
-	function edit_notification_preferences(){
+	public function edit_notification_preferences() {
 		$this->autoRender = false;
 		$return['success'] = 0;
 		if(isset($this->request->data['chk_notify']) && !empty($this->request->data['chk_notify']) &&

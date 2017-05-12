@@ -10,6 +10,9 @@ if(is_null($vision_date)) {
 	$startCounter = $vision_date;
 	$vision_date = date_create(date('Y-m-d H:i:s', strtotime($vision_date)));
 }
+if($vision_date < $current_date) {
+	$vision_date= $current_date;
+}
 
 $interval = date_diff($vision_date, $current_date);
 
