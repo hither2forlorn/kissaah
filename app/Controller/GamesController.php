@@ -190,7 +190,7 @@ class GamesController extends AppController {
 		
 		$group = $this->Session->read('CompanyGroup');
 		
-		if(empty($group) || $group['role_id'] == 2 || $group['role_id'] == null) {
+		if($group['role_id'] == 2 || $group['role_id'] == null) {
 			$this->redirect(array('action' => 'spark_board'));
 			
 		} else {

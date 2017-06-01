@@ -25,11 +25,12 @@ class OrganizationsController extends AppController {
 		$options['contain'] = false;
 
 		if($this->request->is('requested') == false) {
-			$options['conditions'] = array('type' => null, 'company_group_id' => null, 'id' => $lists);
+			$options['conditions'] = array('type' => null, 'company_group_id' => $this->Session->read('CompanyGroup.company_id'), 'id' => $lists);
 			$level = $this->Organization->find('threaded', $options);
+			debug($level);
 		}
 
-		$options['conditions'] = array('type' => 1, 'company_group_id' => null, 'id' => $lists);
+		$options['conditions'] = array('type' => 1, 'company_group_id' => $this->Session->read('CompanyGroup.company_id'), 'id' => $lists);
 		$options['fields'] = array('id', 'title', 'description', 'parent_id');
 		$org_map = $this->Organization->find('threaded', $options);
 		
@@ -43,11 +44,7 @@ class OrganizationsController extends AppController {
 	public function get_competencies() {
 		
 		$group = $this->Session->read('CompanyGroup');
-		if(empty($group)) {
-			$conditions = array('type' => 2, 'company_group_id' => null);
-		} else {
-			$conditions = array('type' => 2, 'company_group_id' => $group['company_id']);
-		}
+		$conditions = array('type' => 2, 'company_group_id' => $group['company_id']);
 		
 		$options['contain'] 	= false;
 		$options['conditions'] 	= $conditions;

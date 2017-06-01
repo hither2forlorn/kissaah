@@ -296,6 +296,10 @@ class UsersController extends AppController {
 		if(!empty($group)) {
 			$company = $this->CompanyGroupsUser->CompanyGroup->getPath($group['CompanyGroupsUser']['company_group_id']);
 			$group['CompanyGroupsUser']['company_id'] = $company[0]['CompanyGroup']['id'];
+		} else {
+			$group['CompanyGroupsUser']['role_id'] 			= null;
+			$group['CompanyGroupsUser']['company_group_id'] = null;
+			$group['CompanyGroupsUser']['company_id'] 		= null;
 		}
 		
 		$this->Session->write('ActiveGame', 	$active_game['UserGameStatus']);
