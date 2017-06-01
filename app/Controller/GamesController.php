@@ -186,32 +186,25 @@ class GamesController extends AppController {
 	
 	public function summary_spark_board() {
 		$this->Session->write('Game.query_all', 1);
-		
 		$this->loadModel('CompanyGroupsUser');
-		$options['contain'] = false;
-		$options['conditions'] = array('CompanyGroupsUser.user_id' => $this->Session->read('ActiveGame.user_id'));
-		$options['fields'] = array('id', 'company_group_id', 'role_id');
-		$group = $this->CompanyGroupsUser->find('all', $options);
 		
-		if(empty($group)) {
-			$users = $this->Session->read('ActiveGame.user_id');
+		$group = $this->Session->read('CompanyGroup');
+		
+		if(empty($group) || $group['role_id'] == 2 || $group['role_id'] == null) {
+			$this->redirect(array('action' => 'spark_board'));
+			
 		} else {
 			$users = array();
-			foreach($group as $permission) {
-				if($permission['CompanyGroupsUser']['role_id'] == 1 || $permission['CompanyGroupsUser']['role_id'] == 4) {
-					$options['conditions'] = array('company_group_id' => $permission['CompanyGroupsUser']['company_group_id']);
-					$options['fields'] = array('id', 'user_id');
-					$users = array_merge($users, $this->CompanyGroupsUser->find('list', $options));
-					
-				} elseif($permission['CompanyGroupsUser']['role_id'] == 3) {
-					$options['conditions'] = array('company_group_id' => $permission['CompanyGroupsUser']['company_group_id'], 'role_id IN (2, 3)');
-					$options['fields'] = array('id', 'user_id');
-					$users = array_merge($users, $this->CompanyGroupsUser->find('list', $options));
-					
-				} elseif($permission['CompanyGroupsUser']['role_id'] == 2 || $permission['CompanyGroupsUser']['role_id'] == null) {
-					$users = array_merge($users, array($this->Session->read('ActiveGame.user_id')));
-					
-				}
+			if($group['role_id'] == 1 || $group['role_id'] == 4) {
+				$options['conditions'] = array('company_group_id' => $group['company_group_id']);
+				$options['fields'] = array('id', 'user_id');
+				$users = $this->CompanyGroupsUser->find('list', $options);
+				
+			} elseif($group['role_id'] == 3) {
+				$options['conditions'] = array('company_group_id' => $group['company_group_id'], 'role_id IN (2, 3)');
+				$options['fields'] = array('id', 'user_id');
+				$users = $this->CompanyGroupsUser->find('list', $options);
+				
 			}
 		}
 

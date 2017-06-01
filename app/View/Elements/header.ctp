@@ -40,6 +40,8 @@
 	<div class="container">
 		<div class="row">
 	  		<div class="col-md-9 col-xs-8"><?php 
+	  		$group = $this->Session->read('CompanyGroup');
+	  		
 	  		$tool  = $this->Html->div('tool-box-info', 'RoadMaps' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 	  		$tool .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-map-signs fa-2x')),
 	  				array('controller' => 'users', 'action' => 'roadmaps'),
@@ -64,20 +66,27 @@
 			    					array('escape' => false));
 			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
 			
+			$org_id = null;
+			if(!empty($group)) {
+				$org_id = $group['company_id'];
+			}
 			$tool  = $this->Html->div('tool-box-info', 'Organization Map' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-sitemap fa-2x', 'aria-hidden' => 'true')),
-			    						array('controller' => 'organizations', 'action' => 'index'), array('escape' => false));
+						array('controller' => 'organizations', 'action' => 'index', $org_id), array('escape' => false));
 			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
 			
 			$tool  = $this->Html->div('tool-box-info', 'Spark Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
 			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-table fa-2x')),
-			    						array('controller' => 'games', 'action' => 'spark_board'), array('escape' => false));
+			    		array('controller' => 'games', 'action' => 'spark_board'), array('escape' => false));
 			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
 			
-			$tool  = $this->Html->div('tool-box-info', 'Summary Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
-			$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-barcode fa-2x')),
-					array('controller' => 'games', 'action' => 'summary_spark_board'), array('escape' => false));
-			echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
+			if(!empty($group) && ($group['role_id'] == 1 || $group['role_id'] == 3 || $group['role_id'] == 4)) {
+				$tool  = $this->Html->div('tool-box-info', 'Summary Board' . $this->Html->tag('span', null, array('class' => 'down-arrow')));
+				$tool .= $this->Html->link( $this->Html->tag('i', '', array('class' => 'fa fa-barcode fa-2x')),
+						array('controller' => 'games', 'action' => 'summary_spark_board'), array('escape' => false));
+				echo $this->Html->div('pull-left icon-wrapper margin-right-10', $tool);
+
+			}
 			?></div>
 	  		<div class="col-md-3 col-xs-4">
 				<ul class="nav navbar-nav pull-right">

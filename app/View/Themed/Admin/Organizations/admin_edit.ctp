@@ -1,4 +1,4 @@
-<?php $options = array('1' => 'Org Map'); ?>
+<?php $options = array(1 => 'Org Map', 2 => 'My Now & My Future'); ?>
 <div class="row categories form">
 	<div class="col-md-12">
 		<div class="portlet box blue ">

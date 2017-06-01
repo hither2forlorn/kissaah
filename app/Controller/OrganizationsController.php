@@ -41,8 +41,16 @@ class OrganizationsController extends AppController {
 	}
 	
 	public function get_competencies() {
+		
+		$group = $this->Session->read('CompanyGroup');
+		if(empty($group)) {
+			$conditions = array('type' => 2, 'company_group_id' => null);
+		} else {
+			$conditions = array('type' => 2, 'company_group_id' => $group['company_id']);
+		}
+		
 		$options['contain'] 	= false;
-		$options['conditions'] 	= array('parent_id' => 1, 'title' => 'Competencies');
+		$options['conditions'] 	= $conditions;
 		$compet = $this->Organization->find('first', $options);
 	
 		if(!empty($compet)) {

@@ -112,13 +112,11 @@ if(!$this->request->is('ajax')) {
 								<td><?php echo $this->Form->input('role_id', array(
 										'div' => false, 'label' => false, 'class' => 'form-control', 'value' => $user['role_id'], 'empty' => '--SELECT ROLE--',
 										'data-save' => $this->Html->url(array('controller' => 'company_groups', 'action' => 'save', $user['id'])))); ?></td>
-								<td class="actions">
-	                            <?php if($actions['delete']) {
+								<td class="actions"><?php
 	                            	echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-trash-o')),
 	                            			array('action' => 'company_user_delete', $user['id'], 'admin' => true),
 	                            			array('class' => 'btn default btn-xs grey user-delete', 'escape' => false));
-								} ?>
-								</td>
+								?></td>
 							</tr>
 						<?php endforeach;
 					} ?>

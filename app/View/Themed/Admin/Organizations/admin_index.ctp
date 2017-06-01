@@ -7,7 +7,7 @@ if(!$this->request->is('ajax')) {
 	echo $this->Html->css(array('../plugins/jstree/dist/themes/default/style.min'), null, array('inline' => false));
 	echo $this->Html->script(array('../plugins/jstree/dist/jstree.min'), array('inline' => false));
 }
-$options = array('1' => 'Org Map');
+$options = array(1 => 'Org Map', 2 => 'My Now & My Future');
 ?>
 <?php if(!$this->request->is('ajax')) { ?>
 <div class="row categories index">
@@ -31,11 +31,11 @@ $options = array('1' => 'Org Map');
 							array('action' => 'edit', $organization['Organization']['id'], $company_group_id), 
 							array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
-					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-up')) . ' ' . __('Move Up'), 
+					echo $this->Html->link(__('Move ' . $this->Html->tag('i', '', array('class' => 'fa fa-arrow-up'))), 
 							array('action' => 'moveup', $organization['Organization']['id'], 1), 
 							array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
-					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-arrow-down')) . ' ' . __('Move Down'), 
+					echo $this->Html->link(__('Move ') . $this->Html->tag('i', '', array('class' => 'fa fa-arrow-down')), 
 							array('action' => 'movedown', $organization['Organization']['id'], 1), 
 							array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
@@ -43,7 +43,7 @@ $options = array('1' => 'Org Map');
 							array('action' => 'delete', $organization['Organization']['id']), 
 							array('class' => 'btn btn-default btn-sm', 'escape' => false));
 					echo '&nbsp;';
-					echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-sitemap')) . ' ' . __('Organization Map'),
+					echo $this->Html->link(__('Organization ') . $this->Html->tag('i', '', array('class' => 'fa fa-sitemap')),
 							array('action' => 'index', $company_group_id, 'admin' => false),
 							array('class' => 'btn btn-default btn-sm', 'target' => '_blank', 'escape' => false));
 					echo '&nbsp;';

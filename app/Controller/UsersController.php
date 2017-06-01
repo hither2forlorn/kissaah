@@ -287,8 +287,20 @@ class UsersController extends AppController {
 				$active_game['UserGameStatus']['id']  = $this->User->UserGameStatus->getLastInsertID();
 			}
 		}
-		$this->Session->write('ActiveGame', $active_game['UserGameStatus']);
-		$this->Session->write('Configuration', $active_game['Configuration']);
+		
+		$this->loadModel('CompanyGroupsUser');
+		$options['contain'] 	= false;
+		$options['conditions'] 	= array('CompanyGroupsUser.user_id' => $this->Auth->user('id'));
+		$options['fields'] 		= array('id', 'company_group_id', 'role_id');
+		$group = $this->CompanyGroupsUser->find('first', $options);
+		if(!empty($group)) {
+			$company = $this->CompanyGroupsUser->CompanyGroup->getPath($group['CompanyGroupsUser']['company_group_id']);
+			$group['CompanyGroupsUser']['company_id'] = $company[0]['CompanyGroup']['id'];
+		}
+		
+		$this->Session->write('ActiveGame', 	$active_game['UserGameStatus']);
+		$this->Session->write('Configuration', 	$active_game['Configuration']);
+		$this->Session->write('CompanyGroup', 	$group['CompanyGroupsUser']);
 		$this->Session->write('Game.query_all', 0);
 		
 		$this->redirect(array('controller' => 'games'));

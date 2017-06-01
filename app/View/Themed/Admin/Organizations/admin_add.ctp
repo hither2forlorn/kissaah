@@ -1,6 +1,6 @@
 <?php 
 $parent = (!empty($this->request->pass))? $this->request->pass[0]: ''; 
-$options = array('1' => 'Org Map');
+$options = array(1 => 'Org Map', 2 => 'My Now & My Future');
 ?>
 <div class="row categories form">
 	<div class="col-md-12">
