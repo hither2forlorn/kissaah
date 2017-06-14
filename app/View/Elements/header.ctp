@@ -13,7 +13,7 @@
 			} else {
 	  			echo $this->Html->link($image, $this->Session->read('Company.link'), array('escape' => false));
 			}
-	  		?></div>
+	  		?> &nbsp;Beta</div>
 	  		<div class="col-md-1 col-md-offset-0 col-md-push-7 col-sm-2 col-sm-offset-0 col-sm-push-6 col-xs-4 col-xs-offset-4 no-padding" id="tour-step-2"><?php 
 			if($this->Session->check('Auth.User')) {
 				$image = $this->Session->read('Auth.User.slug');
