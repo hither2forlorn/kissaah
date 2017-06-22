@@ -117,7 +117,7 @@ class CompanyGroupsController extends AppController {
 		}
 		
 		$companyGroups = $this->CompanyGroup->generateTreeList(null, null, null, '---');
- 		$users = $this->CompanyGroup->User->find('list');
+ 		$users = $this->CompanyGroup->User->find('list', array('order' => array('User.name ASC')));
 		$this->set(compact('companyGroups', 'users'));
 	}
      
