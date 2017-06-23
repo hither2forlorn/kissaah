@@ -387,7 +387,6 @@ class UsersController extends AppController {
 				unset($this->request->data['User']['newpassword']);
 				unset($this->request->data['User']['confirmpassword']);
 			}
-			
 			if($this->User->save($this->request->data)) {
 				$this->Session->read('ActiveGame');
 				$options['contain'] = false;

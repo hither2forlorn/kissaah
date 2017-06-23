@@ -42,16 +42,6 @@ if ($this->request->is('ajax')) $offset = ' data-width-600';
 			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('email', array('placeholder' => 'Email')); ?></div>
 		</div>
 		<div class="form-group no-margin margin-bottom-5">
-			<label class="col-md-4 no-padding">New Password</label>
-			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('newpassword', array('type' => 'password',
-					'placeholder' => 'New Password')); ?></div>
-		</div>
-		<div class="form-group no-margin margin-bottom-5">
-			<label class="col-md-4 no-padding">Confirm Password</label>
-			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('confirmpassword', array('type' => 'password',
-					'placeholder' => 'Confirm Password')); ?></div>
-		</div>
-		<div class="form-group no-margin margin-bottom-5">
 			<label class="col-md-4 no-padding">Date for birth</label>
 			<?php echo $this->Form->input('dob', array( 'type' => 'text', 'class' => 'form-control date-mask', 
 					'placeholder' => 'Date Of Birth', 'div' => 'col-md-8 padding-right-0 padding-left-15')); ?>
@@ -73,6 +63,20 @@ if ($this->request->is('ajax')) $offset = ' data-width-600';
 				<?php echo $this->Form->input('country', array('placeholder' => 'Current Country')); ?>
 			</div>
 		</div>
+		<br/>
+		<input id="change" class="form-actions right" type="button" value="Change Password">
+			<br>
+			<br/>
+		<div id="new" hidden class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding">New Password</label>
+			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('newpassword', array('type' => 'password',
+					'placeholder' => 'New Password', 'required' => false)); ?></div>
+		</div>
+		<div id="confirm" hidden class="form-group no-margin margin-bottom-5">
+			<label class="col-md-4 no-padding">Confirm Password</label>
+			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('confirmpassword', array('type' => 'password',
+					'placeholder' => 'Confirm Password', 'required' => false)); ?></div>
+		</div>
 		<div class="form-group no-margin margin-bottom-5">
 			<label class="check">
 				<span><?php echo $this->Form->input('collage_status', array('type' => 'checkbox', 'class' => false, 'div' => false)); ?></span> 
@@ -80,7 +84,7 @@ if ($this->request->is('ajax')) $offset = ' data-width-600';
 			</label>
 		</div>
 		<div class="form-actions right">
-			<button class="btn green" type="submit"><i class="fa fa-check"></i> Submit</button>
+			<button id="Test" class="btn green" type="submit"><i class="fa fa-check"></i>Submit</button>
 			<?php 
 			if ($this->request->is('ajax') === false) {
 				echo $this->Html->div('col-md-12 margin-top-10 text-center', $this->Html->link('Back to Game',
@@ -100,5 +104,12 @@ $(document).ready(function() {
 		'placeholder' : 'mm/dd/yyyy'
 	});
 	ProfileCountries.init();
+});
+$("#change").click(function() {
+  $("#new").show();
+  $("#confirm").show();
+  $("#new input").attr('required', true);
+  $("#confirm input").attr('required', true);
+  
 });
 </script>
