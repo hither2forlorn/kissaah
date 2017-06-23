@@ -87,9 +87,10 @@ var Admin = function() {
 								selectableHeader : "<input type='text' class='search-input' autocomplete='off' placeholder='try \"12\"'>",
 								selectionHeader : "<input type='text' class='search-input' autocomplete='off' placeholder='try \"4\"'>",
 								afterInit : function(ms) {
-									var that = this, $selectableSearch = that.$selectableUl
-											.prev(), $selectionSearch = that.$selectionUl
-											.prev(), selectableSearchString = '#'
+									var that = this,
+										$selectableSearch = that.$selectableUl.prev(),
+										$selectionSearch = that.$selectionUl.prev(),
+										selectableSearchString = '#'
 											+ that.$container.attr('id')
 											+ ' .ms-elem-selectable:not(.ms-selected)', selectionSearchString = '#'
 											+ that.$container.attr('id')

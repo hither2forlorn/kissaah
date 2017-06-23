@@ -1,3 +1,4 @@
+<?php echo $this->Html->script('../plugins/jquery.quicksearch.js', array('inline' => false)); ?>
 <?php $parent = (!empty($this->request->pass))? $this->request->pass[0]: ''; ?>
 <div class="row company_groups form">
 	<div class="col-md-12">
