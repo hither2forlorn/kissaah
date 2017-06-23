@@ -1,4 +1,6 @@
 <?php 
+echo $this->Html->script('../plugins/jquery.pwstrength/jquery.pwstrength.js', array('inline' => false));
+
 $offset = ' col-md-6 col-md-offset-3';
 if ($this->request->is('ajax')) $offset = ' data-width-600';
 ?>
@@ -70,7 +72,11 @@ if ($this->request->is('ajax')) $offset = ' data-width-600';
 		<div id="new" hidden class="form-group no-margin margin-bottom-5">
 			<label class="col-md-4 no-padding">New Password</label>
 			<div class="col-md-8 padding-right-0"><?php echo $this->Form->input('newpassword', array('type' => 'password',
-					'placeholder' => 'New Password', 'required' => false)); ?></div>
+					'placeholder' => 'New Password', 'data-indicator' => 'pwindicator' , 'required' => false)); ?></div>
+			<div id="pwindicator" class="col-md-offset-4 col-md-8">
+	            <div class="bar"></div>
+	            <div class="label"></div>
+        	</div>
 		</div>
 		<div id="confirm" hidden class="form-group no-margin margin-bottom-5">
 			<label class="col-md-4 no-padding">Confirm Password</label>
@@ -110,6 +116,8 @@ $("#change").click(function() {
   $("#confirm").show();
   $("#new input").attr('required', true);
   $("#confirm input").attr('required', true);
-  
 });
+jQuery(document).ready(function($) { 
+        $('#UserNewpassword').pwstrength(); 
+    });
 </script>

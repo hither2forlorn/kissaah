@@ -146,6 +146,7 @@ Class User extends AppModel {
 			$this->_beforeRegistration();
 			$this->data[$this->alias]['password'] = $this->hash($this->data[$this->alias]['password']);
 		}
+
 		/* if(isset($this->data[$this->alias]['name'])){
 			$this->data[$this->alias]['name'] = Sanitize::html($this->data[$this->alias]['name'],array('remove' => true));
 		} */
