@@ -195,7 +195,7 @@ class GamesController extends AppController {
 			
 		} else {
 			$users = array();
-			if($group['role_id'] == 1 || $group['role_id'] == 4) {
+			if($group['role_id'] == 1) {
 				$options['conditions'] = array('company_group_id' => $group['company_group_id']);
 				$options['fields'] = array('id', 'user_id');
 				$users = $this->CompanyGroupsUser->find('list', $options);
@@ -205,6 +205,10 @@ class GamesController extends AppController {
 				$options['fields'] = array('id', 'user_id');
 				$users = $this->CompanyGroupsUser->find('list', $options);
 				
+			} elseif($group['role_id'] == 4){
+				$options['conditions'] = array('company_group_id' => $group['company_group_id'], 'role_id IN (2, 4)');
+				$options['fields'] = array('id', 'user_id');
+				$users = $this->CompanyGroupsUser->find('list', $options);
 			}
 		}
 
