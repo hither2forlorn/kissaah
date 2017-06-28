@@ -66,7 +66,7 @@ if ($this->request->is('ajax')) $offset = ' data-width-600';
 			</div>
 		</div>
 		<br/>
-		<input id="change" class="form-actions right" type="button" value="Change Password">
+		<input id="change" class="btn green fa fa-edit form-actions right" type="button" value="Change Password">
 			<br>
 			<br/>
 		<div id="new" hidden class="form-group no-margin margin-bottom-5">
@@ -112,10 +112,18 @@ $(document).ready(function() {
 	ProfileCountries.init();
 });
 $("#change").click(function() {
-  $("#new").show();
-  $("#confirm").show();
-  $("#new input").attr('required', true);
-  $("#confirm input").attr('required', true);
+	if(!$("#new input").is(':required') && !$("#confirm input").is(':required')){
+		$("#new").show();
+		$("#confirm").show();
+		$("#new input").attr('required', true);
+		$("#confirm input").attr('required', true);
+	}
+	else{
+		$("#new").hide();
+		$("#confirm").hide();
+		$("#new input").removeAttr('required');
+		$("#confirm input").removeAttr('required');
+	}
 });
 jQuery(document).ready(function($) { 
         $('#UserNewpassword').pwstrength(); 
