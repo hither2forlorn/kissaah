@@ -132,19 +132,22 @@ class AlliesController extends AppController{
 			}
 			
 		} elseif($action == 'block') {
-			$ally = array('id' => $id, 'status' => -1, 'ally_notification' => '', 'feedback_notification' => '');
-				
+			$ally = array('id' => $id, 'status' => -1, 'ally_notification' => '', 'feedback_notification' => '', 'blocked_reason' => $this->request->data['Ally']['blocked_reason']);
+			if(!empty($this->request->data['Ally']['bother_how'])){
+				$ally['bother_how'] = $this->request->data['Ally']['bother_how'];
+			}
 			if($this->Ally->save($ally)) {
-				$return['success'] 	 = 1;
-				$return['condition'] = 'block';
-				$return['id']		 = $id;
+			   return $this->redirect($this->referer());
+			// 	$return['success'] 	 = 1;
+			// 	$return['condition'] = 'block';
+			// 	$return['id']		 = $id;
 			
-			} else {
-				$return['success'] = 0;
+			// } else {
+			//	$return['success'] = 0;
 			}
 		}
 		
-		return(json_encode($return));
+		//return(json_encode($return));
 	}
 
 	public function accept_ally($span) {
@@ -264,7 +267,9 @@ class AlliesController extends AppController{
 												'contain'	 => false,
 												'conditions' => array('User.id' => $id)));
 	}
-	
+	public function block($id){
+		$this->set('id', $id);
+	}
 	public function notification($field, $id) {
 		$this->autoRender = false;
 		$this->Ally->id = $id;

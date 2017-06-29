@@ -132,11 +132,11 @@ if($this->request->is('ajax')) {
 					array('class' => 'btn btn-sm yellow btn-ally-status' . $hidden, 'escape' => false)) . '&nbsp;';
 									   
 			$btndr .= $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-ban')), 
-	  				array('controller' => 'allies', 'action' => 'request_action', 'block', $ally['Ally']['id']), 
-	  				array('class' => 'btn btn-sm purple btn-ally-status' . $hidden, 'escape' => false));
+	  				array('controller' => 'allies', 'action' => 'block', $ally['Ally']['id']), 
+	  				array('class' => 'btn btn-sm purple btn-ally' . $hidden, 'escape' => false, 'data-type' => 'ajax'));
 									   
 			$ally_name = ((empty($ally['User']['name']))? '': $ally['User']['name'] . '<br />');
-			$ally_emai = ((empty($ally['User']['email']))? $ally['Ally']['ally_email']: $ally['User']['email']) . '<br />';
+			$ally_email = ((empty($ally['User']['email']))? $ally['Ally']['ally_email']: $ally['User']['email']) . '<br />';
 			
 			$image = (empty($ally['User']['slug']))? 'profile.png': '../files/img/medium/' . $ally['User']['slug'];
 			$image = $this->Html->image($image, array('class' => 'img-responsive margin-top-10 margin-bottom-10'));

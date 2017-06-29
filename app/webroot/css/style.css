@@ -2810,3 +2810,8 @@ a.back-to-road-map {
 .pw-very-strong .label {
     color: #0d0;
 }
+
+.blockreason{
+	margin-left: 25px;
+	width: 365px !important;
+}
