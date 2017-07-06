@@ -1,4 +1,4 @@
-/* General body settings */
+ General body settings */
 @font-face {
 	font-family: "europa";
 	font-style: normal;
@@ -2814,4 +2814,9 @@ a.back-to-road-map {
 .blockreason{
 	margin-left: 25px;
 	width: 365px !important;
+}
+@media only screen and (max-device-width:480px) {
+	.dropdown-menu.notification{
+		width:200px !important;
+	}
 }

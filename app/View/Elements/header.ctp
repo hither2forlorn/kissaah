@@ -141,7 +141,7 @@
 												array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown',
 													  'data-hover' => 'dropdown', 'data-close-others' => 'true', 'escape' => false));
 						?>
-						<ul class="dropdown-menu">
+						<ul class="dropdown-menu notification">
 							<li class="external">
 								<h3><span class="bold"><?php echo $number; ?></span> notifications</h3>
 							</li>
