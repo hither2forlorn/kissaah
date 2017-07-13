@@ -47,7 +47,7 @@ if(isset($selfdata['Dependent'])) {
 		$optionsch['data'] 		= 'challenge-' . $dependent['id'];
 		$challenge_id 			= $this->Form->input('Challenge.id', $optionsch);
 
-		$challenge 				 = $this->Html->div('col-md-3 col-sm-3 col-xs-3 btn btn-finished text-left', $selfdata['Configuration']['title']);
+		$challenge 				 = $this->Html->div('col-md-3 col-sm-3 col-xs-5 btn btn-finished text-left', $selfdata['Configuration']['title']);
 		$challenge 				.= $this->Html->div('col-md-8 col-sm-8 col-xs-8', 
 										(empty($goal['Challenge']['name']))? $dependent['answer']: $goal['Challenge']['name']);
 		$challenge				= $this->Html->div('row no-margin margin-bottom-5', $challenge);

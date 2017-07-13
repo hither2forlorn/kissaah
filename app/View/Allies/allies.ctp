@@ -143,7 +143,7 @@ if($this->request->is('ajax')) {
 			
 			$span  = $this->Html->div('margin-bottom-5', $btndr, array('id' => $ally['Ally']['id']));
 			
-			$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-12 text-014 margin-bottom-10 ally-box ' . $ally_field_class, 
+			$my_allies .= $this->Html->div('col-md-4 col-sm-4 col-xs-12 text-014 margin-bottom-10 ally-box myAllies ' . $ally_field_class, 
 											$image . $span, array('data' => $ally['Ally']['id']));
 
 			$my_allies .= $this->Html->div('col-md-8 col-sm-8 col-xs-12 text-015 margin-bottom-10', 

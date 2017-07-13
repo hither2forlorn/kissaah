@@ -55,11 +55,11 @@ if($summary) {
 		}
 
 		$ul = $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 competencies-list', 'data-conf' => $selfdata['Configuration']['id']));
-		echo $this->Html->div('col-md-8 col-sm-12 col-xs-12 no-padding padding-left-10 hidden-xs' . $offset, $heading . $ul);
+		echo $this->Html->div('col-md-8 col-sm-12 col-xs-12 no-padding padding-left-10' . $offset, $heading . $ul);
 
 		if($selfdata['Dependent']['feedback']) {
 			$r_ul = $this->Html->tag('ul', $r_li, array('class' => 'col-md-12 col-sm-12 col-xs-12 text-center'));
-			echo $this->Html->div('col-md-4 col-sm-4 col-xs-4 no-padding padding-left-10 hidden-xs', 
+			echo $this->Html->div('col-md-4 col-sm-4 col-xs-12 no-padding padding-left-10', 
 					$this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10', 'Rating') . $r_ul);
 		}
 	}
@@ -84,7 +84,7 @@ if($summary) {
 		}
 
 		$ul = $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 competencies-list', 'data-conf' => $value['Configuration']['id']));
-		$competencies .= $this->Html->div('col-md-4 col-sm-4 col-xs-4 no-padding padding-left-10 hidden-xs', $heading . $ul);
+		$competencies .= $this->Html->div('col-md-4 col-sm-4 col-xs-12 no-padding padding-left-10', $heading . $ul);
 	}
 
 	$data = $this->requestAction(array('controller' => 'organizations', 'action' => 'get_competencies'));
@@ -99,7 +99,7 @@ if($summary) {
 	$ul 		= $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 competencies-list', 'data-conf' => 0));
 	$ulxs 		= $this->Html->tag('ul', $li, array('class' => 'col-md-12 col-sm-12 col-xs-12 value-list-xs'));
 	$heading 	= $this->Html->div('col-md-12 col-xs-12 no-padding text-center margin-bottom-10 height-2l', 'Organization Priorities');
-	echo $this->Html->div('col-md-4 col-sm-4 col-xs-4 no-padding padding-left-10 hidden-xs', $heading . $ul);
+	echo $this->Html->div('col-md-4 col-sm-4 col-xs-12 no-padding padding-left-10', $heading . $ul);
 	echo $competencies;
 }
 ?>
