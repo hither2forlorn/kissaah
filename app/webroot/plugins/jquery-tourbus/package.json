@@ -11,7 +11,7 @@
     "jquery"
   ],
   "devDependencies": {
-    "grunt": "0.4.1",
+    "grunt": "1.5.3",
     "grunt-contrib-coffee": "^0.6.7",
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.3.1",
